@@ -1,0 +1,197 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model NewsPost {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  imageUrl    String?
+  author      String?
+  category    String?
+  caption     String?
+  status      String   @default("draft") // "draft" or "published"
+  slug        String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SuccessStory {
+  id          String   @id @default(cuid())
+  title       String
+  memberName  String
+  category    String
+  videoFile   String?
+  thumbnail   String?
+  description String
+  status      String   @default("draft") // "draft" or "published"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Statistic {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       Int      @default(0)
+  label       String
+  description String?
+  category    String   @default("general")
+  updatedAt   DateTime @updatedAt
+}
+
+model PMESSession {
+  id          String   @id @default(cuid())
+  branch      String
+  date        DateTime
+  time        String
+  capacity    Int      @default(50)
+  registered  Int      @default(0)
+  status      String   @default("active") // "active", "completed", "cancelled"
+  zoomMeetingId String?
+  zoomPassword String?
+  zoomJoinUrl  String?
+  zoomStartUrl String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model MemberRegistration {
+  id          String   @id @default(cuid())
+  name        String
+  email       String?
+  phone       String?
+  branch      String
+  pmesSessionId String?
+  status      String   @default("pending") // "pending", "approved", "rejected"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model LoanApplication {
+  id          String   @id @default(cuid())
+  // Personal Information
+  name        String
+  pbNo        String
+  contactNo   String
+  address     String
+  loanType    String
+  idType      String
+  idFile      String?
+
+  // Loan Details
+  loanAmount  Float
+  term        Int
+  purpose     String
+
+  // Promissory Note
+  promissoryNoteAmount Float?
+  promissoryNoteTerm String?
+  promissoryNotePaymentSchedule String?
+  promissoryNoteStartingOn String?
+
+  // Signatories
+  makerName1  String?
+  makerName2  String?
+  coMakerName1 String?
+  coMakerName2 String?
+  witnessName1 String?
+  witnessName2 String?
+
+  // Assignment of Deposit
+  assignmentAmount Float?
+  regularSavings String?
+  ultimaSavings String?
+  alkansyaSavings String?
+  timeDeposit String?
+  otherDeposits String?
+  assignmentPbNo String?
+  shareCapital String?
+  signatureDate String?
+
+  // Assignment Signatories
+  assignmentMaker1 String?
+  assignmentMaker2 String?
+  assignmentCoMaker1 String?
+  assignmentCoMaker2 String?
+  assignmentWitness1 String?
+  assignmentWitness2 String?
+
+  // Spouse Information
+  makerSpouseName String?
+
+  // Assignment Additional
+  assignmentCoMakerName1 String?
+  assignmentCoMakerName2 String?
+  assignmentWitnessName1 String?
+  assignmentWitnessName2 String?
+
+  // Income and Expenses
+  memberIncome Float?
+  spouseIncome Float?
+  otherIncome Float?
+  businessIncome Float?
+  foodExpense Float?
+  clothingExpense Float?
+  shelterExpense Float?
+  educationExpense Float?
+  electricWaterExpense Float?
+  helperExpense Float?
+  loanRepaymentExpense Float?
+  miscellaneousExpense Float?
+  netIncome Float?
+
+  // Committee Decision
+  committeeApproved Float?
+  committeeReduced Float?
+
+  // Processing Information
+  receivedBy String?
+  checkedBy String?
+  approvedBy String?
+
+  // Disclosure Information
+  referenceNo String?
+  loanTypeDisclosure String?
+  loanAmountDisclosure Float?
+  charges Float?
+  netProceeds Float?
+  effectiveInterestRate Float?
+  nominalInterestRate Float?
+  penalty Float?
+
+  // Voucher Information
+  interestRate Float?
+  voucherNo String?
+  mop String?
+  processor String?
+
+  // Status and Metadata
+  status      String   @default("pending") // "pending", "approved", "rejected"
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ContactInquiry {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  subject     String
+  message     String
+  inquiryType String   // "general", "membership", "loans", "savings", "insurance", "complaint", "other"
+  status      String   @default("new") // "new", "read", "responded", "closed"
+  respondedBy String?
+  respondedAt DateTime?
+  response    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
