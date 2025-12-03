@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { FadeIn } from '@/components/animations/FadeIn';
-import { Users, Globe, Heart, Award, ArrowRight, CheckCircle, Target, Eye, Star, Calendar, Home, TrendingUp, Camera } from 'lucide-react';
+import { Users, Globe, Heart, Award, CheckCircle, Target, Eye, Star, Camera } from 'lucide-react';
 import Stats from '@/components/home/Stats';
 
 export default function AboutPage() {

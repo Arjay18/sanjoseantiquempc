@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@auth/core": "^0.41.1",
+    "@auth/core": "^0.34.3",
     "@heroicons/react": "^2.2.0",
     "@prisma/client": "^6.17.1",
     "@tiptap/extension-image": "^3.7.0",
