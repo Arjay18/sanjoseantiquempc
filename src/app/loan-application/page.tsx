@@ -260,7 +260,7 @@ export default function LoanApplication() {
 
     try {
       // Convert file to base64 if present
-      let processedFormData: any = { ...formData };
+      const processedFormData = { ...formData } as Record<string, unknown>;
       if (formData.idFile) {
         const base64 = await fileToBase64(formData.idFile);
         processedFormData.idFile = base64;

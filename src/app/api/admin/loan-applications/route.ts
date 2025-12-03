@@ -21,13 +21,13 @@ export async function GET(request: NextRequest) {
     const where = status && status !== 'all' ? { status } : {};
 
     const [applications, total] = await Promise.all([
-      (prisma as any).loanApplication?.findMany?.({
+      prisma.loanApplication.findMany({
         where,
         orderBy: { createdAt: 'desc' },
         skip,
         take: limit,
-      }) ?? [],
-      (prisma as any).loanApplication?.count?.({ where }) ?? 0,
+      }),
+      prisma.loanApplication.count({ where }),
     ]);
 
     return NextResponse.json({
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
   try {
     const { formData } = await request.json();
 
-    const application = await (prisma as any).loanApplication?.create?.({
+    const application = await prisma.loanApplication.create({
       data: {
         name: formData.name,
         pbNo: formData.pbNo,

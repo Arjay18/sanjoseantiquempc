@@ -185,7 +185,7 @@ export default function ServicesPage() {
                 <div className="text-sm text-gray-600 dark:text-gray-400">Total Savings</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-orange-600 mb-2">25+</div>
+                <div className="text-4xl font-bold text-orange-600 mb-2">61+</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Years of Service</div>
               </div>
             </div>

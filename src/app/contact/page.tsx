@@ -13,36 +13,53 @@ export default function ContactPage() {
     {
       name: 'Miagao Branch',
       address: 'Peñaranda St. Brgy, Baybay Norte, Miagao, Iloilo',
-      phone: 'Branch Phone',
+      phone: '(033) 513-8925',
       email: 'sanjosempc@yahoo.com',
       hours: 'Mon: 1PM, Sat: 9AM'
     },
     {
       name: 'Oton Branch',
       address: 'M.H Del Pilar St. Pob South, Oton, Iloilo',
-      phone: 'Branch Phone',
+      phone: '(033) 510-8564',
       email: 'sanjosempc@yahoo.com',
       hours: 'Mon, Wed, Fri: 1:30PM, Sat: 9:30AM'
     },
     {
       name: 'Guimaras Branch',
       address: 'Alejandro Heights, San Miguel Jordan, Guimaras',
-      phone: 'Branch Phone',
+      phone: '(033) 322-5149',
       email: 'sanjosempc@yahoo.com',
       hours: 'Sat: 9AM'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden relative">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-200/20 to-purple-200/20 rounded-full blur-3xl"></div>
+      </div>
+      <div className="relative z-10 py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* Header Section */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 text-sm font-semibold mb-8 shadow-lg">
+              <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Get In Touch
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 leading-tight">
               Contact SJMPC
+              <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
+                Reach Out to Us
+              </span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+
+            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light mb-12">
               We're here to help you with all your cooperative banking needs.
               Reach out to us through any of our branches or send us a message.
             </p>

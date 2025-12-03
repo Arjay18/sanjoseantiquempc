@@ -265,10 +265,6 @@ export default function OnlinePMES() {
                     <p className="text-sm text-gray-600 mb-4">
                       Ready to join SJMPC? Attend our PMES and start your cooperative journey!
                     </p>
-                    <button className="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white py-3 px-6 rounded-2xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center group">
-                      Register for Seminar
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                    </button>
                   </div>
                 </div>
               ))}

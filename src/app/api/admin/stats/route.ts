@@ -25,9 +25,9 @@ export async function GET(request: NextRequest) {
       prisma.pMESSession.count({ where: { status: 'active' } }),
       prisma.memberRegistration.count(),
       prisma.memberRegistration.count({ where: { status: 'approved' } }),
-      (prisma as any).loanApplication?.count?.() ?? 0,
-      (prisma as any).loanApplication?.count?.({ where: { status: 'pending' } }) ?? 0,
-      (prisma as any).loanApplication?.count?.({ where: { status: 'approved' } }) ?? 0,
+      prisma.loanApplication.count(),
+      prisma.loanApplication.count({ where: { status: 'pending' } }),
+      prisma.loanApplication.count({ where: { status: 'approved' } }),
     ]);
 
     // Calculate success rate
@@ -52,11 +52,11 @@ export async function GET(request: NextRequest) {
       select: { id: true, name: true, createdAt: true }
     });
 
-    const recentApplications = await (prisma as any).loanApplication?.findMany?.({
+    const recentApplications = await prisma.loanApplication.findMany({
       take: 2,
       orderBy: { createdAt: 'desc' },
       select: { id: true, name: true, loanAmount: true, createdAt: true }
-    }) ?? [];
+    });
 
     // Combine and sort recent activity
     const recentActivity = [

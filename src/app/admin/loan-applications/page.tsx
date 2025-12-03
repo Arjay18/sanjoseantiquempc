@@ -80,6 +80,27 @@ export default function LoanApplicationsPage() {
     }
   };
 
+  const deleteApplication = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this loan application? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/admin/loan-applications/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        fetchApplications(); // Refresh the list
+      } else {
+        alert('Failed to delete application. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error deleting application:', error);
+      alert('An error occurred while deleting the application.');
+    }
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending':
@@ -143,7 +164,7 @@ export default function LoanApplicationsPage() {
               <button
                 key={option.value}
                 onClick={() => {
-                  setFilter(option.value as any);
+                  setFilter(option.value as 'all' | 'pending' | 'approved' | 'rejected');
                   setCurrentPage(1);
                 }}
                 className={`px-3 py-1 text-sm rounded-full ${
@@ -247,6 +268,12 @@ export default function LoanApplicationsPage() {
                             </button>
                           </>
                         )}
+                        <button
+                          onClick={() => deleteApplication(application.id)}
+                          className="text-red-600 hover:text-red-900"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </td>
                   </tr>

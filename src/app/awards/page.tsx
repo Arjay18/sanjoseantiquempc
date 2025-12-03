@@ -1,139 +1,141 @@
+'use client';
+
 import Image from 'next/image';
 import { FadeIn } from '@/components/animations/FadeIn';
+import { useState } from 'react';
 
 export default function AwardsPage() {
+  const [selectedAward, setSelectedAward] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const awards = [
     {
-      year: '2023',
-      title: 'Best Cooperative of the Year',
+      year: '2017',
+      title: 'Nominee for Most Outstanding Cooperative',
       organization: 'Cooperative Development Authority',
-      description: 'Recognized for outstanding performance in member services and community development initiatives.',
+      description: 'Nominated for excellence in cooperative operations and member service delivery.',
       category: 'Excellence Award',
-      image: '/awards/trophy1.jpg' // Placeholder, replace with actual image
-    },
-    {
-      year: '2022',
-      title: 'Financial Inclusion Champion',
-      organization: 'Bangko Sentral ng Pilipinas',
-      description: 'Awarded for innovative financial products that improved access to banking services for underserved communities.',
-      category: 'Innovation Award',
-      image: '/awards/trophy2.jpg'
-    },
-    {
-      year: '2021',
-      title: 'Community Impact Award',
-      organization: 'Local Government of Iloilo',
-      description: 'Honored for significant contributions to local economic development and poverty alleviation programs.',
-      category: 'Community Service',
-      image: '/awards/trophy3.jpg'
-    },
-    {
-      year: '2020',
-      title: 'Resilience Award',
-      organization: 'Philippine Cooperative Center',
-      description: 'Acknowledged for effective management and member support during the COVID-19 pandemic.',
-      category: 'Resilience Award',
-      image: '/awards/trophy4.jpg'
+      image: '/Awards/Nominee for most outstanding cooperative 2027.png'
     },
     {
       year: '2019',
-      title: 'Outstanding Microfinance Institution',
-      organization: 'Microfinance Council of the Philippines',
-      description: 'Recognized for excellence in microfinance operations and sustainable lending practices.',
-      category: 'Financial Services',
-      image: '/awards/trophy5.jpg'
+      title: 'Most Outstanding Primary Cooperative',
+      organization: 'Cooperative Development Authority',
+      description: 'Recognized as the most outstanding primary cooperative for exceptional performance and community impact.',
+      category: 'Excellence Award',
+      image: '/Awards/Most Outstanding primary  cooperative 2019.png'
     },
     {
       year: '2018',
-      title: 'Best SME Partner',
-      organization: 'Department of Trade and Industry',
-      description: 'Awarded for supporting small and medium enterprises through accessible financing solutions.',
-      category: 'Business Partnership',
-      image: '/awards/trophy6.jpg'
+      title: 'Most Outstanding Cooperative',
+      organization: 'Cooperative Development Authority',
+      description: 'Awarded for outstanding cooperative management and member services.',
+      category: 'Excellence Award',
+      image: '/Awards/Most outrstanding cooperative 2018.png'
+    },
+    {
+      year: '2016',
+      title: 'Nominee for Most Outstanding Regional Cooperative',
+      organization: 'Cooperative Development Authority',
+      description: 'Nominated for regional excellence in cooperative operations and community development.',
+      category: 'Regional Excellence',
+      image: '/Awards/Nominee for most outstanding regional cooperative 2016.png'
+    },
+    {
+      year: '2014',
+      title: 'Most Outstanding Cooperative',
+      organization: 'Cooperative Development Authority',
+      description: 'Recognized for outstanding performance in cooperative banking and community service.',
+      category: 'Excellence Award',
+      image: '/Awards/2014 most outstanding cooperative.png'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50">
-      {/* Hero Section */}
-      <div className="relative h-[400px] w-full overflow-hidden bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="relative z-10 flex h-full items-center justify-center text-center px-4">
-          <FadeIn delay={0.2}>
-            <div className="max-w-4xl">
-              <div className="inline-flex items-center justify-center w-24 h-24 bg-white/20 backdrop-blur-xl rounded-full mb-6 shadow-2xl">
-                <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              </div>
-              <h1 className="mb-6 text-5xl font-black text-white md:text-6xl tracking-tight">
-                OUR AWARDS
-              </h1>
-              <p className="mb-8 text-xl text-white/90 md:text-2xl leading-relaxed max-w-3xl mx-auto">
-                Celebrating excellence, innovation, and community impact through recognition and achievement
-              </p>
-            </div>
-          </FadeIn>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden relative">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-200/20 to-purple-200/20 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 py-20">
-        {/* Introduction */}
-        <FadeIn delay={0.4}>
+      <div className="relative z-10 py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* Header Section */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-800 mb-6">
-              Recognition of Excellence
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              SJMPC's commitment to excellence has been recognized by various organizations and institutions.
-              These awards reflect our dedication to serving our members, supporting our community, and maintaining
-              the highest standards in cooperative banking and financial services.
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 text-sm font-semibold mb-8 shadow-lg">
+              <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              Excellence & Recognition
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 leading-tight">
+              OUR AWARDS
+              <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
+                Celebrating Excellence
+              </span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light mb-12">
+              Discover our comprehensive collection of awards and recognitions that showcase our commitment to excellence,
+              innovation, and community impact through years of dedicated service and achievement.
             </p>
           </div>
-        </FadeIn>
 
-        {/* Awards Timeline */}
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-yellow-400 to-red-500 rounded-full hidden md:block"></div>
-
-          <div className="space-y-12">
-            {awards.map((award, index) => (
-              <FadeIn key={award.year} delay={0.6 + index * 0.2}>
-                <div className={`flex flex-col md:flex-row items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                  {/* Award Card */}
-                  <div className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
-                    <div className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                      <div className="flex items-start space-x-4">
-                        <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-                          <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                          </svg>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-2 mb-2">
-                            <span className="text-2xl font-black text-gray-800">{award.year}</span>
-                            <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-semibold rounded-full">
-                              {award.category}
-                            </span>
-                          </div>
-                          <h3 className="text-xl font-bold text-gray-800 mb-2">{award.title}</h3>
-                          <p className="text-sm text-orange-600 font-semibold mb-3">{award.organization}</p>
-                          <p className="text-gray-600 text-sm leading-relaxed">{award.description}</p>
-                        </div>
-                      </div>
+        {/* Awards Gallery Grid */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {awards.map((award, index) => (
+            <FadeIn key={award.year} delay={0.6 + index * 0.1}>
+              <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
+                {/* Award Image */}
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src={award.image}
+                    alt={award.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <div className="text-3xl font-black text-white mb-1">{award.year}</div>
+                    <div className="px-3 py-1 bg-yellow-500 text-yellow-900 text-sm font-semibold rounded-full inline-block">
+                      {award.category}
                     </div>
                   </div>
-
-                  {/* Timeline Dot */}
-                  <div className="hidden md:block w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full shadow-lg z-10"></div>
-
-                  {/* Spacer for alternating layout */}
-                  <div className="w-full md:w-5/12"></div>
                 </div>
-              </FadeIn>
-            ))}
-          </div>
+
+                {/* Award Details */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2 leading-tight">
+                    {award.title}
+                  </h3>
+                  <p className="text-sm text-orange-600 font-semibold mb-3">
+                    {award.organization}
+                  </p>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {award.description}
+                  </p>
+
+                  {/* View Details Button */}
+                  <button
+                    onClick={() => {
+                      setSelectedAward(award);
+                      setIsModalOpen(true);
+                    }}
+                    className="mt-4 w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold rounded-xl hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 text-sm"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    View Certificate
+                  </button>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
         </div>
 
         {/* Achievement Stats */}
@@ -201,7 +203,51 @@ export default function AwardsPage() {
             </div>
           </div>
         </FadeIn>
+        </div>
       </div>
+
+      {/* Certificate Modal */}
+      {isModalOpen && selectedAward && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="relative max-w-4xl max-h-[90vh] w-full bg-white rounded-3xl shadow-2xl overflow-hidden">
+            {/* Close Button */}
+            <button
+              onClick={() => {
+                setIsModalOpen(false);
+                setSelectedAward(null);
+              }}
+              className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-white transition-all duration-300 shadow-lg"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Award Image */}
+            <div className="relative h-[70vh] bg-gray-100">
+              <Image
+                src={selectedAward.image}
+                alt={selectedAward.title}
+                fill
+                className="object-contain"
+              />
+            </div>
+
+            {/* Award Details */}
+            <div className="p-8 bg-white">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="text-4xl font-black text-yellow-500">{selectedAward.year}</div>
+                <div className="px-4 py-2 bg-yellow-500 text-yellow-900 text-sm font-semibold rounded-full">
+                  {selectedAward.category}
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">{selectedAward.title}</h3>
+              <p className="text-lg text-orange-600 font-semibold mb-4">{selectedAward.organization}</p>
+              <p className="text-gray-600 leading-relaxed">{selectedAward.description}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

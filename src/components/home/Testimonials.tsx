@@ -73,7 +73,7 @@ export default function Testimonials() {
                 <div className="flex-shrink-0">
                   <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center shadow-lg transition-transform hover:scale-110">
                     <span className="text-2xl md:text-3xl font-bold text-white">
-                      {testimonials[activeIndex].author.split(' ').map(n => n[0]).join('')}
+                      {testimonials[activeIndex].author.split(' ').map((n: string) => n[0]).join('')}
                     </span>
                   </div>
                 </div>
@@ -122,10 +122,11 @@ export default function Testimonials() {
                       ? 'ring-4 ring-blue-500 ring-offset-2 scale-110'
                       : 'hover:scale-105 opacity-70 hover:opacity-100'
                   }`}
+                  suppressHydrationWarning={true}
                 >
                   <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center">
                     <span className="text-white font-bold text-sm md:text-base">
-                      {testimonial.author.split(' ').map(n => n[0]).join('')}
+                      {testimonial.author.split(' ').map((n: string) => n[0]).join('')}
                     </span>
                   </div>
                   {index === activeIndex && (
@@ -138,28 +139,6 @@ export default function Testimonials() {
             ))}
           </div>
         </StaggerContainer>
-
-        {/* Stats Section */}
-        <FadeIn direction="up" delay={0.8}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-blue-600 mb-2">14000+</div>
-              <div className="text-gray-600 font-medium">Happy Members</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-green-600 mb-2">₱50M+</div>
-              <div className="text-gray-600 font-medium">Loans Disbursed</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-purple-600 mb-2">61</div>
-              <div className="text-gray-600 font-medium">Years of Service</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-orange-600 mb-2">4</div>
-              <div className="text-gray-600 font-medium">Branch Locations</div>
-            </div>
-          </div>
-        </FadeIn>
       </div>
     </section>
   );

@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 
     // Save to database first
     try {
-      const loanApplication = await (prisma as any).loanApplication?.create?.({
+      const loanApplication = await prisma.loanApplication.create({
         data: {
           name: formData.name || '',
           pbNo: formData.pbNo || '',

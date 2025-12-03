@@ -22,8 +22,8 @@ const services = [
     link: "/loan-packages",
     color: "blue",
     features: ["Business Loans", "Housing Loans", "Agricultural Loans", "Quick Approval"],
-    stats: "10,000+ Loans Disbursed",
-    popular: true
+    popular: true,
+    
   },
   {
     id: 2,
@@ -38,8 +38,8 @@ const services = [
     link: "/savings-product",
     color: "green",
     features: ["Regular Savings", "Time Deposits", "Special Savings", "High Interest Rates"],
-    stats: "₱500M+ Total Deposits",
-    popular: false
+    popular: false,
+   
   },
   {
     id: 3,
@@ -54,8 +54,8 @@ const services = [
     link: "/services",
     color: "purple",
     features: ["Life Insurance", "Property Insurance", "Health Coverage", "Business Insurance"],
-    stats: "5,000+ Policies Active",
-    popular: false
+    popular: false,
+    
   },
   {
     id: 4,
@@ -70,8 +70,8 @@ const services = [
     link: "/online-pmes",
     color: "orange",
     features: ["Business Training", "Financial Education", "Market Linkages", "Technical Support"],
-    stats: "2,500+ Entrepreneurs Served",
-    popular: false
+    popular: false,
+    
   },
   {
     id: 5,
@@ -86,8 +86,8 @@ const services = [
     link: "/contact",
     color: "teal",
     features: ["24/7 Support", "Financial Counseling", "Community Programs", "Member Benefits"],
-    stats: "25,000+ Active Members",
-    popular: false
+    popular: false,
+    
   }
 ];
 
@@ -242,14 +242,7 @@ export default function ServicesShowcase() {
                         </p>
 
                         {/* Stats */}
-                        <div className="mb-6">
-                          <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                            {service.stats}
-                          </div>
-                          <div className="text-sm text-gray-600 dark:text-gray-400">
-                            Impact Achieved
-                          </div>
-                        </div>
+                        
                       </div>
 
                       {/* Features */}

@@ -132,11 +132,7 @@ export default function LoanPackages() {
                       Flexible payment schedules
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-green-200/30 to-green-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -173,11 +169,7 @@ export default function LoanPackages() {
                       Competitive rates
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-yellow-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -214,11 +206,7 @@ export default function LoanPackages() {
                       Flexible terms
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-yellow-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -256,11 +244,7 @@ export default function LoanPackages() {
                       Co-maker options
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-green-200/30 to-green-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -298,11 +282,7 @@ export default function LoanPackages() {
                       Flexible payment terms
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-yellow-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -340,11 +320,7 @@ export default function LoanPackages() {
                       Extended warranty options
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-blue-200/30 to-blue-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -382,11 +358,7 @@ export default function LoanPackages() {
                       Career advancement
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-green-200/30 to-green-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -439,11 +411,7 @@ export default function LoanPackages() {
                       Equipment and inventory financing
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-green-200/30 to-green-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -481,11 +449,7 @@ export default function LoanPackages() {
                       Farm equipment and machinery
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-yellow-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -542,11 +506,7 @@ export default function LoanPackages() {
                       Flexible payment arrangements
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-red-200/30 to-red-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -588,11 +548,7 @@ export default function LoanPackages() {
                       Reduced interest rates
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-orange-200/30 to-orange-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -645,11 +601,7 @@ export default function LoanPackages() {
                       Short repayment period
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-blue-200/30 to-blue-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -687,11 +639,7 @@ export default function LoanPackages() {
                       Flexible harvest-based repayment
                     </div>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-100">
-                    <button className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-3 px-6 rounded-2xl font-semibold hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                      Apply Now
-                    </button>
-                  </div>
+
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-yellow-200/30 to-yellow-300/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               </div>
@@ -699,20 +647,7 @@ export default function LoanPackages() {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center bg-gradient-to-r from-brand-blue via-brand-green to-brand-yellow text-black rounded-3xl p-16 mt-20 shadow-2xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent"></div>
-          <div className="relative z-10">
-            <h3 className="text-4xl font-black mb-6">Ready to Apply?</h3>
-            <p className="mb-10 text-xl opacity-90 font-light leading-relaxed max-w-2xl mx-auto">
-              Contact us today to discuss your loan requirements and get started with your application.
-            </p>
-            <button className="group relative bg-blue-400 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-blue-400/25 transition-all duration-300 transform hover:-translate-y-1">
-              <span className="relative z-10">Apply Now</span>
-              <div className="absolute inset-0 bg-blue-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </button>
-          </div>
-        </div>
+
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ export default function Stats() {
           </div>
           <div className="text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
             <div className="text-4xl font-bold text-orange-600 mb-2">
-              <CountUp end={25} suffix="+" />
+              <CountUp end={61} suffix="+" />
             </div>
             <div className="text-gray-600 dark:text-gray-400 font-semibold">Years of Trust</div>
             <div className="text-sm text-gray-500 dark:text-gray-500 mt-1">Committed to excellence</div>

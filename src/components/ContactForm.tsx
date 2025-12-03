@@ -361,6 +361,7 @@ export default function ContactForm() {
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold py-4 px-8 rounded-xl hover:from-blue-600 hover:to-green-600 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    suppressHydrationWarning={true}
                   >
                     {isSubmitting ? (
                       <div className="flex items-center justify-center space-x-2">
