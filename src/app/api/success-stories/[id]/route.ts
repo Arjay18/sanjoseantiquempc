@@ -32,7 +32,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -41,10 +41,11 @@ export async function PUT(
     }
 
     const body = await request.json();
+    const paramsData = await params;
     const { title, memberName, category, videoFile, description, status } = body;
 
     const successStory = await prisma.successStory.update({
-      where: { id: params.id },
+      where: { id: paramsData.id },
       data: {
         title,
         memberName,
