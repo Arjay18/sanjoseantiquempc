@@ -90,7 +90,7 @@ export default function AboutPage() {
 
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Re-registration and Growth (1975)</h3>
                 <p className="mb-8">
-                  On 5 May 1975, the San Jose Credit Union was re-registered with the Bureau of Cooperatives Development under a new name, the San Jose Credit Cooperative, Inc. (SJCCI). Chairperson of the Board was Mr. Jovito L. Encarnacion. The old bowling alley near the San Jose Parish Convento was converted into an office building which the Cooperative occupied for 19 years.
+                  { "On 5 May 1975, the San Jose Credit Union was re-registered with the Bureau of Cooperatives' Development under a new name, the San Jose Credit Cooperative, Inc. (SJCCI). Chairperson of the Board was Mr. Jovito L. Encarnacion. The old bowling alley near the San Jose Parish Convento was converted into an office building which the Cooperative occupied for 19 years." }
                 </p>
 
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Multi-Purpose Era (1995)</h3>
