@@ -5,11 +5,12 @@ import prisma from '@/lib/prisma';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const paramsData = await params;
     const successStory = await prisma.successStory.findUnique({
-      where: { id: params.id },
+      where: { id: paramsData.id },
     });
 
     if (!successStory) {
@@ -66,7 +67,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -74,8 +75,9 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const paramsData = await params;
     await prisma.successStory.delete({
-      where: { id: params.id },
+      where: { id: paramsData.id },
     });
 
     return NextResponse.json({ message: 'Success story deleted successfully' });
