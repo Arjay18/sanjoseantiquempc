@@ -5,10 +5,11 @@ const prisma = new PrismaClient();
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const paramsData = await params;
+    const { id } = paramsData;
     const body = await request.json();
 
     const { status, response, respondedBy, respondedAt } = body;
@@ -43,10 +44,11 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const paramsData = await params;
+    const { id } = paramsData;
 
     await prisma.contactInquiry.delete({
       where: { id },
