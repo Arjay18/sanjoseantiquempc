@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET(request: NextRequest) {
   try {
-    const sessions = await prisma.PMESSession.findMany({
+    const sessions = await prisma.pMESSession.findMany({
       orderBy: { date: 'asc' }
     });
 
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { branch, date, time, capacity, zoomMeetingId, zoomPassword, zoomJoinUrl, zoomStartUrl } = body;
 
-    const session = await prisma.PMESSession.create({
+    const session = await prisma.pMESSession.create({
       data: {
         branch,
         date: new Date(date),
