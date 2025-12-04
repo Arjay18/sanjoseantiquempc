@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET(request: NextRequest) {
   try {
-    const sessions = await prisma.pMESSession.findMany({
+    const sessions = await prisma.PMESSession.findMany({
       orderBy: { date: 'asc' }
     });
 
