@@ -30,6 +30,7 @@ export default function AdminDashboard() {
   const router = useRouter();
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === 'loading') return;
@@ -48,6 +49,7 @@ export default function AdminDashboard() {
       })
       .catch(error => {
         console.error('Error fetching stats:', error);
+        setError('Failed to load dashboard statistics. Please check your database connection.');
         setLoading(false);
       });
   }, [session, status, router]);
@@ -62,6 +64,99 @@ export default function AdminDashboard() {
 
   if (!session) {
     return null;
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-8">
+        {/* Welcome Header */}
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold">Welcome back, {session.user?.name || 'Admin'}!</h1>
+              <p className="text-blue-100 mt-1">Dashboard Error</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Error Message */}
+        <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <svg className="h-8 w-8 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+            <div className="ml-4">
+              <h3 className="text-lg font-semibold text-red-800">Database Connection Error</h3>
+              <p className="text-red-700 mt-1">{error}</p>
+              <div className="mt-4">
+                <p className="text-sm text-red-600">
+                  Please ensure your environment variables are correctly set in Vercel:
+                </p>
+                <ul className="mt-2 text-sm text-red-600 list-disc list-inside">
+                  <li>DATABASE_URL - Your Supabase PostgreSQL connection string</li>
+                  <li>ADMIN_USERNAME - Your admin username</li>
+                  <li>ADMIN_PASSWORD - Your admin password</li>
+                  <li>NEXTAUTH_SECRET - A random secret for authentication</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Actions (still available) */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <Link
+              href="/admin/news"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <div className="flex-shrink-0">
+                <svg className="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-900">Add News Article</p>
+                <p className="text-sm text-gray-500">Create new content</p>
+              </div>
+            </Link>
+
+            <Link
+              href="/admin/success-stories"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <div className="flex-shrink-0">
+                <svg className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-900">Add Success Story</p>
+                <p className="text-sm text-gray-500">Share member stories</p>
+              </div>
+            </Link>
+
+            <Link
+              href="/admin/loan-applications"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <div className="flex-shrink-0">
+                <svg className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-900">Review Loan Applications</p>
+                <p className="text-sm text-gray-500">Manage loan requests</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const statsCards = [
