@@ -8,5 +8,5 @@
 - [x] Modify loan application form to submit data to API
 - [x] Update stats API to include loan application counts
 - [x] Run Prisma migrations
-- [ ] Test loan application submission and admin management
-- [ ] Verify PDF generation still works with stored data
+- [x] Test loan application submission and admin management
+- [x] Verify PDF generation still works with stored data
