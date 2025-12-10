@@ -35,8 +35,13 @@ function LoginForm() {
       })
 
       if (result?.ok) {
-        // Force a page reload to ensure session is updated
-        window.location.href = '/admin'
+        // Use NextAuth's built-in redirect functionality
+        await signIn('credentials', {
+          username,
+          password,
+          redirect: true,
+          callbackUrl: '/admin'
+        })
       } else {
         setError('Invalid credentials. Please try again.')
         setIsLoading(false)
