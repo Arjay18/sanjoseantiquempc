@@ -32,6 +32,7 @@ export default function ContactPage() {
       hours: 'Sat: 9AM'
     }
   ];
+   <ContactForm />
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden relative">
@@ -142,7 +143,7 @@ export default function ContactPage() {
       </div>
 
       {/* Contact Form */}
-     <ContactForm />
+    
     </div>
     
   );
