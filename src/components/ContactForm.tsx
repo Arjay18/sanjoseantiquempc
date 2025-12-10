@@ -339,7 +339,7 @@ export default function ContactForm() {
                     Message *
                   </label>
                   <textarea
-                    name="message"
+                    name="message" 
                     id="message"
                     rows={6}
                     value={formData.message}
