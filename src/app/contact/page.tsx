@@ -142,7 +142,8 @@ export default function ContactPage() {
       </div>
 
       {/* Contact Form */}
-      <ContactForm />
+     
     </div>
   );
 }
+<ContactForm />
