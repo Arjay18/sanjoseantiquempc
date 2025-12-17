@@ -57,6 +57,7 @@ export async function POST(request: NextRequest) {
         name: formData.name,
         pbNo: formData.pbNo,
         contactNo: formData.contactNo,
+        email: formData.email,
         address: formData.address,
         loanType: formData.loanType,
         idType: formData.idType,
