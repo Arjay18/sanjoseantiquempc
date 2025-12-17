@@ -86,6 +86,9 @@ export const metadata: Metadata = {
       'en-US': 'https://sjmpc.com/en-US',
     }
   },
+  icons: {
+    icon: '/portfolio/Logo.jpg',
+  },
   category: 'finance',
 };
 
