@@ -9,6 +9,7 @@ export default function LoanApplication() {
     name: '',
     pbNo: '',
     contactNo: '',
+    email: '',
     address: '',
     loanType: '',
     loanAmount: '',
@@ -275,13 +276,50 @@ export default function LoanApplication() {
       });
 
       if (response.ok) {
-        alert('Loan application submitted successfully!');
+        // Generate PDF for email
+        try {
+          const pdfResponse = await fetch('/api/fill-pdf', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ formData: processedFormData }),
+          });
+
+          if (pdfResponse.ok) {
+            const pdfBlob = await pdfResponse.blob();
+
+            // Send PDF via email
+            const emailFormData = new FormData();
+            emailFormData.append('pdf', pdfBlob, 'loan-application.pdf');
+            emailFormData.append('email', formData.email);
+            emailFormData.append('name', formData.name);
+
+            const emailResponse = await fetch('/api/send-loan-pdf', {
+              method: 'POST',
+              body: emailFormData,
+            });
+
+            if (emailResponse.ok) {
+              alert('Loan application submitted successfully! A copy has been sent to your email.');
+            } else {
+              alert('Loan application submitted successfully, but there was an issue sending the email. Please contact us for a copy.');
+            }
+          } else {
+            alert('Loan application submitted successfully, but there was an issue generating your PDF copy. Please contact us for a copy.');
+          }
+        } catch (emailError) {
+          console.error('Error sending email:', emailError);
+          alert('Loan application submitted successfully, but there was an issue sending the email. Please contact us for a copy.');
+        }
+
         // Reset form or redirect
         setFormData({
           // Reset all form fields to initial state
           name: '',
           pbNo: '',
           contactNo: '',
+          email: '',
           address: '',
           loanType: '',
           loanAmount: '',
@@ -449,6 +487,20 @@ export default function LoanApplication() {
                     required
                     className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
                     placeholder="Enter your contact number"
+                    suppressHydrationWarning={true}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email Address:</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
+                    placeholder="Enter your email address"
                     suppressHydrationWarning={true}
                   />
                 </div>
