@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://sjmpc.com'),
+  metadataBase: new URL('https://sanjoseantiquempc.com'),
   title: {
     default: "SJMPC - San Jose Multi-Purpose Cooperative",
     template: "%s | SJMPC"
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "Iloilo",
     "Philippines"
   ],
-  authors: [{ name: "SJMPC", url: "https://sjmpc.com" }],
+  authors: [{ name: "SJMPC", url: "https://sanjoseantiquempc.com" }],
   creator: "SJMPC",
   publisher: "SJMPC",
   robots: {
@@ -51,13 +51,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://sjmpc.com",
+    url: "https://sanjoseantiquempc.com",
     title: "SJMPC - San Jose Multi-Purpose Cooperative",
     description: "Your trusted financial partner since 1963. Offering comprehensive financial services including loans, savings, insurance, and community development programs.",
     siteName: "SJMPC",
     images: [
       {
-        url: "https://sjmpc.com/og-image.jpg",
+        url: "https://sanjoseantiquempc.com/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "SJMPC - San Jose Multi-Purpose Cooperative"
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'SJMPC - San Jose Multi-Purpose Cooperative',
     description: 'Your trusted financial partner since 1963. Offering comprehensive financial services including loans, savings, insurance, and community development programs.',
-    images: ['https://sjmpc.com/twitter-image.jpg'],
+    images: ['https://sanjoseantiquempc.com/twitter-image.jpg'],
     creator: '@sjmpc',
     site: '@sjmpc'
   },
@@ -77,13 +77,13 @@ export const metadata: Metadata = {
     yandex: 'your-yandex-verification-code',
     yahoo: 'your-yahoo-verification-code',
     other: {
-      me: ['https://sjmpc.com']
+      me: ['https://sanjoseantiquempc.com']
     }
   },
   alternates: {
-    canonical: 'https://sjmpc.com',
+    canonical: 'https://sanjoseantiquempc.com',
     languages: {
-      'en-US': 'https://sjmpc.com/en-US',
+      'en-US': 'https://sanjoseantiquempc.com/en-US',
     }
   },
   icons: {
