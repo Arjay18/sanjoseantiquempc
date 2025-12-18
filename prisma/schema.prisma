@@ -79,6 +79,7 @@ model LoanApplication {
   name        String
   pbNo        String
   contactNo   String
+  email       String?
   address     String
   loanType    String
   idType      String

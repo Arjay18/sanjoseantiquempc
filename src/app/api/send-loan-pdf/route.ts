@@ -15,6 +15,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email address is required' }, { status: 400 });
     }
 
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     // Load the PDF template
     const pdfPath = path.join(process.cwd(), 'public', 'Form', 'NEW-Loan-Form-updated.pdf');
     const pdfBytes = fs.readFileSync(pdfPath);
@@ -104,13 +106,12 @@ export async function POST(request: NextRequest) {
         <p>We will review your application and contact you soon with the next steps.</p>
         <p>Best regards,<br/>SJMPC Loan Processing Team</p>
       `,
-      attachments: [
-        {
-          filename: `SJMPC_Loan_Application_${formData?.name?.replace(/\s+/g, '_') || 'Application'}.pdf`,
-          content: Buffer.from(pdfBytesFilled).toString('base64'),
-          type: 'application/pdf',
-        },
-      ],
+        attachments: [
+          {
+            filename: `SJMPC_Loan_Application_${formData?.name?.replace(/\s+/g, '_') || 'Application'}.pdf`,
+            content: Buffer.from(pdfBytesFilled).toString('base64'),
+          },
+        ],
     });
 
     console.log('Email sent successfully:', sendResult);
