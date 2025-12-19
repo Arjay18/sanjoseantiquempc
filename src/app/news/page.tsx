@@ -26,7 +26,7 @@ const categories = [
   'Industry Insights',
   'Awards & Recognition',
   'Partnerships',
-  'General'
+  'General',
 ];
 
 export default function NewsPage() {
@@ -37,6 +37,7 @@ export default function NewsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Fetch published news posts
   useEffect(() => {
     const fetchNews = async () => {
       setLoading(true);
@@ -53,10 +54,11 @@ export default function NewsPage() {
         setLoading(false);
       }
     };
+
     fetchNews();
   }, []);
 
-  // Filter posts
+  // Filter posts by category and search query
   useEffect(() => {
     let filtered = [...newsItems];
 
@@ -66,77 +68,74 @@ export default function NewsPage() {
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(item =>
-        item.title.toLowerCase().includes(q) ||
-        item.content.toLowerCase().includes(q) ||
-        (item.author && item.author.toLowerCase().includes(q)) ||
-        (item.caption && item.caption.toLowerCase().includes(q))
+      filtered = filtered.filter(
+        item =>
+          item.title.toLowerCase().includes(q) ||
+          item.content.toLowerCase().includes(q) ||
+          (item.author && item.author.toLowerCase().includes(q)) ||
+          (item.caption && item.caption.toLowerCase().includes(q))
       );
     }
 
     setFilteredItems(filtered);
   }, [selectedCategory, searchQuery, newsItems]);
 
+  // Extract text from HTML for excerpt
   const stripHtml = (html: string) => {
     const tmp = document.createElement('DIV');
     tmp.innerHTML = html;
     return tmp.textContent || tmp.innerText || '';
   };
 
-  const getExcerpt = (content: string, maxLength = 150) => {
+  const getExcerpt = (content: string, maxLength: number = 150) => {
     const text = stripHtml(content);
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
 
-  if (loading) {
-    return <div className="min-h-screen flex items-center justify-center text-xl">Loading news posts...</div>;
-  }
-
-  if (error) {
-    return <div className="min-h-screen flex items-center justify-center text-xl text-red-600">{error}</div>;
-  }
+  if (loading) return <div className="min-h-screen flex justify-center items-center">Loading news posts...</div>;
+  if (error) return <div className="min-h-screen flex justify-center items-center text-red-600">{error}</div>;
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Latest News</h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            Stay updated with our latest announcements and industry insights
-          </p>
+          <p className="text-gray-600 dark:text-gray-300">Stay updated with our latest announcements and insights</p>
         </div>
 
-        {/* Search */}
+        {/* Search Bar */}
         <div className="flex justify-center mb-4">
           <input
             type="text"
             placeholder="Search news..."
             value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full max-w-md px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
           />
         </div>
 
         {/* Category Filter */}
         <div className="flex justify-center flex-wrap gap-2 mb-8">
-          {categories.map(cat => (
+          {categories.map(category => (
             <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
+              key={category}
+              onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                selectedCategory === cat
+                selectedCategory === category
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
               }`}
             >
-              {cat}
+              {category}
             </button>
           ))}
         </div>
 
         {filteredItems.length === 0 ? (
           <p className="text-center text-gray-500 dark:text-gray-300">
-            {searchQuery || selectedCategory !== 'All' ? 'No posts match your criteria.' : 'No news posts available.'}
+            {searchQuery || selectedCategory !== 'All'
+              ? 'No posts match your criteria.'
+              : 'No news posts available.'}
           </p>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
