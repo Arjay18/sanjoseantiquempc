@@ -39,24 +39,29 @@ export default function NewsPage() {
 
   // Fetch published news posts
   useEffect(() => {
-    const fetchNews = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch('/api/news');
-        if (!res.ok) throw new Error('Failed to fetch news');
-        const data: NewsItem[] = await res.json();
-        setNewsItems(data);
-        setFilteredItems(data);
-      } catch (err) {
-        console.error(err);
-        setError('Failed to load news posts');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchNews = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/news', {
+        cache: 'no-store',
+      });
 
-    fetchNews();
-  }, []);
+      if (!response.ok) throw new Error('Failed to fetch news');
+
+      const data = await response.json();
+      setNewsItems(data);
+      setFilteredItems(data);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to load news posts');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchNews();
+}, []);
+
 
   // Filter posts by category and search query
   useEffect(() => {

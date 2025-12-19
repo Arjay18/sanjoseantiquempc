@@ -25,23 +25,30 @@ export default function NewsDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchNewsItem = async () => {
-      try {
-        const res = await fetch(`/api/news/slug?slug=${slug}`);
-        if (!res.ok) throw new Error('Failed to fetch news post');
-        const data = await res.json();
-        setNewsItem(data);
-      } catch (err) {
-        console.error(err);
-        setError('Failed to load news post');
-      } finally {
-        setLoading(false);
-      }
-    };
+ useEffect(() => {
+  const fetchNewsItem = async () => {
+    try {
+      const response = await fetch(`/api/news/${slug}`, {
+        cache: 'no-store',
+      });
 
-    if (slug) fetchNewsItem();
-  }, [slug]);
+      if (!response.ok) throw new Error('Failed to fetch news item');
+
+      const data = await response.json();
+      setNewsItem(data);
+    } catch (error) {
+      console.error('Error fetching news item:', error);
+      setError('Failed to load news post');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (slug) {
+    fetchNewsItem();
+  }
+}, [slug]);
+
 
   if (loading) return <div className="min-h-screen flex justify-center items-center">Loading news post...</div>;
   if (error || !newsItem)
