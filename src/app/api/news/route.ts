@@ -5,21 +5,21 @@ import { authOptions } from "@/lib/auth";
 
 // Generate URL-friendly slug
 async function generateUniqueSlug(title: string) {
-  let slug = title
+  const baseSlug = title
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-  let uniqueSlug = slug;
+  let slug = baseSlug;
   let count = 1;
 
-  while (await prisma.newsPost.findUnique({ where: { slug: uniqueSlug } })) {
-    uniqueSlug = `${slug}-${count}`;
+  while (await prisma.newsPost.findUnique({ where: { slug } })) {
+    slug = `${baseSlug}-${count}`;
     count++;
   }
 
-  return uniqueSlug;
+  return slug;
 }
 
 // -----------------------
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
     }
 
-    const slug = await generateUniqueSlug(title);
+  const slug = await generateUniqueSlug(title);
 
     const post = await prisma.newsPost.create({
       data: { title, content, imageUrl, author, category, caption, slug, status: "published" },
