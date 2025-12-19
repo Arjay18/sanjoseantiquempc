@@ -3,12 +3,16 @@ import prisma from '@/lib/prisma';
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ slug: string }> }
+  { params }: { params: { slug: string } }
 ) {
   try {
-    const { slug } = await params;
-    const post = await prisma.newsPost.findUnique({
-      where: { slug },
+    const { slug } = params;
+
+    const post = await prisma.newsPost.findFirst({
+      where: {
+        slug,
+        status: 'published', // Only allow published posts
+      },
     });
 
     if (!post) {
