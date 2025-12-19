@@ -7,7 +7,7 @@ const nextConfig = {
         destination: '/api/proxy/admin/:path*',
       },
     ]
-  }
-};
+  },
+}
 
 module.exports = nextConfig;
