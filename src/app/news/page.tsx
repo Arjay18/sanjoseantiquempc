@@ -37,40 +37,35 @@ export default function NewsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Fetch published news posts
   useEffect(() => {
-  const fetchNews = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('/api/news', {
-        cache: 'no-store',
-      });
+    const fetchNews = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/news', { cache: 'no-store' });
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.error || 'Failed to fetch news posts');
+        }
+        const data: NewsItem[] = await response.json();
+        setNewsItems(data);
+        setFilteredItems(data);
+      } catch (err: any) {
+        console.error('Error fetching news:', err.message);
+        setError(err.message || 'Failed to load news posts');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      if (!response.ok) throw new Error('Failed to fetch news');
+    fetchNews();
+  }, []);
 
-      const data = await response.json();
-      setNewsItems(data);
-      setFilteredItems(data);
-    } catch (err) {
-      console.error(err);
-      setError('Failed to load news posts');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchNews();
-}, []);
-
-
-  // Filter posts by category and search query
+  // Filter posts
   useEffect(() => {
     let filtered = [...newsItems];
-
     if (selectedCategory !== 'All') {
       filtered = filtered.filter(item => item.category === selectedCategory);
     }
-
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -81,18 +76,16 @@ export default function NewsPage() {
           (item.caption && item.caption.toLowerCase().includes(q))
       );
     }
-
     setFilteredItems(filtered);
   }, [selectedCategory, searchQuery, newsItems]);
 
-  // Extract text from HTML for excerpt
   const stripHtml = (html: string) => {
     const tmp = document.createElement('DIV');
     tmp.innerHTML = html;
     return tmp.textContent || tmp.innerText || '';
   };
 
-  const getExcerpt = (content: string, maxLength: number = 150) => {
+  const getExcerpt = (content: string, maxLength = 150) => {
     const text = stripHtml(content);
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
@@ -108,39 +101,37 @@ export default function NewsPage() {
           <p className="text-gray-600 dark:text-gray-300">Stay updated with our latest announcements and insights</p>
         </div>
 
-        {/* Search Bar */}
+        {/* Search */}
         <div className="flex justify-center mb-4">
           <input
             type="text"
             placeholder="Search news..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             className="w-full max-w-md px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
           />
         </div>
 
         {/* Category Filter */}
         <div className="flex justify-center flex-wrap gap-2 mb-8">
-          {categories.map(category => (
+          {categories.map(cat => (
             <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                selectedCategory === category
+                selectedCategory === cat
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
               }`}
             >
-              {category}
+              {cat}
             </button>
           ))}
         </div>
 
         {filteredItems.length === 0 ? (
           <p className="text-center text-gray-500 dark:text-gray-300">
-            {searchQuery || selectedCategory !== 'All'
-              ? 'No posts match your criteria.'
-              : 'No news posts available.'}
+            {searchQuery || selectedCategory !== 'All' ? 'No posts match your criteria.' : 'No news posts available.'}
           </p>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
