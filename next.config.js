@@ -1,12 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  turbopack: {
-    root: __dirname // Explicitly set the root directory
-  },
-  images: {
-    domains: ['images.unsplash.com'], // Add your image domains here
-  },
-  // Other Next.js config options
-}
+  async rewrites() {
+    return [
+      {
+        source: '/admin/:path*',
+        destination: '/api/proxy/admin/:path*',
+      },
+    ]
+  }
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
