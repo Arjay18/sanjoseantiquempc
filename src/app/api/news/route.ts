@@ -1,28 +1,40 @@
-import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import prisma from '@/lib/prisma'
-import { authOptions } from '../auth/[...nextauth]/auth'
+// /app/api/news/route.ts
+import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import prisma from "@/lib/prisma";
+import { authOptions } from "@/app/api/auth/auth";
 
+// Helper to generate URL-friendly slugs
 function generateSlug(text: string): string {
   return text
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
+// -----------------------
+// CREATE NEWS POST (POST)
+// -----------------------
 export async function POST(request: Request) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!session || session.user.role !== "admin") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const body = await request.json()
-    const { title, content, imageUrl, author, category, caption } = body
+    const body = await request.json();
+    const { title, content, imageUrl, author, category, caption } = body;
 
-    const slug = generateSlug(title)
+    if (!title || !content) {
+      return NextResponse.json(
+        { error: "Title and content are required" },
+        { status: 400 }
+      );
+    }
+
+    const slug = generateSlug(title);
 
     const post = await prisma.newsPost.create({
       data: {
@@ -33,102 +45,111 @@ export async function POST(request: Request) {
         category,
         caption,
         slug,
-        status: 'published',
+        status: "published",
       },
-    })
+    });
 
-    return NextResponse.json(post)
+    return NextResponse.json(post);
   } catch (error) {
-    console.error('Error creating news post:', error)
+    console.error("Error creating news post:", error);
     return NextResponse.json(
-      { error: 'Failed to create news post' },
+      { error: "Failed to create news post" },
       { status: 500 }
-    )
+    );
   }
 }
 
+// -----------------------
+// GET ALL PUBLISHED NEWS (GET)
+// -----------------------
 export async function GET() {
   try {
     const posts = await prisma.newsPost.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-      where: {
-        status: 'published',
-      },
-    })
+      orderBy: { createdAt: "desc" },
+      where: { status: "published" },
+    });
 
-    return NextResponse.json(posts)
+    return NextResponse.json(posts);
   } catch (error) {
-    console.error('Error fetching news posts:', error)
+    console.error("Error fetching news posts:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch news posts' },
+      { error: "Failed to fetch news posts" },
       { status: 500 }
-    )
+    );
   }
 }
 
+// -----------------------
+// UPDATE NEWS POST (PUT)
+// -----------------------
 export async function PUT(request: Request) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!session || session.user.role !== "admin") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const url = new URL(request.url)
-    const id = url.searchParams.get('id')
+    const url = new URL(request.url);
+    const id = url.searchParams.get("id");
+
     if (!id) {
-      return NextResponse.json({ error: 'Post ID is required' }, { status: 400 })
+      return NextResponse.json({ error: "Post ID is required" }, { status: 400 });
     }
 
-    const body = await request.json()
-    const { title, content, imageUrl, author, category, caption, status } = body
+    const body = await request.json();
+    const { title, content, imageUrl, author, category, caption, status } = body;
 
-    const slug = generateSlug(title)
+    if (!title || !content) {
+      return NextResponse.json(
+        { error: "Title and content are required" },
+        { status: 400 }
+      );
+    }
+
+    const slug = generateSlug(title);
 
     const post = await prisma.newsPost.update({
       where: { id },
-      data: {
-        title,
-        content,
-        imageUrl,
-        author,
-        category,
-        caption,
-        status,
-        slug,
-      },
-    })
+      data: { title, content, imageUrl, author, category, caption, status, slug },
+    });
 
-    return NextResponse.json(post)
+    return NextResponse.json(post);
   } catch (error) {
-    console.error('Error updating news post:', error)
-    return NextResponse.json({ error: 'Failed to update news post' }, { status: 500 })
+    console.error("Error updating news post:", error);
+    return NextResponse.json(
+      { error: "Failed to update news post" },
+      { status: 500 }
+    );
   }
 }
 
+// -----------------------
+// DELETE NEWS POST (DELETE)
+// -----------------------
 export async function DELETE(request: Request) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!session || session.user.role !== "admin") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const url = new URL(request.url)
-    const id = url.searchParams.get('id')
+    const url = new URL(request.url);
+    const id = url.searchParams.get("id");
+
     if (!id) {
-      return NextResponse.json({ error: 'Post ID is required' }, { status: 400 })
+      return NextResponse.json({ error: "Post ID is required" }, { status: 400 });
     }
 
-    await prisma.newsPost.delete({
-      where: { id },
-    })
+    await prisma.newsPost.delete({ where: { id } });
 
-    return NextResponse.json({ message: 'Post deleted successfully' });
+    return NextResponse.json({ message: "Post deleted successfully" });
   } catch (error) {
-    console.error('Error deleting news post:', error);
-    return NextResponse.json({ error: 'Failed to delete news post' }, { status: 500 });
+    console.error("Error deleting news post:", error);
+    return NextResponse.json(
+      { error: "Failed to delete news post" },
+      { status: 500 }
+    );
   }
 }
