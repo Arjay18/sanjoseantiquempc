@@ -3,7 +3,8 @@ export const runtime = "nodejs";
 // /app/api/news/route.ts
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import prisma from "@/lib/prisma";
+import { promises as fs } from "fs";
+import path from "path";
 import { authOptions } from "@/lib/auth";
 
 // Helper to generate URL-friendly slugs
@@ -19,49 +20,7 @@ function generateSlug(text: string) {
 // CREATE NEWS POST (POST)
 // -----------------------
 export async function POST(request: Request) {
-  const session = await getServerSession(authOptions);
-
-  if (!session || session.user.role !== "admin") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  try {
-    const body = await request.json();
-    const { title, content, imageUrl, author, category, caption } = body;
-
-    if (!title || !content) {
-      return NextResponse.json(
-        { error: "Title and content are required" },
-        { status: 400 }
-      );
-    }
-
-    let slug = generateSlug(title);
-    // Ensure slug uniqueness
-    let count = 1;
-    while (await prisma.newsPost.findUnique({ where: { slug } })) {
-      slug = `${slug}-${count}`;
-      count++;
-    }
-
-    const post = await prisma.newsPost.create({
-      data: {
-        title,
-        content,
-        imageUrl,
-        author,
-        category,
-        caption,
-        slug,
-        status: "published",
-      },
-    });
-
-    return NextResponse.json(post);
-  } catch (error) {
-    console.error("Error creating news post:", error);
-    return NextResponse.json({ error: "Failed to create news post" }, { status: 500 });
-  }
+  return NextResponse.json({ message: "To add news manually, edit the public/news.json file directly." }, { status: 200 });
 }
 
 // -----------------------
@@ -69,29 +28,35 @@ export async function POST(request: Request) {
 // -----------------------
 export async function GET(request: Request) {
   try {
+    const filePath = path.join(process.cwd(), 'public', 'news.json');
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    let posts = JSON.parse(fileContents);
+
     const url = new URL(request.url);
     const search = url.searchParams.get("search") || "";
     const category = url.searchParams.get("category") || "";
 
-    let where: any = { status: "published" };
+    // Filter published posts
+    posts = posts.filter((post: any) => post.status === "published");
 
+    // Filter by category
     if (category && category !== "All") {
-      where.category = category;
+      posts = posts.filter((post: any) => post.category === category);
     }
 
+    // Filter by search
     if (search) {
-      where.OR = [
-        { title: { contains: search, mode: "insensitive" } },
-        { content: { contains: search, mode: "insensitive" } },
-        { author: { contains: search, mode: "insensitive" } },
-        { caption: { contains: search, mode: "insensitive" } },
-      ];
+      const searchLower = search.toLowerCase();
+      posts = posts.filter((post: any) =>
+        post.title.toLowerCase().includes(searchLower) ||
+        post.content.toLowerCase().includes(searchLower) ||
+        post.author.toLowerCase().includes(searchLower) ||
+        post.caption.toLowerCase().includes(searchLower)
+      );
     }
 
-    const posts = await prisma.newsPost.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-    });
+    // Sort by createdAt desc
+    posts.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     return NextResponse.json(posts);
   } catch (error) {
@@ -104,66 +69,12 @@ export async function GET(request: Request) {
 // UPDATE NEWS POST (PUT)
 // -----------------------
 export async function PUT(request: Request) {
-  const session = await getServerSession(authOptions);
-
-  if (!session || session.user.role !== "admin") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  try {
-    const url = new URL(request.url);
-    const id = url.searchParams.get("id");
-    if (!id) return NextResponse.json({ error: "Post ID is required" }, { status: 400 });
-
-    const body = await request.json();
-    const { title, content, imageUrl, author, category, caption, status } = body;
-
-    if (!title || !content) {
-      return NextResponse.json(
-        { error: "Title and content are required" },
-        { status: 400 }
-      );
-    }
-
-    let slug = generateSlug(title);
-    // Ensure slug uniqueness for other posts
-    let count = 1;
-    while (await prisma.newsPost.findFirst({ where: { slug, NOT: { id } } })) {
-      slug = `${slug}-${count}`;
-      count++;
-    }
-
-    const post = await prisma.newsPost.update({
-      where: { id },
-      data: { title, content, imageUrl, author, category, caption, status, slug },
-    });
-
-    return NextResponse.json(post);
-  } catch (error) {
-    console.error("Error updating news post:", error);
-    return NextResponse.json({ error: "Failed to update news post" }, { status: 500 });
-  }
+  return NextResponse.json({ message: "To update news manually, edit the public/news.json file directly." }, { status: 200 });
 }
 
 // -----------------------
 // DELETE NEWS POST (DELETE)
 // -----------------------
 export async function DELETE(request: Request) {
-  const session = await getServerSession(authOptions);
-
-  if (!session || session.user.role !== "admin") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  try {
-    const url = new URL(request.url);
-    const id = url.searchParams.get("id");
-    if (!id) return NextResponse.json({ error: "Post ID is required" }, { status: 400 });
-
-    await prisma.newsPost.delete({ where: { id } });
-    return NextResponse.json({ message: "Post deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting news post:", error);
-    return NextResponse.json({ error: "Failed to delete news post" }, { status: 500 });
-  }
+  return NextResponse.json({ message: "To delete news manually, edit the public/news.json file directly." }, { status: 200 });
 }
