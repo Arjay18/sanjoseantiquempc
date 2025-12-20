@@ -1,34 +1,48 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
+import slugify from 'slugify';
 
 const prisma = new PrismaClient();
 
-async function createTestNews() {
+async function createNews() {
+  // Get arguments from command line
+  const args = process.argv.slice(2);
+  if (args.length < 5) {
+    console.log('Usage: node create-test-news.js "<title>" "<content>" "<author>" "<category>" "<imageUrl>" [caption]');
+    console.log('Example: node create-test-news.js "New Update" "<p>Content</p>" "Admin" "News" "/image.jpg" "Caption"');
+    process.exit(1);
+  }
+
+  const [title, content, author, category, imageUrl, caption] = args;
+
   try {
-    console.log('Creating test news post...');
+    console.log('Creating news post...');
+
+    const slug = slugify(title, { lower: true, strict: true });
 
     const newsPost = await prisma.newsPost.create({
       data: {
-        title: 'Welcome to SJMPC News',
-        content: '<p>This is our first news post! We are excited to share updates about our cooperative and community initiatives.</p><p>SJMPC has been serving the community since 1963, providing financial services and support to our members.</p>',
-        imageUrl: '/portfolio/Logo.jpg',
-        author: 'SJMPC Admin',
-        category: 'Company News',
-        caption: 'Exciting updates from your trusted cooperative',
-        slug: 'welcome-to-sjmpc-news',
+        title,
+        content,
+        imageUrl,
+        author,
+        category,
+        caption: caption || '',
+        slug,
         status: 'published',
       },
     });
 
-    console.log('✅ Test news post created successfully!');
+    console.log('✅ News post created successfully!');
     console.log('Title:', newsPost.title);
     console.log('Slug:', newsPost.slug);
     console.log('ID:', newsPost.id);
+    console.log('Created At:', newsPost.createdAt);
 
   } catch (error) {
-    console.error('❌ Error creating test news post:', error);
+    console.error('❌ Error creating news post:', error);
   } finally {
     await prisma.$disconnect();
   }
 }
 
-createTestNews();
+createNews();
