@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 // /app/api/news/route.ts
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
