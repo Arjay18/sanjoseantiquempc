@@ -5,9 +5,13 @@ const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
   try {
+    // Read news from JSON file
+    const newsData = fs.readFileSync(NEWS_FILE_PATH, 'utf8');
+    const newsPosts = JSON.parse(newsData);
+    const totalNews = newsPosts.filter((post: any) => post.status === 'published').length;
+
     // Get statistics from database
     const [
-      totalNews,
       totalSuccessStories,
       totalMembers,
       totalPMESSessions,
@@ -18,7 +22,6 @@ export async function GET(request: NextRequest) {
       pendingLoanApplications,
       approvedLoanApplications,
     ] = await Promise.all([
-      prisma.newsPost.count({ where: { status: 'published' } }),
       prisma.successStory.count({ where: { status: 'published' } }),
       prisma.memberRegistration.count(),
       prisma.pMESSession.count().catch(() => 0),
@@ -33,12 +36,16 @@ export async function GET(request: NextRequest) {
     // Calculate success rate
     const successRate = totalRegistrations > 0 ? Math.round((approvedRegistrations / totalRegistrations) * 100) : 0;
 
-    // Get recent activity
-    const recentNews = await prisma.newsPost.findMany({
-      take: 2,
-      orderBy: { createdAt: 'desc' },
-      select: { id: true, title: true, createdAt: true }
-    });
+    // Get recent news from JSON
+    const recentNews = newsPosts
+      .filter((post: any) => post.status === 'published')
+      .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .slice(0, 2)
+      .map((post: any) => ({
+        id: post.id,
+        title: post.title,
+        createdAt: new Date(post.createdAt)
+      }));
 
     const recentStories = await prisma.successStory.findMany({
       take: 2,
