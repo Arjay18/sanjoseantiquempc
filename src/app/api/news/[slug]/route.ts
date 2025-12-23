@@ -1,42 +1,27 @@
-export const runtime = "nodejs";
-
-// /app/api/news/[slug]/route.ts
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { PrismaClient } from "@prisma/client";
 
-interface Params {
-  params: { slug: string };
-}
+const prisma = new PrismaClient();
 
+// GET single news post by slug
 export async function GET(
   request: Request,
-  { params }: Params
+  { params }: { params: { slug: string } }
 ) {
   try {
     const { slug } = params;
 
-    if (!slug) {
-      return NextResponse.json({ error: "Slug is required" }, { status: 400 });
-    }
-
-    // Fetch the news post by slug and only published posts
-    const post = await prisma.newsPost.findFirst({
-      where: {
-        slug,
-        status: "published",
-      },
+    const newsPost = await prisma.newsPost.findUnique({
+      where: { slug },
     });
 
-    if (!post) {
-      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    if (!newsPost) {
+      return NextResponse.json({ error: "News post not found" }, { status: 404 });
     }
 
-    return NextResponse.json(post);
+    return NextResponse.json(newsPost);
   } catch (error) {
     console.error("Error fetching news post:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch news post" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch news post" }, { status: 500 });
   }
 }
