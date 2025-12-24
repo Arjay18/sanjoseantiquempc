@@ -10,6 +10,13 @@ export default function Navigation() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Desktop dropdown states
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [onlineDropdownOpen, setOnlineDropdownOpen] = useState(false);
+  const [newsDropdownOpen, setNewsDropdownOpen] = useState(false);
+  const [branchesDropdownOpen, setBranchesDropdownOpen] = useState(false);
+
   // Mobile dropdown states
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
