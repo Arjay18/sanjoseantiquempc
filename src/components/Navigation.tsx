@@ -124,40 +124,41 @@ export default function Navigation() {
           <div className="hidden lg:flex lg:items-center lg:space-x-8">
             {menuItems.map((item) => (
               item.dropdown ? (
-                <div key={item.name} className="relative">
+                <div key={item.name} className="relative"
+                  onMouseEnter={() => {
+                    if (item.name === 'About Us') {
+                      setAboutDropdownOpen(true);
+                      setDropdownOpen(false);
+                      setOnlineDropdownOpen(false);
+                      setNewsDropdownOpen(false);
+                    } else if (item.name === 'Product and Services') {
+                      setDropdownOpen(true);
+                      setAboutDropdownOpen(false);
+                      setOnlineDropdownOpen(false);
+                      setNewsDropdownOpen(false);
+                    } else if (item.name === 'Online Application') {
+                      setOnlineDropdownOpen(true);
+                      setAboutDropdownOpen(false);
+                      setDropdownOpen(false);
+                      setNewsDropdownOpen(false);
+                    } else if (item.name === 'News') {
+                      setNewsDropdownOpen(true);
+                      setAboutDropdownOpen(false);
+                      setDropdownOpen(false);
+                      setOnlineDropdownOpen(false);
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    if (item.name === 'About Us') {
+                      setAboutDropdownOpen(false);
+                      setBranchesDropdownOpen(false);
+                    } else if (item.name === 'Product and Services') setDropdownOpen(false);
+                    else if (item.name === 'Online Application') setOnlineDropdownOpen(false);
+                    else if (item.name === 'News') setNewsDropdownOpen(false);
+                  }}
+                >
                   <Link
                     href={item.href}
-                    onMouseEnter={() => {
-                      if (item.name === 'About Us') {
-                        setAboutDropdownOpen(true);
-                        setDropdownOpen(false);
-                        setOnlineDropdownOpen(false);
-                        setNewsDropdownOpen(false);
-                      } else if (item.name === 'Product and Services') {
-                        setDropdownOpen(true);
-                        setAboutDropdownOpen(false);
-                        setOnlineDropdownOpen(false);
-                        setNewsDropdownOpen(false);
-                      } else if (item.name === 'Online Application') {
-                        setOnlineDropdownOpen(true);
-                        setAboutDropdownOpen(false);
-                        setDropdownOpen(false);
-                        setNewsDropdownOpen(false);
-                      } else if (item.name === 'News') {
-                        setNewsDropdownOpen(true);
-                        setAboutDropdownOpen(false);
-                        setDropdownOpen(false);
-                        setOnlineDropdownOpen(false);
-                      }
-                    }}
-                    onMouseLeave={() => {
-                      if (item.name === 'About Us') {
-                        setAboutDropdownOpen(false);
-                        setBranchesDropdownOpen(false);
-                      } else if (item.name === 'Product and Services') setDropdownOpen(false);
-                      else if (item.name === 'Online Application') setOnlineDropdownOpen(false);
-                      else if (item.name === 'News') setNewsDropdownOpen(false);
-                    }}
                     className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium flex items-center transition-colors"
                   >
                     {item.name}
