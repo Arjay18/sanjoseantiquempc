@@ -168,7 +168,7 @@ export default function Navigation() {
                     (item.name === 'Product and Services' && dropdownOpen) ||
                     (item.name === 'Online Application' && onlineDropdownOpen) ||
                     (item.name === 'News' && newsDropdownOpen)) && (
-                    <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
+                    <div className="absolute left-0 -mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
                       <div className="py-2">
                         {item.dropdown.map((subItem) => (
                           subItem.dropdown ? (
