@@ -119,6 +119,16 @@ export default function LoanApplication() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Helper function to convert file to base64
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
@@ -267,8 +277,8 @@ export default function LoanApplication() {
         processedFormData.idFile = base64;
       }
 
-      // Generate PDF for email
-      const pdfResponse = await fetch('/api/fill-pdf', {
+      // Submit loan application to database first
+      const submitResponse = await fetch('/api/loan-applications', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -276,110 +286,122 @@ export default function LoanApplication() {
         body: JSON.stringify({ formData: processedFormData }),
       });
 
-      if (pdfResponse.ok) {
-        const pdfBlob = await pdfResponse.blob();
-
-        // Send PDF via email
-        const emailFormData = new FormData();
-        emailFormData.append('pdf', pdfBlob, 'loan-application.pdf');
-        emailFormData.append('email', formData.email);
-        emailFormData.append('name', formData.name);
-
-        const emailResponse = await fetch('/api/send-loan-pdf', {
+      if (submitResponse.ok) {
+        // Generate PDF for email
+        const pdfResponse = await fetch('/api/fill-pdf', {
           method: 'POST',
-          body: emailFormData,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ formData: processedFormData }),
         });
 
-        if (emailResponse.ok) {
-          alert('Loan application PDF has been sent to your email successfully!');
+        if (pdfResponse.ok) {
+          const pdfBlob = await pdfResponse.blob();
 
-          // Reset form
-          setFormData({
-            // Reset all form fields to initial state
-            name: '',
-            pbNo: '',
-            contactNo: '',
-            email: '',
-            address: '',
-            loanType: '',
-            loanAmount: '',
-            term: '',
-            purpose: '',
-            idType: '',
-            idFile: null,
-            promissoryNoteAmount: '',
-            promissoryNoteTerm: '',
-            promissoryNotePaymentSchedule: '',
-            promissoryNoteStartingOn: '',
-            assignmentAmount: '',
-            assignmentPbNo: '',
-            regularSavings: '',
-            ultimaSavings: '',
-            alkansyaSavings: '',
-            timeDeposit: '',
-            otherDeposits: '',
-            shareCapital: '',
-            assignmentMaker1: '',
-            assignmentMaker2: '',
-            assignmentCoMaker1: '',
-            assignmentCoMaker2: '',
-            assignmentWitness1: '',
-            assignmentWitness2: '',
-            makerName1: '',
-            makerName2: '',
-            coMakerName1: '',
-            coMakerName2: '',
-            witnessName1: '',
-            witnessName2: '',
-            makerSpouseName: '',
-            assignmentCoMakerName1: '',
-            assignmentCoMakerName2: '',
-            assignmentWitnessName1: '',
-            assignmentWitnessName2: '',
-            memberIncome: '',
-            spouseIncome: '',
-            otherIncome: '',
-            businessIncome: '',
-            foodExpense: '',
-            clothingExpense: '',
-            shelterExpense: '',
-            educationExpense: '',
-            electricWaterExpense: '',
-            helperExpense: '',
-            loanRepaymentExpense: '',
-            miscellaneousExpense: '',
-            netIncome: '',
-            declarationAccepted: false,
-            committeeApproved: '',
-            committeeReduced: '',
-            committeeRejected: '',
-            committeeDeferred: '',
-            committeeReasons: '',
-            receivedBy: '',
-            checkedBy: '',
-            approvedBy: '',
-            dateReceived: '',
-            referenceNo: '',
-            loanTypeDisclosure: '',
-            loanAmountDisclosure: '',
-            charges: '',
-            netProceeds: '',
-            effectiveInterestRate: '',
-            nominalInterestRate: '',
-            penalty: '',
-            termsAccepted: false,
-            dateRelease: '',
-            interestRate: '',
-            voucherNo: '',
-            mop: '',
-            processor: '',
-            signatureDate: ''
+          const emailFormData = new FormData();
+          emailFormData.append('pdf', pdfBlob, 'loan-application.pdf');
+          emailFormData.append('email', formData.email);
+          emailFormData.append('name', formData.name);
+
+          const emailResponse = await fetch('/api/send-loan-pdf', {
+            method: 'POST',
+            body: emailFormData,
           });
+
+          if (emailResponse.ok) {
+            alert('Loan application submitted successfully and PDF has been sent to your email!');
+
+            // Reset form
+            setFormData({
+              // Reset all form fields to initial state
+              name: '',
+              pbNo: '',
+              contactNo: '',
+              email: '',
+              address: '',
+              loanType: '',
+              loanAmount: '',
+              term: '',
+              purpose: '',
+              idType: '',
+              idFile: null,
+              promissoryNoteAmount: '',
+              promissoryNoteTerm: '',
+              promissoryNotePaymentSchedule: '',
+              promissoryNoteStartingOn: '',
+              assignmentAmount: '',
+              assignmentPbNo: '',
+              regularSavings: '',
+              ultimaSavings: '',
+              alkansyaSavings: '',
+              timeDeposit: '',
+              otherDeposits: '',
+              shareCapital: '',
+              assignmentMaker1: '',
+              assignmentMaker2: '',
+              assignmentCoMaker1: '',
+              assignmentCoMaker2: '',
+              assignmentWitness1: '',
+              assignmentWitness2: '',
+              makerName1: '',
+              makerName2: '',
+              coMakerName1: '',
+              coMakerName2: '',
+              witnessName1: '',
+              witnessName2: '',
+              makerSpouseName: '',
+              assignmentCoMakerName1: '',
+              assignmentCoMakerName2: '',
+              assignmentWitnessName1: '',
+              assignmentWitnessName2: '',
+              memberIncome: '',
+              spouseIncome: '',
+              otherIncome: '',
+              businessIncome: '',
+              foodExpense: '',
+              clothingExpense: '',
+              shelterExpense: '',
+              educationExpense: '',
+              electricWaterExpense: '',
+              helperExpense: '',
+              loanRepaymentExpense: '',
+              miscellaneousExpense: '',
+              netIncome: '',
+              declarationAccepted: false,
+              committeeApproved: '',
+              committeeReduced: '',
+              committeeRejected: '',
+              committeeDeferred: '',
+              committeeReasons: '',
+              receivedBy: '',
+              checkedBy: '',
+              approvedBy: '',
+              dateReceived: '',
+              referenceNo: '',
+              loanTypeDisclosure: '',
+              loanAmountDisclosure: '',
+              charges: '',
+              netProceeds: '',
+              effectiveInterestRate: '',
+              nominalInterestRate: '',
+              penalty: '',
+              termsAccepted: false,
+              dateRelease: '',
+              interestRate: '',
+              voucherNo: '',
+              mop: '',
+              processor: '',
+              signatureDate: ''
+            });
+          } else {
+            alert('Application submitted but there was an issue sending the email. Please try again.');
+          }
         } else {
-          alert('There was an issue sending the email. Please try again.');
+          alert('Application submitted but there was an issue generating your PDF. Please try again.');
         }
       } else {
-        alert('There was an issue generating your PDF. Please try again.');
+        alert('There was an issue submitting your application. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -389,15 +411,7 @@ export default function LoanApplication() {
     }
   };
 
-  // Helper function to convert file to base64
-  const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = error => reject(error);
-    });
-  };
+
 
   return (
     <div className="min-h-screen bg-white py-8">

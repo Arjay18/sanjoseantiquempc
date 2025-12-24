@@ -9,11 +9,6 @@ import { Bars3Icon, XMarkIcon, ChevronDownIcon, ChevronRightIcon } from '@heroic
 export default function Navigation() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [onlineDropdownOpen, setOnlineDropdownOpen] = useState(false);
-  const [newsDropdownOpen, setNewsDropdownOpen] = useState(false);
-  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
-  const [branchesDropdownOpen, setBranchesDropdownOpen] = useState(false);
 
   // Mobile dropdown states
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
