@@ -167,23 +167,7 @@ export default function Navigation() {
                     (item.name === 'Product and Services' && dropdownOpen) ||
                     (item.name === 'Online Application' && onlineDropdownOpen) ||
                     (item.name === 'News' && newsDropdownOpen)) && (
-                    <div
-                      className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50"
-                      onMouseEnter={() => {
-                        if (item.name === 'About Us') setAboutDropdownOpen(true);
-                        else if (item.name === 'Product and Services') setDropdownOpen(true);
-                        else if (item.name === 'Online Application') setOnlineDropdownOpen(true);
-                        else if (item.name === 'News') setNewsDropdownOpen(true);
-                      }}
-                      onMouseLeave={() => {
-                        if (item.name === 'About Us') {
-                          setAboutDropdownOpen(false);
-                          setBranchesDropdownOpen(false);
-                        } else if (item.name === 'Product and Services') setDropdownOpen(false);
-                        else if (item.name === 'Online Application') setOnlineDropdownOpen(false);
-                        else if (item.name === 'News') setNewsDropdownOpen(false);
-                      }}
-                    >
+                    <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
                       <div className="py-2">
                         {item.dropdown.map((subItem) => (
                           subItem.dropdown ? (
