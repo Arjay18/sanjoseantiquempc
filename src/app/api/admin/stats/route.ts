@@ -114,8 +114,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(stats);
   } catch (error) {
     console.error('Error fetching admin stats:', error);
+    console.error('Error details:', error.message);
+    console.error('Stack:', error.stack);
     return NextResponse.json(
-      { error: 'Failed to fetch statistics' },
+      { error: 'Failed to fetch statistics', details: error.message },
       { status: 500 }
     );
   }

@@ -10,8 +10,12 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
+        console.log('Auth attempt:', { username: credentials?.username, hasPassword: !!credentials?.password });
+        console.log('Expected:', { username: process.env.ADMIN_USERNAME, hasPassword: !!process.env.ADMIN_PASSWORD });
+
         if (credentials?.username === process.env.ADMIN_USERNAME &&
             credentials?.password === process.env.ADMIN_PASSWORD) {
+          console.log('Authentication successful');
           return {
             id: "1",
             name: "Admin",
@@ -19,6 +23,7 @@ export const authOptions: NextAuthOptions = {
             role: "admin"
           };
         }
+        console.log('Authentication failed');
         return null;
       }
     })
