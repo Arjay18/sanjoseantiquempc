@@ -34,16 +34,13 @@ export async function GET(request: NextRequest) {
     // Calculate success rate
     const successRate = totalRegistrations > 0 ? Math.round((approvedRegistrations / totalRegistrations) * 100) : 0;
 
-    // Get recent news from JSON
-    const recentNews = newsPosts
-      .filter((post: any) => post.status === 'published')
-      .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      .slice(0, 2)
-      .map((post: any) => ({
-        id: post.id,
-        title: post.title,
-        createdAt: new Date(post.createdAt)
-      }));
+    // Get recent news from database
+    const recentNews = await prisma.newsPost.findMany({
+      where: { status: 'published' },
+      take: 2,
+      orderBy: { createdAt: 'desc' },
+      select: { id: true, title: true, createdAt: true }
+    });
 
     const recentStories = await prisma.successStory.findMany({
       take: 2,
