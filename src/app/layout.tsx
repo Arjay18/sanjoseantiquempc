@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     site: '@sjmpc'
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: 'google365aef687e380a54.html',
     yandex: 'your-yandex-verification-code',
     yahoo: 'your-yahoo-verification-code',
     other: {
