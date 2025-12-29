@@ -5,10 +5,8 @@ const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
   try {
-    // Read news from JSON file
-    const newsData = fs.readFileSync(NEWS_FILE_PATH, 'utf8');
-    const newsPosts = JSON.parse(newsData);
-    const totalNews = newsPosts.filter((post: any) => post.status === 'published').length;
+    // Get news count from database
+    const totalNews = await prisma.newsPost.count({ where: { status: 'published' } });
 
     // Get statistics from database
     const [
