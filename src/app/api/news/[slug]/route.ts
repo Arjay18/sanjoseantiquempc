@@ -6,10 +6,11 @@ const prisma = new PrismaClient();
 // GET single news post by slug
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = params;
+    const paramsData = await params;
+    const { slug } = paramsData;
 
     const newsPost = await prisma.newsPost.findUnique({
       where: { slug },

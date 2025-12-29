@@ -6,10 +6,5 @@
     "src/app/api/**/*.ts": {
       "maxDuration": 10
     }
-  },
-  "build": {
-    "env": {
-      "DATABASE_URL": "$DATABASE_URL"
-    }
   }
 }

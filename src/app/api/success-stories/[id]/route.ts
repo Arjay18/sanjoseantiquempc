@@ -9,6 +9,7 @@ export async function GET(
 ) {
   try {
     const paramsData = await params;
+    const { id } = paramsData;
     const successStory = await prisma.successStory.findUnique({
       where: { id: paramsData.id },
     });
