@@ -1,8 +1,7 @@
 // prisma/schema.prisma
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://myapp_db_puak_user:CnmXFiRbnqpSnR0bzj31Dd7ak8pDV4H7@dpg-d58t693uibrs73aum8t0-a.virginia-postgres.render.com/myapp_db_puak"
-}
+  url      = env("DATABASE_URL")
 
 generator client {
   provider = "prisma-client-js"
