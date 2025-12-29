@@ -10,29 +10,43 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        console.log('Auth attempt:', { username: credentials?.username, hasPassword: !!credentials?.password });
-        console.log('Expected:', { username: process.env.ADMIN_USERNAME, hasPassword: !!process.env.ADMIN_PASSWORD });
-
         if (credentials?.username === process.env.ADMIN_USERNAME &&
             credentials?.password === process.env.ADMIN_PASSWORD) {
-          console.log('Authentication successful');
           return {
             id: "1",
             name: "Admin",
-            email: "admin@example.com",
+            email: "admin@sjmpc.com",
             role: "admin"
           };
         }
-        console.log('Authentication failed');
         return null;
       }
     })
   ],
   session: {
-    strategy: "jwt"
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60, // 24 hours
+  },
+  jwt: {
+    maxAge: 24 * 60 * 60, // 24 hours
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/admin/login"
-  }
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user?.role) {
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.role && session.user) {
+        session.user.role = token.role as string;
+      }
+      return session;
+    }
+  },
+  debug: process.env.NODE_ENV === 'development',
 };
