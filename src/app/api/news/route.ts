@@ -67,7 +67,7 @@ export async function GET(request: Request) {
     const search = url.searchParams.get("search") || "";
     const category = url.searchParams.get("category") || "";
 
-    let where: any = {
+    const where: any = {
       status: "published",
     };
 
