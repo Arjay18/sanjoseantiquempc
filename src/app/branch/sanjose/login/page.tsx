@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import type { Session } from 'next-auth';
 
 export default function SanJoseBranchLogin() {
   const [username, setUsername] = useState('');
