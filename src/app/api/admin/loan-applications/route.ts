@@ -18,12 +18,10 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = (page - 1) * limit;
 
-    let where: any = status && status !== 'all' ? { status } : {};
-
-    // Filter by branch for branch users
-    if (session.user.role === 'branch') {
-      where.branch = session.user.branch;
-    }
+    const where: any = {
+      ...(status && status !== 'all' && { status }),
+      ...(session.user.role === 'branch' && { branch: session.user.branch }),
+    };
 
     const [applications, total] = await Promise.all([
       prisma.loanApplication.findMany({
