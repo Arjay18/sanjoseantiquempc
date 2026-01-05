@@ -29,7 +29,7 @@ export default function SanJoseBranchLogin() {
       } else {
         // Check if user is authorized for this branch
         const session = await getSession();
-        if (session?.user?.role === 'branch' && session?.user?.branch === 'sanjose') {
+        if (session?.user?.role === 'branch' && (session?.user as any)?.branch === 'sanjose') {
           router.push('/branch/sanjose');
         } else {
           setError('Unauthorized access');
