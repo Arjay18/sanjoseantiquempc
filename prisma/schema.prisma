@@ -197,3 +197,15 @@ model ContactInquiry {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  name      String?
+  email     String?
+  branch    String
+  role      String   // "admin", "branch"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
