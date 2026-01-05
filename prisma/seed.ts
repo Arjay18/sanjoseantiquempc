@@ -11,6 +11,36 @@ async function main() {
   await prisma.memberRegistration.deleteMany();
   await prisma.statistic.deleteMany();
 
+  // Seed branch users
+  await prisma.user.createMany({
+    data: [
+      {
+        username: 'miagao_admin',
+        password: '$2b$10$hashedpassword1', // In production, use proper hashing
+        branch: 'miagao',
+        role: 'branch'
+      },
+      {
+        username: 'oton_admin',
+        password: '$2b$10$hashedpassword2',
+        branch: 'oton',
+        role: 'branch'
+      },
+      {
+        username: 'guimaras_admin',
+        password: '$2b$10$hashedpassword3',
+        branch: 'guimaras',
+        role: 'branch'
+      },
+      {
+        username: 'sanjose_admin',
+        password: '$2b$10$hashedpassword4',
+        branch: 'sanjose',
+        role: 'branch'
+      }
+    ]
+  });
+
   // Then insert seed data
   await prisma.newsPost.createMany({
     data: [
