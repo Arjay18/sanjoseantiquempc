@@ -1,5 +1,9 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
+
+const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,6 +21,7 @@ export const authOptions: NextAuthOptions = {
         const adminUsername = process.env.ADMIN_USERNAME;
         const adminPassword = process.env.ADMIN_PASSWORD;
 
+        // Check admin credentials
         if (
           credentials.username === adminUsername &&
           credentials.password === adminPassword
@@ -27,6 +32,25 @@ export const authOptions: NextAuthOptions = {
             email: "admin@sjmpc.com",
             role: "admin"
           };
+        }
+
+        // Check branch user credentials
+        try {
+          const user = await prisma.user.findUnique({
+            where: { username: credentials.username }
+          });
+
+          if (user && await bcrypt.compare(credentials.password, user.password)) {
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              role: "branch",
+              branch: user.branch
+            };
+          }
+        } catch (error) {
+          console.error("Database error during authentication:", error);
         }
 
         return null;

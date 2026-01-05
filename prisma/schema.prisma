@@ -81,6 +81,7 @@ model LoanApplication {
   contactNo   String
   email       String?
   address     String
+  branch      String   @default("sanjose") // "sanjose", "miagao", "oton", "guimaras"
   loanType    String
   idType      String
   idFile      String?
