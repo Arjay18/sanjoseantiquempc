@@ -28,7 +28,7 @@ export default function MiagaoBranchLogin() {
       } else {
         // Check if user is authorized for this branch
         const session = await getSession();
-        if (session?.user?.role === 'branch' && session?.user?.branch === 'miagao') {
+        if (session?.user?.role === 'branch' && (session?.user as any)?.branch === 'miagao') {
           router.push('/branch/miagao');
         } else {
           setError('Unauthorized access');
