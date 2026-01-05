@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
 
     const where: any = {
       ...(status && status !== 'all' && { status }),
-      ...(session.user.role === 'branch' && { branch: session.user.branch }),
+      ...(session.user.role === 'branch' && { branch: (session.user as any).branch }),
     };
 
     const [applications, total] = await Promise.all([
