@@ -83,7 +83,7 @@ export default function MiagaoBranchDashboard() {
     );
   }
 
-  if (!session || session.user?.role !== 'branch' || session.user?.branch !== 'miagao') {
+  if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'miagao') {
     return null;
   }
 

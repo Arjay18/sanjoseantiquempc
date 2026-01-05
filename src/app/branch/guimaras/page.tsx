@@ -33,7 +33,7 @@ export default function GuimarasBranchDashboard() {
       return;
     }
 
-    if (session.user?.role !== 'branch' || session.user?.branch !== 'guimaras') {
+    if (session.user?.role !== 'branch' || (session.user as any)?.branch !== 'guimaras') {
       router.push('/branch/guimaras/login');
       return;
     }
