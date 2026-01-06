@@ -83,7 +83,7 @@ export default function SanJoseBranchDashboard() {
     );
   }
 
-  if (!session || session.user?.role !== 'branch' || session.user?.branch !== 'sanjose') {
+  if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'sanjose') {
     return null;
   }
 
