@@ -102,7 +102,7 @@ export default function SanJoseBranchDashboard() {
               <p className="text-sm text-gray-600">Welcome back, {session.user?.name}</p>
             </div>
             <button
-              onClick={() => router.push('/api/auth/signout')}
+              onClick={() => signOut({ callbackUrl: '/branch/sanjose/login' })}
               className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
             >
               Sign Out
