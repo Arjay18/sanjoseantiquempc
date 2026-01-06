@@ -10,6 +10,7 @@ async function main() {
   await prisma.pMESSession.deleteMany();
   await prisma.memberRegistration.deleteMany();
   await prisma.statistic.deleteMany();
+  await prisma.user.deleteMany();
 
   // Seed branch users
   await prisma.user.createMany({
