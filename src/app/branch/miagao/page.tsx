@@ -33,7 +33,7 @@ export default function MiagaoBranchDashboard() {
       return;
     }
 
-    if (session.user?.role !== 'branch' || session.user?.branch !== 'miagao') {
+    if (session.user?.role !== 'branch' || (session.user as any)?.branch !== 'miagao') {
       router.push('/branch/miagao/login');
       return;
     }

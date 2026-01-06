@@ -83,7 +83,7 @@ export default function OtonBranchDashboard() {
     );
   }
 
-  if (!session || session.user?.role !== 'branch' || session.user?.branch !== 'oton') {
+  if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'oton') {
     return null;
   }
 

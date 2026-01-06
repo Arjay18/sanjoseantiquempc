@@ -83,7 +83,7 @@ export default function GuimarasBranchDashboard() {
     );
   }
 
-  if (!session || session.user?.role !== 'branch' || session.user?.branch !== 'guimaras') {
+  if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'guimaras') {
     return null;
   }
 
