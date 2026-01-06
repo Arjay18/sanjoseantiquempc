@@ -33,7 +33,7 @@ export default function OtonBranchDashboard() {
       return;
     }
 
-    if (session.user?.role !== 'branch' || session.user?.branch !== 'oton') {
+    if (session.user?.role !== 'branch' || (session.user as any)?.branch !== 'oton') {
       router.push('/branch/oton/login');
       return;
     }
