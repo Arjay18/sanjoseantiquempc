@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { signIn, getSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 export default function MiagaoBranchLogin() {
@@ -26,14 +26,7 @@ export default function MiagaoBranchLogin() {
       if (result?.error) {
         setError('Invalid credentials');
       } else {
-        // Check if user is authorized for this branch
-        const session = await getSession();
-        if (session?.user?.role === 'branch' && (session?.user as any)?.branch === 'miagao') {
-          router.push('/branch/miagao');
-        } else {
-          setError('Unauthorized access');
-          await signIn('credentials', { username: '', password: '', redirect: false }); // Sign out
-        }
+        router.push('/branch/miagao');
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
@@ -97,19 +90,9 @@ export default function MiagaoBranchLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Signing in...' : 'Sign in'}
-            </button>
-          </div>
-
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => router.push('/admin/login')}
-              className="text-sm text-blue-600 hover:text-blue-500"
-            >
-              Admin Login
             </button>
           </div>
         </form>
