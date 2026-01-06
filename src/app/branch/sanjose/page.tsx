@@ -33,7 +33,7 @@ export default function SanJoseBranchDashboard() {
       return;
     }
 
-    if (session.user?.role !== 'branch' || session.user?.branch !== 'sanjose') {
+    if (session.user?.role !== 'branch' || (session.user as any)?.branch !== 'sanjose') {
       router.push('/branch/sanjose/login');
       return;
     }
