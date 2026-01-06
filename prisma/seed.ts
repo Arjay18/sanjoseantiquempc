@@ -16,25 +16,25 @@ async function main() {
     data: [
       {
         username: 'miagao_admin',
-        password: '$2b$10$hashedpassword1', // In production, use proper hashing
+        password: '$2b$10$gsTPwPwIE76QAmVc.MEKq.8X0UVC428ixjYnCgv3Z6DsJ2Me3X0xS',
         branch: 'miagao',
         role: 'branch'
       },
       {
         username: 'oton_admin',
-        password: '$2b$10$hashedpassword2',
+        password: '$2b$10$0tFikMSW4YHfZEugRB1Qled50RoeQUhzIIO2lr79WeX9aj6p7RzCu',
         branch: 'oton',
         role: 'branch'
       },
       {
         username: 'guimaras_admin',
-        password: '$2b$10$hashedpassword3',
+        password: '$2b$10$tbkC2td1c8VjNY1xmm4hnOb95vbNabDl1RsHpNkbfrhuiw4NH6Z1K',
         branch: 'guimaras',
         role: 'branch'
       },
       {
         username: 'sanjose_admin',
-        password: '$2b$10$hashedpassword4',
+        password: '$2b$10$o0UvDwjLhCtdXyvB38icYesw7pQCtg97KyfoG2YEA4oefZg4N8tK6',
         branch: 'sanjose',
         role: 'branch'
       }
