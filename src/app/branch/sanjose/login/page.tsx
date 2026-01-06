@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { signIn, getSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import type { Session } from 'next-auth';
 
 export default function SanJoseBranchLogin() {
   const [username, setUsername] = useState('');
@@ -27,14 +26,7 @@ export default function SanJoseBranchLogin() {
       if (result?.error) {
         setError('Invalid credentials');
       } else {
-        // Check if user is authorized for this branch
-        const session = await getSession();
-        if (session?.user?.role === 'branch' && (session?.user as any)?.branch === 'sanjose') {
-          router.push('/branch/sanjose');
-        } else {
-          setError('Unauthorized access');
-          await signIn('credentials', { username: '', password: '', redirect: false }); // Sign out
-        }
+        router.push('/branch/sanjose');
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
