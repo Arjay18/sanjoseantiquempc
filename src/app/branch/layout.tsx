@@ -21,3 +21,6 @@ export default function BranchLayout({
     </div>
   );
 }
+
+// Force dynamic rendering to prevent caching
+export const dynamic = 'force-dynamic';
