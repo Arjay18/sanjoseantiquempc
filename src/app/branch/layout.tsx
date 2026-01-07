@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
@@ -18,7 +17,6 @@ export default function BranchLayout({
         <main className="flex-grow">
           {children}
         </main>
-        <Footer />
       </AuthProvider>
     </div>
   );
