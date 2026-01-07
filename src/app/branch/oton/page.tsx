@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -24,21 +24,24 @@ export default function OtonBranchDashboard() {
   const [applications, setApplications] = useState<LoanApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Strict authentication check - redirect immediately if not authenticated
   useEffect(() => {
     if (status === 'loading') return;
 
-    if (!session) {
-      router.push('/branch/oton/login');
+    // Check authentication immediately
+    if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'oton') {
+      console.log('Not authenticated, redirecting...');
+      setIsAuthenticated(false);
+      // Use replace to prevent back button from returning to this page
+      router.replace('/branch/oton/login');
       return;
     }
 
-    if (session.user?.role !== 'branch' || (session.user as any)?.branch !== 'oton') {
-      router.push('/branch/oton/login');
-      return;
-    }
+    setIsAuthenticated(true);
 
-    // Fetch loan applications for this branch
+    // Fetch data only if authenticated
     fetch('/api/admin/loan-applications')
       .then(res => res.json())
       .then(data => {
@@ -51,6 +54,72 @@ export default function OtonBranchDashboard() {
         setLoading(false);
       });
   }, [session, status, router]);
+
+  // Continuous session monitoring - check every 3 seconds
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const checkSession = () => {
+      if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'oton') {
+        console.log('Session check failed, redirecting...');
+        setIsAuthenticated(false);
+        router.replace('/branch/oton/login');
+      }
+    };
+
+    const interval = setInterval(checkSession, 3000);
+    return () => clearInterval(interval);
+  }, [session, router, isAuthenticated]);
+
+  // Handle page visibility changes (tab switching, back button)
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        // Re-check authentication when page becomes visible
+        if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'oton') {
+          console.log('Visibility check failed, redirecting...');
+          setIsAuthenticated(false);
+          router.replace('/branch/oton/login');
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [session, router, isAuthenticated]);
+
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const handlePopState = (event: PopStateEvent) => {
+      // Always redirect to login if trying to navigate back
+      console.log('Back button detected, redirecting...');
+      router.replace('/branch/oton/login');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [router, isAuthenticated]);
+
+  // Prevent caching
+  useEffect(() => {
+    // Clear browser history to prevent back button
+    if (typeof window !== 'undefined' && isAuthenticated) {
+      window.history.replaceState(null, '', window.location.href);
+    }
+  }, [isAuthenticated]);
+
+  const handleSignOut = async () => {
+    // Clear all storage before signing out
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Sign out and redirect
+    await signOut({ callbackUrl: '/admin/login' });
+  };
 
   const handleStatusUpdate = async (id: string, status: string) => {
     try {
@@ -75,16 +144,27 @@ export default function OtonBranchDashboard() {
     }
   };
 
-  if (status === 'loading' || loading) {
+  // CRITICAL: Don't render ANY content if not authenticated
+  if (status === 'loading' || !isAuthenticated) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Verifying authentication...</p>
+        </div>
       </div>
     );
   }
 
-  if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'oton') {
-    return null;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading dashboard...</p>
+        </div>
+      </div>
+    );
   }
 
   const pendingApplications = applications.filter(app => app.status === 'pending');
@@ -99,10 +179,10 @@ export default function OtonBranchDashboard() {
           <div className="flex justify-between items-center py-6">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Oton Branch Dashboard</h1>
-              <p className="text-sm text-gray-600">Welcome back, {session.user?.name}</p>
+              <p className="text-sm text-gray-600">Welcome back, {session?.user?.name || 'User'}</p>
             </div>
             <button
-              onClick={() => router.push('/api/auth/signout')}
+              onClick={handleSignOut}
               className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
             >
               Sign Out
