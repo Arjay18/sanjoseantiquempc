@@ -10,11 +10,6 @@ export default function Navigation() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Hide navigation on branch pages
-  if (pathname?.startsWith('/branch/')) {
-    return null;
-  }
-
   // Desktop dropdown states
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -56,6 +51,11 @@ export default function Navigation() {
       document.body.style.overflow = 'unset';
     };
   }, [isMenuOpen]);
+
+  // Hide navigation on branch pages
+  if (pathname?.startsWith('/branch/')) {
+    return null;
+  }
 
   const menuItems = [
     { name: 'Home', href: '/' },
