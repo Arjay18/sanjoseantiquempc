@@ -52,6 +52,32 @@ export default function MiagaoBranchDashboard() {
       });
   }, [session, status, router]);
 
+  // Check session on page visibility change (when user switches tabs or uses back button)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        // Re-check session when page becomes visible
+        if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'miagao') {
+          router.push('/branch/miagao/login');
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [session, router]);
+
+  // Periodic session check every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!session || session.user?.role !== 'branch' || (session.user as any)?.branch !== 'miagao') {
+        router.push('/branch/miagao/login');
+      }
+    }, 30000); // Check every 30 seconds
+
+    return () => clearInterval(interval);
+  }, [session, router]);
+
   const handleStatusUpdate = async (id: string, status: string) => {
     try {
       const response = await fetch(`/api/admin/loan-applications/${id}`, {
