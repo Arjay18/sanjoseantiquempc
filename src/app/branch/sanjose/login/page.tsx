@@ -26,7 +26,8 @@ export default function SanJoseBranchLogin() {
       if (result?.error) {
         setError('Invalid credentials');
       } else {
-        router.push('/branch/sanjose');
+        // Force a page reload to ensure session is updated
+        window.location.href = '/branch/sanjose';
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
