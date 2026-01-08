@@ -278,6 +278,9 @@ export default function LoanApplication() {
         processedFormData.idFile = base64;
       }
 
+      // Ensure branch is present and use a sensible default
+      processedFormData.branch = (processedFormData.branch as string) || formData.branch || 'sanjose';
+
       // Submit loan application to database first
       const submitResponse = await fetch('/api/loan-applications', {
         method: 'POST',
@@ -302,8 +305,10 @@ export default function LoanApplication() {
 
           const emailFormData = new FormData();
           emailFormData.append('pdf', pdfBlob, 'loan-application.pdf');
-          emailFormData.append('email', formData.email);
-          emailFormData.append('name', formData.name);
+          emailFormData.append('email', (formData.email as string) || '');
+          emailFormData.append('name', (formData.name as string) || '');
+          // include branch in email metadata
+          emailFormData.append('branch', (processedFormData.branch as string) || 'sanjose');
 
           const emailResponse = await fetch('/api/send-loan-pdf', {
             method: 'POST',
