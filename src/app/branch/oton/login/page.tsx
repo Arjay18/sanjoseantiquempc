@@ -1,7 +1,7 @@
 'use client';
 
-import BranchLogin from '@/components/BranchLogin';
+import BranchLogin from '@/components/BranchLoginNew';
 
-export default function OtonBranchLogin() {
+export default function Page() {
   return <BranchLogin branchName="Oton" branchSlug="oton" />;
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import BranchLogin from '@/components/BranchLogin';
+import BranchLogin from '@/components/BranchLoginNew';
 
-export default function SanJoseBranchLogin() {
+export default function Page() {
   return <BranchLogin branchName="San Jose" branchSlug="sanjose" />;
 }
