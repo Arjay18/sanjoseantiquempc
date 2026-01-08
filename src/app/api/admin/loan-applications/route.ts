@@ -18,9 +18,14 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = (page - 1) * limit;
 
+    // Allow an admin to view all branches; branch-role users see only their branch.
+    // Admins can optionally filter by `branch` query param when needed.
+    const branchParam = searchParams.get('branch');
+
     const where: any = {
       ...(status && status !== 'all' && { status }),
       ...(session.user.role === 'branch' && { branch: (session.user as any).branch }),
+      ...(branchParam && session.user.role !== 'branch' && { branch: branchParam }),
     };
 
     const [applications, total] = await Promise.all([
