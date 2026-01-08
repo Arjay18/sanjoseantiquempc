@@ -52,7 +52,7 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
     <div className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-slate-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div className="hidden md:flex flex-col items-center justify-center p-8 bg-white rounded-2xl shadow-lg">
-          <img src="/window.svg" alt="SJMPC" className="w-40 h-40 object-contain mb-6" />
+          <img src="/portfolio/Logo.jpg" alt="SJMPC logo" className="w-36 h-36 object-contain mb-6 rounded-full" />
           <h3 className="text-2xl font-semibold text-slate-800">Welcome to {branchName} Branch</h3>
           <p className="mt-2 text-center text-sm text-slate-500 max-w-xs">Secure access for branch staff. Use your branch credentials to continue.</p>
         </div>
