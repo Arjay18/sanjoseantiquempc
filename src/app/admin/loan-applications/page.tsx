@@ -252,6 +252,7 @@ export default function LoanApplicationsPage() {
                       <div className="flex space-x-2">
                         <Link
                           href={`/admin/loan-applications/${application.id}`}
+                          prefetch={false}
                           className="text-blue-600 hover:text-blue-900"
                         >
                           View
