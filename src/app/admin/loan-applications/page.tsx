@@ -43,7 +43,9 @@ export default function LoanApplicationsPage() {
 
   const fetchApplications = async () => {
     try {
-      const response = await fetch(`/api/admin/loan-applications?status=${filter}&page=${currentPage}&limit=10`);
+      const response = await fetch(`/api/admin/loan-applications?status=${filter}&page=${currentPage}&limit=10`, {
+        credentials: 'same-origin',
+      });
       if (response.ok) {
         const data = await response.json();
         setApplications(data.applications || []);
@@ -66,6 +68,7 @@ export default function LoanApplicationsPage() {
     try {
       const response = await fetch(`/api/admin/loan-applications/${id}`, {
         method: 'PUT',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -88,6 +91,7 @@ export default function LoanApplicationsPage() {
     try {
       const response = await fetch(`/api/admin/loan-applications/${id}`, {
         method: 'DELETE',
+        credentials: 'same-origin',
       });
 
       if (response.ok) {

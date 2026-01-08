@@ -106,7 +106,7 @@ export default function LoanApplicationDetailPage() {
 
   const fetchApplication = async () => {
     try {
-      const response = await fetch(`/api/admin/loan-applications/${params.id}`);
+      const response = await fetch(`/api/admin/loan-applications/${params.id}`, { credentials: 'same-origin' });
       if (response.ok) {
         const data = await response.json();
         setApplication(data);
@@ -128,6 +128,7 @@ export default function LoanApplicationDetailPage() {
     try {
       const response = await fetch(`/api/admin/loan-applications/${application.id}`, {
         method: 'PUT',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
         },
