@@ -10,6 +10,7 @@ export default function LoanApplication() {
     pbNo: '',
     contactNo: '',
     email: '',
+    branch: '',
     address: '',
     loanType: '',
     loanAmount: '',
@@ -319,6 +320,7 @@ export default function LoanApplication() {
               pbNo: '',
               contactNo: '',
               email: '',
+              branch: '',
               address: '',
               loanType: '',
               loanAmount: '',
@@ -500,6 +502,23 @@ export default function LoanApplication() {
                     placeholder="Enter your email address"
                     suppressHydrationWarning={true}
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Apply at Branch:</label>
+                  <select
+                    name="branch"
+                    value={formData.branch}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
+                  >
+                    <option value="">Select branch</option>
+                    <option value="sanjose">San Jose (Main Office)</option>
+                    <option value="miagao">Miagao</option>
+                    <option value="oton">Oton</option>
+                    <option value="guimaras">Guimaras</option>
+                  </select>
                 </div>
 
                 <div>
