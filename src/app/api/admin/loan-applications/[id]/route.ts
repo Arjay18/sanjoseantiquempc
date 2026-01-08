@@ -8,7 +8,16 @@ const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest, ctx: any) {
   try {
+    // Debug: log incoming request cookies and params to help diagnose auth issues
+    try {
+      console.debug('[admin/loan-applications/[id]] GET cookies:', request.headers.get('cookie')?.slice(0, 100));
+      console.debug('[admin/loan-applications/[id]] GET params:', ctx?.params);
+    } catch (e) {
+      console.debug('[admin/loan-applications/[id]] GET debug failed', e);
+    }
+
     const session = await getServerSession(authOptions);
+    console.debug('[admin/loan-applications/[id]] GET session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : null);
     if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { id } = ctx.params as { id: string };
@@ -29,7 +38,9 @@ export async function GET(request: NextRequest, ctx: any) {
 
 export async function PUT(request: NextRequest, ctx: any) {
   try {
+    console.debug('[admin/loan-applications/[id]] PUT params:', ctx?.params);
     const session = await getServerSession(authOptions);
+    console.debug('[admin/loan-applications/[id]] PUT session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : null);
     if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { id } = ctx.params as { id: string };
@@ -79,7 +90,9 @@ export async function PUT(request: NextRequest, ctx: any) {
 
 export async function DELETE(request: NextRequest, ctx: any) {
   try {
+    console.debug('[admin/loan-applications/[id]] DELETE params:', ctx?.params);
     const session = await getServerSession(authOptions);
+    console.debug('[admin/loan-applications/[id]] DELETE session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : null);
     if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { id } = ctx.params as { id: string };
