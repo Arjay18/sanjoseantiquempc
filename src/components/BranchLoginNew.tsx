@@ -21,7 +21,6 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
     e.preventDefault();
     setLoading(true);
     setError("");
-
     try {
       const result = await signIn("credentials", {
         username,
@@ -29,22 +28,18 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
         redirect: false,
       });
 
-      if (result?.error) {
+      if (result?.ok) {
+        // Trigger a full redirect so NextAuth sets cookies server-side
+        await signIn("credentials", {
+          username,
+          password,
+          redirect: true,
+          callbackUrl: `/branch/${branchSlug}`,
+        });
+      } else if (result?.error) {
         setError("Invalid credentials");
       } else {
-        if (checkAuthorization) {
-          try {
-            const ok = await checkAuthorization((result as any)?.session);
-            if (!ok) {
-              setError("Unauthorized access");
-              return;
-            }
-          } catch (e) {
-            /* ignore */
-          }
-        }
-
-        router.push(`/branch/${branchSlug}`);
+        setError("Invalid credentials");
       }
     } catch (err) {
       setError("An error occurred. Please try again.");
