@@ -106,7 +106,8 @@ export default function LoanApplicationDetailPage() {
 
   const fetchApplication = async () => {
     try {
-      const response = await fetch(`/api/admin/loan-applications/${params.id}`, { credentials: 'same-origin' });
+      // Request debug info from the API to surface session data for troubleshooting
+      const response = await fetch(`/api/admin/loan-applications/${params.id}?debug=1`, { credentials: 'same-origin' });
       if (response.ok) {
         const data = await response.json();
         setApplication(data);

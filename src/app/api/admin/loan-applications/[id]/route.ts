@@ -21,12 +21,18 @@ export async function GET(request: NextRequest, ctx: any) {
     if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { id } = ctx.params as { id: string };
+    const url = new URL(request.url);
+    const debugMode = url.searchParams.get('debug') === '1';
 
     const application = await prisma.loanApplication.findUnique({ where: { id } });
     if (!application) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
     if (session.user.role === 'branch' && (session.user as any).branch !== application.branch) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
+    if (debugMode) {
+      return NextResponse.json({ application, session });
     }
 
     return NextResponse.json(application);
