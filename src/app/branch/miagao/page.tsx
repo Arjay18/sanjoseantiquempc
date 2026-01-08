@@ -179,7 +179,7 @@ export default function MiagaoBranchDashboard() {
           <div className="flex justify-between items-center py-6">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Miagao Branch Dashboard</h1>
-              <p className="text-sm text-gray-600">Welcome back, {session.user?.name}</p>
+              <p className="text-sm text-gray-600">Welcome back, {session?.user?.name ?? ''}</p>
             </div>
             <button
               onClick={handleSignOut}

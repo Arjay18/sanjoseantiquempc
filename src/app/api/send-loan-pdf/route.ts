@@ -4,8 +4,6 @@ import fs from 'fs';
 import path from 'path';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -13,6 +11,11 @@ export async function POST(request: NextRequest) {
 
     if (!email) {
       return NextResponse.json({ error: 'Email address is required' }, { status: 400 });
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      console.error('Missing RESEND_API_KEY');
+      return NextResponse.json({ error: 'Missing RESEND_API_KEY' }, { status: 500 });
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY);
