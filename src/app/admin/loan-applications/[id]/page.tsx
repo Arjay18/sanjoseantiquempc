@@ -112,6 +112,15 @@ export default function LoanApplicationDetailPage() {
         setApplication(data);
         setNotes(data.notes || '');
       } else {
+        let msg = '';
+        try {
+          const body = await response.json();
+          msg = body?.error || JSON.stringify(body);
+        } catch (e) {
+          msg = await response.text().catch(() => 'No response body');
+        }
+        console.error(`Failed fetching application ${params.id}:`, response.status, msg);
+        alert(`Failed to load application (status ${response.status}): ${msg}`);
         router.push('/admin/loan-applications');
       }
       setLoading(false);
