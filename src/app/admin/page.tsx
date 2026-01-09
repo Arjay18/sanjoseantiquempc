@@ -16,6 +16,12 @@ interface Stats {
   pendingLoanApplications: number;
   approvedLoanApplications: number;
   successRate: number;
+  branchStats?: {
+    sanjose: number;
+    miagao: number;
+    oton: number;
+    guimaras: number;
+  };
   recentActivity: Array<{
     id: string;
     type: 'news' | 'story' | 'user' | 'application';
@@ -252,6 +258,53 @@ export default function AdminDashboard() {
           </div>
         ))}
       </div>
+
+      {/* Branch Statistics */}
+      {stats?.branchStats && (
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900">Loan Applications by Branch</h2>
+              <p className="text-sm text-gray-600">Distribution of loan applications across all branches</p>
+            </div>
+            <Link
+              href="/admin/loan-applications"
+              className="text-sm text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+            >
+              View all applications
+              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { name: 'San Jose Main Office', value: stats.branchStats.sanjose, color: 'bg-blue-500', branch: 'sanjose' },
+              { name: 'Miagao Branch', value: stats.branchStats.miagao, color: 'bg-green-500', branch: 'miagao' },
+              { name: 'Oton Branch', value: stats.branchStats.oton, color: 'bg-purple-500', branch: 'oton' },
+              { name: 'Guimaras Branch', value: stats.branchStats.guimaras, color: 'bg-orange-500', branch: 'guimaras' }
+            ].map((branch) => (
+              <Link
+                key={branch.branch}
+                href={`/admin/loan-applications?branch=${branch.branch}`}
+                className="block p-4 border border-gray-200 rounded-lg hover:shadow-md transition-all hover:border-gray-300"
+              >
+                <div className="flex items-center">
+                  <div className={`p-2 rounded-lg ${branch.color}`}>
+                    <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  </div>
+                  <div className="ml-3 flex-1">
+                    <p className="text-xs font-medium text-gray-600">{branch.name}</p>
+                    <p className="text-2xl font-bold text-gray-900">{branch.value}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Quick Actions */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">

@@ -14,6 +14,7 @@ interface LoanApplication {
   loanAmount: number;
   term: number;
   purpose: string;
+  branch: string;
   status: 'pending' | 'approved' | 'rejected';
   createdAt: string;
   reviewedBy?: string;
@@ -27,6 +28,7 @@ export default function LoanApplicationsPage() {
   const [applications, setApplications] = useState<LoanApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
+  const [branchFilter, setBranchFilter] = useState<'all' | 'sanjose' | 'miagao' | 'oton' | 'guimaras'>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -39,11 +41,19 @@ export default function LoanApplicationsPage() {
     }
 
     fetchApplications();
-  }, [session, status, filter, currentPage]);
+  }, [session, status, filter, branchFilter, currentPage]);
 
   const fetchApplications = async () => {
     try {
-      const response = await fetch(`/api/admin/loan-applications?status=${filter}&page=${currentPage}&limit=10`, {
+      const queryParams = new URLSearchParams({
+        status: filter,
+        page: currentPage.toString(),
+        limit: '10',
+      });
+      if (branchFilter !== 'all') {
+        queryParams.append('branch', branchFilter);
+      }
+      const response = await fetch(`/api/admin/loan-applications?${queryParams.toString()}`, {
         credentials: 'same-origin',
       });
       if (response.ok) {
@@ -155,7 +165,37 @@ export default function LoanApplicationsPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 space-y-4">
+        {/* Branch Filter */}
+        <div className="flex items-center space-x-4">
+          <span className="text-sm font-medium text-gray-700">Filter by branch:</span>
+          <div className="flex space-x-2 flex-wrap">
+            {[
+              { value: 'all', label: 'All Branches' },
+              { value: 'sanjose', label: 'San Jose Main Office' },
+              { value: 'miagao', label: 'Miagao Branch' },
+              { value: 'oton', label: 'Oton Branch' },
+              { value: 'guimaras', label: 'Guimaras Branch' },
+            ].map((option) => (
+              <button
+                key={option.value}
+                onClick={() => {
+                  setBranchFilter(option.value as 'all' | 'sanjose' | 'miagao' | 'oton' | 'guimaras');
+                  setCurrentPage(1);
+                }}
+                className={`px-3 py-1 text-sm rounded-full ${
+                  branchFilter === option.value
+                    ? 'bg-green-100 text-green-800 border border-green-300'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Status Filter */}
         <div className="flex items-center space-x-4">
           <span className="text-sm font-medium text-gray-700">Filter by status:</span>
           <div className="flex space-x-2">
@@ -205,6 +245,9 @@ export default function LoanApplicationsPage() {
                     Applicant
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Branch
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Loan Details
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -227,6 +270,14 @@ export default function LoanApplicationsPage() {
                         <div className="text-sm text-gray-500">PB#: {application.pbNo}</div>
                         <div className="text-sm text-gray-500">{application.contactNo}</div>
                       </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                        {application.branch === 'sanjose' ? 'San Jose' : 
+                         application.branch === 'miagao' ? 'Miagao' :
+                         application.branch === 'oton' ? 'Oton' :
+                         application.branch === 'guimaras' ? 'Guimaras' : application.branch}
+                      </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>

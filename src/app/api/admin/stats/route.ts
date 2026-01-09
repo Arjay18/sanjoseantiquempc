@@ -17,6 +17,10 @@ export async function GET(request: NextRequest) {
       totalLoanApplications,
       pendingLoanApplications,
       approvedLoanApplications,
+      sanjoseLoanApplications,
+      miagaoLoanApplications,
+      otonLoanApplications,
+      guimarasLoanApplications,
     ] = await Promise.all([
       prisma.successStory.count({ where: { status: 'published' } }),
       prisma.memberRegistration.count(),
@@ -27,6 +31,10 @@ export async function GET(request: NextRequest) {
       prisma.loanApplication.count(),
       prisma.loanApplication.count({ where: { status: 'pending' } }),
       prisma.loanApplication.count({ where: { status: 'approved' } }),
+      prisma.loanApplication.count({ where: { branch: 'sanjose' } }),
+      prisma.loanApplication.count({ where: { branch: 'miagao' } }),
+      prisma.loanApplication.count({ where: { branch: 'oton' } }),
+      prisma.loanApplication.count({ where: { branch: 'guimaras' } }),
     ]);
 
     // Calculate success rate
@@ -106,6 +114,12 @@ export async function GET(request: NextRequest) {
       pendingLoanApplications,
       approvedLoanApplications,
       successRate,
+      branchStats: {
+        sanjose: sanjoseLoanApplications,
+        miagao: miagaoLoanApplications,
+        oton: otonLoanApplications,
+        guimaras: guimarasLoanApplications,
+      },
       recentActivity
     };
 
