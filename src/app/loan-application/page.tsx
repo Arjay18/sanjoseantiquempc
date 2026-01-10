@@ -180,69 +180,6 @@ export default function LoanApplication() {
 
 
 
-  const handleDownloadApplication = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch('/api/fill-pdf', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ formData }),
-      });
-
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'filled-loan-application.pdf';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      } else {
-        alert('Failed to generate PDF. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handlePreviewApplication = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch('/api/preview-pdf', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ formData }),
-      });
-
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        window.open(url, '_blank');
-        window.URL.revokeObjectURL(url);
-      } else {
-        alert('Failed to generate PDF preview. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const handleSubmitApplication = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -268,6 +205,12 @@ export default function LoanApplication() {
       return;
     }
 
+    // Validate branch selection
+    if (!formData.branch) {
+      alert('Please select a branch.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -278,10 +221,39 @@ export default function LoanApplication() {
         processedFormData.idFile = base64;
       }
 
-      // Ensure branch is present and use a sensible default
-      processedFormData.branch = (processedFormData.branch as string) || formData.branch || 'sanjose';
+      // Ensure branch is present
+      processedFormData.branch = formData.branch;
 
-      // Submit loan application to database first
+      // Generate PDF first with form data
+      const pdfResponse = await fetch('/api/fill-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ formData: processedFormData }),
+      });
+
+      if (!pdfResponse.ok) {
+        alert('Failed to generate PDF. Please try again.');
+        return;
+      }
+
+      const pdfBlob = await pdfResponse.blob();
+
+      // Convert PDF blob to base64 for database storage
+      const pdfBase64 = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = (reader.result as string).split(',')[1];
+          resolve(base64String);
+        };
+        reader.readAsDataURL(pdfBlob);
+      });
+
+      // Add PDF to form data
+      processedFormData.pdfFile = pdfBase64;
+
+      // Submit loan application with PDF to database
       const submitResponse = await fetch('/api/loan-applications', {
         method: 'POST',
         headers: {
@@ -291,35 +263,10 @@ export default function LoanApplication() {
       });
 
       if (submitResponse.ok) {
-        // Generate PDF for email
-        const pdfResponse = await fetch('/api/fill-pdf', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ formData: processedFormData }),
-        });
+        alert(`Loan application submitted successfully to ${formData.branch} branch!`);
 
-        if (pdfResponse.ok) {
-          const pdfBlob = await pdfResponse.blob();
-
-          const emailFormData = new FormData();
-          emailFormData.append('pdf', pdfBlob, 'loan-application.pdf');
-          emailFormData.append('email', (formData.email as string) || '');
-          emailFormData.append('name', (formData.name as string) || '');
-          // include branch in email metadata
-          emailFormData.append('branch', (processedFormData.branch as string) || 'sanjose');
-
-          const emailResponse = await fetch('/api/send-loan-pdf', {
-            method: 'POST',
-            body: emailFormData,
-          });
-
-          if (emailResponse.ok) {
-            alert('Loan application submitted successfully and PDF has been sent to your email!');
-
-            // Reset form
-            setFormData({
+        // Reset form
+        setFormData({
               // Reset all form fields to initial state
               name: '',
               pbNo: '',
@@ -401,12 +348,6 @@ export default function LoanApplication() {
               processor: '',
               signatureDate: ''
             });
-          } else {
-            alert('Application submitted but there was an issue sending the email. Please try again.');
-          }
-        } else {
-          alert('Application submitted but there was an issue generating your PDF. Please try again.');
-        }
       } else {
         alert('There was an issue submitting your application. Please try again.');
       }
@@ -1230,31 +1171,16 @@ export default function LoanApplication() {
               </div>
             </div>
 
-            {/* Download and Submit Buttons */}
-            <div className="text-center mt-6 space-x-4">
-              <button
-                type="button"
-                onClick={handleDownloadApplication}
-                disabled={isSubmitting}
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
-              >
-                {isSubmitting ? 'Downloading...' : 'Download Application'}
-              </button>
-              <button
-                type="button"
-                onClick={handlePreviewApplication}
-                disabled={isSubmitting}
-                className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 disabled:opacity-50"
-              >
-                {isSubmitting ? 'Generating Preview...' : 'Preview Application'}
-              </button>
+            {/* Submit Button */}
+            <div className="text-center mt-6">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors duration-200 font-semibold"
               >
-                {isSubmitting ? 'Submitting Application...' : 'Submit Application'}
+                {isSubmitting ? 'Generating PDF and Submitting...' : 'Submit Application'}
               </button>
+              <p className="text-sm text-gray-600 mt-2">Your application will be submitted with a generated PDF to the selected branch</p>
             </div>
           </form>
         </div>
