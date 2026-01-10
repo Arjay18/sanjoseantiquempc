@@ -6,19 +6,25 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request: Request) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
   try {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      console.error('Upload failed: No session found');
+      return NextResponse.json({ error: 'Unauthorized - Please log in' }, { status: 401 });
+    }
+
+    console.log('Upload attempt by:', session.user);
+
     const formData = await request.formData();
     const file = formData.get('file') as File;
     
     if (!file) {
+      console.error('Upload failed: No file in request');
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
     }
+
+    console.log('File received:', file.name, 'Size:', file.size, 'Type:', file.type);
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
@@ -32,14 +38,21 @@ export async function POST(request: Request) {
     const uploadDir = path.join(process.cwd(), 'public', 'uploads');
     const filePath = path.join(uploadDir, filename);
     
+    console.log('Attempting to save file to:', filePath);
+    
     await writeFile(filePath, buffer);
     
     // Return the URL for the uploaded file
     const fileUrl = `/uploads/${filename}`;
     
+    console.log('File uploaded successfully:', fileUrl);
+    
     return NextResponse.json({ url: fileUrl });
   } catch (error) {
     console.error('Error uploading file:', error);
-    return NextResponse.json({ error: 'Failed to upload file' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Failed to upload file', 
+      details: error instanceof Error ? error.message : 'Unknown error' 
+    }, { status: 500 });
   }
 }

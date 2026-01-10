@@ -74,18 +74,30 @@ export default function NewsAdmin() {
   // Upload image
   const handleImageUpload = async (file: File) => {
     setUploadingImage(true);
+    setError('');
     try {
+      console.log('Uploading image:', file.name, file.type, file.size);
+      
       const formData = new FormData();
       formData.append('file', file);
 
       const res = await fetch('/api/upload', { method: 'POST', body: formData });
-      if (!res.ok) throw new Error('Failed to upload image');
+      
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error('Upload failed:', res.status, errorData);
+        throw new Error(errorData.error || `Upload failed with status ${res.status}`);
+      }
 
       const data = await res.json();
+      console.log('Upload successful:', data);
       setImageUrl(data.url);
+      setError(''); // Clear any previous errors
     } catch (err) {
-      console.error(err);
-      setError('Failed to upload image');
+      console.error('Image upload error:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to upload image';
+      setError(`Image upload failed: ${errorMessage}`);
+      alert(`Failed to upload image: ${errorMessage}`);
     } finally {
       setUploadingImage(false);
     }
