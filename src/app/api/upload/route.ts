@@ -1,9 +1,17 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]/auth';
-import { writeFile } from 'fs/promises';
+import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { existsSync } from 'fs';
+
+// Disable body parsing, we'll handle the FormData ourselves
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export async function POST(request: Request) {
   try {
@@ -26,6 +34,24 @@ export async function POST(request: Request) {
 
     console.log('File received:', file.name, 'Size:', file.size, 'Type:', file.type);
 
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      console.error('Invalid file type:', file.type);
+      return NextResponse.json({ 
+        error: `Invalid file type. Allowed types: ${allowedTypes.join(', ')}` 
+      }, { status: 400 });
+    }
+
+    // Validate file size (max 10MB)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      console.error('File too large:', file.size);
+      return NextResponse.json({ 
+        error: `File too large. Maximum size is ${maxSize / (1024 * 1024)}MB` 
+      }, { status: 400 });
+    }
+
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
@@ -34,8 +60,14 @@ export async function POST(request: Request) {
     const extension = path.extname(file.name);
     const filename = `${uniqueId}${extension}`;
     
-    // Save to public/uploads directory
+    // Ensure upload directory exists
     const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    
+    if (!existsSync(uploadDir)) {
+      console.log('Creating uploads directory:', uploadDir);
+      await mkdir(uploadDir, { recursive: true });
+    }
+    
     const filePath = path.join(uploadDir, filename);
     
     console.log('Attempting to save file to:', filePath);
@@ -47,7 +79,7 @@ export async function POST(request: Request) {
     
     console.log('File uploaded successfully:', fileUrl);
     
-    return NextResponse.json({ url: fileUrl });
+    return NextResponse.json({ url: fileUrl, success: true });
   } catch (error) {
     console.error('Error uploading file:', error);
     return NextResponse.json({ 
