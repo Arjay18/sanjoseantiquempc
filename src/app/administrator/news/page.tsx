@@ -78,15 +78,30 @@ export default function NewsAdmin() {
     try {
       console.log('Uploading image:', file.name, file.type, file.size);
       
+      // Validate file size before upload (5MB limit)
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      if (file.size > maxSize) {
+        throw new Error(`File is too large. Maximum size is 5MB. Your file is ${(file.size / (1024 * 1024)).toFixed(2)}MB`);
+      }
+
       const formData = new FormData();
       formData.append('file', file);
 
       const res = await fetch('/api/upload', { method: 'POST', body: formData });
       
       if (!res.ok) {
-        const errorData = await res.json();
-        console.error('Upload failed:', res.status, errorData);
-        throw new Error(errorData.error || `Upload failed with status ${res.status}`);
+        // Try to parse JSON error, fallback to text
+        let errorMessage;
+        const contentType = res.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await res.json();
+          errorMessage = errorData.error || errorData.details || `Upload failed with status ${res.status}`;
+        } else {
+          const errorText = await res.text();
+          errorMessage = `Server error: ${errorText.substring(0, 100)}...`;
+        }
+        console.error('Upload failed:', res.status, errorMessage);
+        throw new Error(errorMessage);
       }
 
       const data = await res.json();

@@ -6,12 +6,10 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { existsSync } from 'fs';
 
-// Disable body parsing, we'll handle the FormData ourselves
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// Configure route for file uploads
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const maxDuration = 30; // 30 seconds timeout
 
 export async function POST(request: Request) {
   try {
