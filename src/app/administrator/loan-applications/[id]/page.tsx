@@ -97,7 +97,7 @@ export default function LoanApplicationDetailPage() {
     if (status === 'loading') return;
 
     if (!session) {
-      router.push('/admin/login');
+      router.push('/administrator/login');
       return;
     }
 
@@ -107,7 +107,7 @@ export default function LoanApplicationDetailPage() {
   const fetchApplication = async () => {
     try {
       // Request debug info from the API to surface session data for troubleshooting
-      const response = await fetch(`/api/admin/loan-applications/${params.id}?debug=1`, { credentials: 'same-origin' });
+      const response = await fetch(`/api/administrator/loan-applications/${params.id}?debug=1`, { credentials: 'same-origin' });
       if (response.ok) {
         const data = await response.json();
         setApplication(data);
@@ -122,7 +122,7 @@ export default function LoanApplicationDetailPage() {
         }
         console.error(`Failed fetching application ${params.id}:`, response.status, msg);
         alert(`Failed to load application (status ${response.status}): ${msg}`);
-        router.push('/admin/loan-applications');
+        router.push('/administrator/loan-applications');
       }
       setLoading(false);
     } catch (error) {
@@ -136,7 +136,7 @@ export default function LoanApplicationDetailPage() {
 
     setUpdating(true);
     try {
-      const response = await fetch(`/api/admin/loan-applications/${application.id}`, {
+      const response = await fetch(`/api/administrator/loan-applications/${application.id}`, {
         method: 'PUT',
         credentials: 'same-origin',
         headers: {
@@ -496,7 +496,7 @@ export default function LoanApplicationDetailPage() {
       {/* Download Application Button */}
       <div className="flex justify-between items-center">
         <button
-          onClick={() => router.push('/admin/loan-applications')}
+          onClick={() => router.push('/administrator/loan-applications')}
           className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
         >
           ← Back to Applications

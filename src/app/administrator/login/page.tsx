@@ -17,7 +17,7 @@ function LoginForm() {
     if (status === 'loading') return
 
     if (session) {
-      router.push('/admin')
+      router.push('/administrator')
       return
     }
   }, [session, status, router])
@@ -40,7 +40,7 @@ function LoginForm() {
           username,
           password,
           redirect: true,
-          callbackUrl: '/admin'
+          callbackUrl: '/administrator'
         })
       } else {
         setError('Invalid credentials. Please try again.')

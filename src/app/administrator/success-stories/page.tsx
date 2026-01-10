@@ -101,7 +101,7 @@ export default function SuccessStoriesAdmin() {
         <h1 className="text-3xl font-bold text-gray-900">Success Stories Management</h1>
         <div className="flex space-x-4">
           <button
-            onClick={() => router.push('/admin')}
+            onClick={() => router.push('/administrator')}
             className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
           >
             Return to Dashboard

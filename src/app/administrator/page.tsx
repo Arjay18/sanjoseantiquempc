@@ -42,12 +42,12 @@ export default function AdminDashboard() {
     if (status === 'loading') return;
 
     if (!session) {
-      router.push('/admin/login');
+      router.push('/administrator/login');
       return;
     }
 
     // Fetch real statistics from API
-    fetch('/api/admin/stats')
+    fetch('/api/administrator/stats')
       .then(res => res.json())
       .then(data => {
         setStats(data);
@@ -79,7 +79,7 @@ export default function AdminDashboard() {
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold">Welcome back, {session.user?.name || 'Admin'}!</h1>
+              <h1 className="text-2xl font-bold">Welcome back, {session.user?.name || 'Administrator'}!</h1>
               <p className="text-blue-100 mt-1">Dashboard Error</p>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function AdminDashboard() {
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Link
-              href="/admin/news"
+              href="/administrator/news"
               className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
             >
               <div className="flex-shrink-0">
@@ -131,7 +131,7 @@ export default function AdminDashboard() {
             </Link>
 
             <Link
-              href="/admin/success-stories"
+              href="/administrator/success-stories"
               className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
             >
               <div className="flex-shrink-0">
@@ -146,7 +146,7 @@ export default function AdminDashboard() {
             </Link>
 
             <Link
-              href="/admin/loan-applications"
+              href="/administrator/loan-applications"
               className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
             >
               <div className="flex-shrink-0">
@@ -170,14 +170,14 @@ export default function AdminDashboard() {
       name: 'Total News Articles',
       value: stats?.totalNews || 0,
       icon: 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z',
-      href: '/admin/news',
+      href: '/administrator/news',
       color: 'bg-blue-500'
     },
     {
       name: 'Success Stories',
       value: stats?.totalSuccessStories || 0,
       icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
-      href: '/admin/success-stories',
+      href: '/administrator/success-stories',
       color: 'bg-green-500'
     },
     {
@@ -191,21 +191,21 @@ export default function AdminDashboard() {
       name: 'PMES Sessions',
       value: stats?.activePMESSessions || 0,
       icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
-      href: '/admin/pmes',
+      href: '/administrator/pmes',
       color: 'bg-yellow-500'
     },
     {
       name: 'Member Registrations',
       value: stats?.totalRegistrations || 0,
       icon: 'M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z',
-      href: '/admin/registrations',
+      href: '/administrator/registrations',
       color: 'bg-indigo-500'
     },
     {
       name: 'Loan Applications',
       value: stats?.totalLoanApplications || 0,
       icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-      href: '/admin/loan-applications',
+      href: '/administrator/loan-applications',
       color: 'bg-orange-500'
     }
   ];
@@ -216,7 +216,7 @@ export default function AdminDashboard() {
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 text-white">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold">Welcome back, {session.user?.name || 'Admin'}!</h1>
+            <h1 className="text-2xl font-bold">Welcome back, {session.user?.name || 'Administrator'}!</h1>
             <p className="text-blue-100 mt-1">Here's what's happening with your SJMPC website today.</p>
           </div>
           <div className="hidden md:block">
@@ -268,7 +268,7 @@ export default function AdminDashboard() {
               <p className="text-sm text-gray-600">Distribution of loan applications across all branches</p>
             </div>
             <Link
-              href="/admin/loan-applications"
+              href="/administrator/loan-applications"
               className="text-sm text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
             >
               View all applications
@@ -286,7 +286,7 @@ export default function AdminDashboard() {
             ].map((branch) => (
               <Link
                 key={branch.branch}
-                href={`/admin/loan-applications?branch=${branch.branch}`}
+                href={`/administrator/loan-applications?branch=${branch.branch}`}
                 className="block p-4 border border-gray-200 rounded-lg hover:shadow-md transition-all hover:border-gray-300"
               >
                 <div className="flex items-center">
@@ -311,7 +311,7 @@ export default function AdminDashboard() {
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Link
-            href="/admin/news"
+            href="/administrator/news"
             className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
           >
             <div className="flex-shrink-0">
@@ -326,7 +326,7 @@ export default function AdminDashboard() {
           </Link>
 
           <Link
-            href="/admin/success-stories"
+            href="/administrator/success-stories"
             className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
           >
             <div className="flex-shrink-0">
@@ -341,7 +341,7 @@ export default function AdminDashboard() {
           </Link>
 
           <Link
-            href="/admin/pmes"
+            href="/administrator/pmes"
             className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
           >
             <div className="flex-shrink-0">
@@ -356,7 +356,7 @@ export default function AdminDashboard() {
           </Link>
 
           <Link
-            href="/admin/loan-applications"
+            href="/administrator/loan-applications"
             className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
           >
             <div className="flex-shrink-0">
@@ -371,7 +371,7 @@ export default function AdminDashboard() {
           </Link>
 
           <Link
-            href="/admin/contact"
+            href="/administrator/contact"
             className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
           >
             <div className="flex-shrink-0">
@@ -441,7 +441,7 @@ export default function AdminDashboard() {
         </div>
         <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
           <Link
-            href="/admin/activity"
+            href="/administrator/activity"
             className="text-sm text-blue-600 hover:text-blue-800 font-medium"
           >
             View all activity →

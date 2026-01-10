@@ -21,16 +21,16 @@ export const authOptions: NextAuthOptions = {
         const adminUsername = process.env.ADMIN_USERNAME;
         const adminPassword = process.env.ADMIN_PASSWORD;
 
-        // Check admin credentials
+        // Check administrator credentials
         if (
           credentials.username === adminUsername &&
           credentials.password === adminPassword
         ) {
           return {
-            id: "admin",
-            name: "Admin",
-            email: "admin@sjmpc.com",
-            role: "admin"
+            id: "administrator",
+            name: "Administrator",
+            email: "administrator@sjmpc.com",
+            role: "administrator"
           };
         }
 
@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
     maxAge: 24 * 60 * 60, // 24 hours
   },
   pages: {
-    signIn: "/admin/login"
+    signIn: "/administrator/login"
   },
   callbacks: {
     async jwt({ token, user }: any) {

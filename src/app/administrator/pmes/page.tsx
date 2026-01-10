@@ -52,7 +52,7 @@ export default function PMESManagement() {
     if (status === 'loading') return;
 
     if (!session) {
-      router.push('/admin/login');
+      router.push('/administrator/login');
       return;
     }
 
@@ -61,7 +61,7 @@ export default function PMESManagement() {
 
   const fetchSessions = async () => {
     try {
-      const response = await fetch('/api/admin/pmes');
+      const response = await fetch('/api/administrator/pmes');
       if (response.ok) {
         const data = await response.json();
         setSessions(data);
@@ -78,8 +78,8 @@ export default function PMESManagement() {
 
     try {
       const url = editingSession
-        ? `/api/admin/pmes/${editingSession.id}`
-        : '/api/admin/pmes';
+        ? `/api/administrator/pmes/${editingSession.id}`
+        : '/api/administrator/pmes';
 
       const method = editingSession ? 'PUT' : 'POST';
 
@@ -121,7 +121,7 @@ export default function PMESManagement() {
     if (!confirm('Are you sure you want to delete this session?')) return;
 
     try {
-      const response = await fetch(`/api/admin/pmes/${id}`, {
+      const response = await fetch(`/api/administrator/pmes/${id}`, {
         method: 'DELETE',
       });
 

@@ -101,7 +101,7 @@ export default function OnlinePMES() {
 
   const fetchSessions = async () => {
     try {
-      const response = await fetch('/api/admin/pmes');
+      const response = await fetch('/api/administrator/pmes');
       if (response.ok) {
         const data = await response.json();
         setUpcomingSessions(data);

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 
-const RichTextEditor = dynamic(() => import('@/components/admin/RichTextEditor'), { ssr: false });
+const RichTextEditor = dynamic(() => import('@/components/administrator/RichTextEditor'), { ssr: false });
 
 interface NewsPost {
   id: string;
@@ -52,7 +52,7 @@ export default function NewsAdmin() {
   useEffect(() => {
     if (status === 'loading') return;
     if (!session) {
-      router.push('/admin/login');
+      router.push('/administrator/login');
       return;
     }
 
@@ -170,7 +170,7 @@ export default function NewsAdmin() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Manage News Posts</h1>
         <button
-          onClick={() => router.push('/admin')}
+          onClick={() => router.push('/administrator')}
           className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
         >
           Dashboard

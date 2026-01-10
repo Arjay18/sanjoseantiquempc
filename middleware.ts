@@ -14,7 +14,7 @@ export default withAuth(
       if (isRscPrefetch) return NextResponse.next();
 
       if (!token || token.role !== 'branch') {
-        return NextResponse.redirect(new URL('/admin/login', req.url));
+        return NextResponse.redirect(new URL('/administrator/login', req.url));
       }
 
       // Check if user is accessing their own branch
@@ -22,18 +22,18 @@ export default withAuth(
       if (branchMatch) {
         const branchName = branchMatch[1];
         if (token.branch !== branchName) {
-          return NextResponse.redirect(new URL('/admin/login', req.url));
+          return NextResponse.redirect(new URL('/administrator/login', req.url));
         }
       }
     }
 
-    // Protect admin routes
-    if (pathname.startsWith('/admin/') && !pathname.startsWith('/admin/login')) {
+    // Protect administrator routes
+    if (pathname.startsWith('/administrator/') && !pathname.startsWith('/administrator/login')) {
       // Allow RSC prefetches (they don't include cookies) to proceed without auth
       if (isRscPrefetch) return NextResponse.next();
 
-      if (!token || token.role !== 'admin') {
-        return NextResponse.redirect(new URL('/admin/login', req.url));
+      if (!token || token.role !== 'administrator') {
+        return NextResponse.redirect(new URL('/administrator/login', req.url));
       }
     }
 
@@ -45,12 +45,12 @@ export default withAuth(
         const pathname = req.nextUrl.pathname;
 
         // Allow access to login pages
-        if (pathname === '/admin/login' || pathname.match(/^\/branch\/[^\/]+\/login$/)) {
+        if (pathname === '/administrator/login' || pathname.match(/^\/branch\/[^\/]+\/login$/)) {
           return true;
         }
 
         // For protected routes, require a valid token
-        if (pathname.startsWith('/branch/') || (pathname.startsWith('/admin/') && !pathname.startsWith('/admin/login'))) {
+        if (pathname.startsWith('/branch/') || (pathname.startsWith('/administrator/') && !pathname.startsWith('/administrator/login'))) {
           return !!token;
         }
 
@@ -63,7 +63,7 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    '/admin/:path*',
+    '/administrator/:path*',
     '/branch/:path*',
   ],
 };

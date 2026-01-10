@@ -1,6 +1,6 @@
 'use client';
 
-import LogoutButton from '@/components/admin/LogoutButton';
+import LogoutButton from '@/components/administrator/LogoutButton';
 
 export default function AdminLayout({
   children,

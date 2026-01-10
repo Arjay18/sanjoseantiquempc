@@ -43,7 +43,7 @@ export default function SanJoseBranchDashboard() {
     setIsAuthenticated(true);
 
     // Fetch data only if authenticated
-    fetch('/api/admin/loan-applications')
+    fetch('/api/administrator/loan-applications')
       .then(res => res.json())
       .then(data => {
         setApplications(data.applications || []);
@@ -118,12 +118,12 @@ export default function SanJoseBranchDashboard() {
     sessionStorage.clear();
 
     // Sign out and redirect
-    await signOut({ callbackUrl: '/admin/login' });
+    await signOut({ callbackUrl: '/administrator/login' });
   };
 
   const handleStatusUpdate = async (id: string, status: string) => {
     try {
-      const response = await fetch(`/api/admin/loan-applications/${id}`, {
+      const response = await fetch(`/api/administrator/loan-applications/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export default function SanJoseBranchDashboard() {
 
       if (response.ok) {
         // Refresh the applications list
-        const data = await fetch('/api/admin/loan-applications').then(res => res.json());
+        const data = await fetch('/api/administrator/loan-applications').then(res => res.json());
         setApplications(data.applications || []);
       } else {
         alert('Failed to update application status');
@@ -318,7 +318,7 @@ export default function SanJoseBranchDashboard() {
                         </>
                       )}
                       <Link
-                        href={`/admin/loan-applications/${application.id}`}
+                        href={`/administrator/loan-applications/${application.id}`}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
                       >
                         View Details

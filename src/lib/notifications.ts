@@ -108,7 +108,7 @@ export async function sendContactNotification(inquiry: ContactInquiryData) {
 
     const mailOptions = {
       from: process.env.SMTP_FROM || 'noreply@sjmpc.com',
-      to: process.env.ADMIN_EMAIL || 'sanjosempc@yahoo.com', // Admin email
+      to: process.env.ADMIN_EMAIL || 'sanjosempc@yahoo.com', // Administrator email
       subject,
       html,
     };

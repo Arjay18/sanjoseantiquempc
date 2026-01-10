@@ -6,7 +6,7 @@ export default function LogoutButton() {
   const { data: session, status } = useSession()
 
   const handleLogout = () => {
-    signOut({ callbackUrl: '/admin/login' })
+    signOut({ callbackUrl: '/administrator/login' })
   }
 
   if (status === 'loading') {

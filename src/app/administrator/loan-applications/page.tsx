@@ -36,7 +36,7 @@ export default function LoanApplicationsPage() {
     if (status === 'loading') return;
 
     if (!session) {
-      router.push('/admin/login');
+      router.push('/administrator/login');
       return;
     }
 
@@ -53,7 +53,7 @@ export default function LoanApplicationsPage() {
       if (branchFilter !== 'all') {
         queryParams.append('branch', branchFilter);
       }
-      const response = await fetch(`/api/admin/loan-applications?${queryParams.toString()}`, {
+      const response = await fetch(`/api/administrator/loan-applications?${queryParams.toString()}`, {
         credentials: 'same-origin',
       });
       if (response.ok) {
@@ -76,7 +76,7 @@ export default function LoanApplicationsPage() {
 
   const updateApplicationStatus = async (id: string, status: 'approved' | 'rejected', notes?: string) => {
     try {
-      const response = await fetch(`/api/admin/loan-applications/${id}`, {
+      const response = await fetch(`/api/administrator/loan-applications/${id}`, {
         method: 'PUT',
         credentials: 'same-origin',
         headers: {
@@ -99,7 +99,7 @@ export default function LoanApplicationsPage() {
     }
 
     try {
-      const response = await fetch(`/api/admin/loan-applications/${id}`, {
+      const response = await fetch(`/api/administrator/loan-applications/${id}`, {
         method: 'DELETE',
         credentials: 'same-origin',
       });
@@ -150,7 +150,7 @@ export default function LoanApplicationsPage() {
         </div>
         <div className="flex space-x-3">
           <Link
-            href="/admin"
+            href="/administrator"
             className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
           >
             Back to Dashboard
@@ -302,7 +302,7 @@ export default function LoanApplicationsPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-2">
                         <Link
-                          href={`/admin/loan-applications/${application.id}`}
+                          href={`/administrator/loan-applications/${application.id}`}
                           prefetch={false}
                           className="text-blue-600 hover:text-blue-900"
                         >

@@ -25,7 +25,7 @@ export default function ActivityPage() {
     if (status === 'loading') return;
 
     if (!session) {
-      router.push('/admin/login');
+      router.push('/administrator/login');
       return;
     }
 
@@ -34,7 +34,7 @@ export default function ActivityPage() {
 
   const fetchActivities = async () => {
     try {
-      const response = await fetch('/api/admin/activity');
+      const response = await fetch('/api/administrator/activity');
       if (response.ok) {
         const data = await response.json();
         setActivities(data);

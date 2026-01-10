@@ -22,9 +22,9 @@ export const authOptions: AuthOptions = {
             credentials?.password === process.env.ADMIN_PASSWORD) {
           return {
             id: "1",
-            name: "Admin",
-            email: "admin@example.com",
-            role: "admin"
+            name: "Administrator",
+            email: "administrator@example.com",
+            role: "administrator"
           };
         }
         return null;
@@ -37,7 +37,7 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = "admin";
+        token.role = "administrator";
       }
       return token;
     },
@@ -50,6 +50,6 @@ export const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/admin/login"
+    signIn: "/administrator/login"
   }
 };

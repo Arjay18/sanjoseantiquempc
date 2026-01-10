@@ -42,7 +42,7 @@ export default function MiagaoBranchDashboard() {
     setIsAuthenticated(true);
 
     // Fetch data only if authenticated
-    fetch('/api/admin/loan-applications')
+    fetch('/api/administrator/loan-applications')
       .then(res => res.json())
       .then(data => {
         setApplications(data.applications || []);
@@ -118,19 +118,19 @@ export default function MiagaoBranchDashboard() {
     sessionStorage.clear();
 
     // Sign out and redirect
-    await signOut({ callbackUrl: '/admin/login' });
+    await signOut({ callbackUrl: '/administrator/login' });
   };
 
   const handleStatusUpdate = async (id: string, status: string) => {
     try {
-      const response = await fetch(`/api/admin/loan-applications/${id}`, {
+      const response = await fetch(`/api/administrator/loan-applications/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status }),
       });
 
       if (response.ok) {
-        const data = await fetch('/api/admin/loan-applications').then(res => res.json());
+        const data = await fetch('/api/administrator/loan-applications').then(res => res.json());
         setApplications(data.applications || []);
       } else {
         alert('Failed to update application status');
