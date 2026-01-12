@@ -154,8 +154,25 @@ function LoanApplicationsContent() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Loan Applications</h1>
-          <p className="text-gray-600">Review and manage loan application requests</p>
+          <h1 className="text-2xl font-bold text-gray-900">
+            {branchFilter !== 'all' ? (
+              <>
+                {branchFilter === 'sanjose' && 'San Jose Main Office'} 
+                {branchFilter === 'miagao' && 'Miagao Branch'}
+                {branchFilter === 'oton' && 'Oton Branch'}
+                {branchFilter === 'guimaras' && 'Guimaras Branch'}
+                {' - Loan Applications'}
+              </>
+            ) : (
+              'Loan Applications'
+            )}
+          </h1>
+          <p className="text-gray-600">
+            {branchFilter !== 'all' 
+              ? 'Review and manage loan applications for this branch' 
+              : 'Review and manage loan application requests'
+            }
+          </p>
         </div>
         <div className="flex space-x-3">
           <Link
@@ -175,39 +192,41 @@ function LoanApplicationsContent() {
 
       {/* Filters */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 space-y-4">
-        {/* Branch Filter */}
-        <div className="flex items-center space-x-4">
-          <span className="text-sm font-medium text-gray-700">Filter by branch:</span>
-          <div className="flex space-x-2 flex-wrap">
-            {[
-              { value: 'all', label: 'All Branches' },
-              { value: 'sanjose', label: 'San Jose Main Office' },
-              { value: 'miagao', label: 'Miagao Branch' },
-              { value: 'oton', label: 'Oton Branch' },
-              { value: 'guimaras', label: 'Guimaras Branch' },
-            ].map((option) => (
-              <button
-                key={option.value}
-                onClick={() => {
-                  setBranchFilter(option.value as 'all' | 'sanjose' | 'miagao' | 'oton' | 'guimaras');
-                  setCurrentPage(1);
-                  // Update URL to reflect the filter
-                  const newUrl = option.value === 'all' 
-                    ? '/administrator/loan-applications'
-                    : `/administrator/loan-applications?branch=${option.value}`;
-                  router.push(newUrl);
-                }}
-                className={`px-3 py-1 text-sm rounded-full ${
-                  branchFilter === option.value
-                    ? 'bg-green-100 text-green-800 border border-green-300'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
+        {/* Branch Filter - Only show if viewing all branches */}
+        {branchFilter === 'all' && (
+          <div className="flex items-center space-x-4">
+            <span className="text-sm font-medium text-gray-700">Filter by branch:</span>
+            <div className="flex space-x-2 flex-wrap">
+              {[
+                { value: 'all', label: 'All Branches' },
+                { value: 'sanjose', label: 'San Jose Main Office' },
+                { value: 'miagao', label: 'Miagao Branch' },
+                { value: 'oton', label: 'Oton Branch' },
+                { value: 'guimaras', label: 'Guimaras Branch' },
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => {
+                    setBranchFilter(option.value as 'all' | 'sanjose' | 'miagao' | 'oton' | 'guimaras');
+                    setCurrentPage(1);
+                    // Update URL to reflect the filter
+                    const newUrl = option.value === 'all' 
+                      ? '/administrator/loan-applications'
+                      : `/administrator/loan-applications?branch=${option.value}`;
+                    router.push(newUrl);
+                  }}
+                  className={`px-3 py-1 text-sm rounded-full ${
+                    branchFilter === option.value
+                      ? 'bg-green-100 text-green-800 border border-green-300'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Status Filter */}
         <div className="flex items-center space-x-4">
