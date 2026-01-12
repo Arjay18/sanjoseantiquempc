@@ -36,6 +36,8 @@ export async function GET(request: NextRequest) {
     };
 
     console.log('Query where clause:', where);
+    console.log('Filtering by branch?', session.user.role === 'branch');
+    console.log('Branch value:', (session.user as any).branch);
 
     const [applications, total] = await Promise.all([
       prisma.loanApplication.findMany({
@@ -46,6 +48,12 @@ export async function GET(request: NextRequest) {
       }),
       prisma.loanApplication.count({ where }),
     ]);
+
+    console.log('Returned applications:', applications.map(app => ({ 
+      id: app.id, 
+      name: app.name, 
+      branch: app.branch 
+    })));
 
     return NextResponse.json({
       applications,

@@ -43,9 +43,16 @@ export default function SanJoseBranchDashboard() {
     setIsAuthenticated(true);
 
     // Fetch data only if authenticated
+    console.log('San Jose branch - Session details:', {
+      userRole: (session.user as any)?.role,
+      userBranch: (session.user as any)?.branch,
+      expectedBranch: 'sanjose'
+    });
+
     fetch('/api/administrator/loan-applications')
       .then(res => res.json())
       .then(data => {
+        console.log('Fetched applications:', data.applications?.length || 0);
         setApplications(data.applications || []);
         setLoading(false);
       })
