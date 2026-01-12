@@ -13,7 +13,9 @@ export const maxDuration = 30; // 30 seconds timeout
 
 export async function POST(request: Request) {
   try {
+    console.log('=== UPLOAD REQUEST STARTED ===');
     const session = await getServerSession(authOptions);
+    console.log('Session check result:', session ? `User: ${session.user?.email}, Role: ${(session.user as any)?.role}` : 'No session');
 
     if (!session) {
       console.error('Upload failed: No session found');
@@ -23,6 +25,8 @@ export async function POST(request: Request) {
     console.log('Upload attempt by:', session.user);
 
     const formData = await request.formData();
+    console.log('FormData received, keys:', Array.from(formData.keys()));
+    
     const file = formData.get('file') as File;
     
     if (!file) {
@@ -76,13 +80,18 @@ export async function POST(request: Request) {
     const fileUrl = `/uploads/${filename}`;
     
     console.log('File uploaded successfully:', fileUrl);
+    console.log('=== UPLOAD REQUEST COMPLETED SUCCESSFULLY ===');
     
     return NextResponse.json({ url: fileUrl, success: true });
   } catch (error) {
+    console.error('=== UPLOAD REQUEST FAILED ===');
     console.error('Error uploading file:', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+    console.error('Error message:', error instanceof Error ? error.message : String(error));
     return NextResponse.json({ 
       error: 'Failed to upload file', 
-      details: error instanceof Error ? error.message : 'Unknown error' 
+      details: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
     }, { status: 500 });
   }
 }
