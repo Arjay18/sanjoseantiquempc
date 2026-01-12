@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 
 interface LoanApplication {
@@ -22,7 +22,7 @@ interface LoanApplication {
   notes?: string;
 }
 
-export default function LoanApplicationsPage() {
+function LoanApplicationsContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -389,5 +389,17 @@ export default function LoanApplicationsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function LoanApplicationsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    }>
+      <LoanApplicationsContent />
+    </Suspense>
   );
 }
