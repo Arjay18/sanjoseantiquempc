@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { existsSync } from 'fs';
+import { cookies } from 'next/headers';
 
 // Configure route for file uploads
 export const runtime = 'nodejs';
@@ -14,15 +13,19 @@ export const maxDuration = 30; // 30 seconds timeout
 export async function POST(request: Request) {
   try {
     console.log('=== UPLOAD REQUEST STARTED ===');
-    const session = await getServerSession(authOptions);
-    console.log('Session check result:', session ? `User: ${session.user?.email}, Role: ${(session.user as any)?.role}` : 'No session');
-
-    if (!session) {
-      console.error('Upload failed: No session found');
+    
+    // Check for session cookie
+    const cookieStore = cookies();
+    const sessionCookie = cookieStore.get('next-auth.session-token') || cookieStore.get('__Secure-next-auth.session-token');
+    
+    console.log('Session cookie present:', !!sessionCookie);
+    
+    if (!sessionCookie) {
+      console.error('Upload failed: No session cookie found');
       return NextResponse.json({ error: 'Unauthorized - Please log in' }, { status: 401 });
     }
 
-    console.log('Upload attempt by:', session.user);
+    console.log('Session cookie found, proceeding with upload');
 
     const formData = await request.formData();
     console.log('FormData received, keys:', Array.from(formData.keys()));
