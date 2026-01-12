@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
@@ -25,12 +25,21 @@ interface LoanApplication {
 export default function LoanApplicationsPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [applications, setApplications] = useState<LoanApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
   const [branchFilter, setBranchFilter] = useState<'all' | 'sanjose' | 'miagao' | 'oton' | 'guimaras'>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  // Read branch filter from URL query parameter on initial load
+  useEffect(() => {
+    const branchParam = searchParams.get('branch');
+    if (branchParam && ['sanjose', 'miagao', 'oton', 'guimaras'].includes(branchParam)) {
+      setBranchFilter(branchParam as 'sanjose' | 'miagao' | 'oton' | 'guimaras');
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (status === 'loading') return;
@@ -182,6 +191,11 @@ export default function LoanApplicationsPage() {
                 onClick={() => {
                   setBranchFilter(option.value as 'all' | 'sanjose' | 'miagao' | 'oton' | 'guimaras');
                   setCurrentPage(1);
+                  // Update URL to reflect the filter
+                  const newUrl = option.value === 'all' 
+                    ? '/administrator/loan-applications'
+                    : `/administrator/loan-applications?branch=${option.value}`;
+                  router.push(newUrl);
                 }}
                 className={`px-3 py-1 text-sm rounded-full ${
                   branchFilter === option.value
