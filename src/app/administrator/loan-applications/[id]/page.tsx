@@ -155,6 +155,35 @@ export default function LoanApplicationDetailPage() {
     }
   };
 
+  const deleteApplication = async () => {
+    if (!application) return;
+    
+    if (!confirm('Are you sure you want to delete this loan application? This action cannot be undone.')) {
+      return;
+    }
+
+    setUpdating(true);
+    try {
+      const response = await fetch(`/api/administrator/loan-applications/${application.id}`, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+      });
+
+      if (response.ok) {
+        alert('Loan application deleted successfully');
+        router.push('/administrator/loan-applications');
+      } else {
+        const data = await response.json();
+        alert(`Failed to delete application: ${data.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Error deleting application:', error);
+      alert('Failed to delete application');
+    } finally {
+      setUpdating(false);
+    }
+  };
+
   const downloadApplication = async () => {
     if (!application) return;
 
@@ -453,7 +482,7 @@ export default function LoanApplicationDetailPage() {
                   />
                 </div>
 
-                <div className="flex space-x-4">
+                <div className="flex flex-wrap gap-4">
                   <button
                     onClick={() => updateStatus('approved')}
                     disabled={updating}
@@ -467,6 +496,13 @@ export default function LoanApplicationDetailPage() {
                     className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 disabled:opacity-50 transition-colors"
                   >
                     {updating ? 'Processing...' : 'Reject Application'}
+                  </button>
+                  <button
+                    onClick={deleteApplication}
+                    disabled={updating}
+                    className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-900 disabled:opacity-50 transition-colors"
+                  >
+                    {updating ? 'Processing...' : 'Delete Application'}
                   </button>
                 </div>
               </>
@@ -497,6 +533,18 @@ export default function LoanApplicationDetailPage() {
                     {application.reviewedAt ? new Date(application.reviewedAt).toLocaleString() : 'N/A'}
                   </p>
                 </div>
+              </div>
+            )}
+            
+            {session?.user?.role === 'branch' && (
+              <div className="pt-4 border-t border-gray-200">
+                <button
+                  onClick={deleteApplication}
+                  disabled={updating}
+                  className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-900 disabled:opacity-50 transition-colors"
+                >
+                  {updating ? 'Processing...' : 'Delete Application'}
+                </button>
               </div>
             )}
           </div>
