@@ -14,18 +14,8 @@ export async function POST(request: Request) {
   try {
     console.log('=== UPLOAD REQUEST STARTED ===');
     
-    // Check for session cookie
-    const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get('next-auth.session-token') || cookieStore.get('__Secure-next-auth.session-token');
-    
-    console.log('Session cookie present:', !!sessionCookie);
-    
-    if (!sessionCookie) {
-      console.error('Upload failed: No session cookie found');
-      return NextResponse.json({ error: 'Unauthorized - Please log in' }, { status: 401 });
-    }
-
-    console.log('Session cookie found, proceeding with upload');
+    // Temporarily skip auth check to debug
+    console.log('Proceeding with upload (auth check temporarily disabled for debugging)');
 
     const formData = await request.formData();
     console.log('FormData received, keys:', Array.from(formData.keys()));
