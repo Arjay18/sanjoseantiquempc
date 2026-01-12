@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { Users, Globe, Heart, Award, ArrowRight, CheckCircle, TrendingUp, Shield, Target } from 'lucide-react';
-import Stats from './Stats';
 
 export default function AboutUs() {
   return (
@@ -160,7 +159,6 @@ export default function AboutUs() {
           </FadeIn>
         </div>
       </section>
-      <Stats />
     </>
   );
 }
