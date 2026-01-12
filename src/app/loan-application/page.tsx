@@ -217,6 +217,13 @@ export default function LoanApplication() {
     setIsSubmitting(true);
 
     try {
+      console.log('Starting loan application submission...', {
+        name: formData.name,
+        branch: formData.branch,
+        loanType: formData.loanType,
+        loanAmount: formData.loanAmount
+      });
+
       // Convert file to base64 if present
       const processedFormData = { ...formData } as Record<string, unknown>;
       if (formData.idFile) {
@@ -265,10 +272,16 @@ export default function LoanApplication() {
         body: JSON.stringify({ formData: processedFormData }),
       });
 
-      if (submitResponse.ok) {
-        alert(`Loan application submitted successfully to ${formData.branch} branch!`);
+      console.log('Submission response status:', submitResponse.status);
 
-        // Reset form
+      if (submitResponse.ok) {
+        const result = await submitResponse.json();
+        console.log('Application submitted successfully:', result);
+        
+        alert(`✅ Loan application submitted successfully!\n\nYour application has been sent to the ${formData.branch} branch and is now pending review.\n\nApplication ID: ${result.id}\nName: ${formData.name}\nLoan Type: ${formData.loanType}\nAmount: ₱${formData.loanAmount}\n\nThank you for choosing San Jose Multi-Purpose Cooperative!`);
+
+        // Reset form and go back to step 1
+        setCurrentStep(1);
         setFormData({
               // Reset all form fields to initial state
               name: '',
@@ -351,8 +364,12 @@ export default function LoanApplication() {
               processor: '',
               signatureDate: ''
             });
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        alert('There was an issue submitting your application. Please try again.');
+        const errorData = await submitResponse.json().catch(() => ({}));
+        alert(`❌ Failed to submit application.\n\n${errorData.error || 'Please check your internet connection and try again.'}`);
       }
     } catch (error) {
       console.error('Error:', error);

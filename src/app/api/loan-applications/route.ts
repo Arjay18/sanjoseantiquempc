@@ -7,6 +7,14 @@ export async function POST(request: NextRequest) {
   try {
     const { formData } = await request.json();
 
+    console.log('Received loan application:', {
+      name: formData.name,
+      branch: formData.branch,
+      loanType: formData.loanType,
+      loanAmount: formData.loanAmount,
+      email: formData.email
+    });
+
     const application = await prisma.loanApplication.create({
       data: {
         name: formData.name,
@@ -85,9 +93,16 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    console.log('Loan application created successfully:', {
+      id: application.id,
+      name: application.name,
+      branch: application.branch,
+      status: application.status
+    });
+
     return NextResponse.json(application, { status: 201 });
   } catch (error) {
     console.error('Error creating loan application:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
   }
 }
