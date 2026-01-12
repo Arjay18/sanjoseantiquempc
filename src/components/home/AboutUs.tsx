@@ -1,98 +1,160 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { FadeIn } from '@/components/animations/FadeIn';
-import { Users, Globe, Heart, Award, ArrowRight, CheckCircle } from 'lucide-react';
+import { Users, Globe, Heart, Award, ArrowRight, CheckCircle, TrendingUp, Shield, Target } from 'lucide-react';
 import Stats from './Stats';
 
 export default function AboutUs() {
   return (
     <>
-      <section className="relative py-32 bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-yellow-900/20 overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-200/20 to-yellow-200/20 rounded-full blur-3xl"></div>
+      <section className="relative py-24 bg-white dark:from-gray-900 overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full" style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, #2563eb 1px, transparent 0)',
+            backgroundSize: '48px 48px'
+          }}></div>
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn direction="up" delay={0.2}>
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-yellow-100 dark:from-blue-900/50 dark:to-yellow-900/50 text-blue-800 dark:text-blue-300 text-sm font-semibold mb-8 shadow-lg">
-                <CheckCircle className="w-5 h-5 mr-2" />
-                About SJMPC
-              </div>
-
-              <h1 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white mb-8 leading-tight">
-                Empowering Communities Through
-                <span className="block bg-gradient-to-r from-blue-600 via-yellow-500 to-blue-800 bg-clip-text text-transparent">
-                  Cooperative Excellence
-                </span>
-              </h1>
-
-              <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
-                For over 61 years, SJMPC has been at the forefront of cooperative banking in the Philippines,
-                dedicated to providing comprehensive financial services that empower individuals and strengthen communities.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn direction="up" delay={0.4}>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-              <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Users className="w-8 h-8 text-white" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+            {/* Left Content */}
+            <FadeIn direction="left" delay={0.2}>
+              <div>
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-sm font-semibold mb-6">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  About SJMPC
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Member-Centric Approach</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  We prioritize our members' needs, offering personalized financial solutions that adapt to their unique circumstances and goals.
-                </p>
-              </div>
 
-              <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20">
-                <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Globe className="w-8 h-8 text-white" />
+                <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
+                  Your Trusted Partner in
+                  <span className="block bg-gradient-to-r from-blue-600 via-blue-700 to-yellow-500 bg-clip-text text-transparent">
+                    Financial Growth
+                  </span>
+                </h2>
+
+                <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                  For over <strong className="text-blue-600">61 years</strong>, San Jose Multi-Purpose Cooperative has been empowering communities across the Philippines. We combine traditional cooperative values with modern financial solutions to help our members achieve their dreams.
+                </p>
+
+                {/* Key Stats */}
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-2xl p-5 border border-blue-200 dark:border-blue-700">
+                    <div className="flex items-center mb-2">
+                      <Users className="w-5 h-5 text-blue-600 mr-2" />
+                      <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">Members</span>
+                    </div>
+                    <div className="text-3xl font-black text-blue-600">15,000+</div>
+                  </div>
+                  <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-2xl p-5 border border-yellow-200 dark:border-yellow-700">
+                    <div className="flex items-center mb-2">
+                      <TrendingUp className="w-5 h-5 text-yellow-600 mr-2" />
+                      <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">Assets</span>
+                    </div>
+                    <div className="text-3xl font-black text-yellow-600">₱1.2B+</div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Community Impact</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Creating lasting positive change in our communities through financial inclusion, education, and sustainable development initiatives.
-                </p>
-              </div>
 
-              <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20 md:col-span-2 lg:col-span-1">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-700 to-yellow-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="flex flex-wrap gap-4">
+                  <Link
+                    href="/about"
+                    className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    Discover Our Story
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center px-8 py-4 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-xl font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300"
+                  >
+                    Contact Us
+                  </Link>
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* Right Content - Image Grid */}
+            <FadeIn direction="right" delay={0.3}>
+              <div className="relative">
+                {/* Main Image */}
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                  <Image
+                    src="/portfolio/Logo.jpg"
+                    alt="SJMPC Cooperative"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                  />
+                  {/* Overlay Badge */}
+                  <div className="absolute bottom-6 left-6 right-6 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">Established</div>
+                        <div className="text-2xl font-black text-blue-600">1963</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">Branches</div>
+                        <div className="text-2xl font-black text-yellow-600">4</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">Years</div>
+                        <div className="text-2xl font-black bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">61+</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Elements */}
+                <div className="absolute -top-6 -right-6 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-4 shadow-xl animate-pulse">
                   <Award className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Trusted Partnership</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Building financial futures together since 1963, with a legacy of trust, reliability, and community service.
-                </p>
+                <div className="absolute -bottom-6 -left-6 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl p-4 shadow-xl" style={{ animationDelay: '1s' }}>
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
               </div>
-            </div>
-          </FadeIn>
+            </FadeIn>
+          </div>
 
-          <FadeIn direction="up" delay={0.6}>
-            <div className="text-center">
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <Link
-                  href="/about"
-                  className="group relative bg-gradient-to-r from-blue-600 to-blue-700 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
-                >
-                  <span className="relative z-10 flex items-center">
-                    Learn More About Us
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </Link>
+          {/* Features Grid */}
+          <FadeIn direction="up" delay={0.5}>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="group relative bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 border border-blue-100 dark:border-blue-900 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 hover:shadow-xl">
+                <div className="absolute top-6 right-6 text-6xl font-black text-blue-100 dark:text-blue-900/20">01</div>
+                <div className="relative">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                    <Users className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Member First</h3>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Every decision we make puts our members' interests at the forefront, ensuring personalized solutions for your financial journey.
+                  </p>
+                </div>
+              </div>
 
-                <Link
-                  href="/contact"
-                  className="group relative border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 px-10 py-5 rounded-2xl font-bold text-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  <span className="flex items-center">
-                    Get in Touch
-                    <Heart className="w-5 h-5 ml-2 group-hover:scale-110 transition-transform duration-300" />
-                  </span>
-                </Link>
+              <div className="group relative bg-gradient-to-br from-yellow-50 to-white dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 border border-yellow-100 dark:border-yellow-900 hover:border-yellow-300 dark:hover:border-yellow-700 transition-all duration-300 hover:shadow-xl">
+                <div className="absolute top-6 right-6 text-6xl font-black text-yellow-100 dark:text-yellow-900/20">02</div>
+                <div className="relative">
+                  <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                    <Globe className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Community Driven</h3>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Building stronger communities through financial inclusion, education programs, and sustainable development initiatives.
+                  </p>
+                </div>
+              </div>
+
+              <div className="group relative bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 border border-blue-100 dark:border-blue-900 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 hover:shadow-xl">
+                <div className="absolute top-6 right-6 text-6xl font-black text-blue-100 dark:text-blue-900/20">03</div>
+                <div className="relative">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-700 to-yellow-500 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                    <Target className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Trusted Excellence</h3>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Six decades of proven reliability, transparency, and commitment to helping our members achieve their financial goals.
+                  </p>
+                </div>
               </div>
             </div>
           </FadeIn>
