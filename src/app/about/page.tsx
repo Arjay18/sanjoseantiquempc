@@ -7,236 +7,306 @@ import Stats from '@/components/home/Stats';
 export default function AboutPage() {
   return (
     <>
-      <section className="relative py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-200/20 to-purple-200/20 rounded-full blur-3xl"></div>
+      {/* Hero Section */}
+      <section className="relative py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-green-200/20 to-blue-200/20 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeIn direction="up" delay={0.2}>
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 text-blue-800 dark:text-blue-300 text-sm font-semibold mb-8 shadow-lg">
-                <CheckCircle className="w-5 h-5 mr-2" />
-                About SJMPC
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-lg mb-6">
+              <CheckCircle className="w-5 h-5 mr-2 text-blue-600" />
+              <span className="text-sm font-semibold text-gray-900 dark:text-white">ABOUT SJMPC</span>
+            </div>
+
+            <h1 className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white mb-6">
+              Empowering Communities
+              <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
+                Since 1963
+              </span>
+            </h1>
+
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12">
+              For over 61 years, SJMPC has been at the forefront of cooperative banking in the Philippines,
+              dedicated to providing comprehensive financial services that empower individuals and strengthen communities.
+            </p>
+
+            {/* Quick stats */}
+            <div className="flex flex-wrap justify-center gap-8 mb-12">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">15K+</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Members</div>
               </div>
-
-              <h1 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white mb-8 leading-tight">
-                Empowering Communities Through
-                <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
-                  Cooperative Excellence
-                </span>
-              </h1>
-
-              <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
-                For over 61 years, SJMPC has been at the forefront of cooperative banking in the Philippines,
-                dedicated to providing comprehensive financial services that empower individuals and strengthen communities.
-              </p>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">61+</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Years</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600 dark:text-green-400">₱1.2B+</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Assets</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">4</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Branches</div>
+              </div>
             </div>
           </FadeIn>
 
           <FadeIn direction="up" delay={0.4}>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-              <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Users className="w-8 h-8 text-white" />
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-blue-500">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mb-4">
+                  <Users className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Member-Centric Approach</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  We prioritize our members' needs, offering personalized financial solutions that adapt to their unique circumstances and goals.
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Member-Centric</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  Personalized financial solutions that adapt to your unique circumstances and goals.
                 </p>
               </div>
 
-              <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Globe className="w-8 h-8 text-white" />
+              <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-purple-500">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center mb-4">
+                  <Globe className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Community Impact</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Creating lasting positive change in our communities through financial inclusion, education, and sustainable development initiatives.
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Community Impact</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  Creating lasting positive change through financial inclusion and development initiatives.
                 </p>
               </div>
 
-              <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20 md:col-span-2 lg:col-span-1">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Award className="w-8 h-8 text-white" />
+              <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mb-4">
+                  <Award className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Trusted Partnership</h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Building financial futures together since 1963, with a legacy of trust, reliability, and community service.
-                </p>
-              </div>
-            </div>
-          </FadeIn>
-
-          {/* Our Story Section */}
-          <FadeIn direction="up" delay={0.6}>
-            <div className="mb-20">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Our Story</h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
-              </div>
-
-              <div className="prose prose-lg max-w-none text-gray-600 dark:text-gray-300 leading-relaxed">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">The Beginning (1964)</h3>
-                <p className="mb-4">
-                  Father Antony Oomen, then Parish Priest of San Jose Parish (Cathedral), gathered twenty-eight people for the purpose of forming a Cooperative on 23 February 1964. Fifteen of them were members of the Knights of the Columbus, with the assistance of two representatives from Cooperative Administration Office (CAO). On 22 September 1964, of the same year, San Jose Credit Union was born and was formally registered. Its temporary home was at the basement of the San Jose Parish Convento. At the end of 1964, the Credit Union had 151 members, total assets of P4,392.47, and total share capital of P4, 288.00. Retired Judge Ciriaco Q. Nietes and Ms. Epifania S. Ballescas, a retired teacher were the Chairperson of the Board of Directors and Treasurer, respectively.
-                </p>
-                <p className="mb-8">
-                  The Roman Catholic Diocese of San Jose de Antique, under the leadership of Bishop Cornelio De Wit conducted a province wide campaign and soon there were coops in every parish.
-                </p>
-
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Re-registration and Growth (1975)</h3>
-                <p className="mb-8">
-                  { "On 5 May 1975, the San Jose Credit Union was re-registered with the Bureau of Cooperatives' Development under a new name, the San Jose Credit Cooperative, Inc. (SJCCI). Chairperson of the Board was Mr. Jovito L. Encarnacion. The old bowling alley near the San Jose Parish Convento was converted into an office building which the Cooperative occupied for 19 years." }
-                </p>
-
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Multi-Purpose Era (1995)</h3>
-                <p className="mb-4">
-                  Business continued as usual until 1995 when SJCCI was renamed and registered with the Cooperative Development Authority (CDA) as San Jose Multi-Purpose Cooperative (SJMPC). That time the Cooperative opened its multi-purpose program for its growing members.
-                </p>
-                <p className="mb-8">
-                  After a year at the DILG building, the Cooperative found another home at the Municipal Building where it operated its business for 10 years. Here, the Cooperative Consumer's Market was established but failed. The reason that the officers phased out the project.
-                </p>
-
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Community Programs and Housing (2000)</h3>
-                <p className="mb-4">
-                  In 2000, SJMPC envisioned to extend its help to the youth, thus Coop Bulig Eskwela Scholars was initiated. This program provides financial assistance to qualified children or ward of deserving members of cooperative in good standing. This program started with 7 beneficiaries.
-                </p>
-                <p className="mb-8">
-                  It was also in the same year when the Cooperative in its Ruby Jubilee Year acquired a lot with an area of 9,368 sq.m in Barangay San Fernando, San Jose de Buenavista, Antique which was named the Coop Ruby Jubilee Village. It provided housing to 62 members.
-                </p>
-
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Permanent Home and Continued Growth (2007 - Present)</h3>
-                <p className="mb-4">
-                  In September 2007, the Cooperative was able to have its permanent home at Trade Town, Dalipe, San Jose de Buenavista through a Usufruct Agreement with the Local Government Unit of San Jose de Buenavista.
-                </p>
-                <p className="mb-8">
-                  From 151 members in 1964, the Cooperative's membership has reached more than 10,000 members and with satellite offices in Miag-ao and Oton, Iloilo. SJMPC continues to grow and reach out to people through its many projects...
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Trusted Partnership</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  A legacy of trust, reliability, and community service since 1963.
                 </p>
               </div>
             </div>
           </FadeIn>
+        </div>
+      </section>
 
-          {/* Our Mission & Vision */}
-          <FadeIn direction="up" delay={0.8}>
-            <div className="grid lg:grid-cols-2 gap-12 mb-20">
-              <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-12 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20">
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Target className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Our Mission</h3>
-                  <div className="w-20 h-1 bg-gradient-to-r from-green-600 to-green-700 mx-auto rounded-full"></div>
+      {/* Our Story Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <FadeIn direction="up" delay={0.6}>
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full mb-4">
+              <Award className="w-5 h-5 text-blue-600 mr-2" />
+              <span className="text-sm font-semibold text-blue-600">OUR HISTORY</span>
+            </div>
+            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Our Story</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              A journey of growth, resilience, and community service spanning over six decades
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-12">
+              {/* Timeline Entry - 1964 */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border-l-4 border-blue-500">
+                <div className="flex items-center mb-4">
+                  <div className="bg-blue-500 text-white px-4 py-2 rounded-lg font-bold text-lg">1964</div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">The Beginning</h3>
                 </div>
-                <div className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed space-y-6">
-                  <div>
-                    <h4 className="font-bold text-green-700 dark:text-green-400 text-xl mb-2">Financial Intermediary</h4>
-                    <p>To provide friendly, affordable and accessible financial services towards building a financially disciplined and empowered members.</p>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-green-700 dark:text-green-400 text-xl mb-2">People's Movement</h4>
-                    <p>To raise the level of social and political consciousness of the members through participative governance.</p>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-green-700 dark:text-green-400 text-xl mb-2">Social Development</h4>
-                    <p>To instill values of honesty, openness, and care for others among members and community.</p>
-                  </div>
-                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Father Antony Oomen gathered twenty-eight people to form a Cooperative on 23 February 1964. On 22 September 1964, San Jose Credit Union was born and formally registered with 151 members, total assets of ₱4,392.47, and share capital of ₱4,288.00.
+                </p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  The Roman Catholic Diocese of San Jose de Antique, under Bishop Cornelio De Wit, conducted a province-wide campaign, establishing cooperatives in every parish.
+                </p>
               </div>
 
-              <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-12 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20">
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Eye className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Our Vision</h3>
-                  <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-blue-700 mx-auto rounded-full"></div>
+              {/* Timeline Entry - 1975 */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border-l-4 border-purple-500">
+                <div className="flex items-center mb-4">
+                  <div className="bg-purple-500 text-white px-4 py-2 rounded-lg font-bold text-lg">1975</div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">Re-registration & Growth</h3>
                 </div>
-                <p className="text-gray-700 dark:text-gray-300 text-xl leading-relaxed">
-                  Responsive, dynamic, self-reliant and transparent, environment-friendly cooperative providing quality service to members and community.
+                <p className="text-gray-600 dark:text-gray-300">
+                  On 5 May 1975, the San Jose Credit Union was re-registered as San Jose Credit Cooperative, Inc. (SJCCI). The old bowling alley near the San Jose Parish Convento was converted into an office building, which the Cooperative occupied for 19 years.
+                </p>
+              </div>
+
+              {/* Timeline Entry - 1995 */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border-l-4 border-green-500">
+                <div className="flex items-center mb-4">
+                  <div className="bg-green-500 text-white px-4 py-2 rounded-lg font-bold text-lg">1995</div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">Multi-Purpose Era</h3>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300">
+                  SJCCI was renamed and registered with the Cooperative Development Authority (CDA) as San Jose Multi-Purpose Cooperative (SJMPC), opening its multi-purpose program for growing members and relocating to the Municipal Building.
+                </p>
+              </div>
+
+              {/* Timeline Entry - 2000 */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border-l-4 border-orange-500">
+                <div className="flex items-center mb-4">
+                  <div className="bg-orange-500 text-white px-4 py-2 rounded-lg font-bold text-lg">2000</div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">Community Programs & Housing</h3>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  SJMPC initiated the Coop Bulig Eskwela Scholars program, starting with 7 beneficiaries to provide financial assistance for education.
+                </p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  In its Ruby Jubilee Year, the Cooperative acquired 9,368 sq.m in Barangay San Fernando for the Coop Ruby Jubilee Village, providing housing to 62 members.
+                </p>
+              </div>
+
+              {/* Timeline Entry - 2007-Present */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border-l-4 border-red-500">
+                <div className="flex items-center mb-4">
+                  <div className="bg-red-500 text-white px-4 py-2 rounded-lg font-bold text-lg">2007</div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">Permanent Home & Expansion</h3>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  In September 2007, the Cooperative established its permanent home at Trade Town, Dalipe, San Jose de Buenavista through a Usufruct Agreement.
+                </p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  From 151 members in 1964, SJMPC's membership reached over 15,000 members with satellite offices in Miag-ao, Oton, and Guimaras.
                 </p>
               </div>
             </div>
-          </FadeIn>
+          </div>
+        </FadeIn>
+      </section>
 
-          {/* Our Core Values */}
-          <FadeIn direction="up" delay={1.0}>
-            <div className="mb-20">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Our Core Values</h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 mx-auto rounded-full"></div>
+      {/* Mission & Vision Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <FadeIn direction="up" delay={0.8}>
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Mission */}
+            <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
+                  <Target className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-3xl font-black text-gray-900 dark:text-white ml-4">Our Mission</h3>
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <CheckCircle className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-green-800 dark:text-green-400 mb-2">INTEGRITY</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Upholding honesty, transparency, and ethical standards.</p>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-bold text-green-700 dark:text-green-400 mb-2">Financial Intermediary</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Provide friendly, affordable and accessible financial services towards building financially disciplined and empowered members.</p>
                 </div>
-                <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <Heart className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-blue-800 dark:text-blue-400 mb-2">BELONGINGNESS</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Fostering a sense of community and belonging.</p>
+                <div>
+                  <h4 className="font-bold text-green-700 dark:text-green-400 mb-2">People's Movement</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Raise the level of social and political consciousness through participative governance.</p>
                 </div>
-                <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <Star className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-yellow-800 dark:text-yellow-400 mb-2">EQUITY</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Ensuring fair treatment and equal opportunities.</p>
-                </div>
-                <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-red-400 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <Award className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-red-800 dark:text-red-400 mb-2">LOYALTY</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Demonstrating unwavering commitment.</p>
-                </div>
-                <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <Globe className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-purple-800 dark:text-purple-400 mb-2">OPENNESS</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Maintaining transparency and open communication.</p>
-                </div>
-                <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <Users className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-indigo-800 dark:text-indigo-400 mb-2">NOBLENESS</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Acting with dignity, honor, and moral excellence.</p>
-                </div>
-                <div className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-white/20 text-center md:col-span-2 lg:col-span-1">
-                  <div className="w-16 h-16 bg-gradient-to-r from-pink-400 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <Heart className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-pink-800 dark:text-pink-400 mb-2">GENEROSITY</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Sharing resources and giving freely to support our community.</p>
+                <div>
+                  <h4 className="font-bold text-green-700 dark:text-green-400 mb-2">Social Development</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Instill values of honesty, openness, and care for others among members and community.</p>
                 </div>
               </div>
             </div>
-          </FadeIn>
 
-          {/* Photo Gallery */}
-          <FadeIn direction="up" delay={1.2}>
-            <div className="mb-20">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 text-purple-800 dark:text-purple-300 text-sm font-semibold mb-8 shadow-lg">
-                  <Camera className="w-5 h-5 mr-2" />
-                  Our Gallery
+            {/* Vision */}
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center">
+                  <Eye className="w-6 h-6 text-white" />
                 </div>
-                <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Moments That Matter</h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
-                <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-4">
-                  Capturing the spirit of community, growth, and cooperative excellence at SJMPC through the years.
-                </p>
+                <h3 className="text-3xl font-black text-gray-900 dark:text-white ml-4">Our Vision</h3>
               </div>
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                Responsive, dynamic, self-reliant and transparent, environment-friendly cooperative providing quality service to members and community.
+              </p>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* Core Values Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <FadeIn direction="up" delay={1.0}>
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-full mb-4">
+              <Star className="w-5 h-5 text-yellow-600 mr-2" />
+              <span className="text-sm font-semibold text-yellow-600">OUR PRINCIPLES</span>
+            </div>
+            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Core Values</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              The guiding principles that shape our culture and service
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center border-t-4 border-green-500">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <CheckCircle className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-green-700 dark:text-green-400 mb-2">INTEGRITY</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">Honesty and ethical standards</p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center border-t-4 border-blue-500">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Heart className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-blue-700 dark:text-blue-400 mb-2">BELONGINGNESS</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">Community and unity</p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center border-t-4 border-yellow-500">
+              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Star className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-yellow-700 dark:text-yellow-400 mb-2">EQUITY</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">Fair treatment for all</p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center border-t-4 border-red-500">
+              <div className="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Award className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-red-700 dark:text-red-400 mb-2">LOYALTY</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">Unwavering commitment</p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center border-t-4 border-purple-500">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Globe className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-purple-700 dark:text-purple-400 mb-2">OPENNESS</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">Transparent communication</p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center border-t-4 border-indigo-500">
+              <div className="w-12 h-12 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-indigo-700 dark:text-indigo-400 mb-2">NOBLENESS</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">Dignity and moral excellence</p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center border-t-4 border-pink-500">
+              <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Heart className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-bold text-pink-700 dark:text-pink-400 mb-2">GENEROSITY</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">Freely giving to community</p>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* Photo Gallery */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <FadeIn direction="up" delay={1.2}>
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full mb-4">
+              <Camera className="w-5 h-5 text-purple-600 mr-2" />
+              <span className="text-sm font-semibold text-purple-600">OUR GALLERY</span>
+            </div>
+            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Moments That Matter</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Capturing the spirit of community, growth, and cooperative excellence through the years
+            </p>
+          </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
@@ -336,30 +406,20 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="text-center mt-12">
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
-                  Want to see more of our journey? Visit our social media pages for the latest updates and behind-the-scenes content.
-                </p>
-                <div className="flex justify-center space-x-4">
-                  <Link
-                    href="#"
-                    className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300"
-                  >
-                    <Globe className="w-5 h-5 mr-2" />
-                    Facebook
-                  </Link>
-                  <Link
-                    href="#"
-                    className="inline-flex items-center px-6 py-3 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-300"
-                  >
-                    <Camera className="w-5 h-5 mr-2" />
-                    Instagram
-                  </Link>
-                </div>
-              </div>
+          <div className="text-center mt-12">
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
+              Want to see more? Visit our social media pages for the latest updates.
+            </p>
+            <div className="flex justify-center gap-4">
+              <Link href="#" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+                Facebook
+              </Link>
+              <Link href="#" className="px-6 py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+                Instagram
+              </Link>
             </div>
-          </FadeIn>
-        </div>
+          </div>
+        </FadeIn>
       </section>
       <Stats />
     </>
