@@ -255,20 +255,9 @@ export default function AdminDashboard() {
       {/* Branch Statistics */}
       {stats?.branchStats && (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Loan Applications by Branch</h2>
-              <p className="text-sm text-gray-600">Distribution of loan applications across all branches</p>
-            </div>
-            <Link
-              href="/administrator/loan-applications"
-              className="text-sm text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
-            >
-              View all applications
-              <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold text-gray-900">Loan Applications by Branch</h2>
+            <p className="text-sm text-gray-600">Click on a branch to view their loan applications</p>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
