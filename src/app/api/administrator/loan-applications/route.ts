@@ -22,11 +22,20 @@ export async function GET(request: NextRequest) {
     // Administrators can optionally filter by `branch` query param when needed.
     const branchParam = searchParams.get('branch');
 
+    console.log('Loan applications query:', {
+      userRole: session.user.role,
+      userBranch: (session.user as any).branch,
+      branchParam,
+      status
+    });
+
     const where: any = {
       ...(status && status !== 'all' && { status }),
       ...(session.user.role === 'branch' && { branch: (session.user as any).branch }),
-      ...(branchParam && session.user.role !== 'branch' && { branch: branchParam }),
+      ...(branchParam && { branch: branchParam }),
     };
+
+    console.log('Query where clause:', where);
 
     const [applications, total] = await Promise.all([
       prisma.loanApplication.findMany({
