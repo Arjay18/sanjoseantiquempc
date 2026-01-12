@@ -13,9 +13,26 @@ export const maxDuration = 30; // 30 seconds timeout
 export async function POST(request: Request) {
   try {
     console.log('=== UPLOAD REQUEST STARTED ===');
+    console.log('Request URL:', request.url);
+    console.log('Request headers:', Object.fromEntries(request.headers.entries()));
     
-    // Temporarily skip auth check to debug
-    console.log('Proceeding with upload (auth check temporarily disabled for debugging)');
+    // Check authentication using cookies
+    try {
+      const cookieStore = await cookies();
+      const sessionToken = cookieStore.get('next-auth.session-token') || 
+                          cookieStore.get('__Secure-next-auth.session-token');
+      
+      console.log('Session token present:', !!sessionToken);
+      
+      if (!sessionToken) {
+        console.error('No session token found - user not authenticated');
+        return NextResponse.json({ error: 'Unauthorized - Please log in' }, { status: 401 });
+      }
+    } catch (authError) {
+      console.error('Auth check error:', authError);
+      // Continue anyway for now, but log the issue
+      console.warn('Proceeding with upload despite auth check error');
+    }
 
     const formData = await request.formData();
     console.log('FormData received, keys:', Array.from(formData.keys()));

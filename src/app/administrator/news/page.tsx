@@ -78,6 +78,12 @@ export default function NewsAdmin() {
     try {
       console.log('Uploading image:', file.name, file.type, file.size);
       
+      // Validate file type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error(`Invalid file type: ${file.type}. Allowed types: JPG, PNG, GIF, WebP`);
+      }
+      
       // Validate file size before upload (5MB limit)
       const maxSize = 5 * 1024 * 1024; // 5MB
       if (file.size > maxSize) {
@@ -87,7 +93,14 @@ export default function NewsAdmin() {
       const formData = new FormData();
       formData.append('file', file);
 
-      const res = await fetch('/api/upload', { method: 'POST', body: formData });
+      console.log('Sending upload request to /api/upload...');
+      const res = await fetch('/api/upload', { 
+        method: 'POST', 
+        body: formData,
+        credentials: 'include'
+      });
+      
+      console.log('Upload response status:', res.status);
       
       if (!res.ok) {
         // Try to parse JSON error, fallback to text
@@ -95,19 +108,26 @@ export default function NewsAdmin() {
         const contentType = res.headers.get('content-type');
         if (contentType && contentType.includes('application/json')) {
           const errorData = await res.json();
+          console.error('Upload error data:', errorData);
           errorMessage = errorData.error || errorData.details || `Upload failed with status ${res.status}`;
         } else {
           const errorText = await res.text();
-          errorMessage = `Server error: ${errorText.substring(0, 100)}...`;
+          console.error('Upload error text:', errorText.substring(0, 200));
+          errorMessage = `Server error (${res.status}): ${errorText.substring(0, 100)}`;
         }
-        console.error('Upload failed:', res.status, errorMessage);
         throw new Error(errorMessage);
       }
 
       const data = await res.json();
       console.log('Upload successful:', data);
+      
+      if (!data.url) {
+        throw new Error('Upload response missing URL');
+      }
+      
       setImageUrl(data.url);
       setError(''); // Clear any previous errors
+      alert('Image uploaded successfully!');
     } catch (err) {
       console.error('Image upload error:', err);
       const errorMessage = err instanceof Error ? err.message : 'Failed to upload image';
