@@ -111,7 +111,7 @@ export default function HomeSlider() {
   };
 
   return (
-    <div className="relative h-[650px] md:h-[700px] lg:h-[750px] w-full overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
+    <div className="relative h-[500px] md:h-[550px] lg:h-[600px] w-full overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
