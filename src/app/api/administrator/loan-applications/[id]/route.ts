@@ -49,13 +49,18 @@ export async function PUT(request: NextRequest, ctx: any) {
     console.debug('[administrator/loan-applications/[id]] PUT session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : null);
     if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
+    // Only branch users can update loan applications
+    if (session.user.role === 'administrator') {
+      return NextResponse.json({ error: 'Administrators can only view loan applications' }, { status: 403 });
+    }
+
     const { id } = ctx.params as { id: string };
     const body = await request.json();
 
     const existing = await prisma.loanApplication.findUnique({ where: { id } });
     if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
     if (session.user.role === 'branch' && (session.user as any).branch !== existing.branch) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      return NextResponse.json({ error: 'Forbidden - You can only update applications for your branch' }, { status: 403 });
     }
 
     const updated = await prisma.loanApplication.update({
@@ -101,12 +106,17 @@ export async function DELETE(request: NextRequest, ctx: any) {
     console.debug('[administrator/loan-applications/[id]] DELETE session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : null);
     if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
+    // Only branch users can delete loan applications
+    if (session.user.role === 'administrator') {
+      return NextResponse.json({ error: 'Administrators can only view loan applications' }, { status: 403 });
+    }
+
     const { id } = ctx.params as { id: string };
 
     const existing = await prisma.loanApplication.findUnique({ where: { id } });
     if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
     if (session.user.role === 'branch' && (session.user as any).branch !== existing.branch) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      return NextResponse.json({ error: 'Forbidden - You can only delete applications for your branch' }, { status: 403 });
     }
 
     await prisma.loanApplication.delete({ where: { id } });

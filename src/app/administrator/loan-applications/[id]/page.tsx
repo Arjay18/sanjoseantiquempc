@@ -440,33 +440,43 @@ export default function LoanApplicationDetailPage() {
 
         {application.status === 'pending' ? (
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Review Notes</label>
-              <textarea
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Add any notes or comments about this application..."
-              />
-            </div>
+            {session?.user?.role === 'branch' ? (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Review Notes</label>
+                  <textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    rows={4}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Add any notes or comments about this application..."
+                  />
+                </div>
 
-            <div className="flex space-x-4">
-              <button
-                onClick={() => updateStatus('approved')}
-                disabled={updating}
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
-              >
-                {updating ? 'Processing...' : 'Approve Application'}
-              </button>
-              <button
-                onClick={() => updateStatus('rejected')}
-                disabled={updating}
-                className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 disabled:opacity-50 transition-colors"
-              >
-                {updating ? 'Processing...' : 'Reject Application'}
-              </button>
-            </div>
+                <div className="flex space-x-4">
+                  <button
+                    onClick={() => updateStatus('approved')}
+                    disabled={updating}
+                    className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
+                  >
+                    {updating ? 'Processing...' : 'Approve Application'}
+                  </button>
+                  <button
+                    onClick={() => updateStatus('rejected')}
+                    disabled={updating}
+                    className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 disabled:opacity-50 transition-colors"
+                  >
+                    {updating ? 'Processing...' : 'Reject Application'}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-blue-800">
+                  <strong>Administrator View:</strong> You have read-only access. Only branch users can approve or reject loan applications.
+                </p>
+              </div>
+            )}
           </div>
         ) : (
           <div className="space-y-4">

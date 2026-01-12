@@ -306,31 +306,10 @@ export default function LoanApplicationsPage() {
                           prefetch={false}
                           className="text-blue-600 hover:text-blue-900"
                         >
-                          View
+                          View Details
                         </Link>
-                        {application.status === 'pending' && (
-                          <>
-                            <button
-                              onClick={() => updateApplicationStatus(application.id, 'approved')}
-                              className="text-green-600 hover:text-green-900"
-                            >
-                              Approve
-                            </button>
-                            <button
-                              onClick={() => updateApplicationStatus(application.id, 'rejected')}
-                              className="text-red-600 hover:text-red-900"
-                            >
-                              Reject
-                            </button>
-                          </>
-                        )}
-                        <button
-                          onClick={() => deleteApplication(application.id)}
-                          className="text-red-600 hover:text-red-900"
-                        >
-                          Delete
-                        </button>
                       </div>
+                      <p className="text-xs text-gray-500 mt-1">Read-only access</p>
                     </td>
                   </tr>
                 ))}
