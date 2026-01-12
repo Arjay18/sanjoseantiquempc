@@ -278,7 +278,16 @@ export default function LoanApplication() {
         const result = await submitResponse.json();
         console.log('Application submitted successfully:', result);
         
-        alert(`✅ Loan application submitted successfully!\n\nYour application has been sent to the ${formData.branch} branch and is now pending review.\n\nApplication ID: ${result.id}\nName: ${formData.name}\nLoan Type: ${formData.loanType}\nAmount: ₱${formData.loanAmount}\n\nThank you for choosing San Jose Multi-Purpose Cooperative!`);
+        // Get branch display name
+        const branchNames: Record<string, string> = {
+          'sanjose': 'Main Office - San Jose',
+          'miagao': 'Miagao Branch',
+          'oton': 'Oton Branch',
+          'guimaras': 'Guimaras Branch'
+        };
+        const branchDisplay = branchNames[formData.branch] || formData.branch;
+        
+        alert(`✅ Loan application submitted successfully!\n\nYour application has been sent to the ${branchDisplay} and is now pending review.\n\nApplication ID: ${result.id}\nName: ${formData.name}\nLoan Type: ${formData.loanType}\nAmount: ₱${formData.loanAmount}\n\nThank you for choosing San Jose Multi-Purpose Cooperative!`);
 
         // Reset form and go back to step 1
         setCurrentStep(1);
@@ -560,10 +569,10 @@ export default function LoanApplication() {
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     >
                       <option value="">Select Branch</option>
-                      <option value="Main Office">Main Office - San Jose</option>
-                      <option value="Miagao Branch">Miagao Branch</option>
-                      <option value="Oton Branch">Oton Branch</option>
-                      <option value="Guimaras Branch">Guimaras Branch</option>
+                      <option value="sanjose">Main Office - San Jose</option>
+                      <option value="miagao">Miagao Branch</option>
+                      <option value="oton">Oton Branch</option>
+                      <option value="guimaras">Guimaras Branch</option>
                     </select>
                   </div>
                 </div>
