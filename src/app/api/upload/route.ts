@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
-import { existsSync } from 'fs';
+import { put } from '@vercel/blob';
 import { cookies } from 'next/headers';
 
 // Configure route for file uploads
@@ -67,32 +64,18 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Generate unique filename
-    const uniqueId = uuidv4();
-    const extension = path.extname(file.name);
-    const filename = `${uniqueId}${extension}`;
+    console.log('Uploading to Vercel Blob Storage...');
     
-    // Ensure upload directory exists
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    // Upload to Vercel Blob Storage
+    const blob = await put(file.name, buffer, {
+      access: 'public',
+      contentType: file.type,
+    });
     
-    if (!existsSync(uploadDir)) {
-      console.log('Creating uploads directory:', uploadDir);
-      await mkdir(uploadDir, { recursive: true });
-    }
-    
-    const filePath = path.join(uploadDir, filename);
-    
-    console.log('Attempting to save file to:', filePath);
-    
-    await writeFile(filePath, buffer);
-    
-    // Return the URL for the uploaded file
-    const fileUrl = `/uploads/${filename}`;
-    
-    console.log('File uploaded successfully:', fileUrl);
+    console.log('File uploaded successfully to Blob Storage:', blob.url);
     console.log('=== UPLOAD REQUEST COMPLETED SUCCESSFULLY ===');
     
-    return NextResponse.json({ url: fileUrl, success: true });
+    return NextResponse.json({ url: blob.url, success: true });
   } catch (error) {
     console.error('=== UPLOAD REQUEST FAILED ===');
     console.error('Error uploading file:', error);
