@@ -115,47 +115,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Cooperative Principles Banner */}
-      <section className="bg-gradient-to-r from-orange-600 via-amber-600 to-teal-600 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn direction="up" delay={0.5}>
-            <div className="text-center text-white">
-              <h2 className="text-3xl font-black mb-6">International Cooperative Principles</h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2 font-black text-xl">1</div>
-                  <p className="text-sm font-semibold">Voluntary Membership</p>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2 font-black text-xl">2</div>
-                  <p className="text-sm font-semibold">Democratic Control</p>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2 font-black text-xl">3</div>
-                  <p className="text-sm font-semibold">Member Participation</p>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2 font-black text-xl">4</div>
-                  <p className="text-sm font-semibold">Autonomy</p>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2 font-black text-xl">5</div>
-                  <p className="text-sm font-semibold">Education</p>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2 font-black text-xl">6</div>
-                  <p className="text-sm font-semibold">Cooperation</p>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2 font-black text-xl">7</div>
-                  <p className="text-sm font-semibold">Community</p>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
       {/* Our Story Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <FadeIn direction="up" delay={0.6}>
