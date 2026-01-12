@@ -1,9 +1,12 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
-import { PhilippinePeso, Building, Heart, Clock, CheckCircle, ArrowRight, BookOpen, Phone, Home, Award, Building2, Tractor, Shield, Wallet, Wheat, AlertTriangle } from 'lucide-react';
+import { PhilippinePeso, Building, Heart, Clock, CheckCircle, ArrowRight, BookOpen, Phone, Home, Award, Building2, Tractor, Shield, Wallet, Wheat, AlertTriangle, User, FileText, CreditCard, DollarSign, PenTool, ChevronRight, ChevronLeft } from 'lucide-react';
 
 export default function LoanApplication() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = 6;
+
   const [formData, setFormData] = useState({
     // Basic Information
     name: '',
@@ -359,830 +362,961 @@ export default function LoanApplication() {
     }
   };
 
+  // Wizard navigation functions
+  const nextStep = () => {
+    if (currentStep < totalSteps) {
+      setCurrentStep(currentStep + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const goToStep = (step: number) => {
+    setCurrentStep(step);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const steps = [
+    { number: 1, title: 'Personal Info', icon: User, description: 'Basic details' },
+    { number: 2, title: 'Loan Details', icon: FileText, description: 'Loan information' },
+    { number: 3, title: 'Financial Info', icon: DollarSign, description: 'Income & expenses' },
+    { number: 4, title: 'Documents', icon: CreditCard, description: 'ID & verification' },
+    { number: 5, title: 'Signatures', icon: PenTool, description: 'Sign documents' },
+    { number: 6, title: 'Review', icon: CheckCircle, description: 'Confirm & submit' }
+  ];
+
 
 
   return (
-    <div className="min-h-screen bg-white py-8">
-      <div className="max-w-4xl mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12">
+      <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-8 border-b-2 border-gray-800 pb-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">SAN JOSE MULTI-PURPOSE COOPERATIVE (SJMPC)</h1>
-          <p className="text-sm text-gray-600">Tradetown Funda Dalipe, San Jose, Antique</p>
-          <p className="text-sm text-gray-600">Email add: sanjosempc@yahoo.com | Telefax: 540-8209 | Cellphone No.: 0917-308-1505</p>
-          <div className="text-xs text-gray-500 mt-2">
-            <p>Branch Offices:</p>
-            <p>Nochete Bldg., Tajanlangit St., Brgy. Tacas, Miagao, Iloilo | CP #s: 0917-127-9511, 0908-875-3239 | Telefax: (033)513-8925</p>
-            <p>National Highway, San Antonio, Oton, Iloilo | CP #s: 0998-577-2173, 0939-344-5574 | Telefax: (033)510-8564</p>
-            <p>Alejandro Heights, San Miguel, Jordan, Guimaras | CP #: 0968-885-4434, 0909-156-7857 | Telefax: (033)322-5149</p>
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-black text-gray-900 dark:text-white mb-2">
+            Loan <span className="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">Application</span>
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">San Jose Multi-Purpose Cooperative</p>
+        </div>
+
+        {/* Progress Steps */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between max-w-4xl mx-auto">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              const isCompleted = currentStep > step.number;
+              const isCurrent = currentStep === step.number;
+              
+              return (
+                <div key={step.number} className="flex-1 relative">
+                  {/* Connector Line */}
+                  {index !== steps.length - 1 && (
+                    <div className={`absolute top-6 left-1/2 w-full h-1 -z-10 transition-all duration-500 ${
+                      isCompleted ? 'bg-gradient-to-r from-blue-600 to-yellow-500' : 'bg-gray-200'
+                    }`} />
+                  )}
+                  
+                  {/* Step Circle */}
+                  <button
+                    onClick={() => goToStep(step.number)}
+                    className="flex flex-col items-center group cursor-pointer"
+                  >
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 mb-2 ${
+                      isCurrent 
+                        ? 'bg-gradient-to-br from-blue-600 to-blue-700 shadow-lg shadow-blue-500/50 scale-110' 
+                        : isCompleted
+                        ? 'bg-gradient-to-br from-yellow-500 to-yellow-600'
+                        : 'bg-gray-200 group-hover:bg-gray-300'
+                    }`}>
+                      {isCompleted ? (
+                        <CheckCircle className="w-6 h-6 text-white" />
+                      ) : (
+                        <Icon className={`w-6 h-6 ${isCurrent || isCompleted ? 'text-white' : 'text-gray-500'}`} />
+                      )}
+                    </div>
+                    <div className="text-center hidden md:block">
+                      <div className={`text-xs font-bold ${
+                        isCurrent ? 'text-blue-600' : isCompleted ? 'text-yellow-600' : 'text-gray-500'
+                      }`}>
+                        {step.title}
+                      </div>
+                      <div className="text-xs text-gray-400">{step.description}</div>
+                    </div>
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Form No */}
-        <div className="text-right mb-4">
-          <span className="text-sm">Form No.</span>
-          <input
-            type="text"
-            className="border-b border-gray-400 ml-2 w-24 focus:border-blue-500 outline-none bg-transparent"
-            placeholder=""
-            suppressHydrationWarning={true}
-          />
-        </div>
-
-        {/* Application Form */}
-        <div className="bg-white border-2 border-gray-300 rounded-lg p-6 shadow-lg mb-6">
-          <form className="space-y-6" onSubmit={handleSubmitApplication}>
-            {/* Basic Information */}
-            <div className="border-b border-gray-300 pb-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name:</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                    placeholder="Enter your full name"
-                    suppressHydrationWarning={true}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">PB No.:</label>
-                  <input
-                    type="text"
-                    name="pbNo"
-                    value={formData.pbNo}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                    placeholder="Enter your passbook number"
-                    suppressHydrationWarning={true}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Contact No.:</label>
-                  <input
-                    type="tel"
-                    name="contactNo"
-                    value={formData.contactNo}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                    placeholder="Enter your contact number"
-                    suppressHydrationWarning={true}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email Address:</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                    placeholder="Enter your email address"
-                    suppressHydrationWarning={true}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Apply at Branch:</label>
-                  <select
-                    name="branch"
-                    value={formData.branch}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                  >
-                    <option value="">Select branch</option>
-                    <option value="sanjose">San Jose (Main Office)</option>
-                    <option value="miagao">Miagao</option>
-                    <option value="oton">Oton</option>
-                    <option value="guimaras">Guimaras</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Type of Loan:</label>
-                  <select
-                    name="loanType"
-                    value={formData.loanType}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                  >
-                    <option value="">Select loan type</option>
-                    <option value="Multi-Purpose Loan">Multi-Purpose Loan</option>
-                    <option value="Salary Loan">Salary Loan</option>
-                    <option value="Educational Loan">Educational Loan</option>
-                    <option value="Agricultural Loan">Agricultural Loan</option>
-                    <option value="Emergency Loan">Emergency Loan</option>
-                    <option value="Micro-Enterprise Loan">Micro-Enterprise Loan</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Address:</label>
-                <textarea
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  required
-                  rows={2}
-                  className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent resize-none"
-                  placeholder="Enter your complete address"
-                />
-              </div>
-
-
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Loan Amount Applied:</label>
-                  <div className="flex items-center">
-                    <span className="text-sm mr-2">Pesos Only (P</span>
-                    <input
-                      type="number"
-                      name="loanAmount"
-                      value={formData.loanAmount}
-                      onChange={handleInputChange}
-                      required
-                      min="1000"
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder="0.00"
-                      suppressHydrationWarning={true}
-                    />
-                    <span className="text-sm ml-1">)</span>
+        {/* Form Card */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 mb-8">
+          <form onSubmit={handleSubmitApplication}>
+            {/* Step 1: Personal Information */}
+            {currentStep === 1 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
+                    <User className="w-6 h-6 text-white" />
                   </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Term:</label>
-                  <div className="flex items-center">
-                    <input
-                      type="number"
-                      name="term"
-                      value={formData.term}
-                      onChange={handleInputChange}
-                      required
-                      min="1"
-                      max="60"
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder="0"
-                      suppressHydrationWarning={true}
-                    />
-                    <span className="text-sm ml-1">months</span>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Purpose:</label>
-                  <input
-                    type="text"
-                    name="purpose"
-                    value={formData.purpose}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                    placeholder="Enter loan purpose"
-                    suppressHydrationWarning={true}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Promissory Note */}
-            <div className="border-b border-gray-300 pb-4">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">PROMISSORY NOTE</h3>
-              <p className="text-sm text-gray-700 mb-4 text-center">
-                For the value received, I/We, jointly and severally, promised to pay to the San Jose Multi-Purpose Cooperative, or its order, at its office, the sum of <input
-                  type="number"
-                  name="promissoryNoteAmount"
-                  value={formData.promissoryNoteAmount}
-                  onChange={handleInputChange}
-                  className="inline border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent w-20"
-                  placeholder="0.00"
-                /> Pesos, (P <input
-                  type="number"
-                  name="promissoryNoteAmount"
-                  value={formData.promissoryNoteAmount}
-                  onChange={handleInputChange}
-                  className="inline border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent w-20"
-                  placeholder="0.00"
-                /> ), Philippine Currency within/on or before <input
-                  type="text"
-                  name="promissoryNoteTerm"
-                  value={formData.promissoryNoteTerm}
-                  onChange={handleInputChange}
-                  className="inline border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent w-32"
-                  placeholder="Enter term"
-                /> with interest at the rate of two percent (2%) per month based on the diminishing balance method payable every <input
-                  type="text"
-                  name="promissoryNotePaymentSchedule"
-                  value={formData.promissoryNotePaymentSchedule}
-                  onChange={handleInputChange}
-                  className="inline border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent w-24"
-                  placeholder="e.g., monthly"
-                /> starting on <input
-                  type="text"
-                  name="promissoryNoteStartingOn"
-                  value={formData.promissoryNoteStartingOn}
-                  onChange={handleInputChange}
-                  className="inline border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent w-24"
-                  placeholder="e.g., date"
-                /> until fully paid.
-              </p>
-
-              <p className="text-xs text-gray-600 text-center mb-4">
-                Attached herewith is the amortization schedule, which forms part of this Note.
-              </p>
-
-              <p className="text-xs text-gray-600 text-center mb-4">
-                In case of any default in the agreed payment schedule and/or any deviation of the loan proceeds, the payee or its assignee/endorsee is unconditionally entitled to declare all unpaid balance of the note immediately due and payable. Notice of dishonor is expressly authorized to set-off or apply any deposits in the cooperative in my name, account to the payment of the loan without need for prior notice or approval from the undersigned and/or co-maker.
-              </p>
-
-              <p className="text-xs text-gray-600 text-center mb-4">
-                In case this Note is referred to an attorney for collection or legal action, I/We bind ourselves to pay attorney's fees equivalent to twenty percent (20%) of our outstanding obligation to any holder hereof, exclusive of costs and expenses of litigation; but in no case, less than Two Thousand Pesos (2,000.00). Any action on this instrument shall be brought before proper court in San Jose, Antique, Philippines.
-              </p>
-
-              <p className="text-xs text-gray-600 text-center mb-4">
-                The contract of this document has been read and explained to me/us and I/We have fully and clearly understood the same and their consequences.
-              </p>
-
-              <p className="text-xs text-gray-600 text-center mb-4 font-semibold">
-                In joint-several capacity:
-              </p>
-
-              {/* Signatures Section */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-xs">
-                <div>
-                  <p className="font-semibold">Name and Signature of Maker</p>
-                  <div className="mt-2 space-y-1">
-                    <p>1. <input
-                      type="text"
-                      name="makerName1"
-                      value={formData.makerName1}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                    <p>2. <input
-                      type="text"
-                      name="makerName2"
-                      value={formData.makerName2}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold">Name and Signature of Co-Maker</p>
-                  <div className="mt-2 space-y-1">
-                    <p>1. <input
-                      type="text"
-                      name="coMakerName1"
-                      value={formData.coMakerName1}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                    <p>2. <input
-                      type="text"
-                      name="coMakerName2"
-                      value={formData.coMakerName2}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold">Name and Signature of Witness</p>
-                  <div className="mt-2 space-y-1">
-                    <p><input
-                      type="text"
-                      name="witnessName1"
-                      value={formData.witnessName1}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                    <p><input
-                      type="text"
-                      name="witnessName2"
-                      value={formData.witnessName2}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Assignment of Deposit */}
-            <div className="border-b border-gray-300 pb-4">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">ASSIGNMENT OF DEPOSIT AND/OR SHARE CAPITAL</h3>
-              <p className="text-sm text-gray-700 mb-4 text-center">
-                I/We, the undersigned, for and in consideration of the loan I obtained from San Jose Multi-Purpose Cooperative, San Jose, Antique, in the amount of <input
-                  type="number"
-                  name="assignmentAmount"
-                  value={formData.assignmentAmount}
-                  onChange={handleInputChange}
-                  className="inline border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent w-20"
-                  placeholder="0.00"
-                /> Pesos Only (P <input
-                  type="number"
-                  name="assignmentAmount"
-                  value={formData.assignmentAmount}
-                  onChange={handleInputChange}
-                  className="inline border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent w-20"
-                  placeholder="0.00"
-                /> ) as evidenced, do hereby assign in favor of the said Cooperative my; Savings Deposit Regular <input
-                  type="text"
-                  name="regularSavings"
-                  value={formData.regularSavings}
-                  onChange={handleInputChange}
-                  className="border-b border-gray-400 w-20 mx-1 focus:border-blue-500 outline-none bg-transparent"
-                  placeholder=""
-                />, Savings Deposit Ultima <input
-                  type="text"
-                  name="ultimaSavings"
-                  value={formData.ultimaSavings}
-                  onChange={handleInputChange}
-                  className="border-b border-gray-400 w-20 mx-1 focus:border-blue-500 outline-none bg-transparent"
-                  placeholder=""
-                />, Savings Deposit Alkansya <input
-                  type="text"
-                  name="alkansyaSavings"
-                  value={formData.alkansyaSavings}
-                  onChange={handleInputChange}
-                  className="border-b border-gray-400 w-20 mx-1 focus:border-blue-500 outline-none bg-transparent"
-                  placeholder=""
-                />, Time Deposit <input
-                  type="text"
-                  name="timeDeposit"
-                  value={formData.timeDeposit}
-                  onChange={handleInputChange}
-                  className="border-b border-gray-400 w-20 mx-1 focus:border-blue-500 outline-none bg-transparent"
-                  placeholder=""
-                />, and Other Deposits <input
-                  type="text"
-                  name="otherDeposits"
-                  value={formData.otherDeposits}
-                  onChange={handleInputChange}
-                  className="border-b border-gray-400 w-20 mx-1 focus:border-blue-500 outline-none bg-transparent"
-                  placeholder=""
-                /> under my Passbook No. <input
-                  type="text"
-                  name="assignmentPbNo"
-                  value={formData.assignmentPbNo}
-                  onChange={handleInputChange}
-                  className="inline border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent w-20"
-                  placeholder=""
-                /> including my Share Capital <input
-                  type="text"
-                  name="shareCapital"
-                  value={formData.shareCapital}
-                  onChange={handleInputChange}
-                  className="border-b border-gray-400 w-20 mx-1 focus:border-blue-500 outline-none bg-transparent"
-                  placeholder=""
-                /> which I/We now have or thereafter may have, but which is limited only to such amount exceeding the required share capital of Five Hundred Pesos (P500.00) for me to remain a regular member of the cooperative.
-              </p>
-
-              <p className="text-xs text-gray-600 text-center mb-4">
-                Therefore, I/We severally, empower and authorize the San Jose Multi-Purpose Cooperative at their option and without prior notice and demand to set-off or apply my savings/time deposit and share capital to the payment of my aforementioned loan together with its interest and penalty, in the event of my failure to pay the same after its maturity.
-              </p>
-
-              <p className="text-xs text-gray-600 text-center mb-4">
-                IN WITNESS WHEREOF, I/We have hereto affixed my signature this day of <input
-                  type="text"
-                  name="signatureDate"
-                  value={formData.signatureDate}
-                  onChange={handleInputChange}
-                  className="inline border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent w-24"
-                  placeholder="date"
-                /> , San Jose, Antique, Philippines.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-xs">
-                <div>
-                  <p className="font-semibold">Name and Signature of Maker</p>
-                  <div className="mt-2 space-y-1">
-                    <p>1. <input
-                      type="text"
-                      name="assignmentMaker1"
-                      value={formData.assignmentMaker1}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                    <p>2. <input
-                      type="text"
-                      name="assignmentMaker2"
-                      value={formData.assignmentMaker2}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold">Name and Signature of Co-Maker</p>
-                  <div className="mt-2 space-y-1">
-                    <p>1. <input
-                      type="text"
-                      name="assignmentCoMaker1"
-                      value={formData.assignmentCoMaker1}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                    <p>2. <input
-                      type="text"
-                      name="assignmentCoMaker2"
-                      value={formData.assignmentCoMaker2}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold">Name and Signature of Witness</p>
-                  <div className="mt-2 space-y-1">
-                    <p><input
-                      type="text"
-                      name="assignmentWitness1"
-                      value={formData.assignmentWitness1}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                    <p><input
-                      type="text"
-                      name="assignmentWitness2"
-                      value={formData.assignmentWitness2}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-xs">
-                <div>
-                  <p className="font-semibold">Name and Signature of Makers Spouse</p>
-                  <div className="mt-2 space-y-1">
-                    <p><input
-                      type="text"
-                      name="makerSpouseName"
-                      value={formData.makerSpouseName}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold">Name and Signature of Co-Maker</p>
-                  <div className="mt-2 space-y-1">
-                    <p>1. <input
-                      type="text"
-                      name="assignmentCoMakerName1"
-                      value={formData.assignmentCoMakerName1}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                    <p>2. <input
-                      type="text"
-                      name="assignmentCoMakerName2"
-                      value={formData.assignmentCoMakerName2}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold">Name and Signature of Witness</p>
-                  <div className="mt-2 space-y-1">
-                    <p><input
-                      type="text"
-                      name="assignmentWitnessName1"
-                      value={formData.assignmentWitnessName1}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                    <p><input
-                      type="text"
-                      name="assignmentWitnessName2"
-                      value={formData.assignmentWitnessName2}
-                      onChange={handleInputChange}
-                      className="border-b border-gray-400 w-32 focus:border-blue-500 outline-none bg-transparent"
-                      placeholder=""
-                    /></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Monthly Disposable Income */}
-            <div className="border-b border-gray-300 pb-4">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">MONTHLY DISPOSABLE INCOME</h3>
-
-              <div className="mb-6">
-                <h4 className="text-md font-semibold text-gray-800 mb-3">1. Gross Family Income:</h4>
-                <div className="ml-4 space-y-3">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      a. Income from Profession or Employment (Salary, Pension and Allotment)
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Personal Information</h2>
+                    <p className="text-gray-600 dark:text-gray-300">Tell us about yourself</p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Full Name <span className="text-red-500">*</span>
                     </label>
-                    <div className="ml-4 space-y-2">
-                      <div className="flex items-center">
-                        <span className="text-sm w-32">i. Member-applicant</span>
-                        <input
-                          type="number"
-                          name="memberIncome"
-                          value={formData.memberIncome}
-                          onChange={handleInputChange}
-                          className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                          placeholder="0.00"
-                        />
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-sm w-32">ii. Spouse</span>
-                        <input
-                          type="number"
-                          name="spouseIncome"
-                          value={formData.spouseIncome}
-                          onChange={handleInputChange}
-                          className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                          placeholder="0.00"
-                        />
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-sm w-32">iii. Other members</span>
-                        <input
-                          type="number"
-                          name="otherIncome"
-                          value={formData.otherIncome}
-                          onChange={handleInputChange}
-                          className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                          placeholder="0.00"
-                        />
-                      </div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      placeholder="Juan Dela Cruz"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Passbook No. <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="pbNo"
+                      value={formData.pbNo}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      placeholder="PB-12345"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Contact Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      name="contactNo"
+                      value={formData.contactNo}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      placeholder="09XX-XXX-XXXX"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Email Address <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      placeholder="juan@email.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Branch <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="branch"
+                      value={formData.branch}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    >
+                      <option value="">Select Branch</option>
+                      <option value="Main Office">Main Office - San Jose</option>
+                      <option value="Miagao Branch">Miagao Branch</option>
+                      <option value="Oton Branch">Oton Branch</option>
+                      <option value="Guimaras Branch">Guimaras Branch</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    Complete Address <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    required
+                    rows={3}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="House No., Street, Barangay, Municipality, Province"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Step 2: Loan Details */}
+            {currentStep === 2 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Loan Details</h2>
+                    <p className="text-gray-600 dark:text-gray-300">Specify your loan requirements</p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Loan Type <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="loanType"
+                      value={formData.loanType}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    >
+                      <option value="">Select Loan Type</option>
+                      <option value="Personal Loan">Personal Loan</option>
+                      <option value="Business Loan">Business Loan</option>
+                      <option value="Educational Loan">Educational Loan</option>
+                      <option value="Housing Loan">Housing Loan</option>
+                      <option value="Emergency Loan">Emergency Loan</option>
+                      <option value="Appliance Loan">Appliance Loan</option>
+                      <option value="Livelihood Loan">Livelihood Loan</option>
+                      <option value="Agricultural Loan">Agricultural Loan</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Loan Amount <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">â‚±</span>
+                      <input
+                        type="number"
+                        name="loanAmount"
+                        value={formData.loanAmount}
+                        onChange={handleInputChange}
+                        required
+                        min="0"
+                        step="0.01"
+                        className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="50,000.00"
+                      />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      b. Income derived from Business
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Term (Months) <span className="text-red-500">*</span>
                     </label>
-                    <input
-                      type="number"
-                      name="businessIncome"
-                      value={formData.businessIncome}
+                    <select
+                      name="term"
+                      value={formData.term}
                       onChange={handleInputChange}
-                      className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-4"
-                      placeholder="0.00"
-                    />
+                      required
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    >
+                      <option value="">Select Term</option>
+                      <option value="6">6 Months</option>
+                      <option value="12">12 Months</option>
+                      <option value="18">18 Months</option>
+                      <option value="24">24 Months</option>
+                      <option value="36">36 Months</option>
+                      <option value="48">48 Months</option>
+                      <option value="60">60 Months</option>
+                    </select>
                   </div>
                 </div>
-              </div>
 
-              <div>
-                <h4 className="text-md font-semibold text-gray-800 mb-3">2. Family Expenses:</h4>
-                <div className="ml-4 space-y-3">
-                  <div className="flex items-center">
-                    <span className="text-sm w-48">a. Food</span>
-                    <input
-                      type="number"
-                      name="foodExpense"
-                      value={formData.foodExpense}
-                      onChange={handleInputChange}
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                      placeholder="0.00"
-                    />
-                  </div>
-
-                  <div className="flex items-center">
-                    <span className="text-sm w-48">b. Clothing</span>
-                    <input
-                      type="number"
-                      name="clothingExpense"
-                      value={formData.clothingExpense}
-                      onChange={handleInputChange}
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                      placeholder="0.00"
-                    />
-                  </div>
-
-                  <div className="flex items-center">
-                    <span className="text-sm w-48">c. Shelter</span>
-                    <input
-                      type="number"
-                      name="shelterExpense"
-                      value={formData.shelterExpense}
-                      onChange={handleInputChange}
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                      placeholder="0.00"
-                    />
-                  </div>
-
-                  <div className="flex items-center">
-                    <span className="text-sm w-48">d. Education</span>
-                    <input
-                      type="number"
-                      name="educationExpense"
-                      value={formData.educationExpense}
-                      onChange={handleInputChange}
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                      placeholder="0.00"
-                    />
-                  </div>
-
-                  <div className="flex items-center">
-                    <span className="text-sm w-48">e. Electric and Water bills</span>
-                    <input
-                      type="number"
-                      name="electricWaterExpense"
-                      value={formData.electricWaterExpense}
-                      onChange={handleInputChange}
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                      placeholder="0.00"
-                    />
-                  </div>
-
-                  <div className="flex items-center">
-                    <span className="text-sm w-48">f. Helper (Timbang)</span>
-                    <input
-                      type="number"
-                      name="helperExpense"
-                      value={formData.helperExpense}
-                      onChange={handleInputChange}
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                      placeholder="0.00"
-                    />
-                  </div>
-
-                  <div className="flex items-center">
-                    <span className="text-sm w-48">g. Loan Repayments of members of the family</span>
-                    <input
-                      type="number"
-                      name="loanRepaymentExpense"
-                      value={formData.loanRepaymentExpense}
-                      onChange={handleInputChange}
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                      placeholder="0.00"
-                    />
-                  </div>
-
-                  <div className="flex items-center">
-                    <span className="text-sm w-48">h. Miscellaneous Expense (Insurance, Leisure and Others)</span>
-                    <input
-                      type="number"
-                      name="miscellaneousExpense"
-                      value={formData.miscellaneousExpense}
-                      onChange={handleInputChange}
-                      className="flex-1 border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent ml-2"
-                      placeholder="0.00"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-md font-semibold text-gray-800 mb-3">3. Net Income:</h4>
-                <input
-                  type="number"
-                  name="netIncome"
-                  value={formData.netIncome}
-                  readOnly
-                  className="w-full border-b border-gray-400 bg-gray-50 outline-none ml-4"
-                  placeholder="0.00"
-                />
-              </div>
-            </div>
-
-            {/* Declaration */}
-            <div className="border-b border-gray-300 pb-4">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">DECLARATION, CONSENT AND DATA PRIVACY STATEMENT</h3>
-
-              <div className="space-y-4 text-sm">
                 <div>
-                  <p className="mb-2">
-                    <strong>A.</strong> I hereby declare that I have read and fully understood the Terms and Conditions of SJMPC Credit Programs, and agree to be bound by them.
-                  </p>
-                  <p className="mb-2">
-                    <strong>B.</strong> In accordance with the provisions of Republic Act No. 10173, otherwise known as the Data Privacy Act of 2012, I acknowledge that I have read and understood the SJMPC Privacy Policy. Further, I consent to the collection, use, access, and processing of my personal and sensitive personal information by SJMPC to process my application for the loan I availed including verification from the source of such information and for the establishment, exercise, or defense of SJMPC' legal claim. Furthermore, I consent to the sharing of my personal and loan information to the bank and its affiliates for the disbursement of said loan.
-                  </p>
-                  <p className="mb-4">
-                    <strong>C.</strong> Pursuant to Republic Act No. 9510, or the Credit Information System Act, and its Implementing Rules and Regulations (IRR), I acknowledge and give my consent to: 1. The regular submission and disclosure of my basic credit data and any updates thereto to the Credit Information Corporation (CIC); and 2. The sharing of my basic credit data with lenders authorized by the CIC, as well as credit reporting agencies and accredited outsourced entities, in accordance with applicable laws and regulations.
-                  </p>
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    Purpose of Loan <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    name="purpose"
+                    value={formData.purpose}
+                    onChange={handleInputChange}
+                    required
+                    rows={4}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Describe the purpose of your loan..."
+                  />
                 </div>
 
-                <div className="flex items-start">
-                  <input
-                    type="checkbox"
-                    id="declarationAccepted"
-                    name="declarationAccepted"
-                    checked={formData.declarationAccepted}
-                    onChange={handleInputChange}
-                    className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  />
-                  <label htmlFor="declarationAccepted" className="ml-3 text-sm text-gray-700">
-                    I have read, understand and I agree with the above Declaration and Consent and Data Privacy Statement, and Terms and Conditions of the Credit Program of SJMPC.
-                  </label>
+                {/* Promissory Note Details */}
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border-2 border-blue-100 dark:border-blue-800">
+                  <h3 className="text-lg font-bold text-blue-900 dark:text-blue-300 mb-4">Promissory Note Details</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Amount</label>
+                      <input
+                        type="number"
+                        name="promissoryNoteAmount"
+                        value={formData.promissoryNoteAmount}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Term</label>
+                      <input
+                        type="text"
+                        name="promissoryNoteTerm"
+                        value={formData.promissoryNoteTerm}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="12 months"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Payment Schedule</label>
+                      <input
+                        type="text"
+                        name="promissoryNotePaymentSchedule"
+                        value={formData.promissoryNotePaymentSchedule}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Monthly"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Starting Date</label>
+                      <input
+                        type="date"
+                        name="promissoryNoteStartingOn"
+                        value={formData.promissoryNoteStartingOn}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Assignment of Deposit */}
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-6 border-2 border-yellow-100 dark:border-yellow-800">
+                  <h3 className="text-lg font-bold text-yellow-900 dark:text-yellow-300 mb-4">Assignment of Deposit</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Assignment Amount</label>
+                      <input
+                        type="number"
+                        name="assignmentAmount"
+                        value={formData.assignmentAmount}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Assignment PB No.</label>
+                      <input
+                        type="text"
+                        name="assignmentPbNo"
+                        value={formData.assignmentPbNo}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="PB-XXXXX"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Regular Savings</label>
+                      <input
+                        type="number"
+                        name="regularSavings"
+                        value={formData.regularSavings}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Ultima Savings</label>
+                      <input
+                        type="number"
+                        name="ultimaSavings"
+                        value={formData.ultimaSavings}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Alkansya Savings</label>
+                      <input
+                        type="number"
+                        name="alkansyaSavings"
+                        value={formData.alkansyaSavings}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Time Deposit</label>
+                      <input
+                        type="number"
+                        name="timeDeposit"
+                        value={formData.timeDeposit}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Other Deposits</label>
+                      <input
+                        type="number"
+                        name="otherDeposits"
+                        value={formData.otherDeposits}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Share Capital</label>
+                      <input
+                        type="number"
+                        name="shareCapital"
+                        value={formData.shareCapital}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            {/* Terms and Conditions */}
-            <div className="border-b border-gray-300 pb-4">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">TERMS AND CONDITIONS</h3>
-              <div className="space-y-4 text-sm">
-                <p className="text-gray-700">
-                  By submitting this application, I agree to the following terms and conditions of the SJMPC loan program. I understand that all information provided is true and correct to the best of my knowledge. I authorize SJMPC to verify the information provided and to conduct necessary background checks.
-                </p>
-                <div className="flex items-start">
-                  <input
-                    type="checkbox"
-                    id="termsAccepted"
-                    name="termsAccepted"
-                    checked={formData.termsAccepted}
-                    onChange={handleInputChange}
-                    className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  />
-                  <label htmlFor="termsAccepted" className="ml-3 text-sm text-gray-700">
-                    I have read, understand and agree to the Terms and Conditions of SJMPC.
-                  </label>
+            {/* Step 3: Financial Information */}
+            {currentStep === 3 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
+                    <DollarSign className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Financial Information</h2>
+                    <p className="text-gray-600 dark:text-gray-300">Monthly income and expenses</p>
+                  </div>
+                </div>
+
+                {/* Income Section */}
+                <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-6 border-2 border-green-100 dark:border-green-800">
+                  <h3 className="text-lg font-bold text-green-900 dark:text-green-300 mb-4">Monthly Income</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Member Income</label>
+                      <input
+                        type="number"
+                        name="memberIncome"
+                        value={formData.memberIncome}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Spouse Income</label>
+                      <input
+                        type="number"
+                        name="spouseIncome"
+                        value={formData.spouseIncome}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Other Income</label>
+                      <input
+                        type="number"
+                        name="otherIncome"
+                        value={formData.otherIncome}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Business Income</label>
+                      <input
+                        type="number"
+                        name="businessIncome"
+                        value={formData.businessIncome}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expenses Section */}
+                <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-6 border-2 border-red-100 dark:border-red-800">
+                  <h3 className="text-lg font-bold text-red-900 dark:text-red-300 mb-4">Monthly Expenses</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Food</label>
+                      <input
+                        type="number"
+                        name="foodExpense"
+                        value={formData.foodExpense}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Clothing</label>
+                      <input
+                        type="number"
+                        name="clothingExpense"
+                        value={formData.clothingExpense}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Shelter/Rent</label>
+                      <input
+                        type="number"
+                        name="shelterExpense"
+                        value={formData.shelterExpense}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Education</label>
+                      <input
+                        type="number"
+                        name="educationExpense"
+                        value={formData.educationExpense}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Electricity/Water</label>
+                      <input
+                        type="number"
+                        name="electricWaterExpense"
+                        value={formData.electricWaterExpense}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Helper</label>
+                      <input
+                        type="number"
+                        name="helperExpense"
+                        value={formData.helperExpense}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Loan Repayment</label>
+                      <input
+                        type="number"
+                        name="loanRepaymentExpense"
+                        value={formData.loanRepaymentExpense}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Miscellaneous</label>
+                      <input
+                        type="number"
+                        name="miscellaneousExpense"
+                        value={formData.miscellaneousExpense}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="0.00"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Net Income Display */}
+                <div className="bg-gradient-to-r from-blue-50 to-yellow-50 dark:from-blue-900/20 dark:to-yellow-900/20 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-700">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Net Monthly Disposable Income</h3>
+                    <div className="text-3xl font-black bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+                      â‚±{formData.netIncome || '0.00'}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            {/* ID Upload */}
-            <div className="border-b border-gray-300 pb-4">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">ID UPLOAD</h3>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Type of Valid ID:</label>
-                <select
-                  name="idType"
-                  value={formData.idType}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
+            {/* Step 4: Documents */}
+            {currentStep === 4 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
+                    <CreditCard className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Document Upload</h2>
+                    <p className="text-gray-600 dark:text-gray-300">Upload your valid ID</p>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-8 border-2 border-blue-100 dark:border-blue-800 text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <CreditCard className="w-10 h-10 text-white" />
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Valid Government ID</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6">Please upload a clear photo or scan of your ID</p>
+                  
+                  <div className="max-w-md mx-auto">
+                    <div className="mb-4">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 text-left">
+                        Type of Valid ID <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        name="idType"
+                        value={formData.idType}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      >
+                        <option value="">Select ID type</option>
+                        <option value="Driver's License">Driver's License</option>
+                        <option value="Passport">Passport</option>
+                        <option value="SSS ID">SSS ID</option>
+                        <option value="GSIS ID">GSIS ID</option>
+                        <option value="PhilHealth ID">PhilHealth ID</option>
+                        <option value="Voter's ID">Voter's ID</option>
+                        <option value="PRC ID">PRC ID</option>
+                        <option value="National ID">National ID</option>
+                        <option value="Postal ID">Postal ID</option>
+                        <option value="Barangay ID">Barangay ID</option>
+                        <option value="Other Government ID">Other Government ID</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 text-left">
+                        Upload ID Image
+                      </label>
+                      <input
+                        type="file"
+                        name="idFile"
+                        onChange={handleInputChange}
+                        accept="image/*,.pdf"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white file:cursor-pointer hover:file:bg-blue-700"
+                      />
+                      <p className="text-xs text-gray-500 mt-2 text-left">Accepted formats: JPG, PNG, PDF (Max 5MB)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Step 5: Signatures */}
+            {currentStep === 5 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
+                    <PenTool className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Signature Details</h2>
+                    <p className="text-gray-600 dark:text-gray-300">Enter names for digital signatures</p>
+                  </div>
+                </div>
+
+                {/* Maker Signatures */}
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border-2 border-blue-100 dark:border-blue-800">
+                  <h3 className="text-lg font-bold text-blue-900 dark:text-blue-300 mb-4">Maker/Borrower</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Maker Name 1</label>
+                      <input
+                        type="text"
+                        name="makerName1"
+                        value={formData.makerName1}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Full Name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Maker Name 2 (if applicable)</label>
+                      <input
+                        type="text"
+                        name="makerName2"
+                        value={formData.makerName2}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Full Name"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Co-Maker Signatures */}
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-6 border-2 border-yellow-100 dark:border-yellow-800">
+                  <h3 className="text-lg font-bold text-yellow-900 dark:text-yellow-300 mb-4">Co-Maker(s)</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Co-Maker Name 1</label>
+                      <input
+                        type="text"
+                        name="coMakerName1"
+                        value={formData.coMakerName1}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Full Name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Co-Maker Name 2 (if applicable)</label>
+                      <input
+                        type="text"
+                        name="coMakerName2"
+                        value={formData.coMakerName2}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Full Name"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Witness Signatures */}
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border-2 border-gray-200 dark:border-gray-600">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Witness(es)</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Witness Name 1</label>
+                      <input
+                        type="text"
+                        name="witnessName1"
+                        value={formData.witnessName1}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Full Name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Witness Name 2 (if applicable)</label>
+                      <input
+                        type="text"
+                        name="witnessName2"
+                        value={formData.witnessName2}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        placeholder="Full Name"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Signature Date */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Signature Date</label>
+                  <input
+                    type="date"
+                    name="signatureDate"
+                    value={formData.signatureDate}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Step 6: Review & Submit */}
+            {currentStep === 6 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
+                    <CheckCircle className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Review & Submit</h2>
+                    <p className="text-gray-600 dark:text-gray-300">Review your application before submitting</p>
+                  </div>
+                </div>
+
+                {/* Application Summary */}
+                <div className="bg-gradient-to-br from-blue-50 to-yellow-50 dark:from-blue-900/20 dark:to-yellow-900/20 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-700">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Application Summary</h3>
+                  <div className="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">Name:</span>
+                      <p className="text-gray-900 dark:text-white">{formData.name || 'Not provided'}</p>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">PB No.:</span>
+                      <p className="text-gray-900 dark:text-white">{formData.pbNo || 'Not provided'}</p>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">Loan Type:</span>
+                      <p className="text-gray-900 dark:text-white">{formData.loanType || 'Not provided'}</p>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">Loan Amount:</span>
+                      <p className="text-gray-900 dark:text-white">â‚±{formData.loanAmount || '0.00'}</p>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">Term:</span>
+                      <p className="text-gray-900 dark:text-white">{formData.term ? `${formData.term} months` : 'Not provided'}</p>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">Branch:</span>
+                      <p className="text-gray-900 dark:text-white">{formData.branch || 'Not provided'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Terms and Conditions */}
+                <div className="bg-white dark:bg-gray-700 rounded-xl p-6 border-2 border-gray-200 dark:border-gray-600">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Declaration & Consent</h3>
+                  <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+                    <p>
+                      <strong>A.</strong> I hereby declare that I have read and fully understood the Terms and Conditions of SJMPC Credit Programs, and agree to be bound by them.
+                    </p>
+                    <p>
+                      <strong>B.</strong> In accordance with the provisions of Republic Act No. 10173, otherwise known as the Data Privacy Act of 2012, I acknowledge that I have read and understood the SJMPC Privacy Policy.
+                    </p>
+                    <p>
+                      <strong>C.</strong> Pursuant to Republic Act No. 9510, or the Credit Information System Act, I acknowledge and give my consent to the regular submission and disclosure of my basic credit data.
+                    </p>
+                  </div>
+
+                  <div className="mt-6 space-y-3">
+                    <div className="flex items-start">
+                      <input
+                        type="checkbox"
+                        id="declarationAccepted"
+                        name="declarationAccepted"
+                        checked={formData.declarationAccepted}
+                        onChange={handleInputChange}
+                        className="mt-1 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                      />
+                      <label htmlFor="declarationAccepted" className="ml-3 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                        I have read, understand and I agree with the above Declaration and Consent and Data Privacy Statement <span className="text-red-500">*</span>
+                      </label>
+                    </div>
+
+                    <div className="flex items-start">
+                      <input
+                        type="checkbox"
+                        id="termsAccepted"
+                        name="termsAccepted"
+                        checked={formData.termsAccepted}
+                        onChange={handleInputChange}
+                        className="mt-1 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                      />
+                      <label htmlFor="termsAccepted" className="ml-3 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                        I have read, understand and agree to the Terms and Conditions of SJMPC <span className="text-red-500">*</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Warning Notice */}
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-4 border-2 border-yellow-200 dark:border-yellow-700">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm text-gray-700 dark:text-gray-300">
+                      <p className="font-semibold text-yellow-900 dark:text-yellow-300 mb-1">Before You Submit</p>
+                      <p>Please review all information carefully. Once submitted, your application will be processed and a PDF will be generated for the cooperative's records.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Navigation Buttons */}
+            <div className="flex items-center justify-between pt-8 mt-8 border-t-2 border-gray-200 dark:border-gray-600">
+              {/* Back Button */}
+              {currentStep > 1 && (
+                <button
+                  type="button"
+                  onClick={prevStep}
+                  className="inline-flex items-center px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300"
                 >
-                  <option value="">Select ID type</option>
-                  <option value="Driver's License">Driver's License</option>
-                  <option value="Passport">Passport</option>
-                  <option value="SSS ID">SSS ID</option>
-                  <option value="GSIS ID">GSIS ID</option>
-                  <option value="PhilHealth ID">PhilHealth ID</option>
-                  <option value="Voter's ID">Voter's ID</option>
-                  <option value="PRC ID">PRC ID</option>
-                  <option value="National ID">National ID</option>
-                  <option value="Postal ID">Postal ID</option>
-                  <option value="Barangay ID">Barangay ID</option>
-                  <option value="Other Government ID">Other Government ID</option>
-                </select>
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Upload Valid ID:</label>
-                <input
-                  type="file"
-                  name="idFile"
-                  onChange={handleInputChange}
-                  accept="image/*,.pdf"
-                  className="w-full border-b border-gray-400 focus:border-blue-500 outline-none bg-transparent"
-                  suppressHydrationWarning={true}
-                />
-                <p className="text-xs text-gray-500 mt-1">Please upload a clear image of your valid government-issued ID. PDF files are also accepted.</p>
-              </div>
-            </div>
+                  <ChevronLeft className="w-5 h-5 mr-2" />
+                  Previous
+                </button>
+              )}
 
-            {/* Submit Button */}
-            <div className="text-center mt-6">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors duration-200 font-semibold"
-              >
-                {isSubmitting ? 'Generating PDF and Submitting...' : 'Submit Application'}
-              </button>
-              <p className="text-sm text-gray-600 mt-2">Your application will be submitted with a generated PDF to the selected branch</p>
+              {/* Spacer */}
+              <div className="flex-1"></div>
+
+              {/* Next/Submit Button */}
+              {currentStep < totalSteps ? (
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:-translate-y-0.5"
+                >
+                  Next Step
+                  <ChevronRight className="w-5 h-5 ml-2" />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={isSubmitting || !formData.declarationAccepted || !formData.termsAccepted}
+                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-3"></div>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle className="w-5 h-5 mr-2" />
+                      Submit Application
+                    </>
+                  )}
+                </button>
+              )}
             </div>
           </form>
+        </div>
+
+        {/* Progress Indicator */}
+        <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+          Step {currentStep} of {totalSteps}
         </div>
       </div>
     </div>
