@@ -87,7 +87,12 @@ export const metadata: Metadata = {
     }
   },
   icons: {
-    icon: '/portfolio/Logo.jpg',
+    icon: [
+      { url: '/portfolio/Logo.jpg', sizes: '32x32', type: 'image/jpeg' },
+      { url: '/portfolio/Logo.jpg', sizes: '16x16', type: 'image/jpeg' }
+    ],
+    apple: '/portfolio/Logo.jpg',
+    shortcut: '/portfolio/Logo.jpg',
   },
   category: 'finance',
 };
