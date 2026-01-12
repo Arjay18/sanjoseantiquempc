@@ -192,9 +192,11 @@ export default function SanJoseBranchDashboard() {
     );
   }
 
-  const pendingApplications = applications.filter(app => app.status === 'pending');
-  const approvedApplications = applications.filter(app => app.status === 'approved');
-  const rejectedApplications = applications.filter(app => app.status === 'rejected');
+  // Filter applications for San Jose branch only
+  const branchApplications = applications.filter(app => (app as any).branch === 'sanjose');
+  const pendingApplications = branchApplications.filter(app => app.status === 'pending');
+  const approvedApplications = branchApplications.filter(app => app.status === 'approved');
+  const rejectedApplications = branchApplications.filter(app => app.status === 'rejected');
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -230,7 +232,7 @@ export default function SanJoseBranchDashboard() {
                 <div className="ml-5 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">Total Applications</dt>
-                    <dd className="text-lg font-medium text-gray-900">{applications.length}</dd>
+                    <dd className="text-lg font-medium text-gray-900">{branchApplications.length}</dd>
                   </dl>
                 </div>
               </div>
