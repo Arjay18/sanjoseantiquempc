@@ -173,6 +173,9 @@ model LoanApplication {
   mop String?
   processor String?
 
+  // PDF Storage
+  pdfFile String? // Base64 encoded PDF file
+
   // Status and Metadata
   status      String   @default("pending") // "pending", "approved", "rejected"
   reviewedBy  String?

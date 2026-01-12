@@ -81,6 +81,7 @@ export async function POST(request: NextRequest) {
         voucherNo: formData.voucherNo,
         mop: formData.mop,
         processor: formData.processor,
+        pdfFile: formData.pdfFile || null,
       },
     });
 

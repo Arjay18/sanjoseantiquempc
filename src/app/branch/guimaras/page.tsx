@@ -347,6 +347,17 @@ export default function GuimarasBranchDashboard() {
                       >
                         View Details
                       </Link>
+                      <a
+                        href={`/api/administrator/loan-applications/${application.id}/pdf`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-sm inline-flex items-center"
+                      >
+                        <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        PDF
+                      </a>
                       <button
                         onClick={() => handleDelete(application.id, application.name)}
                         className="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1 rounded text-sm"
