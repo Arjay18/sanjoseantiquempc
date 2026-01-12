@@ -140,7 +140,7 @@ export default function HomeSlider() {
           <div className="absolute inset-0 bg-black/30" />
 
           {/* Content */}
-          <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
+          <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-24 h-full flex items-center">
             <div className={`max-w-3xl transition-all duration-1000 delay-300 ${
               index === currentSlide 
                 ? 'opacity-100 translate-y-0' 
@@ -227,14 +227,14 @@ export default function HomeSlider() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 hover:scale-110 transition-all duration-300"
+        className="absolute left-2 md:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 hover:scale-110 transition-all duration-300"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 hover:scale-110 transition-all duration-300"
+        className="absolute right-2 md:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 hover:scale-110 transition-all duration-300"
         aria-label="Next slide"
       >
         <ChevronRight className="w-6 h-6 md:w-7 md:h-7" />
