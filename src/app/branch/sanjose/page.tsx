@@ -144,6 +144,31 @@ export default function SanJoseBranchDashboard() {
     }
   };
 
+  const handleDelete = async (id: string, applicantName: string) => {
+    if (!confirm(`Are you sure you want to delete the loan application for ${applicantName}? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/administrator/loan-applications/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        alert('Loan application deleted successfully');
+        // Refresh the applications list
+        const data = await fetch('/api/administrator/loan-applications').then(res => res.json());
+        setApplications(data.applications || []);
+      } else {
+        const data = await response.json();
+        alert(`Failed to delete application: ${data.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Error deleting application:', error);
+      alert('An error occurred while deleting the application');
+    }
+  };
+
   // CRITICAL: Don't render ANY content if not authenticated
   if (status === 'loading' || !isAuthenticated) {
     return (
@@ -323,6 +348,12 @@ export default function SanJoseBranchDashboard() {
                       >
                         View Details
                       </Link>
+                      <button
+                        onClick={() => handleDelete(application.id, application.name)}
+                        className="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1 rounded text-sm"
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </li>
