@@ -4,14 +4,14 @@ import { PhilippinePeso, Heart, Clock, CheckCircle, BookOpen, Phone, Home, Award
 
 export default function LoanPackages() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-yellow-900/20">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-green-200/20 to-blue-200/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-yellow-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-200/20 to-yellow-200/20 rounded-full blur-3xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -24,7 +24,7 @@ export default function LoanPackages() {
 
           <h1 className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white mb-6">
             Loan Packages for
-            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-blue-600 via-blue-700 to-yellow-500 bg-clip-text text-transparent">
               Every Need
             </span>
           </h1>
@@ -40,27 +40,27 @@ export default function LoanPackages() {
               <div className="text-sm text-gray-600 dark:text-gray-400">Loan Types</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">₱500M+</div>
+              <div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">₱500M+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Loans Disbursed</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 dark:text-green-400">24-48hrs</div>
+              <div className="text-3xl font-bold text-blue-700 dark:text-blue-500">24-48hrs</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Fast Approval</div>
             </div>
           </div>
 
           {/* Quick category navigation */}
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="#multi-purpose" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            <a href="#multi-purpose" className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
               Multi-Purpose
             </a>
-            <a href="#productive" className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            <a href="#productive" className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
               Productive
             </a>
-            <a href="#emergency" className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            <a href="#emergency" className="px-6 py-3 bg-gradient-to-r from-blue-700 to-yellow-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
               Emergency
             </a>
-            <a href="#short-term" className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            <a href="#short-term" className="px-6 py-3 bg-gradient-to-r from-yellow-600 to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
               Short Term
             </a>
           </div>

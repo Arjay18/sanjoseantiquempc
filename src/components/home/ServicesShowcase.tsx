@@ -36,7 +36,7 @@ const services = [
       </svg>
     ),
     link: "/savings-product",
-    color: "green",
+    color: "yellow",
     features: ["Regular Savings", "Time Deposits", "Special Savings", "High Interest Rates"],
     popular: false,
    
@@ -84,7 +84,7 @@ const services = [
       </svg>
     ),
     link: "/contact",
-    color: "teal",
+    color: "blue",
     features: ["24/7 Support", "Financial Counseling", "Community Programs", "Member Benefits"],
     popular: false,
     
@@ -100,6 +100,14 @@ const getColorClasses = (color: string) => {
       iconBg: 'bg-blue-100 dark:bg-blue-900',
       button: 'bg-blue-600 hover:bg-blue-700',
       popular: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-300'
+    },
+    yellow: {
+      bg: 'bg-yellow-50 dark:bg-yellow-900/20',
+      border: 'border-yellow-200 dark:border-yellow-800',
+      icon: 'text-yellow-600 dark:text-yellow-500',
+      iconBg: 'bg-yellow-100 dark:bg-yellow-900',
+      button: 'bg-yellow-500 hover:bg-yellow-600',
+      popular: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-300'
     },
     green: {
       bg: 'bg-green-50 dark:bg-green-900/20',

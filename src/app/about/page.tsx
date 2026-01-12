@@ -7,71 +7,71 @@ import Stats from '@/components/home/Stats';
 export default function AboutPage() {
   return (
     <>
-      {/* Hero Section - Cooperative Theme */}
-      <section className="relative py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-teal-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-teal-900/20 overflow-hidden">
-        {/* Cooperative circles pattern */}
+      {/* Hero Section - Corporate Theme */}
+      <section className="relative py-20 bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-yellow-900/20 overflow-hidden">
+        {/* Corporate circles pattern */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-orange-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-teal-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-40 right-40 w-64 h-64 bg-amber-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute bottom-40 left-40 w-80 h-80 bg-green-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-amber-200/20 via-orange-200/20 to-teal-200/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-yellow-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-40 right-40 w-64 h-64 bg-blue-700/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-40 left-40 w-80 h-80 bg-yellow-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-200/20 via-white/20 to-yellow-200/20 rounded-full blur-3xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeIn direction="up" delay={0.2}>
-            <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg mb-6 border-2 border-orange-200 dark:border-orange-700">
-              <Users className="w-5 h-5 mr-2 text-orange-600" />
-              <span className="text-sm font-semibold text-gray-900 dark:text-white">COOPERATIVE SPIRIT</span>
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg mb-6 border-2 border-blue-200 dark:border-blue-700">
+              <Users className="w-5 h-5 mr-2 text-blue-600" />
+              <span className="text-sm font-semibold text-gray-900 dark:text-white">COOPERATIVE EXCELLENCE</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white mb-6">
               Building Communities
-              <span className="block bg-gradient-to-r from-orange-600 via-amber-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-blue-600 via-blue-700 to-yellow-500 bg-clip-text text-transparent">
                 Together Since 1963
               </span>
             </h1>
 
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
               A member-owned cooperative dedicated to financial empowerment, social development, and community prosperity.
-              <span className="block mt-2 font-semibold text-orange-700 dark:text-orange-400">By the people, for the people.</span>
+              <span className="block mt-2 font-semibold text-blue-700 dark:text-blue-400">By the people, for the people.</span>
             </p>
 
             {/* Cooperative Stats in circular badges */}
             <div className="flex flex-wrap justify-center gap-8 mb-12">
               <div className="relative">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex flex-col items-center justify-center text-white shadow-lg">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex flex-col items-center justify-center text-white shadow-lg">
                   <div className="text-2xl font-black">15K+</div>
                   <div className="text-xs font-semibold">Members</div>
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center shadow-md">
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center shadow-md">
                   <Users className="w-4 h-4 text-white" />
                 </div>
               </div>
               <div className="relative">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex flex-col items-center justify-center text-white shadow-lg">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-600 flex flex-col items-center justify-center text-white shadow-lg">
                   <div className="text-2xl font-black">61+</div>
                   <div className="text-xs font-semibold">Years</div>
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-400 rounded-full flex items-center justify-center shadow-md">
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center shadow-md">
                   <Award className="w-4 h-4 text-white" />
                 </div>
               </div>
               <div className="relative">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex flex-col items-center justify-center text-white shadow-lg">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-700 to-yellow-500 flex flex-col items-center justify-center text-white shadow-lg">
                   <div className="text-xl font-black">₱1.2B+</div>
                   <div className="text-xs font-semibold">Assets</div>
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center shadow-md">
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-md">
                   <Target className="w-4 h-4 text-white" />
                 </div>
               </div>
               <div className="relative">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex flex-col items-center justify-center text-white shadow-lg">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-600 to-blue-600 flex flex-col items-center justify-center text-white shadow-lg">
                   <div className="text-2xl font-black">4</div>
                   <div className="text-xs font-semibold">Branches</div>
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-teal-400 rounded-full flex items-center justify-center shadow-md">
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center shadow-md">
                   <Globe className="w-4 h-4 text-white" />
                 </div>
               </div>
@@ -81,31 +81,31 @@ export default function AboutPage() {
           <FadeIn direction="up" delay={0.4}>
             {/* Cooperative Principles Cards */}
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="group bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-orange-200 dark:border-orange-700">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+              <div className="group bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-blue-200 dark:border-blue-700">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
                   <Users className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-orange-900 dark:text-orange-200 mb-3">Member Ownership</h3>
+                <h3 className="text-xl font-bold text-blue-900 dark:text-blue-200 mb-3">Member Ownership</h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
                   Owned and controlled by our members, ensuring decisions reflect community needs and values.
                 </p>
               </div>
 
-              <div className="group bg-gradient-to-br from-teal-50 to-green-50 dark:from-teal-900/30 dark:to-green-900/30 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-teal-200 dark:border-teal-700">
-                <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+              <div className="group bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/30 dark:to-yellow-800/30 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-yellow-200 dark:border-yellow-700">
+                <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
                   <Heart className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-teal-900 dark:text-teal-200 mb-3">Community First</h3>
+                <h3 className="text-xl font-bold text-yellow-900 dark:text-yellow-200 mb-3">Community First</h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
                   Committed to the economic and social well-being of our members and the wider community.
                 </p>
               </div>
 
-              <div className="group bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/30 dark:to-yellow-900/30 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-amber-200 dark:border-amber-700">
-                <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+              <div className="group bg-gradient-to-br from-blue-50 to-yellow-50 dark:from-blue-900/30 dark:to-yellow-900/30 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-blue-200 dark:border-blue-700">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-700 to-yellow-500 rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
                   <Award className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-amber-900 dark:text-amber-200 mb-3">Democratic Control</h3>
+                <h3 className="text-xl font-bold text-blue-900 dark:text-blue-200 mb-3">Democratic Control</h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
                   One member, one vote - ensuring equal voice in shaping our cooperative's future.
                 </p>

@@ -7,94 +7,94 @@ export default function OfficersPage() {
 
   const officersData = {
     boardOfDirectors: [
-      { name: "MERLINDA E. ALVIOR", position: "Chairperson", icon: Crown, priority: 1, color: "from-amber-500 to-yellow-600", image: "/officers/Board of Directors/merlinda alvior.png" },
-      { name: "CORAZON B. MONDRAGON", position: "Vice-Chairperson", icon: UserCheck, priority: 2, color: "from-blue-500 to-blue-600", image: "/officers/Board of Directors/corazon mondragon1.png" },
-      { name: "VAN IAN P. JUADA", position: "BOD Secretary", icon: FileText, priority: 3, color: "from-green-500 to-green-600", image: "/officers/Board of Directors/ivan juada1.png" },
-      { name: "EMELDA F. ELIZALDE", position: "Treasurer", icon: Settings, priority: 4, color: "from-purple-500 to-purple-600", image: "/officers/Board of Directors/bod1.png" },
-      { name: "MARILOU R. LLAVAN", position: "Member", icon: Heart, priority: 5, color: "from-red-500 to-pink-600", image: "/officers/Board of Directors/marilou llavan.png" },
-      { name: "RAJIS F. MONTECLARO", position: "Member", icon: Award, priority: 6, color: "from-indigo-500 to-indigo-600", image: "/officers/Board of Directors/bod2 copy.png" },
-      { name: "DELIA C. MONTERO", position: "Member", icon: Users, priority: 7, color: "from-teal-500 to-cyan-600", image: "/officers/Board of Directors/delia montero.png" },
-      { name: "ANNA CECILIA R. PEFIANCO", position: "Member", icon: Shield, priority: 8, color: "from-orange-500 to-red-600", image: "/officers/Board of Directors/anna cecilia pefianco1.png" },
-      { name: "DANIEL N. VESCATCHO. JR", position: "Member", icon: Target, priority: 9, color: "from-pink-500 to-rose-600", image: "/officers/Board of Directors/boyce vescatcho.png" },
-      { name: "ANTONIO C. SALAO. JR", position: "Member", icon: Target, priority: 9, color: "from-pink-500 to-rose-600", image: "/officers/Board of Directors/alfredo ysulat.png" }
+      { name: "MERLINDA E. ALVIOR", position: "Chairperson", icon: Crown, priority: 1, color: "from-blue-600 to-blue-700", image: "/officers/Board of Directors/merlinda alvior.png" },
+      { name: "CORAZON B. MONDRAGON", position: "Vice-Chairperson", icon: UserCheck, priority: 2, color: "from-yellow-500 to-yellow-600", image: "/officers/Board of Directors/corazon mondragon1.png" },
+      { name: "VAN IAN P. JUADA", position: "BOD Secretary", icon: FileText, priority: 3, color: "from-blue-700 to-yellow-500", image: "/officers/Board of Directors/ivan juada1.png" },
+      { name: "EMELDA F. ELIZALDE", position: "Treasurer", icon: Settings, priority: 4, color: "from-blue-600 to-yellow-600", image: "/officers/Board of Directors/bod1.png" },
+      { name: "MARILOU R. LLAVAN", position: "Member", icon: Heart, priority: 5, color: "from-yellow-500 to-blue-600", image: "/officers/Board of Directors/marilou llavan.png" },
+      { name: "RAJIS F. MONTECLARO", position: "Member", icon: Award, priority: 6, color: "from-blue-700 to-blue-800", image: "/officers/Board of Directors/bod2 copy.png" },
+      { name: "DELIA C. MONTERO", position: "Member", icon: Users, priority: 7, color: "from-yellow-600 to-yellow-700", image: "/officers/Board of Directors/delia montero.png" },
+      { name: "ANNA CECILIA R. PEFIANCO", position: "Member", icon: Shield, priority: 8, color: "from-blue-600 to-blue-700", image: "/officers/Board of Directors/anna cecilia pefianco1.png" },
+      { name: "DANIEL N. VESCATCHO. JR", position: "Member", icon: Target, priority: 9, color: "from-yellow-500 to-blue-600", image: "/officers/Board of Directors/boyce vescatcho.png" },
+      { name: "ANTONIO C. SALAO. JR", position: "Member", icon: Target, priority: 9, color: "from-blue-700 to-yellow-500", image: "/officers/Board of Directors/alfredo ysulat.png" }
     ],
     auditCommittee: [
-      { name: "BENJAMIN E. CANCAN", position: "CHAIRPERSON", icon: Shield, color: "from-blue-500 to-blue-600", image: "/officers/AudCom/cancan.png" },
-      { name: "CHRISTINE MARIE G. TAMON", position: "VICE-CHAIRPERSON", icon: FileText, color: "from-green-500 to-green-600", image: "/officers/AudCom/cristine tamon1.png" },
-      { name: "ARLINE M. VICTORIANO", position: "SECRETARY", icon: Users, color: "from-purple-500 to-purple-600", image: "/officers/AudCom/sarmiento.png" }
+      { name: "BENJAMIN E. CANCAN", position: "CHAIRPERSON", icon: Shield, color: "from-blue-600 to-blue-700", image: "/officers/AudCom/cancan.png" },
+      { name: "CHRISTINE MARIE G. TAMON", position: "VICE-CHAIRPERSON", icon: FileText, color: "from-yellow-500 to-yellow-600", image: "/officers/AudCom/cristine tamon1.png" },
+      { name: "ARLINE M. VICTORIANO", position: "SECRETARY", icon: Users, color: "from-blue-700 to-yellow-500", image: "/officers/AudCom/sarmiento.png" }
     ],
     assistantAuditCommittee: [
-      { name: "NILDO N. LOGRO, JR. (MIAGAO)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST AUDCOM/LOGRO.png" },
-      { name: "ROSALIE N. MOCON (MIAGAO)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST AUDCOM/mocon.png" },
-      { name: "ARLENE VICTORIANO (OTON)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST AUDCOM/victoriano.png" },
-      { name: "RASEL MONTAÑO (OTON)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST AUDCOM/montaño.png" },
-      { name: "ROSENY C. GALIA (GUIMARAS)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST AUDCOM/galia.png" },
-      { name: "HANNAH ROSE E. GAJARDO (GUIMARAS)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST AUDCOM/gajardo.png" }
+      { name: "NILDO N. LOGRO, JR. (MIAGAO)", position: "Assistant Member", icon: Users, color: "from-blue-500 to-blue-600", image: "/officers/ASST AUDCOM/LOGRO.png" },
+      { name: "ROSALIE N. MOCON (MIAGAO)", position: "Assistant Member", icon: Users, color: "from-yellow-500 to-yellow-600", image: "/officers/ASST AUDCOM/mocon.png" },
+      { name: "ARLENE VICTORIANO (OTON)", position: "Assistant Member", icon: Users, color: "from-blue-600 to-yellow-500", image: "/officers/ASST AUDCOM/victoriano.png" },
+      { name: "RASEL MONTAÑO (OTON)", position: "Assistant Member", icon: Users, color: "from-blue-700 to-blue-800", image: "/officers/ASST AUDCOM/montaño.png" },
+      { name: "ROSENY C. GALIA (GUIMARAS)", position: "Assistant Member", icon: Users, color: "from-yellow-600 to-blue-600", image: "/officers/ASST AUDCOM/galia.png" },
+      { name: "HANNAH ROSE E. GAJARDO (GUIMARAS)", position: "Assistant Member", icon: Users, color: "from-blue-600 to-blue-700", image: "/officers/ASST AUDCOM/gajardo.png" }
     ],
     electionCommittee: [
-      { name: "GREGORIO C. RUFINO", position: "Chairperson", icon: Crown, color: "from-blue-500 to-blue-600", image: "/officers/EleCom/gregorio rufino1.png" },
-      { name: "VICTORIANO H. MADREDANO", position: "vice-Chairperson", icon: FileText, color: "from-green-500 to-green-600", image: "/officers/EleCom/madredano.png" },
-      { name: "ANGELINE L. GRANADA", position: "Secretary", icon: Users, color: "from-purple-500 to-purple-600", image: "/officers/EleCom/angie granada1.png" }
+      { name: "GREGORIO C. RUFINO", position: "Chairperson", icon: Crown, color: "from-blue-600 to-blue-700", image: "/officers/EleCom/gregorio rufino1.png" },
+      { name: "VICTORIANO H. MADREDANO", position: "vice-Chairperson", icon: FileText, color: "from-yellow-500 to-yellow-600", image: "/officers/EleCom/madredano.png" },
+      { name: "ANGELINE L. GRANADA", position: "Secretary", icon: Users, color: "from-blue-700 to-yellow-500", image: "/officers/EleCom/angie granada1.png" }
     ],
     educationCommittee: [
-      { name: "CORAZON B. MONDRAGON", position: "Chairperson", icon: Crown, color: "from-blue-500 to-blue-600", image: "/officers/Board of Directors/corazon mondragon1.png" },
-      { name: "RAJIS F. MONTECLARO", position: "Secretary", icon: FileText, color: "from-green-500 to-green-600", image: "/officers/EdCom/fernandez.png" },
-      { name: "TEODOLFO N. SIESA (MAIN)", position: "Member", icon: Users, color: "from-purple-500 to-purple-600", image: "/officers/EdCom/ORDIZE.png" },
-      { name: "LEAH L. BARANCO (OTON)", position: "Member", icon: Users, color: "from-purple-500 to-purple-600", image: "/officers/EdCom/Ligaya Leonares.png" },
-      { name: "STEPHEN N. INTAL (MIAGAO)", position: "Member", icon: UserCheck, color: "from-orange-500 to-red-600", image: "/officers/EdCom/intal.png" },
-      { name: "NORIE MAY S. CABALING (GUIMARAS)", position: "Member", icon: UserCheck, color: "from-orange-500 to-red-600", image: "/officers/EdCom/educ group.png" },
-      { name: "PHOEBE T. SASOTA", position: "Staff Representative", icon: UserCheck, color: "from-orange-500 to-red-600", image: "/officers/EdCom/phoebe sasota.png" }
+      { name: "CORAZON B. MONDRAGON", position: "Chairperson", icon: Crown, color: "from-blue-600 to-blue-700", image: "/officers/Board of Directors/corazon mondragon1.png" },
+      { name: "RAJIS F. MONTECLARO", position: "Secretary", icon: FileText, color: "from-yellow-500 to-yellow-600", image: "/officers/EdCom/fernandez.png" },
+      { name: "TEODOLFO N. SIESA (MAIN)", position: "Member", icon: Users, color: "from-blue-700 to-yellow-500", image: "/officers/EdCom/ORDIZE.png" },
+      { name: "LEAH L. BARANCO (OTON)", position: "Member", icon: Users, color: "from-blue-600 to-yellow-600", image: "/officers/EdCom/Ligaya Leonares.png" },
+      { name: "STEPHEN N. INTAL (MIAGAO)", position: "Member", icon: UserCheck, color: "from-yellow-500 to-blue-600", image: "/officers/EdCom/intal.png" },
+      { name: "NORIE MAY S. CABALING (GUIMARAS)", position: "Member", icon: UserCheck, color: "from-blue-700 to-blue-800", image: "/officers/EdCom/educ group.png" },
+      { name: "PHOEBE T. SASOTA", position: "Staff Representative", icon: UserCheck, color: "from-yellow-600 to-blue-600", image: "/officers/EdCom/phoebe sasota.png" }
     ],
     genderAndDevelopmentCommittee: [
-      { name: "MARILOU R. LLAVAN", position: "Chairperson", icon: Crown, color: "from-blue-500 to-blue-600", image: "/officers/GAD/marilou llavan.png" },
-      { name: "AMPARO PEACHY HARRIET M. SAYOMAC", position: "", icon: UserCheck, color: "from-green-500 to-green-600", image: "/officers/GAD/peachy harriet.png" },
-      { name: "ERIC B. CORTEJO", position: "Secretary", icon: FileText, color: "from-purple-500 to-purple-600", image: "/officers/GAD/cortejo.png" },
-      { name: "ALEX L. DOLLOLASA", position: "Member", icon: Users, color: "from-red-500 to-pink-600", image: "/officers/GAD/alex dillolasa.png" },
-      { name: "ROLYN N. HARO", position: "Member", icon: Users, color: "from-indigo-500 to-indigo-600", image: "/officers/GAD/GAD group.png" },
-      { name: "JUDELYN M. SANTILLAN", position: "Focal Person", icon: Award, color: "from-teal-500 to-cyan-600", image: "/officers/GAD/judelyn santillan1 copy.png" }
+      { name: "MARILOU R. LLAVAN", position: "Chairperson", icon: Crown, color: "from-blue-600 to-blue-700", image: "/officers/GAD/marilou llavan.png" },
+      { name: "AMPARO PEACHY HARRIET M. SAYOMAC", position: "", icon: UserCheck, color: "from-yellow-500 to-yellow-600", image: "/officers/GAD/peachy harriet.png" },
+      { name: "ERIC B. CORTEJO", position: "Secretary", icon: FileText, color: "from-blue-700 to-yellow-500", image: "/officers/GAD/cortejo.png" },
+      { name: "ALEX L. DOLLOLASA", position: "Member", icon: Users, color: "from-blue-600 to-yellow-600", image: "/officers/GAD/alex dillolasa.png" },
+      { name: "ROLYN N. HARO", position: "Member", icon: Users, color: "from-yellow-500 to-blue-600", image: "/officers/GAD/GAD group.png" },
+      { name: "JUDELYN M. SANTILLAN", position: "Focal Person", icon: Award, color: "from-blue-700 to-blue-800", image: "/officers/GAD/judelyn santillan1 copy.png" }
     ],
     socialServicesAndDevelopmentCommittee: [
-      { name: "ANNA CECILIA R. PEFIANCO", position: "Chairperson", icon: Crown, color: "from-blue-500 to-blue-600", image: "/officers/Board of Directors/anna cecilia pefianco1.png" },
-      { name: "RIZALDY F. FERNANDEZ", position: "Secretary", icon: FileText, color: "from-green-500 to-green-600", image: "/officers/SSDC/melocoton.png" },
-      { name: "ROSEMARIE M. DELA CRUZ (OTON)", position: "Member", icon: Users, color: "from-purple-500 to-purple-600", image: "/officers/SSDC/ordize.png" },
-      { name: "MA. YLLIEZA A. MOLINING", position: "Member", icon: Users, color: "from-red-500 to-pink-600", image: "/officers/SSDC/corazon mondragon1.png" },
-      { name: "JENNIFER L. GAMARCHA (GUIMARAS)", position: "Member", icon: UserCheck, color: "from-orange-500 to-red-600", image: "/officers/SSDC/corazon mondragon1.png" },
-      { name: "GLOREANNE P. MANA-AY", position: "MGT. STAFF REPRESENTATIVE", icon: UserCheck, color: "from-orange-500 to-red-600", image: "/officers/SSDC/corazon mondragon1.png" }
+      { name: "ANNA CECILIA R. PEFIANCO", position: "Chairperson", icon: Crown, color: "from-blue-600 to-blue-700", image: "/officers/Board of Directors/anna cecilia pefianco1.png" },
+      { name: "RIZALDY F. FERNANDEZ", position: "Secretary", icon: FileText, color: "from-yellow-500 to-yellow-600", image: "/officers/SSDC/melocoton.png" },
+      { name: "ROSEMARIE M. DELA CRUZ (OTON)", position: "Member", icon: Users, color: "from-blue-700 to-yellow-500", image: "/officers/SSDC/ordize.png" },
+      { name: "MA. YLLIEZA A. MOLINING", position: "Member", icon: Users, color: "from-blue-600 to-yellow-600", image: "/officers/SSDC/corazon mondragon1.png" },
+      { name: "JENNIFER L. GAMARCHA (GUIMARAS)", position: "Member", icon: UserCheck, color: "from-yellow-500 to-blue-600", image: "/officers/SSDC/corazon mondragon1.png" },
+      { name: "GLOREANNE P. MANA-AY", position: "MGT. STAFF REPRESENTATIVE", icon: UserCheck, color: "from-blue-700 to-blue-800", image: "/officers/SSDC/corazon mondragon1.png" }
     ],
     ethicsCommittee: [
-      { name: "FRENIE C. PEDROA", position: "Chairperson", icon: Crown, color: "from-blue-500 to-blue-600", image: "/officers/Ethics/frenie pedroa.png" },
-      { name: "GERLIE GRACE A. LOQUINARIO", position: "Secretary", icon: FileText, color: "from-green-500 to-green-600", image: "/officers/Ethics/girlie grace loquinario.png" },
-      { name: "OFELIA B. MICIANO", position: "Member", icon: Users, color: "from-purple-500 to-purple-600", image: "/officers/Ethics/ofelia miciano1.png" }
+      { name: "FRENIE C. PEDROA", position: "Chairperson", icon: Crown, color: "from-blue-600 to-blue-700", image: "/officers/Ethics/frenie pedroa.png" },
+      { name: "GERLIE GRACE A. LOQUINARIO", position: "Secretary", icon: FileText, color: "from-yellow-500 to-yellow-600", image: "/officers/Ethics/girlie grace loquinario.png" },
+      { name: "OFELIA B. MICIANO", position: "Member", icon: Users, color: "from-blue-700 to-yellow-500", image: "/officers/Ethics/ofelia miciano1.png" }
     ],
     bidsAndAwardsCommittee: [
-      { name: "ALFREDO R. YSULAT", position: "Chairperson", icon: Crown, color: "from-blue-500 to-blue-600", image: "/officers/Bids and Awards/alfredo ysulat.png" },
-      { name: "ERIBERTO P. VARGAS", position: "Secretary", icon: FileText, color: "from-green-500 to-green-600", image: "/officers/Bids and Awards/VARGAS.png" },
-      { name: "JULITO A. PAMIROYAN", position: "Member", icon: Users, color: "from-purple-500 to-purple-600", image: "/officers/Bids and Awards/PAMIROYAN.png" },
-      { name: "MERVIN A. JONELA", position: "Mgt. Staff Representative", icon: UserCheck, color: "from-orange-500 to-red-600", image: "/officers/Bids and Awards/mervin jonela.png" }
+      { name: "ALFREDO R. YSULAT", position: "Chairperson", icon: Crown, color: "from-blue-600 to-blue-700", image: "/officers/Bids and Awards/alfredo ysulat.png" },
+      { name: "ERIBERTO P. VARGAS", position: "Secretary", icon: FileText, color: "from-yellow-500 to-yellow-600", image: "/officers/Bids and Awards/VARGAS.png" },
+      { name: "JULITO A. PAMIROYAN", position: "Member", icon: Users, color: "from-blue-700 to-yellow-500", image: "/officers/Bids and Awards/PAMIROYAN.png" },
+      { name: "MERVIN A. JONELA", position: "Mgt. Staff Representative", icon: UserCheck, color: "from-blue-600 to-yellow-600", image: "/officers/Bids and Awards/mervin jonela.png" }
     ],
     mediationAndConciliationCommittee: [
-      { name: "LEILANI C. NOLASCO", position: "Chairperson", icon: Crown, color: "from-blue-500 to-blue-600", image: "/officers/MedCon/Nolasco.png" },
-      { name: "BETTY P. OTILANO", position: "Secretary", icon: FileText, color: "from-green-500 to-green-600", image: "/officers/MedCon/otilano.png" }
+      { name: "LEILANI C. NOLASCO", position: "Chairperson", icon: Crown, color: "from-blue-600 to-blue-700", image: "/officers/MedCon/Nolasco.png" },
+      { name: "BETTY P. OTILANO", position: "Secretary", icon: FileText, color: "from-yellow-500 to-yellow-600", image: "/officers/MedCon/otilano.png" }
     ],
     creditCommittee: [
-      { name: "GRACE A. AQUILLO", position: "Chairperson", icon: Crown, color: "from-blue-500 to-blue-600", image: "/officers/CreCom/grace aquillo.png" },
-      { name: "CELIA G. LIM", position: "Secretary", icon: FileText, color: "from-green-500 to-green-600", image: "/officers/CreCom/lim.png" },
-      { name: "LYNNIE L. SANTILLAN", position: "Member", icon: Users, color: "from-purple-500 to-purple-600", image: "/officers/CreCom/basilia aranas.png" }
+      { name: "GRACE A. AQUILLO", position: "Chairperson", icon: Crown, color: "from-blue-600 to-blue-700", image: "/officers/CreCom/grace aquillo.png" },
+      { name: "CELIA G. LIM", position: "Secretary", icon: FileText, color: "from-yellow-500 to-yellow-600", image: "/officers/CreCom/lim.png" },
+      { name: "LYNNIE L. SANTILLAN", position: "Member", icon: Users, color: "from-blue-700 to-yellow-500", image: "/officers/CreCom/basilia aranas.png" }
     ],
     assistantCreditCommittee: [
-      { name: "NILDO N. LOGRO, JR. (MIAGAO)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST CRECOM/LOGRO.png" },
-      { name: "ROWENA M. FAILAGUTAN (MIAGAO)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST CRECOM/failagutan.png" },
-      { name: "EMEE T. GASCON (OTON)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST CRECOM/Emee T. Gascon.png" },
-      { name: "DAVE T. NONO (OTON)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST CRECOM/DAVE NONO.png" },
-      { name: "ELLA GRACE G. TABINGO (GUIMARAS)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST CRECOM/TABINGO.png" },
-      { name: "NORIE MAY S. CABALING (GUIMARAS)", position: "Assistant Member", icon: Users, color: "from-gray-500 to-gray-600", image: "/officers/ASST CRECOM/cabaling.png" }
+      { name: "NILDO N. LOGRO, JR. (MIAGAO)", position: "Assistant Member", icon: Users, color: "from-blue-600 to-blue-700", image: "/officers/ASST CRECOM/LOGRO.png" },
+      { name: "ROWENA M. FAILAGUTAN (MIAGAO)", position: "Assistant Member", icon: Users, color: "from-yellow-500 to-yellow-600", image: "/officers/ASST CRECOM/failagutan.png" },
+      { name: "EMEE T. GASCON (OTON)", position: "Assistant Member", icon: Users, color: "from-blue-700 to-yellow-500", image: "/officers/ASST CRECOM/Emee T. Gascon.png" },
+      { name: "DAVE T. NONO (OTON)", position: "Assistant Member", icon: Users, color: "from-blue-600 to-yellow-600", image: "/officers/ASST CRECOM/DAVE NONO.png" },
+      { name: "ELLA GRACE G. TABINGO (GUIMARAS)", position: "Assistant Member", icon: Users, color: "from-yellow-500 to-blue-600", image: "/officers/ASST CRECOM/TABINGO.png" },
+      { name: "NORIE MAY S. CABALING (GUIMARAS)", position: "Assistant Member", icon: Users, color: "from-blue-700 to-blue-800", image: "/officers/ASST CRECOM/cabaling.png" }
     ],
     financeAndInvestmentCommittee: [
-      { name: "DELIA C. MONTERO", position: "Chairperson", icon: Crown, color: "from-blue-500 to-blue-600", image: "/officers/FIC/delia montero.png" },
-      { name: "NOLI G. VALENZUELA", position: "Vice-Chairperson", icon: FileText, color: "from-green-500 to-green-600", image: "/officers/FIC/valenzuela.png" },
-      { name: "CHARLENE A. ORBINO", position: "Secretary", icon: Users, color: "from-purple-500 to-purple-600", image: "/officers/FIC/orbino.png" },
-      { name: "ORPHA JOSEFIN M. GALERA", position: "Member", icon: Users, color: "from-red-500 to-pink-600", image: "/officers/FIC/eliseo canalin1.png" },
-      { name: "EMELDA F. ELIZALDE", position: "Ex-Eficio", icon: Users, color: "from-red-500 to-pink-600", image: "/officers/FIC/FIC.jpg" }
+      { name: "DELIA C. MONTERO", position: "Chairperson", icon: Crown, color: "from-blue-600 to-blue-700", image: "/officers/FIC/delia montero.png" },
+      { name: "NOLI G. VALENZUELA", position: "Vice-Chairperson", icon: FileText, color: "from-yellow-500 to-yellow-600", image: "/officers/FIC/valenzuela.png" },
+      { name: "CHARLENE A. ORBINO", position: "Secretary", icon: Users, color: "from-blue-700 to-yellow-500", image: "/officers/FIC/orbino.png" },
+      { name: "ORPHA JOSEFIN M. GALERA", position: "Member", icon: Users, color: "from-blue-600 to-yellow-600", image: "/officers/FIC/eliseo canalin1.png" },
+      { name: "EMELDA F. ELIZALDE", position: "Ex-Eficio", icon: Users, color: "from-yellow-500 to-blue-600", image: "/officers/FIC/FIC.jpg" }
     ]
   };
 
