@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     console.log('=== UPLOAD REQUEST STARTED ===');
     
     // Check for session cookie
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const sessionCookie = cookieStore.get('next-auth.session-token') || cookieStore.get('__Secure-next-auth.session-token');
     
     console.log('Session cookie present:', !!sessionCookie);
