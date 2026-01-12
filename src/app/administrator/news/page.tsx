@@ -105,15 +105,21 @@ export default function NewsAdmin() {
       if (!res.ok) {
         // Try to parse JSON error, fallback to text
         let errorMessage;
+        let errorDetails = '';
         const contentType = res.headers.get('content-type');
         if (contentType && contentType.includes('application/json')) {
           const errorData = await res.json();
           console.error('Upload error data:', errorData);
-          errorMessage = errorData.error || errorData.details || `Upload failed with status ${res.status}`;
+          errorMessage = errorData.error || `Upload failed with status ${res.status}`;
+          errorDetails = errorData.details || errorData.stack || '';
+          if (errorDetails) {
+            console.error('Error details:', errorDetails);
+            errorMessage = `${errorMessage}\nDetails: ${errorDetails}`;
+          }
         } else {
           const errorText = await res.text();
-          console.error('Upload error text:', errorText.substring(0, 200));
-          errorMessage = `Server error (${res.status}): ${errorText.substring(0, 100)}`;
+          console.error('Upload error text:', errorText.substring(0, 500));
+          errorMessage = `Server error (${res.status}): ${errorText.substring(0, 200)}`;
         }
         throw new Error(errorMessage);
       }
