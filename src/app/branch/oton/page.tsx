@@ -341,12 +341,6 @@ export default function OtonBranchDashboard() {
                           </button>
                         </>
                       )}
-                      <Link
-                        href={`/administrator/loan-applications/${application.id}`}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                      >
-                        View Details
-                      </Link>
                       <a
                         href={`/api/administrator/loan-applications/${application.id}/pdf`}
                         target="_blank"

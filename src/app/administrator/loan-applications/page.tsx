@@ -301,13 +301,17 @@ export default function LoanApplicationsPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-2">
-                        <Link
-                          href={`/administrator/loan-applications/${application.id}`}
-                          prefetch={false}
-                          className="text-blue-600 hover:text-blue-900"
+                        <a
+                          href={`/api/administrator/loan-applications/${application.id}/pdf`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-purple-600 hover:text-purple-900 inline-flex items-center"
                         >
-                          View Details
-                        </Link>
+                          <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                          </svg>
+                          View PDF
+                        </a>
                       </div>
                       <p className="text-xs text-gray-500 mt-1">Read-only access</p>
                     </td>
