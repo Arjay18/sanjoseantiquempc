@@ -156,7 +156,7 @@ export default function HomeSlider() {
                   slide.theme === 'blue' ? 'bg-blue-400' : 'bg-yellow-400'
                 } animate-pulse`}></div>
                 <span className="text-white text-xs font-semibold tracking-wide">
-                  SAN JOSE MPC
+                  SAN JOSE MULTI PURPOSE COOPERATIVE
                 </span>
               </div>
 
