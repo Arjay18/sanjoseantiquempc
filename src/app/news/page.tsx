@@ -43,9 +43,22 @@ export default function NewsPage() {
       try {
         const response = await fetch('/api/news', { cache: 'no-store' });
         if (!response.ok) {
-          const errData = await response.json();
-          throw new Error(errData.error || 'Failed to fetch news posts');
+          let errorMessage = 'Failed to fetch news posts';
+          try {
+            const errData = await response.json();
+            errorMessage = errData.error || errorMessage;
+          } catch {
+            // If response is not JSON (e.g., HTML error page), use status text
+            errorMessage = response.statusText || errorMessage;
+          }
+          throw new Error(errorMessage);
         }
+
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Invalid response format from server');
+        }
+
         const data: NewsItem[] = await response.json();
         setNewsItems(data);
         setFilteredItems(data);
