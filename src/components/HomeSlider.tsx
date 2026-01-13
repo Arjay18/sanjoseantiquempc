@@ -147,23 +147,23 @@ export default function HomeSlider() {
                 : 'opacity-0 translate-y-10'
             }`}>
               {/* Badge */}
-              <div className={`inline-flex items-center px-4 py-2 rounded-full mb-6 ${
+              <div className={`inline-flex items-center px-3 py-1.5 rounded-full mb-4 ${
                 slide.theme === 'blue'
                   ? 'bg-blue-500/20 border border-blue-400/30'
                   : 'bg-yellow-500/20 border border-yellow-400/30'
               }`}>
-                <div className={`w-2 h-2 rounded-full mr-2 ${
+                <div className={`w-1.5 h-1.5 rounded-full mr-2 ${
                   slide.theme === 'blue' ? 'bg-blue-400' : 'bg-yellow-400'
                 } animate-pulse`}></div>
-                <span className="text-white text-sm font-semibold tracking-wide">
+                <span className="text-white text-xs font-semibold tracking-wide">
                   SAN JOSE MPC
                 </span>
               </div>
 
               {/* Title */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-4 leading-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
                 {slide.title}
-                <span className={`block mt-2 bg-gradient-to-r ${
+                <span className={`block mt-1 bg-gradient-to-r ${
                   slide.theme === 'blue'
                     ? 'from-blue-400 to-blue-200'
                     : 'from-yellow-400 to-yellow-200'
@@ -173,50 +173,50 @@ export default function HomeSlider() {
               </h1>
 
               {/* Description */}
-              <p className="text-lg md:text-xl text-gray-100 mb-8 leading-relaxed max-w-2xl">
+              <p className="text-base md:text-lg text-gray-100 mb-6 leading-relaxed max-w-2xl">
                 {slide.description}
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-3">
                 <Link
                   href={slide.buttonLink}
-                  className={`group inline-flex items-center px-8 py-4 rounded-xl font-bold text-white transition-all duration-300 transform hover:scale-105 hover:shadow-2xl ${
+                  className={`group inline-flex items-center px-6 py-3 rounded-lg font-semibold text-sm md:text-base text-white transition-all duration-300 transform hover:scale-105 hover:shadow-2xl ${
                     slide.theme === 'blue'
                       ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800'
                       : 'bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700'
                   }`}
                 >
                   {slide.buttonText}
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   href="/services"
-                  className="inline-flex items-center px-8 py-4 rounded-xl font-bold text-white border-2 border-white/30 backdrop-blur-sm hover:bg-white/10 hover:border-white/50 transition-all duration-300"
+                  className="inline-flex items-center px-6 py-3 rounded-lg font-semibold text-sm md:text-base text-white border-2 border-white/30 backdrop-blur-sm hover:bg-white/10 hover:border-white/50 transition-all duration-300"
                 >
                   Our Services
                 </Link>
               </div>
 
               {/* Stats */}
-              <div className="mt-10 grid grid-cols-3 gap-6 max-w-xl">
+              <div className="mt-8 grid grid-cols-3 gap-4 max-w-lg">
                 <div className="text-center">
-                  <div className={`text-2xl md:text-3xl font-black ${
+                  <div className={`text-xl md:text-2xl font-bold ${
                     slide.theme === 'blue' ? 'text-blue-400' : 'text-yellow-400'
                   }`}>15K+</div>
-                  <div className="text-sm text-gray-300 mt-1">Members</div>
+                  <div className="text-xs text-gray-300 mt-1">Members</div>
                 </div>
                 <div className="text-center">
-                  <div className={`text-2xl md:text-3xl font-black ${
+                  <div className={`text-xl md:text-2xl font-bold ${
                     slide.theme === 'blue' ? 'text-blue-400' : 'text-yellow-400'
                   }`}>₱1.2B+</div>
-                  <div className="text-sm text-gray-300 mt-1">Assets</div>
+                  <div className="text-xs text-gray-300 mt-1">Assets</div>
                 </div>
                 <div className="text-center">
-                  <div className={`text-2xl md:text-3xl font-black ${
+                  <div className={`text-xl md:text-2xl font-bold ${
                     slide.theme === 'blue' ? 'text-blue-400' : 'text-yellow-400'
                   }`}>61+</div>
-                  <div className="text-sm text-gray-300 mt-1">Years</div>
+                  <div className="text-xs text-gray-300 mt-1">Years</div>
                 </div>
               </div>
             </div>
