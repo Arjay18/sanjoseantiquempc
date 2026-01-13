@@ -343,7 +343,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
                   <Image
-                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop&crop=center"
+                    src="/images/433653723_8032419583452138_6238720083292977796_n.jpg"
                     alt="SJMPC Annual General Assembly"
                     width={400}
                     height={300}
@@ -359,7 +359,7 @@ export default function AboutPage() {
 
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
                   <Image
-                    src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=300&fit=crop&crop=center"
+                    src="/images/540980295_10235369655438843_7551540348210928825_n.jpg"
                     alt="SJMPC Community Outreach"
                     width={400}
                     height={300}
@@ -375,7 +375,7 @@ export default function AboutPage() {
 
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
                   <Image
-                    src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop&crop=center"
+                    src="/images/583336515_1358093772463317_512346541910271086_n.jpg"
                     alt="SJMPC Youth Programs"
                     width={400}
                     height={300}
@@ -391,7 +391,7 @@ export default function AboutPage() {
 
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
                   <Image
-                    src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=300&fit=crop&crop=center"
+                    src="/images/584711177_10236308089939119_4315614434674993906_n.jpg"
                     alt="SJMPC Financial Services"
                     width={400}
                     height={300}
@@ -407,7 +407,7 @@ export default function AboutPage() {
 
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
                   <Image
-                    src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=300&fit=crop&crop=center"
+                    src="/images/597403592_1403798674673184_7189129226940101753_n.jpg"
                     alt="SJMPC Team Building"
                     width={400}
                     height={300}
@@ -423,7 +423,7 @@ export default function AboutPage() {
 
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
                   <Image
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop&crop=center"
+                    src="/images/5b1e1675-ac45-4e24-a35a-626860b03fe3.jpg"
                     alt="SJMPC Awards and Recognition"
                     width={400}
                     height={300}
