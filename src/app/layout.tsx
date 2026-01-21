@@ -113,7 +113,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Google Site Verification */}
-        <meta name="google-site-verification" content="google365aef687e380a54.html" />
+        <meta name="google-site-verification" content="google365aef687e380a54" />
+        <meta name="google-site-verification" content="ooamzwbGJHCbfLjjMPygOkL7akkubfCzD7PqVxr5TyA" />
         {/* Organization Schema Markup for Google Logo */}
         <script
           type="application/ld+json"
