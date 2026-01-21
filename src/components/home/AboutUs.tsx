@@ -78,7 +78,7 @@ export default function AboutUs() {
                 {/* Main Image */}
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/portfolio/Logo.jpg"
+                    src="/logo.png"
                     alt="SJMPC Cooperative"
                     width={600}
                     height={400}

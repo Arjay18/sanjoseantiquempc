@@ -113,7 +113,7 @@ export default function Navigation() {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center space-x-3">
               <Image
-                src="/portfolio/Logo.jpg"
+                src="/logo.png"
                 alt="SJMPC Logo"
                 width={40}
                 height={40}
