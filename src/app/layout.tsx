@@ -111,7 +111,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
+      <head>
+        {/* Organization Schema Markup for Google Logo */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "San Jose Antique MPC",
+              "url": "https://sanjoseantiquempc.com.ph/",
+              "logo": "https://sanjoseantiquempc.com.ph/images/433653723_8032419583452138_6238720083292977796_n.jpg"
+            })
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}
       >
