@@ -1,5 +1,9 @@
-User-agent: *
 Allow: /
 
 # Sitemaps
 Sitemap: https://your-domain.com/sitemap.xml
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://sanjoseantiquempc.com/sitemap.xml
