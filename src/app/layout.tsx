@@ -123,8 +123,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "San Jose Antique MPC",
-              "url": "https://sanjoseantiquempc.com.ph/",
-              "logo": "https://sanjoseantiquempc.com.ph/images/433653723_8032419583452138_6238720083292977796_n.jpg"
+              "url": "https://sanjoseantiquempc.com/",
+              "logo": "https://sanjoseantiquempc.com/portfolio/Logo.jpg"
             })
           }}
         />
