@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function DataProtectionPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -28,19 +28,19 @@ export default function DataProtectionPage() {
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Introduction */}
-        <section className="mb-12 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+        <section className="mb-12 bg-white rounded-2xl shadow-lg p-8">
           <div className="flex items-start gap-4 mb-6">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0">
-              <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <FileText className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Introduction</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Introduction</h2>
+              <p className="text-gray-700 leading-relaxed mb-4">
                 San Jose Multi-Purpose Cooperative (SJMPC) is committed to protecting the privacy and security of your personal data. 
                 This Data Protection Policy explains how we collect, use, store, and safeguard your information in compliance with the 
                 <strong> Data Privacy Act of 2012 (Republic Act No. 10173)</strong> and its implementing rules and regulations.
               </p>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-gray-700 leading-relaxed">
                 By using our services, you acknowledge that you have read and understood this policy and consent to the collection 
                 and processing of your personal data as described herein.
               </p>
@@ -49,21 +49,21 @@ export default function DataProtectionPage() {
         </section>
 
         {/* Data We Collect */}
-        <section className="mb-12 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+        <section className="mb-12 bg-white rounded-2xl shadow-lg p-8">
           <div className="flex items-start gap-4 mb-6">
-            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
-              <Database className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <Database className="w-6 h-6 text-green-600" />
             </div>
             <div className="flex-1">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">What Data We Collect</h2>
-              <p className="text-gray-700 dark:text-gray-300 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">What Data We Collect</h2>
+              <p className="text-gray-700 mb-6">
                 We collect and process the following types of personal information:
               </p>
 
               <div className="space-y-4">
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Personal Identification Information</h3>
-                  <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Personal Identification Information</h3>
+                  <ul className="list-disc list-inside text-gray-700 space-y-1">
                     <li>Full name, date of birth, and gender</li>
                     <li>Government-issued ID numbers (TIN, SSS, etc.)</li>
                     <li>Contact information (address, phone, email)</li>
@@ -72,8 +72,8 @@ export default function DataProtectionPage() {
                 </div>
 
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Financial Information</h3>
-                  <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Financial Information</h3>
+                  <ul className="list-disc list-inside text-gray-700 space-y-1">
                     <li>Bank account details</li>
                     <li>Employment and income information</li>
                     <li>Credit history and loan records</li>
@@ -82,8 +82,8 @@ export default function DataProtectionPage() {
                 </div>
 
                 <div className="border-l-4 border-yellow-500 pl-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Technical Information</h3>
-                  <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Technical Information</h3>
+                  <ul className="list-disc list-inside text-gray-700 space-y-1">
                     <li>IP address and browser information</li>
                     <li>Device information and operating system</li>
                     <li>Cookies and usage data</li>
@@ -96,9 +96,9 @@ export default function DataProtectionPage() {
         </section>
 
         {/* How We Use Your Data */}
-        <section className="mb-12 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+        <section className="mb-12 bg-white rounded-2xl shadow-lg p-8">
           <div className="flex items-start gap-4 mb-6">
-            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
               <UserCheck className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
             <div className="flex-1">

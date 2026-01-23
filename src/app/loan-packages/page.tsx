@@ -208,59 +208,59 @@ export default function LoanPackages() {
               </div>
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Flexible payment terms</span>
+                <span className="text-gray-700">Flexible payment terms</span>
               </div>
             </div>
           </div>
 
           {/* Loan Card - Appliances */}
-          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-blue-500">
+          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-blue-500">
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center">
                 <Home className="w-6 h-6 text-white" />
               </div>
               <span className="text-2xl">🏠</span>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Appliances Loan</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Home appliances financing with extended warranty options.</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Appliances Loan</h3>
+            <p className="text-sm text-gray-600 mb-4">Home appliances financing with extended warranty options.</p>
             <div className="space-y-2">
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Home appliances</span>
+                <span className="text-gray-700">Home appliances</span>
               </div>
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Electronics financing</span>
+                <span className="text-gray-700">Electronics financing</span>
               </div>
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Extended warranty options</span>
+                <span className="text-gray-700">Extended warranty options</span>
               </div>
             </div>
           </div>
 
           {/* Loan Card - Honorarium */}
-          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500">
+          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500">
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
                 <Award className="w-6 h-6 text-white" />
               </div>
               <span className="text-2xl">🎓</span>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Honorarium Loan</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Professional development financing for career advancement.</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Honorarium Loan</h3>
+            <p className="text-sm text-gray-600 mb-4">Professional development financing for career advancement.</p>
             <div className="space-y-2">
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Professional development</span>
+                <span className="text-gray-700">Professional development</span>
               </div>
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Certification courses</span>
+                <span className="text-gray-700">Certification courses</span>
               </div>
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Career advancement</span>
+                <span className="text-gray-700">Career advancement</span>
               </div>
             </div>
           </div>
@@ -274,37 +274,37 @@ export default function LoanPackages() {
             <Building2 className="w-5 h-5 text-green-600 mr-2" />
             <span className="text-sm font-semibold text-green-600">PRODUCTIVE LOANS</span>
           </div>
-          <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">
+          <h2 className="text-4xl font-black text-gray-900 mb-4">
             Business Growth Financing
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Empowering entrepreneurs and farmers with capital for business expansion
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {/* Micro-Enterprise */}
-          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500">
+          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500">
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
                 <Building2 className="w-6 h-6 text-white" />
               </div>
               <span className="text-2xl">💼</span>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Micro-Enterprise Loan</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Support for small businesses and micro-enterprises with comprehensive financing.</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Micro-Enterprise Loan</h3>
+            <p className="text-sm text-gray-600 mb-4">Support for small businesses and micro-enterprises with comprehensive financing.</p>
             <div className="space-y-2">
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Business startup capital</span>
+                <span className="text-gray-700">Business startup capital</span>
               </div>
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Working capital financing</span>
+                <span className="text-gray-700">Working capital financing</span>
               </div>
               <div className="flex items-start text-sm">
                 <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Equipment and inventory</span>
+                <span className="text-gray-700">Equipment and inventory</span>
               </div>
             </div>
           </div>
