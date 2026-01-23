@@ -420,14 +420,14 @@ export default function LoanApplication() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 py-12">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black text-gray-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-black text-gray-900 mb-2">
             Loan <span className="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">Application</span>
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">San Jose Multi-Purpose Cooperative</p>
+          <p className="text-gray-600">San Jose Multi-Purpose Cooperative</p>
         </div>
 
         {/* Progress Steps */}
@@ -481,7 +481,7 @@ export default function LoanApplication() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 mb-8">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 mb-8">
           <form onSubmit={handleSubmitApplication}>
             {/* Step 1: Personal Information */}
             {currentStep === 1 && (
@@ -491,14 +491,14 @@ export default function LoanApplication() {
                     <User className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Personal Information</h2>
-                    <p className="text-gray-600 dark:text-gray-300">Tell us about yourself</p>
+                    <h2 className="text-2xl font-bold text-gray-900">Personal Information</h2>
+                    <p className="text-gray-600">Tell us about yourself</p>
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -507,7 +507,7 @@ export default function LoanApplication() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
                       placeholder="Juan Dela Cruz"
                     />
                   </div>

@@ -230,22 +230,22 @@ export default function ServicesShowcase() {
                             </div>
                           </div>
                           <div className="text-right">
-                            <span className="text-2xl font-bold text-gray-400 dark:text-gray-500">
+                            <span className="text-2xl font-bold text-gray-400">
                               {String(service.id).padStart(2, '0')}
                             </span>
                           </div>
                         </div>
 
                         <div className="mb-4">
-                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                             {service.title}
                           </h3>
-                          <p className="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">
+                          <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">
                             {service.subtitle}
                           </p>
                         </div>
 
-                        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">
+                        <p className="text-gray-700 text-sm leading-relaxed mb-6">
                           {service.description}
                         </p>
 
@@ -257,7 +257,7 @@ export default function ServicesShowcase() {
                       <div className="px-8 pb-6">
                         <div className="space-y-3">
                           {service.features.map((feature, idx) => (
-                            <div key={idx} className="flex items-center text-sm text-gray-700 dark:text-gray-300">
+                            <div key={idx} className="flex items-center text-sm text-gray-700">
                               <svg className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
@@ -300,13 +300,13 @@ export default function ServicesShowcase() {
             </Swiper>
 
             {/* Custom Navigation */}
-            <div className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:bg-blue-50 dark:hover:bg-blue-900/50 transition-colors cursor-pointer">
-              <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-blue-50 transition-colors cursor-pointer">
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </div>
-            <div className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:bg-blue-50 dark:hover:bg-blue-900/50 transition-colors cursor-pointer">
-              <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-blue-50 transition-colors cursor-pointer">
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>

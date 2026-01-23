@@ -49,26 +49,26 @@ export default function CookieConsent() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[9999] animate-slide-up">
-      <div className="bg-white dark:bg-gray-800 border-t-4 border-blue-600 shadow-2xl">
+      <div className="bg-white border-t-4 border-blue-600 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             {/* Icon and Content */}
             <div className="flex items-start gap-3 flex-1">
               <div className="flex-shrink-0">
-                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                  <Cookie className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Cookie className="w-5 h-5 text-blue-600" />
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                <h3 className="text-sm font-semibold text-gray-900 mb-1">
                   We Value Your Privacy
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-sm text-gray-600 leading-relaxed">
                   We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. 
                   By clicking "Accept All", you consent to our use of cookies. 
                   <Link 
                     href="/data-protection" 
-                    className="text-blue-600 dark:text-blue-400 hover:underline ml-1 font-medium"
+                    className="text-blue-600 hover:underline ml-1 font-medium"
                   >
                     Learn more
                   </Link>
@@ -80,7 +80,7 @@ export default function CookieConsent() {
             <div className="flex items-center gap-2 w-full sm:w-auto">
               <button
                 onClick={handleDecline}
-                className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200"
+                className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
               >
                 Decline
               </button>
@@ -92,7 +92,7 @@ export default function CookieConsent() {
               </button>
               <button
                 onClick={handleClose}
-                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
                 aria-label="Close banner"
               >
                 <X className="w-5 h-5" />
@@ -101,15 +101,15 @@ export default function CookieConsent() {
           </div>
 
           {/* Additional Links */}
-          <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex flex-wrap gap-4 text-xs text-gray-500 dark:text-gray-400">
-              <Link href="/privacy" className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline">
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <div className="flex flex-wrap gap-4 text-xs text-gray-500">
+              <Link href="/privacy" className="hover:text-blue-600 hover:underline">
                 Privacy Policy
               </Link>
-              <Link href="/data-protection" className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline">
+              <Link href="/data-protection" className="hover:text-blue-600 hover:underline">
                 Data Protection
               </Link>
-              <Link href="/terms" className="hover:text-blue-600 dark:hover:text-blue-400 hover:underline">
+              <Link href="/terms" className="hover:text-blue-600 hover:underline">
                 Terms of Service
               </Link>
             </div>

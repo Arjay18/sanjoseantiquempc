@@ -67,10 +67,10 @@ interface ModalProps {
 function Modal({ item, onClose }: ModalProps) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full p-8 relative">
+      <div className="bg-white rounded-lg max-w-2xl w-full p-8 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
         >
           <svg
             className="h-6 w-6"
@@ -97,11 +97,11 @@ function Modal({ item, onClose }: ModalProps) {
           />
         </div>
 
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">
           {item.title}
         </h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{item.description}</p>
-        <span className="inline-block bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full px-3 py-1 text-sm font-semibold">
+        <p className="text-gray-600 mb-4">{item.description}</p>
+        <span className="inline-block bg-blue-100 text-blue-800 rounded-full px-3 py-1 text-sm font-semibold">
           {item.category}
         </span>
       </div>
@@ -118,13 +118,13 @@ export default function Portfolio() {
     : portfolioItems.filter(item => item.category === selectedCategory);
 
   return (
-    <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
+    <div className="min-h-screen pt-16 bg-white">
       <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
             Our Portfolio
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-300">
+          <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
             Check out our latest work and projects
           </p>
         </div>
@@ -138,7 +138,7 @@ export default function Portfolio() {
               className={`px-4 py-2 rounded-full text-sm font-medium ${
                 selectedCategory === category
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
               }`}
             >
               {category}
@@ -152,7 +152,7 @@ export default function Portfolio() {
             <div
               key={item.id}
               onClick={() => setSelectedItem(item)}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-transform hover:scale-105"
+              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transition-transform hover:scale-105"
             >
               <div className="relative h-48">
                 <Image
@@ -163,13 +163,13 @@ export default function Portfolio() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-gray-900">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-gray-600 dark:text-gray-300">
+                <p className="mt-2 text-gray-600">
                   {item.description}
                 </p>
-                <span className="mt-4 inline-block bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full px-3 py-1 text-sm font-semibold">
+                <span className="mt-4 inline-block bg-blue-100 text-blue-800 rounded-full px-3 py-1 text-sm font-semibold">
                   {item.category}
                 </span>
               </div>

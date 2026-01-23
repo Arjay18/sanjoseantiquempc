@@ -107,11 +107,11 @@ export default function NewsPage() {
   if (error) return <div className="min-h-screen flex justify-center items-center text-red-600">{error}</div>;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 py-16 px-4">
+    <div className="min-h-screen bg-white py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Latest News</h1>
-          <p className="text-gray-600 dark:text-gray-300">Stay updated with our latest announcements and insights</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Latest News</h1>
+          <p className="text-gray-600">Stay updated with our latest announcements and insights</p>
         </div>
 
         {/* Search */}
@@ -121,7 +121,7 @@ export default function NewsPage() {
             placeholder="Search news..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full max-w-md px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+            className="w-full max-w-md px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -134,7 +134,7 @@ export default function NewsPage() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 selectedCategory === cat
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
               {cat}
@@ -143,13 +143,13 @@ export default function NewsPage() {
         </div>
 
         {filteredItems.length === 0 ? (
-          <p className="text-center text-gray-500 dark:text-gray-300">
+          <p className="text-center text-gray-500">
             {searchQuery || selectedCategory !== 'All' ? 'No posts match your criteria.' : 'No news posts available.'}
           </p>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {filteredItems.map(item => (
-              <article key={item.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform">
+              <article key={item.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform">
                 {item.imageUrl && (
                   <div className="h-48 overflow-hidden">
                     <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
@@ -160,10 +160,10 @@ export default function NewsPage() {
                     <span className="font-medium text-blue-600">{item.category || 'General'}</span>
                     {item.author && <span>• {item.author}</span>}
                   </div>
-                  <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{item.title}</h2>
-                  {item.caption && <p className="text-gray-600 dark:text-gray-300 italic mb-2">{item.caption}</p>}
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{getExcerpt(item.content)}</p>
-                  <Link href={`/news/${item.slug}`} className="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-medium">
+                  <h2 className="text-lg font-semibold mb-2 text-gray-900">{item.title}</h2>
+                  {item.caption && <p className="text-gray-600 italic mb-2">{item.caption}</p>}
+                  <p className="text-gray-600 mb-4">{getExcerpt(item.content)}</p>
+                  <Link href={`/news/${item.slug}`} className="text-blue-600 hover:text-blue-500 font-medium">
                     Read more →
                   </Link>
                 </div>

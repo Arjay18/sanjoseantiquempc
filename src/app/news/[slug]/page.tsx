@@ -82,9 +82,9 @@ export default function NewsDetailPage() {
   }
 
   return (
-    <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
+    <div className="min-h-screen pt-16 bg-white">
       <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <article className="bg-white rounded-lg shadow-lg overflow-hidden">
           {newsItem.imageUrl && (
             <img
               src={newsItem.imageUrl}
@@ -113,14 +113,14 @@ export default function NewsDetailPage() {
             {newsItem.caption && <p className="text-xl text-gray-600 italic mb-6">{newsItem.caption}</p>}
 
             <div
-              className="prose prose-lg dark:prose-invert max-w-none"
+              className="prose prose-lg max-w-none"
               dangerouslySetInnerHTML={{ __html: newsItem.content }}
             />
 
-            <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div className="mt-12 pt-8 border-t border-gray-200">
               <Link
                 href="/news"
-                className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+                className="text-blue-600 hover:text-blue-500 font-medium"
               >
                 ← Back to News
               </Link>
