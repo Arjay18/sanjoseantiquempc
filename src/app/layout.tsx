@@ -47,6 +47,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Viewport for responsive design */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Google Site Verification */}
         <meta name="google-site-verification" content="google365aef687e380a54" />
         <meta name="google-site-verification" content="ooamzwbGJHCbfLjjMPygOkL7akkubfCzD7PqVxr5TyA" />
