@@ -94,60 +94,60 @@ const services = [
 const getColorClasses = (color: string) => {
   const colors = {
     blue: {
-      bg: 'bg-blue-50 dark:bg-blue-900/20',
-      border: 'border-blue-200 dark:border-blue-800',
-      icon: 'text-blue-600 dark:text-blue-400',
-      iconBg: 'bg-blue-100 dark:bg-blue-900',
+      bg: 'bg-blue-50',
+      border: 'border-blue-200',
+      icon: 'text-blue-600',
+      iconBg: 'bg-blue-100',
       button: 'bg-blue-600 hover:bg-blue-700',
-      popular: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-300'
+      popular: 'bg-blue-100 text-blue-800'
     },
     yellow: {
-      bg: 'bg-yellow-50 dark:bg-yellow-900/20',
-      border: 'border-yellow-200 dark:border-yellow-800',
-      icon: 'text-yellow-600 dark:text-yellow-500',
-      iconBg: 'bg-yellow-100 dark:bg-yellow-900',
+      bg: 'bg-yellow-50',
+      border: 'border-yellow-200',
+      icon: 'text-yellow-600',
+      iconBg: 'bg-yellow-100',
       button: 'bg-yellow-500 hover:bg-yellow-600',
-      popular: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-300'
+      popular: 'bg-yellow-100 text-yellow-800'
     },
     green: {
-      bg: 'bg-green-50 dark:bg-green-900/20',
-      border: 'border-green-200 dark:border-green-800',
-      icon: 'text-green-600 dark:text-green-400',
-      iconBg: 'bg-green-100 dark:bg-green-900',
+      bg: 'bg-green-50',
+      border: 'border-green-200',
+      icon: 'text-green-600',
+      iconBg: 'bg-green-100',
       button: 'bg-green-600 hover:bg-green-700',
-      popular: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300'
+      popular: 'bg-green-100 text-green-800'
     },
     purple: {
-      bg: 'bg-purple-50 dark:bg-purple-900/20',
-      border: 'border-purple-200 dark:border-purple-800',
-      icon: 'text-purple-600 dark:text-purple-400',
-      iconBg: 'bg-purple-100 dark:bg-purple-900',
+      bg: 'bg-purple-50',
+      border: 'border-purple-200',
+      icon: 'text-purple-600',
+      iconBg: 'bg-purple-100',
       button: 'bg-purple-600 hover:bg-purple-700',
-      popular: 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-300'
+      popular: 'bg-purple-100 text-purple-800'
     },
     indigo: {
-      bg: 'bg-indigo-50 dark:bg-indigo-900/20',
-      border: 'border-indigo-200 dark:border-indigo-800',
-      icon: 'text-indigo-600 dark:text-indigo-400',
-      iconBg: 'bg-indigo-100 dark:bg-indigo-900',
+      bg: 'bg-indigo-50',
+      border: 'border-indigo-200',
+      icon: 'text-indigo-600',
+      iconBg: 'bg-indigo-100',
       button: 'bg-indigo-600 hover:bg-indigo-700',
-      popular: 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300'
+      popular: 'bg-indigo-100 text-indigo-800'
     },
     orange: {
-      bg: 'bg-orange-50 dark:bg-orange-900/20',
-      border: 'border-orange-200 dark:border-orange-800',
-      icon: 'text-orange-600 dark:text-orange-400',
-      iconBg: 'bg-orange-100 dark:bg-orange-900',
+      bg: 'bg-orange-50',
+      border: 'border-orange-200',
+      icon: 'text-orange-600',
+      iconBg: 'bg-orange-100',
       button: 'bg-orange-600 hover:bg-orange-700',
-      popular: 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-300'
+      popular: 'bg-orange-100 text-orange-800'
     },
     teal: {
-      bg: 'bg-teal-50 dark:bg-teal-900/20',
-      border: 'border-teal-200 dark:border-teal-800',
-      icon: 'text-teal-600 dark:text-teal-400',
-      iconBg: 'bg-teal-100 dark:bg-teal-900',
+      bg: 'bg-teal-50',
+      border: 'border-teal-200',
+      icon: 'text-teal-600',
+      iconBg: 'bg-teal-100',
       button: 'bg-teal-600 hover:bg-teal-700',
-      popular: 'bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-300'
+      popular: 'bg-teal-100 text-teal-800'
     }
   };
   return colors[color as keyof typeof colors] || colors.blue;
@@ -155,23 +155,23 @@ const getColorClasses = (color: string) => {
 
 export default function ServicesShowcase() {
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <FadeIn direction="up" delay={0.2}>
           <div className="text-center mb-20">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-sm font-medium mb-4">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4">
               <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               Trusted by 25,000+ Members
             </div>
             <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase mb-2">Our Main Services</h2>
-            <p className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            <p className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Comprehensive Financial
               <span className="block text-blue-600">Solutions for You</span>
             </p>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               SJMPC offers a complete range of financial services designed to empower our members and strengthen our community through cooperative banking excellence and personalized support.
             </p>
           </div>
