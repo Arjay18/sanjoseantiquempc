@@ -119,7 +119,7 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen pt-16 bg-white">
-      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto py-8 px-2 sm:px-4 md:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
             Our Portfolio
@@ -147,7 +147,7 @@ export default function Portfolio() {
         </div>
 
         {/* Portfolio Grid */}
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {filteredItems.map((item) => (
             <div
               key={item.id}
