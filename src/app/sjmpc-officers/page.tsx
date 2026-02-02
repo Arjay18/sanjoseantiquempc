@@ -16,7 +16,7 @@ export default function OfficersPage() {
       { name: "DELIA C. MONTERO", position: "Member", icon: Users, priority: 7, color: "from-yellow-600 to-yellow-700", image: "/officers/Board of Directors/delia montero.png" },
       { name: "ANNA CECILIA R. PEFIANCO", position: "Member", icon: Shield, priority: 8, color: "from-blue-600 to-blue-700", image: "/officers/Board of Directors/anna cecilia pefianco1.png" },
       { name: "DANIEL N. VESCATCHO. JR", position: "Member", icon: Target, priority: 9, color: "from-yellow-500 to-blue-600", image: "/officers/Board of Directors/boyce vescatcho.png" },
-      { name: "ANTONIO C. SALAO. JR", position: "Member", icon: Target, priority: 9, color: "from-blue-700 to-yellow-500", image: "/officers/Board of Directors/alfredo ysulat.png" }
+      { name: "ALFREDO Y SULAT", position: "Member", icon: Target, priority: 9, color: "from-blue-700 to-yellow-500", image: "/officers/Board of Directors/alfredo ysulat.png" }
     ],
     auditCommittee: [
       { name: "BENJAMIN E. CANCAN", position: "CHAIRPERSON", icon: Shield, color: "from-blue-600 to-blue-700", image: "/officers/AudCom/cancan.png" },
