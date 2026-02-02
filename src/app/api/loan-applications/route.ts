@@ -115,6 +115,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(application, { status: 201 });
   } catch (error) {
     console.error('Error creating loan application:', error);
-    return NextResponse.json({ error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
+    // For debugging: return the error stack in the response (remove in production)
+    return NextResponse.json({
+      error: 'Internal server error',
+      details: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    }, { status: 500 });
   }
 }
