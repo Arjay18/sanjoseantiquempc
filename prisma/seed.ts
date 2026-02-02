@@ -4,13 +4,14 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  // Clear previous data
-  await prisma.newsPost.deleteMany();
-  await prisma.successStory.deleteMany();
-  await prisma.pMESSession.deleteMany();
-  await prisma.memberRegistration.deleteMany();
-  await prisma.statistic.deleteMany();
-  await prisma.user.deleteMany();
+
+  // Clear previous data, ignore errors if tables do not exist
+  try { await prisma.newsPost.deleteMany(); } catch (e) { console.warn('newsPost table not found, skipping.'); }
+  try { await prisma.successStory.deleteMany(); } catch (e) { console.warn('successStory table not found, skipping.'); }
+  try { await prisma.pMESSession.deleteMany(); } catch (e) { console.warn('pMESSession table not found, skipping.'); }
+  try { await prisma.memberRegistration.deleteMany(); } catch (e) { console.warn('memberRegistration table not found, skipping.'); }
+  try { await prisma.statistic.deleteMany(); } catch (e) { console.warn('statistic table not found, skipping.'); }
+  try { await prisma.user.deleteMany(); } catch (e) { console.warn('user table not found, skipping.'); }
 
   // Seed branch users
   await prisma.user.createMany({
