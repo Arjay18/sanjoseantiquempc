@@ -15,8 +15,10 @@ export async function POST(request: NextRequest) {
       email: formData.email
     });
 
-    const application = await prisma.loanApplication.create({
-      data: {
+    let application;
+    try {
+      application = await prisma.loanApplication.create({
+        data: {
         name: formData.name,
         pbNo: formData.pbNo,
         contactNo: formData.contactNo,
@@ -91,7 +93,17 @@ export async function POST(request: NextRequest) {
         processor: formData.processor,
         pdfFile: formData.pdfFile || null,
       },
-    });
+      });
+    } catch (err: any) {
+      // Handle unique constraint violation
+      if (err.code === 'P2002' && err.meta && err.meta.target && err.meta.target.includes('pbNo_branch_loanType')) {
+        return NextResponse.json({
+          error: 'Duplicate application',
+          message: 'A loan application for this member, branch, and loan type already exists.'
+        }, { status: 409 });
+      }
+      throw err;
+    }
 
     console.log('Loan application created successfully:', {
       id: application.id,
