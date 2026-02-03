@@ -1,11 +1,11 @@
 ﻿'use client';
 
 import { useState, useEffect } from 'react';
-import { PhilippinePeso, Building, Heart, Clock, CheckCircle, ArrowRight, BookOpen, Phone, Home, Award, Building2, Tractor, Shield, Wallet, Wheat, AlertTriangle, User, FileText, CreditCard, DollarSign, PenTool, ChevronRight, ChevronLeft } from 'lucide-react';
+import { PhilippinePeso, Building, Heart, Clock, CheckCircle, ArrowRight, BookOpen, Phone, Home, Award, Building2, Tractor, Shield, Wallet, Wheat, AlertTriangle, User, FileText, CreditCard, PenTool, ChevronRight, ChevronLeft } from 'lucide-react';
 
 export default function LoanApplication() {
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 6;
+  const totalSteps = 4;
 
   const [formData, setFormData] = useState({
     // Basic Information
@@ -275,7 +275,7 @@ export default function LoanApplication() {
   const steps = [
     { number: 1, title: 'Personal Info', icon: User, description: 'Basic details' },
     { number: 2, title: 'Loan Details', icon: FileText, description: 'Loan information' },
-    { number: 3, title: 'Financial Info', icon: DollarSign, description: 'Income & expenses' },
+    { number: 3, title: 'Financial Info', icon: PhilippinePeso, description: 'Income & expenses' },
     { number: 4, title: 'Review', icon: CheckCircle, description: 'Confirm & submit' }
   ];
 
@@ -702,7 +702,7 @@ export default function LoanApplication() {
               <div className="space-y-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
-                    <DollarSign className="w-6 h-6 text-white" />
+                    <PhilippinePeso className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Financial Information</h2>
@@ -867,8 +867,8 @@ export default function LoanApplication() {
                 </div>
               </div>
             )}
-            {/* Step 6: Review & Submit */}
-            {currentStep === 6 && (
+            {/* Step 4: Review & Submit */}
+            {currentStep === 4 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
