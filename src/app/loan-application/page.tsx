@@ -276,9 +276,7 @@ export default function LoanApplication() {
     { number: 1, title: 'Personal Info', icon: User, description: 'Basic details' },
     { number: 2, title: 'Loan Details', icon: FileText, description: 'Loan information' },
     { number: 3, title: 'Financial Info', icon: DollarSign, description: 'Income & expenses' },
-    { number: 4, title: 'Documents', icon: CreditCard, description: 'ID & verification' },
-    { number: 5, title: 'Signatures', icon: PenTool, description: 'Sign documents' },
-    { number: 6, title: 'Review', icon: CheckCircle, description: 'Confirm & submit' }
+    { number: 4, title: 'Review', icon: CheckCircle, description: 'Confirm & submit' }
   ];
 
 
@@ -869,73 +867,6 @@ export default function LoanApplication() {
                 </div>
               </div>
             )}
-
-            {/* Step 4: Documents */}
-            {currentStep === 4 && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
-                    <CreditCard className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Document Upload</h2>
-                    <p className="text-gray-600 dark:text-gray-300">Upload your valid ID</p>
-                  </div>
-                </div>
-
-                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-8 border-2 border-blue-100 dark:border-blue-800 text-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <CreditCard className="w-10 h-10 text-white" />
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Valid Government ID</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6">Please upload a clear photo or scan of your ID</p>
-                  
-                  <div className="max-w-md mx-auto">
-                    <div className="mb-4">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 text-left">
-                        Type of Valid ID <span className="text-red-500">*</span>
-                      </label>
-                      <select
-                        // ID Type field removed (not in formData)
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                      >
-                        <option value="">Select ID type</option>
-                        <option value="Driver's License">Driver's License</option>
-                        <option value="Passport">Passport</option>
-                        <option value="SSS ID">SSS ID</option>
-                        <option value="GSIS ID">GSIS ID</option>
-                        <option value="PhilHealth ID">PhilHealth ID</option>
-                        <option value="Voter's ID">Voter's ID</option>
-                        <option value="PRC ID">PRC ID</option>
-                        <option value="National ID">National ID</option>
-                        <option value="Postal ID">Postal ID</option>
-                        <option value="Barangay ID">Barangay ID</option>
-                        <option value="Other Government ID">Other Government ID</option>
-                      </select>
-                    </div>
-
-                    <div className="mb-4">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 text-left">
-                        Upload ID Image
-                      </label>
-                      <input
-                        type="file"
-                        name="idFile"
-                        onChange={handleInputChange}
-                        accept="image/*,.pdf"
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white file:cursor-pointer hover:file:bg-blue-700"
-                      />
-                      <p className="text-xs text-gray-500 mt-2 text-left">Accepted formats: JPG, PNG, PDF (Max 5MB)</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-
             {/* Step 6: Review & Submit */}
             {currentStep === 6 && (
               <div className="space-y-6">
