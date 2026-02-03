@@ -751,6 +751,20 @@ export default function LoanApplication() {
                         placeholder="0.00"
                       />
                     </div>
+                    <div className="col-span-2">
+                      <label className="block text-sm font-bold text-green-900 dark:text-green-300 mt-4">Total Income</label>
+                      <input
+                        type="text"
+                        value={(
+                          parseFloat(formData.incomeMember || '0') +
+                          parseFloat(formData.incomeSpouse || '0') +
+                          parseFloat(formData.otherIncome || '0') +
+                          parseFloat(formData.incomeBusiness || '0')
+                        ).toFixed(2)}
+                        readOnly
+                        className="w-full px-4 py-3 border-2 border-green-300 bg-gray-100 dark:bg-gray-800 rounded-xl font-bold text-green-900 dark:text-green-200 mt-1"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -846,6 +860,24 @@ export default function LoanApplication() {
                         placeholder="0.00"
                       />
                     </div>
+                    <div className="col-span-2">
+                      <label className="block text-sm font-bold text-red-900 dark:text-red-300 mt-4">Total Expenses</label>
+                      <input
+                        type="text"
+                        value={(
+                          parseFloat(formData.food || '0') +
+                          parseFloat(formData.clothing || '0') +
+                          parseFloat(formData.shelter || '0') +
+                          parseFloat(formData.education || '0') +
+                          parseFloat(formData.electricWaterBills || '0') +
+                          parseFloat(formData.helper || '0') +
+                          parseFloat(formData.loanRepayments || '0') +
+                          parseFloat(formData.miscellaneousExpense || '0')
+                        ).toFixed(2)}
+                        readOnly
+                        className="w-full px-4 py-3 border-2 border-red-300 bg-gray-100 dark:bg-gray-800 rounded-xl font-bold text-red-900 dark:text-red-200 mt-1"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -862,6 +894,7 @@ export default function LoanApplication() {
             )}
             {/* Step 4: Review & Submit */}
             {currentStep === 4 && (
+
               <div className="space-y-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
@@ -873,34 +906,59 @@ export default function LoanApplication() {
                   </div>
                 </div>
 
-                {/* Application Summary */}
-                <div className="bg-gradient-to-br from-blue-50 to-yellow-50 dark:from-blue-900/20 dark:to-yellow-900/20 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-700">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Application Summary</h3>
+                {/* Application Summary - Page 1 */}
+                <div className="bg-gradient-to-br from-blue-50 to-yellow-50 dark:from-blue-900/20 dark:to-yellow-900/20 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-700 mb-6">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Page 1: Personal & Loan Details</h3>
                   <div className="grid md:grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">Name:</span>
-                      <p className="text-gray-900 dark:text-white">{formData.name || 'Not provided'}</p>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">PB No.:</span>
-                      <p className="text-gray-900 dark:text-white">{formData.passbookNo || 'Not provided'}</p>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">Loan Type:</span>
-                      <p className="text-gray-900 dark:text-white">{formData.loanType || 'Not provided'}</p>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">Loan Amount:</span>
-                      <p className="text-gray-900 dark:text-white">₱{formData.amountApplied || '0.00'}</p>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">Term:</span>
-                      <p className="text-gray-900 dark:text-white">{formData.term ? `${formData.term} months` : 'Not provided'}</p>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">Branch:</span>
-                      <p className="text-gray-900 dark:text-white">{formData.assignmentPassbookNo || 'Not provided'}</p>
-                    </div>
+                    <div><span className="font-semibold">Name:</span> {formData.name || 'Not provided'}</div>
+                    <div><span className="font-semibold">Passbook No:</span> {formData.passbookNo || 'Not provided'}</div>
+                    <div><span className="font-semibold">Address:</span> {formData.address || 'Not provided'}</div>
+                    <div><span className="font-semibold">Contact No:</span> {formData.contactNo || 'Not provided'}</div>
+                    <div><span className="font-semibold">Loan Type:</span> {formData.loanType || 'Not provided'}</div>
+                    <div><span className="font-semibold">Term:</span> {formData.term || 'Not provided'}</div>
+                    <div><span className="font-semibold">Amount Applied:</span> ₱{formData.amountApplied || '0.00'}</div>
+                    <div><span className="font-semibold">Purpose:</span> {formData.purpose || 'Not provided'}</div>
+                    <div><span className="font-semibold">Savings Deposit Regular:</span> {formData.savingsDepositRegular || '0.00'}</div>
+                    <div><span className="font-semibold">Savings Deposit Ultima:</span> {formData.savingsDepositUltima || '0.00'}</div>
+                    <div><span className="font-semibold">Savings Deposit Alkansya:</span> {formData.savingsDepositAlkansya || '0.00'}</div>
+                    <div><span className="font-semibold">Time Deposit:</span> {formData.timeDeposit || '0.00'}</div>
+                    <div><span className="font-semibold">Other Deposits:</span> {formData.otherDeposits || '0.00'}</div>
+                    <div><span className="font-semibold">Share Capital:</span> {formData.shareCapital || '0.00'}</div>
+                  </div>
+                </div>
+
+                {/* Application Summary - Page 2 */}
+                <div className="bg-gradient-to-br from-blue-50 to-yellow-50 dark:from-blue-900/20 dark:to-yellow-900/20 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-700">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Page 2: Income & Expenses</h3>
+                  <div className="grid md:grid-cols-2 gap-4 text-sm">
+                    <div><span className="font-semibold">Member Income:</span> {formData.incomeMember || '0.00'}</div>
+                    <div><span className="font-semibold">Spouse Income:</span> {formData.incomeSpouse || '0.00'}</div>
+                    <div><span className="font-semibold">Other Income:</span> {formData.otherIncome || '0.00'}</div>
+                    <div><span className="font-semibold">Business Income:</span> {formData.incomeBusiness || '0.00'}</div>
+                    <div><span className="font-semibold">Total Income:</span> {(
+                      (parseFloat(formData.incomeMember || '0') +
+                        parseFloat(formData.incomeSpouse || '0') +
+                        parseFloat(formData.otherIncome || '0') +
+                        parseFloat(formData.incomeBusiness || '0')).toFixed(2)
+                    )}</div>
+                    <div><span className="font-semibold">Food:</span> {formData.food || '0.00'}</div>
+                    <div><span className="font-semibold">Clothing:</span> {formData.clothing || '0.00'}</div>
+                    <div><span className="font-semibold">Shelter/Rent:</span> {formData.shelter || '0.00'}</div>
+                    <div><span className="font-semibold">Education:</span> {formData.education || '0.00'}</div>
+                    <div><span className="font-semibold">Electricity/Water:</span> {formData.electricWaterBills || '0.00'}</div>
+                    <div><span className="font-semibold">Helper:</span> {formData.helper || '0.00'}</div>
+                    <div><span className="font-semibold">Loan Repayment:</span> {formData.loanRepayments || '0.00'}</div>
+                    <div><span className="font-semibold">Miscellaneous:</span> {formData.miscellaneousExpense || '0.00'}</div>
+                    <div><span className="font-semibold">Total Expenses:</span> {(
+                      (parseFloat(formData.food || '0') +
+                        parseFloat(formData.clothing || '0') +
+                        parseFloat(formData.shelter || '0') +
+                        parseFloat(formData.education || '0') +
+                        parseFloat(formData.electricWaterBills || '0') +
+                        parseFloat(formData.helper || '0') +
+                        parseFloat(formData.loanRepayments || '0') +
+                        parseFloat(formData.miscellaneousExpense || '0')).toFixed(2)
+                    )}</div>
                   </div>
                 </div>
 
