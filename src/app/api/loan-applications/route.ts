@@ -51,6 +51,8 @@ export async function POST(request: NextRequest) {
 
     let application;
     try {
+      // Normalize branch value
+      const normalizedBranch = (formData.branch || 'sanjose').trim().toLowerCase();
       application = await prisma.loanApplication.create({
         data: {
           name: formData.name,
@@ -58,7 +60,7 @@ export async function POST(request: NextRequest) {
           contactNo: formData.contactNo,
           email: formData.email,
           address: formData.address,
-          branch: formData.branch || 'sanjose',
+          branch: normalizedBranch,
           loanType: formData.loanType,
           idType: formData.idType,
           idFile: formData.idFile ? JSON.stringify(formData.idFile) : null,
