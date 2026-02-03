@@ -35,13 +35,13 @@ export async function GET(request: NextRequest) {
       where.status = status;
     }
     if (session.user.role === 'admin') {
-      // Admins can filter by branch param or see all
-      if (branchParam) {
-        where.branch = branchParam;
+      // Admins: if branchParam is present, filter strictly by branch
+      if (branchParam && ['sanjose', 'miagao', 'oton', 'guimaras'].includes(branchParam.trim().toLowerCase())) {
+        where.branch = branchParam.trim().toLowerCase();
       }
     } else if (session.user.role === 'branch') {
       // Branch users can only see their own branch, ignore branchParam
-      where.branch = (session.user as any).branch;
+      where.branch = (session.user as any).branch.trim().toLowerCase();
     }
 
     console.log('Query where clause:', where);
