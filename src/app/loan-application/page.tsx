@@ -863,7 +863,7 @@ export default function LoanApplication() {
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">Net Monthly Disposable Income</h3>
                     <div className="text-3xl font-black bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
-                      â‚±{formData.netIncome || '0.00'}
+                      {formData.netIncome || '0.00'}
                     </div>
                   </div>
                 </div>
@@ -935,113 +935,6 @@ export default function LoanApplication() {
               </div>
             )}
 
-            {/* Step 5: Signatures */}
-            {currentStep === 5 && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
-                    <PenTool className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Signature Details</h2>
-                    <p className="text-gray-600 dark:text-gray-300">Enter names for digital signatures</p>
-                  </div>
-                </div>
-
-                {/* Maker Signatures */}
-                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border-2 border-blue-100 dark:border-blue-800">
-                  <h3 className="text-lg font-bold text-blue-900 dark:text-blue-300 mb-4">Maker/Borrower</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Maker Name 1</label>
-                      <input
-                        type="text"
-                        // Signature fields removed (not in formData)
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="Full Name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Maker Name 2 (if applicable)</label>
-                      <input
-                        type="text"
-                        // Signature fields removed (not in formData)
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="Full Name"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Co-Maker Signatures */}
-                <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-6 border-2 border-yellow-100 dark:border-yellow-800">
-                  <h3 className="text-lg font-bold text-yellow-900 dark:text-yellow-300 mb-4">Co-Maker(s)</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Co-Maker Name 1</label>
-                      <input
-                        type="text"
-                        // Signature fields removed (not in formData)
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="Full Name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Co-Maker Name 2 (if applicable)</label>
-                      <input
-                        type="text"
-                        // Signature fields removed (not in formData)
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="Full Name"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Witness Signatures */}
-                <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border-2 border-gray-200 dark:border-gray-600">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Witness(es)</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Witness Name 1</label>
-                      <input
-                        type="text"
-                        // Signature fields removed (not in formData)
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="Full Name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Witness Name 2 (if applicable)</label>
-                      <input
-                        type="text"
-                        // Signature fields removed (not in formData)
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="Full Name"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Signature Date */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Signature Date</label>
-                  <input
-                    type="date"
-                    name="signatureDate"
-                    // Signature date field removed (not in formData)
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                  />
-                </div>
-              </div>
-            )}
 
             {/* Step 6: Review & Submit */}
             {currentStep === 6 && (
@@ -1067,8 +960,6 @@ export default function LoanApplication() {
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">PB No.:</span>
                       <p className="text-gray-900 dark:text-white">{formData.passbookNo || 'Not provided'}</p>
-                        <p className="text-gray-900 dark:text-white">{formData.passbookNo || 'Not provided'}</p>
-                      <p className="text-gray-900 dark:text-white">{formData.passbookNo || 'Not provided'}</p>
                     </div>
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">Loan Type:</span>
@@ -1077,8 +968,6 @@ export default function LoanApplication() {
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">Loan Amount:</span>
                       <p className="text-gray-900 dark:text-white">₱{formData.amountApplied || '0.00'}</p>
-                        <p className="text-gray-900 dark:text-white">₱{formData.amountApplied || '0.00'}</p>
-                      <p className="text-gray-900 dark:text-white">₱{formData.amountApplied || '0.00'}</p>
                     </div>
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">Term:</span>
@@ -1086,8 +975,6 @@ export default function LoanApplication() {
                     </div>
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">Branch:</span>
-                      <p className="text-gray-900 dark:text-white">{formData.assignmentPassbookNo || 'Not provided'}</p>
-                        <p className="text-gray-900 dark:text-white">{formData.assignmentPassbookNo || 'Not provided'}</p>
                       <p className="text-gray-900 dark:text-white">{formData.assignmentPassbookNo || 'Not provided'}</p>
                     </div>
                   </div>
@@ -1098,13 +985,28 @@ export default function LoanApplication() {
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Declaration & Consent</h3>
                   <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
                     <p>
-                      <strong>A.</strong> I hereby declare that I have read and fully understood the Terms and Conditions of SJMPC Credit Programs, and agree to be bound by them.
+                      <strong>A.</strong> I hereby declare that the cooperative explained to me the meaning and implications of the terms and conditions
+of the promissory note and such documents related to my membership and loan. And I hereby declare that aside
+from reading them, I fully understand the terms and conditions of SJMPC Credit Programs and I agree to be bound
+by them.
                     </p>
                     <p>
-                      <strong>B.</strong> In accordance with the provisions of Republic Act No. 10173, otherwise known as the Data Privacy Act of 2012, I acknowledge that I have read and understood the SJMPC Privacy Policy.
+                      <strong>B.</strong> In accordance with the provisions of Republic Act No. 10173, otherwise known as the Data Privacy Act of 2012, I
+acknowledge that I have read and understood the SJMPC Privacy Policy. Further, I consent to the collection, use,
+access, and processing of my personal and sensitive personal information by SJMPC to process my application for
+the loan I availed including verification from the source of such information and for the establishment, exercise, or
+defense of SJMPC' legal claim. Furthermore, I consent to the sharing of my personal and loan information to the
+bank and its affiliates for the disbursement of said loan.
                     </p>
                     <p>
-                      <strong>C.</strong> Pursuant to Republic Act No. 9510, or the Credit Information System Act, I acknowledge and give my consent to the regular submission and disclosure of my basic credit data.
+                      <strong>C.</strong> Pursuant to Republic Act No. 9510, or the Credit Information System Act, and its Implementing Rules and
+Regulations (IRR), I am notified and acknowledge to:
+1. The regular submission and disclosure of my basic credit data and any updates thereto to the Credit
+Information Corporation (CIC); and
+2. The sharing of my basic credit data with lenders authorized by the CIC, as well as credit reporting agencies and
+accredited outsourced entities, in accordance with applicable laws and regulations.
+I have read, understand and I agree with the above Declaration and Consent and Data Privacy Statement, and I
+hereby agree to the Disclosure Statement, and Terms and Conditions of the Credit Program of SJMPC.
                     </p>
                   </div>
 
