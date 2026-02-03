@@ -1,3 +1,39 @@
+  // Helper to render file preview or download link
+  function renderAttachment(file: any, label: string) {
+    if (!file) return <span className="text-gray-400">No file uploaded</span>;
+    if (typeof file === 'string' && file.startsWith('http')) {
+      return <a href={file} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">View {label}</a>;
+    }
+    if (typeof file === 'string' && file.startsWith('data:image/')) {
+      return <img src={file} alt={label} className="max-w-xs max-h-64 border border-gray-300 rounded my-2" />;
+    }
+    if (typeof file === 'string' && file.startsWith('data:application/pdf')) {
+      return <a href={file} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">View PDF</a>;
+    }
+    if (file && file.name && file.type && file.type.startsWith('image/')) {
+      // File object (not string)
+      return <span>{file.name}</span>;
+    }
+    return <span className="text-gray-400">File uploaded but not accessible</span>;
+  }
+      {/* Attachments Section */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">Attachments</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Scanned copy of 2 Valid IDs with 3 specimen signatures</label>
+            {renderAttachment(application.validIDsAndSignatures, 'Valid IDs and Signatures')}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Scanned copy of validated deposit slip or screenshot of verified e-wallet account</label>
+            {renderAttachment(application.depositSlipOrEwallet, 'Deposit Slip or E-wallet')}
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Picture of Member Borrower holding valid ID and validated deposit slip</label>
+            {renderAttachment(application.memberWithIDAndSlip, 'Member with ID and Slip')}
+          </div>
+        </div>
+      </div>
 'use client';
 
 import { useSession } from 'next-auth/react';

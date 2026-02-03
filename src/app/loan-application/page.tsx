@@ -49,6 +49,10 @@ export default function LoanApplication() {
     // Declaration
     declarationAccepted: false,
     termsAccepted: false,
+    // Requirements file uploads
+    validIDsAndSignatures: null, // Scanned copy of 2 Valid IDs with 3 specimen signatures
+    depositSlipOrEwallet: null, // Scanned copy of validated deposit slip or screenshot of verified e-wallet account
+    memberWithIDAndSlip: null, // Picture of member borrower holding valid ID and validated deposit slip
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -892,6 +896,31 @@ export default function LoanApplication() {
                 </div>
               </div>
             )}
+
+            {/* Requirements Section */}
+            {currentStep === 4 && (
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-xl p-6 border-2 border-purple-200 dark:border-purple-700 mb-6">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Requirements</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block font-semibold mb-1">Scanned copy of 2 Valid IDs with 3 specimen signatures <span className='text-red-500'>*</span></label>
+                    <input type="file" name="validIDsAndSignatures" accept="image/*,application/pdf" onChange={handleInputChange} className="input" required />
+                    {formData.validIDsAndSignatures && <span className="text-xs text-green-600">File selected: {formData.validIDsAndSignatures.name}</span>}
+                  </div>
+                  <div>
+                    <label className="block font-semibold mb-1">Scanned copy of validated deposit slip or screenshot of verified e-wallet account <span className='text-red-500'>*</span></label>
+                    <input type="file" name="depositSlipOrEwallet" accept="image/*,application/pdf" onChange={handleInputChange} className="input" required />
+                    {formData.depositSlipOrEwallet && <span className="text-xs text-green-600">File selected: {formData.depositSlipOrEwallet.name}</span>}
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block font-semibold mb-1">Picture of Member Borrower holding valid ID and validated deposit slip <span className='text-red-500'>*</span></label>
+                    <input type="file" name="memberWithIDAndSlip" accept="image/*" onChange={handleInputChange} className="input" required />
+                    {formData.memberWithIDAndSlip && <span className="text-xs text-green-600">File selected: {formData.memberWithIDAndSlip.name}</span>}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Step 4: Review & Submit */}
             {currentStep === 4 && (
 
