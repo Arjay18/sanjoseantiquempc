@@ -11,9 +11,12 @@ export default function LoanApplication() {
     // Basic Information
     name: '',
     passbookNo: '',
+    pbNo: '', // for backend mapping
     address: '',
+    email: '',
     contactNo: '',
     loanType: '',
+    idType: '',
     term: '',
     amountApplied: '',
     pesosOnly: '',
@@ -64,10 +67,20 @@ export default function LoanApplication() {
     const checked = (e.target as HTMLInputElement).checked;
     const files = (e.target as HTMLInputElement).files;
 
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : type === 'file' ? (files?.[0] || null) : value
-    }));
+    setFormData(prev => {
+      // Special mapping for passbookNo to pbNo
+      if (name === 'passbookNo') {
+        return {
+          ...prev,
+          passbookNo: value,
+          pbNo: value
+        };
+      }
+      return {
+        ...prev,
+        [name]: type === 'checkbox' ? checked : type === 'file' ? (files?.[0] || null) : value
+      };
+    });
   };
 
   // Auto-compute Net Income
@@ -113,11 +126,13 @@ export default function LoanApplication() {
     e.preventDefault();
 
 
+
     // Map frontend fields to backend/PDF expected fields
     const mappedFormData: Record<string, unknown> = {
       ...formData,
       branch: formData.assignmentPassbookNo,
       loanAmount: formData.amountApplied,
+      pbNo: formData.passbookNo, // ensure pbNo is set
     };
 
     // Remove frontend-only fields if needed (optional)
@@ -126,7 +141,7 @@ export default function LoanApplication() {
 
     // Validate required fields (update to match backend expectations)
     const requiredFields = [
-      'name', 'passbookNo', 'contactNo', 'address', 'loanType', 'term', 'loanAmount', 'purpose', 'branch'
+      'name', 'pbNo', 'contactNo', 'address', 'loanType', 'term', 'loanAmount', 'purpose', 'branch', 'idType', 'email'
     ];
     const missingFields = requiredFields.filter(field => !mappedFormData[field]);
 
@@ -212,9 +227,12 @@ export default function LoanApplication() {
         setFormData({
           name: '',
           passbookNo: '',
+          pbNo: '',
           address: '',
+          email: '',
           contactNo: '',
           loanType: '',
+          idType: '',
           term: '',
           amountApplied: '',
           pesosOnly: '',
@@ -420,11 +438,26 @@ export default function LoanApplication() {
                     </label>
                     <input
                       type="email"
-                      // Email field removed (not in formData)
+                      name="email"
+                      value={formData.email}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                       placeholder="juan@email.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      ID Type <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="idType"
+                      value={formData.idType}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      placeholder="e.g. Driver's License, UMID, etc."
                     />
                   </div>
 
