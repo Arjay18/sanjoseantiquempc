@@ -14,6 +14,8 @@ interface LoanApplication {
   loanType: string;
   idType: string;
   idFile?: string;
+  depositSlipOrEwallet?: string;
+  memberWithIDAndSlip?: string;
   loanAmount: number;
   term: number;
   purpose: string;
