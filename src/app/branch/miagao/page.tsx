@@ -346,6 +346,40 @@ export default function MiagaoBranchDashboard() {
                         </svg>
                         PDF
                       </a>
+                      {/* Attachments links */}
+                      {application.idFile && (
+                        <a
+                          href={application.idFile.startsWith('data:') ? application.idFile : '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                          download="valid-ids-and-signatures"
+                        >
+                          Valid IDs
+                        </a>
+                      )}
+                      {application.depositSlipOrEwallet && (
+                        <a
+                          href={application.depositSlipOrEwallet.startsWith('data:') ? application.depositSlipOrEwallet : '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                          download="deposit-slip-or-ewallet"
+                        >
+                          Deposit Slip/E-wallet
+                        </a>
+                      )}
+                      {application.memberWithIDAndSlip && (
+                        <a
+                          href={application.memberWithIDAndSlip.startsWith('data:') ? application.memberWithIDAndSlip : '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                          download="member-with-id-and-slip"
+                        >
+                          Member Photo
+                        </a>
+                      )}
                       <button
                         onClick={() => handleDelete(application.id, application.name)}
                         className="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1 rounded text-sm"

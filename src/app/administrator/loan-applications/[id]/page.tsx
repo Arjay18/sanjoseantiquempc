@@ -335,6 +335,42 @@ export default function LoanApplicationDetailPage() {
               </svg>
               View PDF
             </a>
+            {/* Attachments Section */}
+            <div className="flex flex-col space-y-1 ml-4">
+              {application.idFile && (
+                <a
+                  href={application.idFile.startsWith('data:') ? application.idFile : '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 text-xs"
+                  download="valid-ids-and-signatures"
+                >
+                  View Valid IDs & Signatures
+                </a>
+              )}
+              {application.depositSlipOrEwallet && (
+                <a
+                  href={application.depositSlipOrEwallet.startsWith('data:') ? application.depositSlipOrEwallet : '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 text-xs"
+                  download="deposit-slip-or-ewallet"
+                >
+                  View Deposit Slip / E-wallet
+                </a>
+              )}
+              {application.memberWithIDAndSlip && (
+                <a
+                  href={application.memberWithIDAndSlip.startsWith('data:') ? application.memberWithIDAndSlip : '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 text-xs"
+                  download="member-with-id-and-slip"
+                >
+                  View Member Photo with ID & Slip
+                </a>
+              )}
+            </div>
             <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(application.status)}`}>
               {application.status.charAt(0).toUpperCase() + application.status.slice(1)}
             </span>
