@@ -131,17 +131,100 @@ export default function LoanApplication() {
 
 
 
+
     // Map frontend fields to backend/PDF expected fields
     const mappedFormData: Record<string, unknown> = {
-      ...formData,
-      branch: formData.assignmentPassbookNo,
-      loanAmount: formData.amountApplied,
-      pbNo: formData.passbookNo, // ensure pbNo is set
+      // Personal Information
+      name: formData.name,
+      pbNo: formData.passbookNo,
+      contactNo: formData.contactNo,
+      email: formData.email,
+      address: formData.address,
+      branch: formData.assignmentPassbookNo || 'sanjose',
+      loanType: formData.loanType,
+      idType: formData.idType,
+      // File uploads
+      idFile: formData.validIDsAndSignatures ? await fileToBase64(formData.validIDsAndSignatures) : null,
+      depositSlipOrEwallet: formData.depositSlipOrEwallet ? await fileToBase64(formData.depositSlipOrEwallet) : null,
+      memberWithIDAndSlip: formData.memberWithIDAndSlip ? await fileToBase64(formData.memberWithIDAndSlip) : null,
+      // Loan Details
+      loanAmount: parseFloat(formData.amountApplied || '0'),
+      term: parseInt(formData.term || '0'),
+      purpose: formData.purpose,
+      // Promissory Note
+      promissoryNoteAmount: formData.amountInPesos ? parseFloat(formData.amountInPesos) : null,
+      promissoryNoteTerm: formData.term || null,
+      promissoryNotePaymentSchedule: null,
+      promissoryNoteStartingOn: null,
+      // Signatories
+      makerName1: null,
+      makerName2: null,
+      coMakerName1: null,
+      coMakerName2: null,
+      witnessName1: null,
+      witnessName2: null,
+      // Assignment of Deposit
+      assignmentAmount: null,
+      regularSavings: formData.savingsDepositRegular,
+      ultimaSavings: formData.savingsDepositUltima,
+      alkansyaSavings: formData.savingsDepositAlkansya,
+      timeDeposit: formData.timeDeposit,
+      otherDeposits: formData.otherDeposits,
+      assignmentPbNo: formData.assignmentPassbookNo,
+      shareCapital: formData.shareCapital,
+      signatureDate: null,
+      // Assignment Signatories
+      assignmentMaker1: null,
+      assignmentMaker2: null,
+      assignmentCoMaker1: null,
+      assignmentCoMaker2: null,
+      assignmentWitness1: null,
+      assignmentWitness2: null,
+      // Spouse Information
+      makerSpouseName: null,
+      // Assignment Additional
+      assignmentCoMakerName1: null,
+      assignmentCoMakerName2: null,
+      assignmentWitnessName1: null,
+      assignmentWitnessName2: null,
+      // Income and Expenses
+      memberIncome: formData.incomeMember ? parseFloat(formData.incomeMember) : null,
+      spouseIncome: formData.incomeSpouse ? parseFloat(formData.incomeSpouse) : null,
+      otherIncome: formData.otherIncome ? parseFloat(formData.otherIncome) : null,
+      businessIncome: formData.incomeBusiness ? parseFloat(formData.incomeBusiness) : null,
+      foodExpense: formData.food ? parseFloat(formData.food) : null,
+      clothingExpense: formData.clothing ? parseFloat(formData.clothing) : null,
+      shelterExpense: formData.shelter ? parseFloat(formData.shelter) : null,
+      educationExpense: formData.education ? parseFloat(formData.education) : null,
+      electricWaterExpense: formData.electricWaterBills ? parseFloat(formData.electricWaterBills) : null,
+      helperExpense: formData.helper ? parseFloat(formData.helper) : null,
+      loanRepaymentExpense: formData.loanRepayments ? parseFloat(formData.loanRepayments) : null,
+      miscellaneousExpense: formData.miscellaneousExpense ? parseFloat(formData.miscellaneousExpense) : null,
+      netIncome: formData.netIncome ? parseFloat(formData.netIncome) : null,
+      // Committee Decision
+      committeeApproved: null,
+      committeeReduced: null,
+      // Processing Information
+      receivedBy: null,
+      checkedBy: null,
+      approvedBy: null,
+      // Disclosure Information
+      referenceNo: null,
+      loanTypeDisclosure: null,
+      loanAmountDisclosure: null,
+      charges: null,
+      netProceeds: null,
+      effectiveInterestRate: null,
+      nominalInterestRate: null,
+      penalty: null,
+      // Voucher Information
+      interestRate: null,
+      voucherNo: null,
+      mop: null,
+      processor: null,
+      // PDF Storage
+      pdfFile: null,
     };
-
-    // Remove frontend-only fields if needed (optional)
-    // delete mappedFormData.assignmentPassbookNo;
-    // delete mappedFormData.amountApplied;
 
     // Validate required fields (update to match backend expectations)
     const requiredFields = [
