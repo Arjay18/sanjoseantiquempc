@@ -268,6 +268,9 @@ export default function LoanApplication() {
           netIncome: '',
           declarationAccepted: false,
           termsAccepted: false,
+          validIDsAndSignatures: null,
+          depositSlipOrEwallet: null,
+          memberWithIDAndSlip: null,
         });
 
         // Scroll to top
