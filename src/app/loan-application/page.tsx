@@ -497,7 +497,7 @@ export default function LoanApplication() {
                       Loan Amount <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">â‚±</span>
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></span>
                       <input
                         type="number"
                         name="amountApplied"
@@ -548,56 +548,6 @@ export default function LoanApplication() {
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     placeholder="Describe the purpose of your loan..."
                   />
-                </div>
-
-                {/* Promissory Note Details */}
-                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 border-2 border-blue-100 dark:border-blue-800">
-                  <h3 className="text-lg font-bold text-blue-900 dark:text-blue-300 mb-4">Promissory Note Details</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Amount</label>
-                      <input
-                        type="number"
-                        name="amountInPesos"
-                        value={formData.amountInPesos}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="0.00"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Term</label>
-                      <input
-                        type="text"
-                        name="term"
-                        value={formData.term}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="12 months"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Payment Schedule</label>
-                      <input
-                        type="text"
-                        name="purpose"
-                        value={formData.purpose}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="Monthly"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Starting Date</label>
-                      <input
-                        type="date"
-                        name="amountInWords"
-                        value={formData.amountInWords}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                      />
-                    </div>
-                  </div>
                 </div>
 
                 {/* Assignment of Deposit */}
