@@ -908,17 +908,23 @@ export default function LoanApplication() {
                   <div>
                     <label className="block font-semibold mb-1">Scanned copy of 2 Valid IDs with 3 specimen signatures <span className='text-red-500'>*</span></label>
                     <input type="file" name="validIDsAndSignatures" accept="image/*,application/pdf" onChange={handleInputChange} className="input" required />
-                    {formData.validIDsAndSignatures && <span className="text-xs text-green-600">File selected: {formData.validIDsAndSignatures.name}</span>}
+                    {formData.validIDsAndSignatures && typeof formData.validIDsAndSignatures === 'object' && 'name' in formData.validIDsAndSignatures && (
+                      <span className="text-xs text-green-600">File selected: {formData.validIDsAndSignatures.name}</span>
+                    )}
                   </div>
                   <div>
                     <label className="block font-semibold mb-1">Scanned copy of validated deposit slip or screenshot of verified e-wallet account <span className='text-red-500'>*</span></label>
                     <input type="file" name="depositSlipOrEwallet" accept="image/*,application/pdf" onChange={handleInputChange} className="input" required />
-                    {formData.depositSlipOrEwallet && <span className="text-xs text-green-600">File selected: {formData.depositSlipOrEwallet.name}</span>}
+                    {formData.depositSlipOrEwallet && typeof formData.depositSlipOrEwallet === 'object' && 'name' in formData.depositSlipOrEwallet && (
+                      <span className="text-xs text-green-600">File selected: {formData.depositSlipOrEwallet.name}</span>
+                    )}
                   </div>
                   <div className="md:col-span-2">
                     <label className="block font-semibold mb-1">Picture of Member Borrower holding valid ID and validated deposit slip <span className='text-red-500'>*</span></label>
                     <input type="file" name="memberWithIDAndSlip" accept="image/*" onChange={handleInputChange} className="input" required />
-                    {formData.memberWithIDAndSlip && <span className="text-xs text-green-600">File selected: {formData.memberWithIDAndSlip.name}</span>}
+                    {formData.memberWithIDAndSlip && typeof formData.memberWithIDAndSlip === 'object' && 'name' in formData.memberWithIDAndSlip && (
+                      <span className="text-xs text-green-600">File selected: {formData.memberWithIDAndSlip.name}</span>
+                    )}
                   </div>
                 </div>
               </div>
