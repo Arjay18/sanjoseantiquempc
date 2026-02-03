@@ -16,6 +16,9 @@ interface LoanApplication {
   createdAt: string;
   reviewedBy?: string;
   reviewedAt?: string;
+  idFile?: string;
+  depositSlipOrEwallet?: string;
+  memberWithIDAndSlip?: string;
 }
 
 export default function OtonBranchDashboard() {
