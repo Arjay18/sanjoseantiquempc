@@ -363,7 +363,7 @@ export default function MiagaoBranchDashboard() {
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
                         >
-                          Valid IDs
+                          Verification
                         </a>
                       )}
                       {application.depositSlipOrEwallet && (

@@ -1,12 +1,11 @@
 // prisma/schema.prisma
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 
 model NewsPost {
   id          String   @id @default(cuid())
@@ -32,7 +31,7 @@ model SuccessStory {
   description String
   status      String   @default("draft") // "draft" or "published"
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  idFile      String? @deprecated("Use attachments relation instead")
 }
 
 model Statistic {
@@ -132,6 +131,7 @@ model LoanApplication {
   assignmentCoMakerName2 String?
   assignmentWitnessName1 String?
   assignmentWitnessName2 String?
+  attachments Attachment[]
 
   // Income and Expenses
   memberIncome Float?
@@ -183,9 +183,19 @@ model LoanApplication {
   notes       String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-    @@unique([pbNo, branch, loanType])
-}
 
+  @@unique([pbNo, branch, loanType])
+
+model Attachment {
+  id            String   @id @default(cuid())
+  type          String   // 'idFile', 'depositSlipOrEwallet', 'memberWithIDAndSlip', etc.
+  fileName      String?
+  mimeType      String?
+  data          String   // base64 encoded file data
+  uploadedAt    DateTime @default(now())
+  loanApplication   LoanApplication @relation(fields: [loanApplicationId], references: [id], onDelete: Cascade)
+  loanApplicationId String
+}
 model ContactInquiry {
   id          String   @id @default(cuid())
   name        String

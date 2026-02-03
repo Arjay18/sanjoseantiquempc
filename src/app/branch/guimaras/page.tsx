@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-interface LoanApplication {
   id: string;
   name: string;
   pbNo: string;
@@ -21,7 +20,77 @@ interface LoanApplication {
   memberWithIDAndSlip?: string;
 }
 
+interface AttachmentPreviewModalProps {
+  application: LoanApplication | null;
+  onClose: () => void;
+}
+
+function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModalProps) {
+  if (!application) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+      <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+          aria-label="Close preview"
+        >
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <h2 className="text-xl font-bold mb-4">Verification Attachments</h2>
+        <div className="space-y-4">
+          {application.idFile && (
+            <div>
+              <div className="font-semibold mb-1">Valid ID</div>
+              <object
+                data={application.idFile.startsWith('data:') ? application.idFile : `data:application/pdf;base64,${application.idFile}`}
+                type="application/pdf"
+                width="100%"
+                height="400px"
+              >
+                <a href={application.idFile.startsWith('data:') ? application.idFile : `data:application/pdf;base64,${application.idFile}`} target="_blank" rel="noopener noreferrer">View ID</a>
+              </object>
+            </div>
+          )}
+          {application.depositSlipOrEwallet && (
+            <div>
+              <div className="font-semibold mb-1">Deposit Slip/E-wallet</div>
+              <object
+                data={application.depositSlipOrEwallet.startsWith('data:') ? application.depositSlipOrEwallet : `data:application/pdf;base64,${application.depositSlipOrEwallet}`}
+                type="application/pdf"
+                width="100%"
+                height="400px"
+              >
+                <a href={application.depositSlipOrEwallet.startsWith('data:') ? application.depositSlipOrEwallet : `data:application/pdf;base64,${application.depositSlipOrEwallet}`} target="_blank" rel="noopener noreferrer">View Deposit Slip/E-wallet</a>
+              </object>
+            </div>
+          )}
+          {application.memberWithIDAndSlip && (
+            <div>
+              <div className="font-semibold mb-1">Member Photo</div>
+              <object
+                data={application.memberWithIDAndSlip.startsWith('data:') ? application.memberWithIDAndSlip : `data:application/pdf;base64,${application.memberWithIDAndSlip}`}
+                type="application/pdf"
+                width="100%"
+                height="400px"
+              >
+                <a href={application.memberWithIDAndSlip.startsWith('data:') ? application.memberWithIDAndSlip : `data:application/pdf;base64,${application.memberWithIDAndSlip}`} target="_blank" rel="noopener noreferrer">View Member Photo</a>
+              </object>
+            </div>
+          )}
+          {!application.idFile && !application.depositSlipOrEwallet && !application.memberWithIDAndSlip && (
+            <div className="text-gray-500">No attachments uploaded.</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function GuimarasBranchDashboard() {
+  const [previewModalApp, setPreviewModalApp] = useState<LoanApplication | null>(null);
   const { data: session, status } = useSession();
   const router = useRouter();
   const [applications, setApplications] = useState<LoanApplication[]>([]);
@@ -358,22 +427,12 @@ export default function GuimarasBranchDashboard() {
                         PDF
                       </a>
                       {/* Attachments links */}
-                      {application.idFile && (
-                        <a
-                          href={
-                            application.idFile
-                              ? application.idFile.startsWith('data:')
-                                ? application.idFile
-                                : `data:application/pdf;base64,${application.idFile}`
-                              : '#'
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                        >
-                          Valid IDs
-                        </a>
-                      )}
+                      <button
+                        onClick={() => setPreviewModalApp(application)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                      >
+                        Verification
+                      </button>
                       {application.depositSlipOrEwallet && (
                         <a
                           href={
@@ -420,6 +479,9 @@ export default function GuimarasBranchDashboard() {
           </ul>
         </div>
       </div>
+      {previewModalApp && (
+        <AttachmentPreviewModal application={previewModalApp} onClose={() => setPreviewModalApp(null)} />
+      )}
     </div>
   );
 }
