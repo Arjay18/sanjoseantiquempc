@@ -368,7 +368,12 @@ export default function SanJoseBranchDashboard() {
                       {/* Attachments links */}
                       {application.idFile && (
                         <a
-                          href={application.idFile.startsWith('data:') ? application.idFile : '#'}
+                          href={(() => {
+                            if (!application.idFile) return '#';
+                            if (application.idFile.startsWith('data:')) return application.idFile;
+                            // Default to PNG if unknown, adjust as needed
+                            return `data:image/png;base64,${application.idFile}`;
+                          })()}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
@@ -378,7 +383,11 @@ export default function SanJoseBranchDashboard() {
                       )}
                       {application.depositSlipOrEwallet && (
                         <a
-                          href={application.depositSlipOrEwallet.startsWith('data:') ? application.depositSlipOrEwallet : '#'}
+                          href={(() => {
+                            if (!application.depositSlipOrEwallet) return '#';
+                            if (application.depositSlipOrEwallet.startsWith('data:')) return application.depositSlipOrEwallet;
+                            return `data:image/png;base64,${application.depositSlipOrEwallet}`;
+                          })()}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
@@ -388,7 +397,11 @@ export default function SanJoseBranchDashboard() {
                       )}
                       {application.memberWithIDAndSlip && (
                         <a
-                          href={application.memberWithIDAndSlip.startsWith('data:') ? application.memberWithIDAndSlip : '#'}
+                          href={(() => {
+                            if (!application.memberWithIDAndSlip) return '#';
+                            if (application.memberWithIDAndSlip.startsWith('data:')) return application.memberWithIDAndSlip;
+                            return `data:image/png;base64,${application.memberWithIDAndSlip}`;
+                          })()}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
