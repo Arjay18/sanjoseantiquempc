@@ -7,15 +7,20 @@ export async function POST(request: NextRequest) {
   try {
     const { formData } = await request.json();
 
-    // Backend validation for required fields
+    // Backend validation for required fields and numeric types
     const requiredFields = [
       'name', 'pbNo', 'contactNo', 'address', 'loanType', 'loanAmount', 'term', 'purpose', 'idType', 'branch'
     ];
-    const missingFields = requiredFields.filter(field => !formData[field]);
+    const missingFields = requiredFields.filter(field => {
+      // Accept 0 for numeric fields, but not empty string or undefined
+      if (formData[field] === undefined || formData[field] === null || formData[field] === '') return true;
+      return false;
+    });
     if (missingFields.length > 0) {
       return NextResponse.json({
         error: 'Missing required fields',
-        details: `The following fields are required: ${missingFields.join(', ')}`
+        details: `The following fields are required: ${missingFields.join(', ')}`,
+        formData
       }, { status: 400 });
     }
 
@@ -24,11 +29,15 @@ export async function POST(request: NextRequest) {
       { key: 'loanAmount', label: 'loanAmount' },
       { key: 'term', label: 'term' }
     ];
-    const invalidNumeric = numericFields.filter(f => isNaN(Number(formData[f.key])));
+    const invalidNumeric = numericFields.filter(f => {
+      const value = formData[f.key];
+      return value === '' || value === null || value === undefined || isNaN(Number(value));
+    });
     if (invalidNumeric.length > 0) {
       return NextResponse.json({
         error: 'Invalid numeric fields',
-        details: `The following fields must be valid numbers: ${invalidNumeric.map(f => f.label).join(', ')}`
+        details: `The following fields must be valid numbers: ${invalidNumeric.map(f => f.label).join(', ')}`,
+        formData
       }, { status: 400 });
     }
 
