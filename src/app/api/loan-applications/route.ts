@@ -139,12 +139,21 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(application, { status: 201 });
   } catch (error) {
+    // Improved error logging: print the full error object
     console.error('Error creating loan application:', error);
-    // For debugging: return the error stack in the response (remove in production)
+    if (error && typeof error === 'object') {
+      for (const key in error) {
+        if (Object.prototype.hasOwnProperty.call(error, key)) {
+          console.error(`Error property [${key}]:`, error[key]);
+        }
+      }
+    }
+    // For debugging: return the error stack and all error properties in the response
     return NextResponse.json({
       error: 'Internal server error',
       details: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined
+      stack: error instanceof Error ? error.stack : undefined,
+      errorObject: error
     }, { status: 500 });
   }
 }
