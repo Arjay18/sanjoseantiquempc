@@ -35,6 +35,7 @@ export default function AdminDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [stats, setStats] = useState<Stats | null>(null);
+  const [allApplications, setAllApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,6 +58,16 @@ export default function AdminDashboard() {
         console.error('Error fetching stats:', error);
         setError('Failed to load dashboard statistics. Please check your database connection.');
         setLoading(false);
+      });
+
+    // Fetch all loan applications for dashboard summary
+    fetch('/api/administrator/loan-applications?status=all&page=1&limit=10')
+      .then(res => res.json())
+      .then(data => {
+        setAllApplications(data.applications || []);
+      })
+      .catch(error => {
+        console.error('Error fetching all loan applications:', error);
       });
   }, [session, status, router]);
 
@@ -221,6 +232,64 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Grid */}
+            {/* All Loan Applications Summary */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">All Loan Applications (Latest 10)</h2>
+              {allApplications.length === 0 ? (
+                <p className="text-gray-500">No loan applications found.</p>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applicant</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loan Type</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {allApplications.map(app => (
+                        <tr key={app.id} className="hover:bg-gray-50">
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm font-medium text-gray-900">{app.name}</div>
+                            <div className="text-sm text-gray-500">PB#: {app.pbNo}</div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                              {app.branch}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">{app.loanType}</div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">₱{app.loanAmount?.toLocaleString()}</div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                              app.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                              app.status === 'approved' ? 'bg-green-100 text-green-800' :
+                              app.status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
+                            }`}>
+                              {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {app.createdAt ? new Date(app.createdAt).toLocaleDateString() : ''}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              <div className="mt-4 text-right">
+                <Link href="/administrator/loan-applications" className="text-blue-600 hover:text-blue-800 font-medium">View all loan applications →</Link>
+              </div>
+            </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {statsCards.map((stat) => (
           <div key={stat.name} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
@@ -299,21 +368,6 @@ export default function AdminDashboard() {
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-900">Manage PMES Sessions</p>
               <p className="text-sm text-gray-500">Schedule seminars</p>
-            </div>
-          </Link>
-
-          <Link
-            href="/administrator/contact"
-            className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <div className="flex-shrink-0">
-              <svg className="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">Manage Contact Inquiries</p>
-              <p className="text-sm text-gray-500">Review and respond to messages</p>
             </div>
           </Link>
         </div>
