@@ -10,116 +10,42 @@ export default function LoanApplication() {
   const [formData, setFormData] = useState({
     // Basic Information
     name: '',
-    pbNo: '',
-    contactNo: '',
-    email: '',
-    branch: '',
+    passbookNo: '',
     address: '',
+    contactNo: '',
     loanType: '',
-    loanAmount: '',
     term: '',
+    amountApplied: '',
+    pesosOnly: '',
     purpose: '',
-
-    // ID Upload
-    idType: '',
-    idFile: null as File | null,
-
-    // Promissory Note
-    promissoryNoteAmount: '',
-    promissoryNoteTerm: '',
-    promissoryNotePaymentSchedule: '',
-    promissoryNoteStartingOn: '',
-
-    // Assignment of Deposit
-    assignmentAmount: '',
-    assignmentPbNo: '',
-    regularSavings: '',
-    ultimaSavings: '',
-    alkansyaSavings: '',
+    amountInWords: '',
+    amountInPesos: '',
+    savingsDepositRegular: '',
+    savingsDepositUltima: '',
+    savingsDepositAlkansya: '',
     timeDeposit: '',
     otherDeposits: '',
+    assignmentPassbookNo: '',
     shareCapital: '',
-
-    // Assignment Signatures - First Set
-    assignmentMaker1: '',
-    assignmentMaker2: '',
-    assignmentCoMaker1: '',
-    assignmentCoMaker2: '',
-    assignmentWitness1: '',
-    assignmentWitness2: '',
-
-    // Signatures - Promissory Note
-    makerName1: '',
-    makerName2: '',
-    coMakerName1: '',
-    coMakerName2: '',
-    witnessName1: '',
-    witnessName2: '',
-
-    // Signatures - Assignment of Deposit
-    makerSpouseName: '',
-    assignmentCoMakerName1: '',
-    assignmentCoMakerName2: '',
-    assignmentWitnessName1: '',
-    assignmentWitnessName2: '',
-
-    // Monthly Disposable Income - Income
-    memberIncome: '',
-    spouseIncome: '',
+    incomeMember: '',
+    incomeSpouse: '',
+    incomeOtherFamily: '',
+    incomeBusiness: '',
     otherIncome: '',
-    businessIncome: '',
-
-    // Monthly Disposable Income - Expenses
-    foodExpense: '',
-    clothingExpense: '',
-    shelterExpense: '',
-    educationExpense: '',
-    electricWaterExpense: '',
-    helperExpense: '',
-    loanRepaymentExpense: '',
+    totalFamilyIncome: '',
+    food: '',
+    clothing: '',
+    shelter: '',
+    education: '',
+    electricWaterBills: '',
+    helper: '',
+    loanRepayments: '',
     miscellaneousExpense: '',
-
-    // Monthly Disposable Income - Net Income
+    totalFamilyExpenses: '',
     netIncome: '',
-
     // Declaration
     declarationAccepted: false,
-
-    // Credit Committee
-    committeeApproved: '',
-    committeeReduced: '',
-    committeeRejected: '',
-    committeeDeferred: '',
-    committeeReasons: '',
-
-    // Coop Use
-    receivedBy: '',
-    checkedBy: '',
-    approvedBy: '',
-    dateReceived: '',
-
-    // Disclosure Statement
-    referenceNo: '',
-    loanTypeDisclosure: '',
-    loanAmountDisclosure: '',
-    charges: '',
-    netProceeds: '',
-    effectiveInterestRate: '',
-    nominalInterestRate: '',
-    penalty: '',
-    interestRate: '',
-
-    // Terms and Conditions
     termsAccepted: false,
-
-    // Signature Date
-    signatureDate: '',
-
-    // Additional fields for PDF generation
-    dateRelease: '',
-    voucherNo: '',
-    mop: '',
-    processor: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -146,18 +72,18 @@ export default function LoanApplication() {
 
   // Auto-compute Net Income
   useEffect(() => {
-    const totalIncome = (parseFloat(formData.memberIncome || '0') +
-                        parseFloat(formData.spouseIncome || '0') +
+    const totalIncome = (parseFloat(formData.incomeMember || '0') +
+                        parseFloat(formData.incomeSpouse || '0') +
                         parseFloat(formData.otherIncome || '0') +
-                        parseFloat(formData.businessIncome || '0'));
+                        parseFloat(formData.incomeBusiness || '0'));
 
-    const totalExpenses = (parseFloat(formData.foodExpense || '0') +
-                          parseFloat(formData.clothingExpense || '0') +
-                          parseFloat(formData.shelterExpense || '0') +
-                          parseFloat(formData.educationExpense || '0') +
-                          parseFloat(formData.electricWaterExpense || '0') +
-                          parseFloat(formData.helperExpense || '0') +
-                          parseFloat(formData.loanRepaymentExpense || '0') +
+    const totalExpenses = (parseFloat(formData.food || '0') +
+                          parseFloat(formData.clothing || '0') +
+                          parseFloat(formData.shelter || '0') +
+                          parseFloat(formData.education || '0') +
+                          parseFloat(formData.electricWaterBills || '0') +
+                          parseFloat(formData.helper || '0') +
+                          parseFloat(formData.loanRepayments || '0') +
                           parseFloat(formData.miscellaneousExpense || '0'));
 
     const netIncome = totalIncome - totalExpenses;
@@ -167,17 +93,17 @@ export default function LoanApplication() {
       netIncome: netIncome.toFixed(2)
     }));
   }, [
-    formData.memberIncome,
-    formData.spouseIncome,
+    formData.incomeMember,
+    formData.incomeSpouse,
     formData.otherIncome,
-    formData.businessIncome,
-    formData.foodExpense,
-    formData.clothingExpense,
-    formData.shelterExpense,
-    formData.educationExpense,
-    formData.electricWaterExpense,
-    formData.helperExpense,
-    formData.loanRepaymentExpense,
+    formData.incomeBusiness,
+    formData.food,
+    formData.clothing,
+    formData.shelter,
+    formData.education,
+    formData.electricWaterBills,
+    formData.helper,
+    formData.loanRepayments,
     formData.miscellaneousExpense
   ]);
 
@@ -186,9 +112,9 @@ export default function LoanApplication() {
   const handleSubmitApplication = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate required fields
+    // Validate required fields (update to match new formData)
     const requiredFields = [
-      'name', 'pbNo', 'contactNo', 'email', 'address', 'loanType', 'loanAmount', 'term', 'purpose', 'idType'
+      'name', 'passbookNo', 'contactNo', 'address', 'loanType', 'term', 'amountApplied', 'purpose'
     ];
     const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData]);
 
@@ -208,31 +134,20 @@ export default function LoanApplication() {
       return;
     }
 
-    // Validate branch selection
-    if (!formData.branch) {
-      alert('Please select a branch.');
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
+
       console.log('Starting loan application submission...', {
         name: formData.name,
-        branch: formData.branch,
+        passbookNo: formData.passbookNo,
         loanType: formData.loanType,
-        loanAmount: formData.loanAmount
+        amountApplied: formData.amountApplied
       });
 
-      // Convert file to base64 if present
-      const processedFormData = { ...formData } as Record<string, unknown>;
-      if (formData.idFile) {
-        const base64 = await fileToBase64(formData.idFile);
-        processedFormData.idFile = base64;
-      }
 
-      // Ensure branch is present
-      processedFormData.branch = formData.branch;
+      // Convert file to base64 if present (no idFile in new formData, so skip)
+      const processedFormData = { ...formData } as Record<string, unknown>;
 
       // Generate PDF first with form data
       const pdfResponse = await fetch('/api/fill-pdf', {
@@ -279,101 +194,50 @@ export default function LoanApplication() {
         console.log('Application submitted successfully:', result);
         
         // Get branch display name
-        const branchNames: Record<string, string> = {
-          'sanjose': 'Main Office - San Jose',
-          'miagao': 'Miagao Branch',
-          'oton': 'Oton Branch',
-          'guimaras': 'Guimaras Branch'
-        };
-        const branchDisplay = branchNames[formData.branch] || formData.branch;
-        
-        alert(`✅ Loan application submitted successfully!\n\nYour application has been sent to the ${branchDisplay} and is now pending review.\n\nApplication ID: ${result.id}\nName: ${formData.name}\nLoan Type: ${formData.loanType}\nAmount: ₱${formData.loanAmount}\n\nThank you for choosing San Jose Multi-Purpose Cooperative!`);
+
+        alert(`✅ Loan application submitted successfully!\n\nYour application is now pending review.\n\nApplication ID: ${result.id}\nName: ${formData.name}\nLoan Type: ${formData.loanType}\nAmount: ₱${formData.amountApplied}\n\nThank you for choosing San Jose Multi-Purpose Cooperative!`);
 
         // Reset form and go back to step 1
         setCurrentStep(1);
         setFormData({
-              // Reset all form fields to initial state
-              name: '',
-              pbNo: '',
-              contactNo: '',
-              email: '',
-              branch: '',
-              address: '',
-              loanType: '',
-              loanAmount: '',
-              term: '',
-              purpose: '',
-              idType: '',
-              idFile: null,
-              promissoryNoteAmount: '',
-              promissoryNoteTerm: '',
-              promissoryNotePaymentSchedule: '',
-              promissoryNoteStartingOn: '',
-              assignmentAmount: '',
-              assignmentPbNo: '',
-              regularSavings: '',
-              ultimaSavings: '',
-              alkansyaSavings: '',
-              timeDeposit: '',
-              otherDeposits: '',
-              shareCapital: '',
-              assignmentMaker1: '',
-              assignmentMaker2: '',
-              assignmentCoMaker1: '',
-              assignmentCoMaker2: '',
-              assignmentWitness1: '',
-              assignmentWitness2: '',
-              makerName1: '',
-              makerName2: '',
-              coMakerName1: '',
-              coMakerName2: '',
-              witnessName1: '',
-              witnessName2: '',
-              makerSpouseName: '',
-              assignmentCoMakerName1: '',
-              assignmentCoMakerName2: '',
-              assignmentWitnessName1: '',
-              assignmentWitnessName2: '',
-              memberIncome: '',
-              spouseIncome: '',
-              otherIncome: '',
-              businessIncome: '',
-              foodExpense: '',
-              clothingExpense: '',
-              shelterExpense: '',
-              educationExpense: '',
-              electricWaterExpense: '',
-              helperExpense: '',
-              loanRepaymentExpense: '',
-              miscellaneousExpense: '',
-              netIncome: '',
-              declarationAccepted: false,
-              committeeApproved: '',
-              committeeReduced: '',
-              committeeRejected: '',
-              committeeDeferred: '',
-              committeeReasons: '',
-              receivedBy: '',
-              checkedBy: '',
-              approvedBy: '',
-              dateReceived: '',
-              referenceNo: '',
-              loanTypeDisclosure: '',
-              loanAmountDisclosure: '',
-              charges: '',
-              netProceeds: '',
-              effectiveInterestRate: '',
-              nominalInterestRate: '',
-              penalty: '',
-              termsAccepted: false,
-              dateRelease: '',
-              interestRate: '',
-              voucherNo: '',
-              mop: '',
-              processor: '',
-              signatureDate: ''
-            });
-        
+          name: '',
+          passbookNo: '',
+          address: '',
+          contactNo: '',
+          loanType: '',
+          term: '',
+          amountApplied: '',
+          pesosOnly: '',
+          purpose: '',
+          amountInWords: '',
+          amountInPesos: '',
+          savingsDepositRegular: '',
+          savingsDepositUltima: '',
+          savingsDepositAlkansya: '',
+          timeDeposit: '',
+          otherDeposits: '',
+          assignmentPassbookNo: '',
+          shareCapital: '',
+          incomeMember: '',
+          incomeSpouse: '',
+          incomeOtherFamily: '',
+          incomeBusiness: '',
+          otherIncome: '',
+          totalFamilyIncome: '',
+          food: '',
+          clothing: '',
+          shelter: '',
+          education: '',
+          electricWaterBills: '',
+          helper: '',
+          loanRepayments: '',
+          miscellaneousExpense: '',
+          totalFamilyExpenses: '',
+          netIncome: '',
+          declarationAccepted: false,
+          termsAccepted: false,
+        });
+
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -518,8 +382,8 @@ export default function LoanApplication() {
                     </label>
                     <input
                       type="text"
-                      name="pbNo"
-                      value={formData.pbNo}
+                      name="passbookNo"
+                      value={formData.passbookNo}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -548,8 +412,7 @@ export default function LoanApplication() {
                     </label>
                     <input
                       type="email"
-                      name="email"
-                      value={formData.email}
+                      // Email field removed (not in formData)
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -562,8 +425,8 @@ export default function LoanApplication() {
                       Branch <span className="text-red-500">*</span>
                     </label>
                     <select
-                      name="branch"
-                      value={formData.branch}
+                      name="assignmentPassbookNo"
+                      value={formData.assignmentPassbookNo}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -639,8 +502,8 @@ export default function LoanApplication() {
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">â‚±</span>
                       <input
                         type="number"
-                        name="loanAmount"
-                        value={formData.loanAmount}
+                        name="amountApplied"
+                        value={formData.amountApplied}
                         onChange={handleInputChange}
                         required
                         min="0"
@@ -697,8 +560,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Amount</label>
                       <input
                         type="number"
-                        name="promissoryNoteAmount"
-                        value={formData.promissoryNoteAmount}
+                        name="amountInPesos"
+                        value={formData.amountInPesos}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -708,8 +571,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Term</label>
                       <input
                         type="text"
-                        name="promissoryNoteTerm"
-                        value={formData.promissoryNoteTerm}
+                        name="term"
+                        value={formData.term}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="12 months"
@@ -719,8 +582,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Payment Schedule</label>
                       <input
                         type="text"
-                        name="promissoryNotePaymentSchedule"
-                        value={formData.promissoryNotePaymentSchedule}
+                        name="purpose"
+                        value={formData.purpose}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Monthly"
@@ -730,8 +593,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Starting Date</label>
                       <input
                         type="date"
-                        name="promissoryNoteStartingOn"
-                        value={formData.promissoryNoteStartingOn}
+                        name="amountInWords"
+                        value={formData.amountInWords}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                       />
@@ -747,8 +610,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Assignment Amount</label>
                       <input
                         type="number"
-                        name="assignmentAmount"
-                        value={formData.assignmentAmount}
+                        name="otherDeposits"
+                        value={formData.otherDeposits}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -758,8 +621,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Assignment PB No.</label>
                       <input
                         type="text"
-                        name="assignmentPbNo"
-                        value={formData.assignmentPbNo}
+                        name="assignmentPassbookNo"
+                        value={formData.assignmentPassbookNo}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="PB-XXXXX"
@@ -769,8 +632,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Regular Savings</label>
                       <input
                         type="number"
-                        name="regularSavings"
-                        value={formData.regularSavings}
+                        name="savingsDepositRegular"
+                        value={formData.savingsDepositRegular}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -780,8 +643,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Ultima Savings</label>
                       <input
                         type="number"
-                        name="ultimaSavings"
-                        value={formData.ultimaSavings}
+                        name="savingsDepositUltima"
+                        value={formData.savingsDepositUltima}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -791,8 +654,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Alkansya Savings</label>
                       <input
                         type="number"
-                        name="alkansyaSavings"
-                        value={formData.alkansyaSavings}
+                        name="savingsDepositAlkansya"
+                        value={formData.savingsDepositAlkansya}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -857,8 +720,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Member Income</label>
                       <input
                         type="number"
-                        name="memberIncome"
-                        value={formData.memberIncome}
+                        name="incomeMember"
+                        value={formData.incomeMember}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -868,8 +731,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Spouse Income</label>
                       <input
                         type="number"
-                        name="spouseIncome"
-                        value={formData.spouseIncome}
+                        name="incomeSpouse"
+                        value={formData.incomeSpouse}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -890,8 +753,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Business Income</label>
                       <input
                         type="number"
-                        name="businessIncome"
-                        value={formData.businessIncome}
+                        name="incomeBusiness"
+                        value={formData.incomeBusiness}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -908,8 +771,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Food</label>
                       <input
                         type="number"
-                        name="foodExpense"
-                        value={formData.foodExpense}
+                        name="food"
+                        value={formData.food}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -919,8 +782,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Clothing</label>
                       <input
                         type="number"
-                        name="clothingExpense"
-                        value={formData.clothingExpense}
+                        name="clothing"
+                        value={formData.clothing}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -930,8 +793,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Shelter/Rent</label>
                       <input
                         type="number"
-                        name="shelterExpense"
-                        value={formData.shelterExpense}
+                        name="shelter"
+                        value={formData.shelter}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -941,8 +804,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Education</label>
                       <input
                         type="number"
-                        name="educationExpense"
-                        value={formData.educationExpense}
+                        name="education"
+                        value={formData.education}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -952,8 +815,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Electricity/Water</label>
                       <input
                         type="number"
-                        name="electricWaterExpense"
-                        value={formData.electricWaterExpense}
+                        name="electricWaterBills"
+                        value={formData.electricWaterBills}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -963,8 +826,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Helper</label>
                       <input
                         type="number"
-                        name="helperExpense"
-                        value={formData.helperExpense}
+                        name="helper"
+                        value={formData.helper}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -974,8 +837,8 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Loan Repayment</label>
                       <input
                         type="number"
-                        name="loanRepaymentExpense"
-                        value={formData.loanRepaymentExpense}
+                        name="loanRepayments"
+                        value={formData.loanRepayments}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="0.00"
@@ -1034,8 +897,7 @@ export default function LoanApplication() {
                         Type of Valid ID <span className="text-red-500">*</span>
                       </label>
                       <select
-                        name="idType"
-                        value={formData.idType}
+                        // ID Type field removed (not in formData)
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -1094,8 +956,7 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Maker Name 1</label>
                       <input
                         type="text"
-                        name="makerName1"
-                        value={formData.makerName1}
+                        // Signature fields removed (not in formData)
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Full Name"
@@ -1105,8 +966,7 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Maker Name 2 (if applicable)</label>
                       <input
                         type="text"
-                        name="makerName2"
-                        value={formData.makerName2}
+                        // Signature fields removed (not in formData)
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Full Name"
@@ -1123,8 +983,7 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Co-Maker Name 1</label>
                       <input
                         type="text"
-                        name="coMakerName1"
-                        value={formData.coMakerName1}
+                        // Signature fields removed (not in formData)
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Full Name"
@@ -1134,8 +993,7 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Co-Maker Name 2 (if applicable)</label>
                       <input
                         type="text"
-                        name="coMakerName2"
-                        value={formData.coMakerName2}
+                        // Signature fields removed (not in formData)
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Full Name"
@@ -1152,8 +1010,7 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Witness Name 1</label>
                       <input
                         type="text"
-                        name="witnessName1"
-                        value={formData.witnessName1}
+                        // Signature fields removed (not in formData)
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Full Name"
@@ -1163,8 +1020,7 @@ export default function LoanApplication() {
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Witness Name 2 (if applicable)</label>
                       <input
                         type="text"
-                        name="witnessName2"
-                        value={formData.witnessName2}
+                        // Signature fields removed (not in formData)
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Full Name"
@@ -1179,7 +1035,7 @@ export default function LoanApplication() {
                   <input
                     type="date"
                     name="signatureDate"
-                    value={formData.signatureDate}
+                    // Signature date field removed (not in formData)
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   />
@@ -1210,7 +1066,9 @@ export default function LoanApplication() {
                     </div>
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">PB No.:</span>
-                      <p className="text-gray-900 dark:text-white">{formData.pbNo || 'Not provided'}</p>
+                      <p className="text-gray-900 dark:text-white">{formData.passbookNo || 'Not provided'}</p>
+                        <p className="text-gray-900 dark:text-white">{formData.passbookNo || 'Not provided'}</p>
+                      <p className="text-gray-900 dark:text-white">{formData.passbookNo || 'Not provided'}</p>
                     </div>
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">Loan Type:</span>
@@ -1218,7 +1076,9 @@ export default function LoanApplication() {
                     </div>
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">Loan Amount:</span>
-                      <p className="text-gray-900 dark:text-white">â‚±{formData.loanAmount || '0.00'}</p>
+                      <p className="text-gray-900 dark:text-white">₱{formData.amountApplied || '0.00'}</p>
+                        <p className="text-gray-900 dark:text-white">₱{formData.amountApplied || '0.00'}</p>
+                      <p className="text-gray-900 dark:text-white">₱{formData.amountApplied || '0.00'}</p>
                     </div>
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">Term:</span>
@@ -1226,7 +1086,9 @@ export default function LoanApplication() {
                     </div>
                     <div>
                       <span className="font-semibold text-gray-700 dark:text-gray-300">Branch:</span>
-                      <p className="text-gray-900 dark:text-white">{formData.branch || 'Not provided'}</p>
+                      <p className="text-gray-900 dark:text-white">{formData.assignmentPassbookNo || 'Not provided'}</p>
+                        <p className="text-gray-900 dark:text-white">{formData.assignmentPassbookNo || 'Not provided'}</p>
+                      <p className="text-gray-900 dark:text-white">{formData.assignmentPassbookNo || 'Not provided'}</p>
                     </div>
                   </div>
                 </div>
