@@ -1002,10 +1002,10 @@ bank and its affiliates for the disbursement of said loan.
                       <strong>C.</strong> Pursuant to Republic Act No. 9510, or the Credit Information System Act, and its Implementing Rules and
 Regulations (IRR), I am notified and acknowledge to:
 1. The regular submission and disclosure of my basic credit data and any updates thereto to the Credit
-Information Corporation (CIC); and
-2. The sharing of my basic credit data with lenders authorized by the CIC, as well as credit reporting agencies and
-accredited outsourced entities, in accordance with applicable laws and regulations.
-I have read, understand and I agree with the above Declaration and Consent and Data Privacy Statement, and I
+Information Corporation (CIC); and</p>
+<p>2. The sharing of my basic credit data with lenders authorized by the CIC, as well as credit reporting agencies and
+accredited outsourced entities, in accordance with applicable laws and regulations.</p>
+<p>I have read, understand and I agree with the above Declaration and Consent and Data Privacy Statement, and I
 hereby agree to the Disclosure Statement, and Terms and Conditions of the Credit Program of SJMPC.
                     </p>
                   </div>
