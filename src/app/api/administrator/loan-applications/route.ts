@@ -29,11 +29,20 @@ export async function GET(request: NextRequest) {
       status
     });
 
-    const where: any = {
-      ...(status && status !== 'all' && { status }),
-      ...(session.user.role === 'branch' && { branch: (session.user as any).branch }),
-      ...(branchParam && { branch: branchParam }),
-    };
+
+    let where: any = {};
+    if (status && status !== 'all') {
+      where.status = status;
+    }
+    if (session.user.role === 'admin') {
+      // Admins can filter by branch param or see all
+      if (branchParam) {
+        where.branch = branchParam;
+      }
+    } else if (session.user.role === 'branch') {
+      // Branch users can only see their own branch, ignore branchParam
+      where.branch = (session.user as any).branch;
+    }
 
     console.log('Query where clause:', where);
     console.log('Filtering by branch?', session.user.role === 'branch');
