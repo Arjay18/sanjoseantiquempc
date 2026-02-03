@@ -112,11 +112,23 @@ export default function LoanApplication() {
   const handleSubmitApplication = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate required fields (update to match new formData)
+
+    // Map frontend fields to backend/PDF expected fields
+    const mappedFormData: Record<string, unknown> = {
+      ...formData,
+      branch: formData.assignmentPassbookNo,
+      loanAmount: formData.amountApplied,
+    };
+
+    // Remove frontend-only fields if needed (optional)
+    // delete mappedFormData.assignmentPassbookNo;
+    // delete mappedFormData.amountApplied;
+
+    // Validate required fields (update to match backend expectations)
     const requiredFields = [
-      'name', 'passbookNo', 'contactNo', 'address', 'loanType', 'term', 'amountApplied', 'purpose'
+      'name', 'passbookNo', 'contactNo', 'address', 'loanType', 'term', 'loanAmount', 'purpose', 'branch'
     ];
-    const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData]);
+    const missingFields = requiredFields.filter(field => !mappedFormData[field]);
 
     if (missingFields.length > 0) {
       alert(`Please fill in the following required fields: ${missingFields.join(', ')}`);
@@ -146,16 +158,13 @@ export default function LoanApplication() {
       });
 
 
-      // Convert file to base64 if present (no idFile in new formData, so skip)
-      const processedFormData = { ...formData } as Record<string, unknown>;
-
-      // Generate PDF first with form data
+      // Generate PDF first with mapped form data
       const pdfResponse = await fetch('/api/fill-pdf', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ formData: processedFormData }),
+        body: JSON.stringify({ formData: mappedFormData }),
       });
 
       if (!pdfResponse.ok) {
@@ -175,8 +184,9 @@ export default function LoanApplication() {
         reader.readAsDataURL(pdfBlob);
       });
 
-      // Add PDF to form data
-      processedFormData.pdfFile = pdfBase64;
+
+      // Add PDF to mapped form data
+      mappedFormData.pdfFile = pdfBase64;
 
       // Submit loan application with PDF to database
       const submitResponse = await fetch('/api/loan-applications', {
@@ -184,7 +194,7 @@ export default function LoanApplication() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ formData: processedFormData }),
+        body: JSON.stringify({ formData: mappedFormData }),
       });
 
       console.log('Submission response status:', submitResponse.status);
