@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
     if (error && typeof error === 'object') {
       for (const key in error) {
         if (Object.prototype.hasOwnProperty.call(error, key)) {
-          console.error(`Error property [${key}]:`, error[key]);
+          console.error(`Error property [${key}]:`, (error as any)[key]);
         }
       }
     }
