@@ -364,7 +364,6 @@ export default function GuimarasBranchDashboard() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                          download="valid-ids-and-signatures"
                         >
                           Valid IDs
                         </a>
@@ -375,7 +374,6 @@ export default function GuimarasBranchDashboard() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                          download="deposit-slip-or-ewallet"
                         >
                           Deposit Slip/E-wallet
                         </a>
@@ -386,7 +384,6 @@ export default function GuimarasBranchDashboard() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                          download="member-with-id-and-slip"
                         >
                           Member Photo
                         </a>
