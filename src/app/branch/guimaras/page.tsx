@@ -360,7 +360,13 @@ export default function GuimarasBranchDashboard() {
                       {/* Attachments links */}
                       {application.idFile && (
                         <a
-                          href={application.idFile.startsWith('data:') ? application.idFile : '#'}
+                          href={
+                            application.idFile
+                              ? application.idFile.startsWith('data:')
+                                ? application.idFile
+                                : `data:application/pdf;base64,${application.idFile}`
+                              : '#'
+                          }
                           target="_blank"
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
@@ -370,7 +376,13 @@ export default function GuimarasBranchDashboard() {
                       )}
                       {application.depositSlipOrEwallet && (
                         <a
-                          href={application.depositSlipOrEwallet.startsWith('data:') ? application.depositSlipOrEwallet : '#'}
+                          href={
+                            application.depositSlipOrEwallet
+                              ? application.depositSlipOrEwallet.startsWith('data:')
+                                ? application.depositSlipOrEwallet
+                                : `data:application/pdf;base64,${application.depositSlipOrEwallet}`
+                              : '#'
+                          }
                           target="_blank"
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
@@ -380,7 +392,13 @@ export default function GuimarasBranchDashboard() {
                       )}
                       {application.memberWithIDAndSlip && (
                         <a
-                          href={application.memberWithIDAndSlip.startsWith('data:') ? application.memberWithIDAndSlip : '#'}
+                          href={
+                            application.memberWithIDAndSlip
+                              ? application.memberWithIDAndSlip.startsWith('data:')
+                                ? application.memberWithIDAndSlip
+                                : `data:application/pdf;base64,${application.memberWithIDAndSlip}`
+                              : '#'
+                          }
                           target="_blank"
                           rel="noopener noreferrer"
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
