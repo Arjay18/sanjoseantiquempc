@@ -451,7 +451,6 @@ export default function SanJoseBranchDashboard() {
                             Delete
                           </button>
                         </div>
-                  </div>
                 </li>
               ))
             )}
