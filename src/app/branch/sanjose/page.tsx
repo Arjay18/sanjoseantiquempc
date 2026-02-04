@@ -451,15 +451,18 @@ export default function SanJoseBranchDashboard() {
                             Delete
                           </button>
                         </div>
+                      )}
+                    </div>
+                  </div>
                 </li>
               ))
             )}
-          </ul>
+            </ul>
+          </div>
         </div>
+        {previewModalApp && (
+          <AttachmentPreviewModal application={previewModalApp} onClose={() => setPreviewModalApp(null)} />
+        )}
       </div>
-    </div>
-      {previewModalApp && (
-        <AttachmentPreviewModal application={previewModalApp} onClose={() => setPreviewModalApp(null)} />
-      )}
   );
 }
