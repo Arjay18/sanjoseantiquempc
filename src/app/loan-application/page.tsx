@@ -358,7 +358,14 @@ export default function LoanApplication() {
                       )}
                     </div>
                   </form>
+
                 </div>
               </div>
             );
+          }
+        }
+      </div>
+    </div>
+  );
+}
 
