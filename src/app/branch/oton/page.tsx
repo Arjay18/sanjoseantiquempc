@@ -443,7 +443,6 @@ export default function OtonBranchDashboard() {
                             Delete
                           </button>
                         </div>
-                    </div>
                   </div>
                 </li>
               ))

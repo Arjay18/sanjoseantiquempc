@@ -435,7 +435,6 @@ export default function MiagaoBranchDashboard() {
                             Delete
                           </button>
                         </div>
-                    </div>
                   </div>
                 </li>
               ))
