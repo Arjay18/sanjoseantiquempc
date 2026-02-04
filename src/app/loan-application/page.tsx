@@ -4,6 +4,12 @@ import { useState, useEffect } from 'react';
 import { PhilippinePeso, Building, Heart, Clock, CheckCircle, ArrowRight, BookOpen, Phone, Home, Award, Building2, Tractor, Shield, Wallet, Wheat, AlertTriangle, User, FileText, CreditCard, PenTool, ChevronRight, ChevronLeft } from 'lucide-react';
 
 export default function LoanApplication() {
+    const [submitMessage, setSubmitMessage] = useState<string | null>(null);
+    const [fileNames, setFileNames] = useState({
+      validIDsAndSignatures: '',
+      depositSlipOrEwallet: '',
+      memberWithIDAndSlip: '',
+    });
   // Removed wizard step logic for single form
 
   const [formData, setFormData] = useState({
@@ -71,13 +77,15 @@ export default function LoanApplication() {
     const files = (e.target as HTMLInputElement).files;
 
     setFormData(prev => {
-      // Special mapping for passbookNo to pbNo
       if (name === 'passbookNo') {
         return {
           ...prev,
           passbookNo: value,
           pbNo: value
         };
+      }
+      if (type === 'file') {
+        setFileNames(f => ({ ...f, [name]: files && files[0] ? files[0].name : '' }));
       }
       return {
         ...prev,
@@ -86,36 +94,56 @@ export default function LoanApplication() {
     });
   };
 
-  // Auto-compute Net Income
+  // Auto-compute Total Family Income, Expenses, and Net Income
   useEffect(() => {
-    const totalIncome = (parseFloat(formData.incomeMember || '0') +
-      parseFloat(formData.incomeSpouse || '0') +
-      parseFloat(formData.otherIncome || '0') +
-      parseFloat(formData.incomeBusiness || '0'));
+    const totalIncome =
+      (parseFloat(formData.incomeMember || '0') || 0) +
+      (parseFloat(formData.incomeSpouse || '0') || 0) +
+      (parseFloat(formData.incomeOtherFamily || '0') || 0) +
+      (parseFloat(formData.incomeBusiness || '0') || 0) +
+      (parseFloat(formData.otherIncome || '0') || 0);
 
-    const totalExpenses = (parseFloat(formData.food || '0') +
-      parseFloat(formData.clothing || '0') +
-      parseFloat(formData.shelter || '0') +
-      parseFloat(formData.education || '0') +
-      parseFloat(formData.electricWaterBills || '0') +
-      parseFloat(formData.helper || '0') +
-      parseFloat(formData.loanRepayments || '0') +
-      parseFloat(formData.miscellaneousExpense || '0'));
+    const totalExpenses =
+      (parseFloat(formData.food || '0') || 0) +
+      (parseFloat(formData.clothing || '0') || 0) +
+      (parseFloat(formData.shelter || '0') || 0) +
+      (parseFloat(formData.education || '0') || 0) +
+      (parseFloat(formData.electricWaterBills || '0') || 0) +
+      (parseFloat(formData.helper || '0') || 0) +
+      (parseFloat(formData.loanRepayments || '0') || 0) +
+      (parseFloat(formData.miscellaneousExpense || '0') || 0);
 
     const netIncome = totalIncome - totalExpenses;
 
     setFormData(prev => ({
       ...prev,
-      netIncome: netIncome.toFixed(2)
+      totalFamilyIncome: totalIncome ? totalIncome.toFixed(2) : '',
+      totalFamilyExpenses: totalExpenses ? totalExpenses.toFixed(2) : '',
+      netIncome: netIncome ? netIncome.toFixed(2) : '',
     }));
-  }, [formData.incomeMember, formData.incomeSpouse, formData.otherIncome, formData.incomeBusiness, formData.food, formData.clothing, formData.shelter, formData.education, formData.electricWaterBills, formData.helper, formData.loanRepayments, formData.miscellaneousExpense]);
+  }, [
+    formData.incomeMember,
+    formData.incomeSpouse,
+    formData.incomeOtherFamily,
+    formData.incomeBusiness,
+    formData.otherIncome,
+    formData.food,
+    formData.clothing,
+    formData.shelter,
+    formData.education,
+    formData.electricWaterBills,
+    formData.helper,
+    formData.loanRepayments,
+    formData.miscellaneousExpense
+  ]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitMessage(null);
     // Simulate submission
     setTimeout(() => {
       setIsSubmitting(false);
-      alert('Application submitted successfully!');
+      setSubmitMessage('Application submitted successfully!');
     }, 2000);
   };
 
@@ -132,89 +160,116 @@ export default function LoanApplication() {
           </h1>
           <p className="text-gray-600">San Jose Multi-Purpose Cooperative</p>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-xl shadow">
+        {submitMessage && (
+          <div className="mb-4 p-3 rounded bg-green-100 text-green-800 text-center font-semibold border border-green-300">
+            {submitMessage}
+          </div>
+        )}
+        <form onSubmit={handleSubmit} className="space-y-8 bg-white p-6 rounded-xl shadow">
           {/* Basic Information */}
-          <h2 className="text-xl font-bold mb-2">Basic Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input name="name" value={formData.name} onChange={handleInputChange} placeholder="Full Name" className="input input-bordered" required />
-            <input name="passbookNo" value={formData.passbookNo} onChange={handleInputChange} placeholder="Passbook No." className="input input-bordered" required />
-            <input name="address" value={formData.address} onChange={handleInputChange} placeholder="Address" className="input input-bordered" required />
-            <input name="email" value={formData.email} onChange={handleInputChange} placeholder="Email" className="input input-bordered" type="email" required />
-            <input name="contactNo" value={formData.contactNo} onChange={handleInputChange} placeholder="Contact No." className="input input-bordered" required />
-            <input name="branch" value={formData.branch} onChange={handleInputChange} placeholder="Branch" className="input input-bordered" required />
+          <div>
+            <h2 className="text-xl font-bold mb-2 border-b pb-1">Basic Information</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input name="name" value={formData.name} onChange={handleInputChange} placeholder="Full Name" className="input input-bordered" required />
+              <input name="passbookNo" value={formData.passbookNo} onChange={handleInputChange} placeholder="Passbook No. (as in passbook)" className="input input-bordered" required />
+              <input name="address" value={formData.address} onChange={handleInputChange} placeholder="Address" className="input input-bordered" required />
+              <input name="email" value={formData.email} onChange={handleInputChange} placeholder="Email (e.g. you@email.com)" className="input input-bordered" type="email" required />
+              <input name="contactNo" value={formData.contactNo} onChange={handleInputChange} placeholder="Contact No. (09xx...)" className="input input-bordered" required />
+              <input name="branch" value={formData.branch} onChange={handleInputChange} placeholder="Branch (e.g. San Jose)" className="input input-bordered" required />
+            </div>
           </div>
           {/* Loan Details */}
-          <h2 className="text-xl font-bold mb-2">Loan Details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input name="loanType" value={formData.loanType} onChange={handleInputChange} placeholder="Loan Type" className="input input-bordered" required />
-            <input name="term" value={formData.term} onChange={handleInputChange} placeholder="Term" className="input input-bordered" required />
-            <input name="amountApplied" value={formData.amountApplied} onChange={handleInputChange} placeholder="Amount Applied" className="input input-bordered" required />
-            <input name="purpose" value={formData.purpose} onChange={handleInputChange} placeholder="Purpose" className="input input-bordered" required />
+          <div>
+            <h2 className="text-xl font-bold mb-2 border-b pb-1">Loan Details</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input name="loanType" value={formData.loanType} onChange={handleInputChange} placeholder="Loan Type (e.g. Regular, Emergency)" className="input input-bordered" required />
+              <input name="term" value={formData.term} onChange={handleInputChange} placeholder="Term (months)" className="input input-bordered" required />
+              <input name="amountApplied" value={formData.amountApplied} onChange={handleInputChange} placeholder="Amount Applied (₱)" className="input input-bordered" required />
+              <input name="purpose" value={formData.purpose} onChange={handleInputChange} placeholder="Purpose of Loan" className="input input-bordered" required />
+            </div>
           </div>
           {/* Financial Information */}
-          <h2 className="text-xl font-bold mb-2">Financial Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input name="incomeMember" value={formData.incomeMember} onChange={handleInputChange} placeholder="Income (Member)" className="input input-bordered" />
-            <input name="incomeSpouse" value={formData.incomeSpouse} onChange={handleInputChange} placeholder="Income (Spouse)" className="input input-bordered" />
-            <input name="incomeOtherFamily" value={formData.incomeOtherFamily} onChange={handleInputChange} placeholder="Other Family Income" className="input input-bordered" />
-            <input name="incomeBusiness" value={formData.incomeBusiness} onChange={handleInputChange} placeholder="Business Income" className="input input-bordered" />
-            <input name="otherIncome" value={formData.otherIncome} onChange={handleInputChange} placeholder="Other Income" className="input input-bordered" />
-            <input name="totalFamilyIncome" value={formData.totalFamilyIncome} onChange={handleInputChange} placeholder="Total Family Income" className="input input-bordered" />
-            <input name="food" value={formData.food} onChange={handleInputChange} placeholder="Food" className="input input-bordered" />
-            <input name="clothing" value={formData.clothing} onChange={handleInputChange} placeholder="Clothing" className="input input-bordered" />
-            <input name="shelter" value={formData.shelter} onChange={handleInputChange} placeholder="Shelter" className="input input-bordered" />
-            <input name="education" value={formData.education} onChange={handleInputChange} placeholder="Education" className="input input-bordered" />
-            <input name="electricWaterBills" value={formData.electricWaterBills} onChange={handleInputChange} placeholder="Electric/Water Bills" className="input input-bordered" />
-            <input name="helper" value={formData.helper} onChange={handleInputChange} placeholder="Helper" className="input input-bordered" />
-            <input name="loanRepayments" value={formData.loanRepayments} onChange={handleInputChange} placeholder="Loan Repayments" className="input input-bordered" />
-            <input name="miscellaneousExpense" value={formData.miscellaneousExpense} onChange={handleInputChange} placeholder="Miscellaneous Expense" className="input input-bordered" />
-            <input name="totalFamilyExpenses" value={formData.totalFamilyExpenses} onChange={handleInputChange} placeholder="Total Family Expenses" className="input input-bordered" />
-            <input name="netIncome" value={formData.netIncome} readOnly placeholder="Net Income (auto)" className="input input-bordered bg-gray-100" />
+          <div>
+            <h2 className="text-xl font-bold mb-2 border-b pb-1">Financial Information</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input name="incomeMember" value={formData.incomeMember} onChange={handleInputChange} placeholder="Income (Member)" className="input input-bordered" />
+              <input name="incomeSpouse" value={formData.incomeSpouse} onChange={handleInputChange} placeholder="Income (Spouse)" className="input input-bordered" />
+              <input name="incomeOtherFamily" value={formData.incomeOtherFamily} onChange={handleInputChange} placeholder="Other Family Income" className="input input-bordered" />
+              <input name="incomeBusiness" value={formData.incomeBusiness} onChange={handleInputChange} placeholder="Business Income" className="input input-bordered" />
+              <input name="otherIncome" value={formData.otherIncome} onChange={handleInputChange} placeholder="Other Income" className="input input-bordered" />
+              <input name="totalFamilyIncome" value={formData.totalFamilyIncome} readOnly placeholder="Total Family Income (auto)" className="input input-bordered bg-gray-100" />
+              <input name="food" value={formData.food} onChange={handleInputChange} placeholder="Food" className="input input-bordered" />
+              <input name="clothing" value={formData.clothing} onChange={handleInputChange} placeholder="Clothing" className="input input-bordered" />
+              <input name="shelter" value={formData.shelter} onChange={handleInputChange} placeholder="Shelter" className="input input-bordered" />
+              <input name="education" value={formData.education} onChange={handleInputChange} placeholder="Education" className="input input-bordered" />
+              <input name="electricWaterBills" value={formData.electricWaterBills} onChange={handleInputChange} placeholder="Electric/Water Bills" className="input input-bordered" />
+              <input name="helper" value={formData.helper} onChange={handleInputChange} placeholder="Helper" className="input input-bordered" />
+              <input name="loanRepayments" value={formData.loanRepayments} onChange={handleInputChange} placeholder="Loan Repayments" className="input input-bordered" />
+              <input name="miscellaneousExpense" value={formData.miscellaneousExpense} onChange={handleInputChange} placeholder="Miscellaneous Expense" className="input input-bordered" />
+              <input name="totalFamilyExpenses" value={formData.totalFamilyExpenses} readOnly placeholder="Total Family Expenses (auto)" className="input input-bordered bg-gray-100" />
+              <input name="netIncome" value={formData.netIncome} readOnly placeholder="Net Income (auto)" className="input input-bordered bg-gray-100" />
+            </div>
           </div>
           {/* Requirements file uploads */}
-          <h2 className="text-xl font-bold mb-2">Requirements</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block mb-1">Scanned copy of 2 Valid IDs with 3 specimen signatures</label>
-              <input type="file" name="validIDsAndSignatures" onChange={handleInputChange} className="input input-bordered" />
-            </div>
-            <div>
-              <label className="block mb-1">Scanned copy of validated deposit slip or screenshot of verified e-wallet account</label>
-              <input type="file" name="depositSlipOrEwallet" onChange={handleInputChange} className="input input-bordered" />
-            </div>
-            <div>
-              <label className="block mb-1">Picture of member borrower holding valid ID and validated deposit slip</label>
-              <input type="file" name="memberWithIDAndSlip" onChange={handleInputChange} className="input input-bordered" />
+          <div>
+            <h2 className="text-xl font-bold mb-2 border-b pb-1">Requirements</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block mb-1">Scanned copy of 2 Valid IDs with 3 specimen signatures</label>
+                <input type="file" name="validIDsAndSignatures" onChange={handleInputChange} className="input input-bordered" />
+                {fileNames.validIDsAndSignatures && <div className="text-xs text-gray-500 mt-1">Selected: {fileNames.validIDsAndSignatures}</div>}
+              </div>
+              <div>
+                <label className="block mb-1">Scanned copy of validated deposit slip or screenshot of verified e-wallet account</label>
+                <input type="file" name="depositSlipOrEwallet" onChange={handleInputChange} className="input input-bordered" />
+                {fileNames.depositSlipOrEwallet && <div className="text-xs text-gray-500 mt-1">Selected: {fileNames.depositSlipOrEwallet}</div>}
+              </div>
+              <div>
+                <label className="block mb-1">Picture of member borrower holding valid ID and validated deposit slip</label>
+                <input type="file" name="memberWithIDAndSlip" onChange={handleInputChange} className="input input-bordered" />
+                {fileNames.memberWithIDAndSlip && <div className="text-xs text-gray-500 mt-1">Selected: {fileNames.memberWithIDAndSlip}</div>}
+              </div>
             </div>
           </div>
-          {/* Declarations */}
-          <div className="flex items-start">
-            <input
-              type="checkbox"
-              id="declarationAccepted"
-              name="declarationAccepted"
-              checked={formData.declarationAccepted}
-              onChange={handleInputChange}
-              className="mt-1 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
-              required
-            />
-            <label htmlFor="declarationAccepted" className="ml-3 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
-              I have read, understand and I agree with the above Declaration and Consent and Data Privacy Statement <span className="text-red-500">*</span>
-            </label>
-          </div>
-          <div className="flex items-start">
-            <input
-              type="checkbox"
-              id="termsAccepted"
-              name="termsAccepted"
-              checked={formData.termsAccepted}
-              onChange={handleInputChange}
-              className="mt-1 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
-              required
-            />
-            <label htmlFor="termsAccepted" className="ml-3 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
-              I have read, understand and agree to the Terms and Conditions of SJMPC <span className="text-red-500">*</span>
-            </label>
+          {/* Declaration and Consent */}
+          <div className="space-y-4">
+            <div className="bg-blue-50 border border-blue-200 rounded p-4 text-sm text-gray-700">
+              <h3 className="font-bold mb-2 text-blue-900">Declaration and Consent</h3>
+              <ul className="list-disc pl-5 space-y-1">
+                <li>I hereby declare that the information provided in this application is true and correct to the best of my knowledge.</li>
+                <li>I authorize San Jose Multi-Purpose Cooperative to verify any information provided in this form.</li>
+                <li>I consent to the collection, use, and processing of my personal data for the purpose of evaluating my loan application, in accordance with the Data Privacy Act of 2012.</li>
+                <li>I understand that any false statement may result in the denial or cancellation of my loan application.</li>
+              </ul>
+            </div>
+            <div className="flex items-start">
+              <input
+                type="checkbox"
+                id="declarationAccepted"
+                name="declarationAccepted"
+                checked={formData.declarationAccepted}
+                onChange={handleInputChange}
+                className="mt-1 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                required
+              />
+              <label htmlFor="declarationAccepted" className="ml-3 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                I have read, understand and I agree with the above Declaration and Consent and Data Privacy Statement <span className="text-red-500">*</span>
+              </label>
+            </div>
+            <div className="flex items-start">
+              <input
+                type="checkbox"
+                id="termsAccepted"
+                name="termsAccepted"
+                checked={formData.termsAccepted}
+                onChange={handleInputChange}
+                className="mt-1 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                required
+              />
+              <label htmlFor="termsAccepted" className="ml-3 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                I have read, understand and agree to the Terms and Conditions of SJMPC <span className="text-red-500">*</span>
+              </label>
+            </div>
           </div>
           {/* Warning Notice */}
           <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-4 border-2 border-yellow-200 dark:border-yellow-700">
