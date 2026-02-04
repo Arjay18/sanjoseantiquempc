@@ -198,8 +198,7 @@ interface LoanApplication {
                 </li>
               ))
                         </li>
-            )}
-          </ul>
+              ))
         </div>
         {previewModalApp && (
           <AttachmentPreviewModal application={previewModalApp} onClose={() => setPreviewModalApp(null)} />
