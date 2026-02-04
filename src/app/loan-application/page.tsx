@@ -28,7 +28,7 @@ export default function LoanApplication() {
     savingsDepositAlkansya: '',
     timeDeposit: '',
     otherDeposits: '',
-    assignmentPassbookNo: '',
+    branch: '',
     shareCapital: '',
     incomeMember: '',
     incomeSpouse: '',
@@ -140,7 +140,7 @@ export default function LoanApplication() {
       contactNo: formData.contactNo,
       email: formData.email,
       address: formData.address,
-      branch: formData.assignmentPassbookNo || 'sanjose',
+      branch: formData.branch || 'sanjose',
       loanType: formData.loanType,
       idType: formData.idType,
       // File uploads
@@ -170,7 +170,7 @@ export default function LoanApplication() {
       alkansyaSavings: formData.savingsDepositAlkansya,
       timeDeposit: formData.timeDeposit,
       otherDeposits: formData.otherDeposits,
-      assignmentPbNo: formData.assignmentPassbookNo,
+      assignmentPbNo: formData.branch,
       shareCapital: formData.shareCapital,
       signatureDate: null,
       // Assignment Signatories
@@ -556,8 +556,8 @@ export default function LoanApplication() {
                       Branch <span className="text-red-500">*</span>
                     </label>
                     <select
-                      name="assignmentPassbookNo"
-                      value={formData.assignmentPassbookNo}
+                      name="branch"
+                      value={formData.branch}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -576,50 +576,50 @@ export default function LoanApplication() {
                     Complete Address <span className="text-red-500">*</span>
                   </label>
                   <textarea
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    required
-                    rows={3}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    placeholder="House No., Street, Barangay, Municipality, Province"
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Step 2: Loan Details */}
-            {currentStep === 2 && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
-                    <FileText className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Loan Details</h2>
-                    <p className="text-gray-600 dark:text-gray-300">Specify your loan requirements</p>
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Loan Type <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      name="loanType"
-                      value={formData.loanType}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    >
-                      <option value="">Select Loan Type</option>
-                      <option value="Personal Loan">Personal Loan</option>
-                      <option value="Business Loan">Business Loan</option>
-                      <option value="Educational Loan">Educational Loan</option>
-                      <option value="Housing Loan">Housing Loan</option>
-                      <option value="Emergency Loan">Emergency Loan</option>
-                      <option value="Appliance Loan">Appliance Loan</option>
+                    setFormData({
+                      name: '',
+                      passbookNo: '',
+                      pbNo: '',
+                      address: '',
+                      email: '',
+                      contactNo: '',
+                      loanType: '',
+                      idType: '',
+                      term: '',
+                      amountApplied: '',
+                      pesosOnly: '',
+                      purpose: '',
+                      amountInWords: '',
+                      amountInPesos: '',
+                      savingsDepositRegular: '',
+                      savingsDepositUltima: '',
+                      savingsDepositAlkansya: '',
+                      timeDeposit: '',
+                      otherDeposits: '',
+                      branch: '',
+                      shareCapital: '',
+                      incomeMember: '',
+                      incomeSpouse: '',
+                      incomeOtherFamily: '',
+                      incomeBusiness: '',
+                      otherIncome: '',
+                      totalFamilyIncome: '',
+                      food: '',
+                      clothing: '',
+                      shelter: '',
+                      education: '',
+                      electricWaterBills: '',
+                      helper: '',
+                      loanRepayments: '',
+                      miscellaneousExpense: '',
+                      totalFamilyExpenses: '',
+                      netIncome: '',
+                      declarationAccepted: false,
+                      termsAccepted: false,
+                      validIDsAndSignatures: null,
+                      depositSlipOrEwallet: null,
+                      memberWithIDAndSlip: null,
+                    });
                       <option value="Livelihood Loan">Livelihood Loan</option>
                       <option value="Agricultural Loan">Agricultural Loan</option>
                     </select>
