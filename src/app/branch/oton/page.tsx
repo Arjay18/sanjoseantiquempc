@@ -1,3 +1,4 @@
+"use client";
 // Attachment preview modal for images and PDFs
 interface AttachmentPreviewModalProps {
   application: LoanApplication | null;

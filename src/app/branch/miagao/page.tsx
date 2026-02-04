@@ -1,3 +1,4 @@
+"use client";
 // Attachment preview modal for images and PDFs
 interface AttachmentPreviewModalProps {
   application: LoanApplication | null;
@@ -85,19 +86,10 @@ interface LoanApplication {
   createdAt: string;
   reviewedBy?: string;
   reviewedAt?: string;
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Miagao Branch Dashboard</h1>
-              <p className="text-sm text-gray-600">Welcome back, {session?.user?.name ?? ''}</p>
-            </div>
-            <button onClick={handleSignOut} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">Sign Out</button>
-          </div>
-        </div>
-      </div>
+  idFile?: string;
+  depositSlipOrEwallet?: string;
+  memberWithIDAndSlip?: string;
+}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Statistics Cards */}
@@ -205,6 +197,7 @@ interface LoanApplication {
                   </div>
                 </li>
               ))
+                        </li>
             )}
           </ul>
         </div>
@@ -312,6 +305,7 @@ interface LoanApplication {
             <h3 className="text-lg leading-6 font-medium text-gray-900">Loan Applications</h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">Manage loan applications for Miagao branch</p>
           </div>
+              </ul>
           <ul className="divide-y divide-gray-200">
             {applications.length === 0 ? (
               <li className="px-4 py-4 text-center text-gray-500">No applications found</li>
