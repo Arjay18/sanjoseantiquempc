@@ -363,7 +363,7 @@ export default function LoanApplication() {
               </div>
             );
           }
-        }
+        </div>
       </div>
     </div>
   );
