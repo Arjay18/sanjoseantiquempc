@@ -162,7 +162,7 @@ export default function LoanApplication() {
     { number: 4, title: 'Requirements', description: 'Upload & Review', icon: FileText },
   ];
 
-  // Main return block: single form, all fields visible
+  // Main return block: multi-step wizard
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-yellow-100 py-12">
       <div className="max-w-2xl mx-auto px-2 sm:px-4">
@@ -179,42 +179,22 @@ export default function LoanApplication() {
             {submitMessage}
           </div>
         )}
-        <form onSubmit={handleSubmit} className="space-y-10 bg-white/90 p-6 sm:p-8 rounded-2xl shadow-xl border border-blue-100">
-          {/* Basic Information */}
-          <div>
-            // Main return block: multi-step wizard
-            return (
-              <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-yellow-100 py-12">
-                <div className="max-w-2xl mx-auto px-2 sm:px-4">
-                  {/* Header */}
-                  <div className="text-center mb-10">
-                    <h1 className="text-4xl font-extrabold text-blue-900 mb-2 tracking-tight">
-                      <span className="inline-block align-middle mr-2"><FileText className="inline w-8 h-8 text-blue-600" /></span>
-                      Loan <span className="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">Application</span>
-                    </h1>
-                    <p className="text-gray-600 text-lg">San Jose Multi-Purpose Cooperative</p>
-                  </div>
-                  {/* Progress Steps */}
-                  <div className="flex items-center gap-4 mb-8 justify-center">
-                    {steps.map((step, index) => (
-                      <div key={index} className="flex flex-col items-center">
-                        <div className={`flex items-center justify-center w-8 h-8 rounded-full border-2 ${currentStep > index + 1 ? 'border-green-500' : 'border-gray-300'} bg-white`}>
-                          {currentStep > index + 1 ? (
-                            <span className="text-green-500 font-bold">&#10003;</span>
-                          ) : (
-                            <span className="text-gray-400 font-bold">{index + 1}</span>
-                          )}
-                        </div>
-                        <div className="mt-1 text-xs text-gray-700 text-center w-20">{step.title}</div>
-                      </div>
-                    ))}
-                  </div>
-                  {submitMessage && (
-                    <div className="mb-4 p-3 rounded-xl bg-green-100 text-green-800 text-center font-semibold border border-green-300 shadow">
-                      {submitMessage}
-                    </div>
-                  )}
-                  <form onSubmit={handleSubmit} className="space-y-8 bg-white/90 p-6 sm:p-8 rounded-2xl shadow-xl border border-blue-100">
+        {/* Progress Steps */}
+        <div className="flex items-center gap-4 mb-8 justify-center">
+          {steps.map((step, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <div className={`flex items-center justify-center w-8 h-8 rounded-full border-2 ${currentStep > index + 1 ? 'border-green-500' : 'border-gray-300'} bg-white`}>
+                {currentStep > index + 1 ? (
+                  <span className="text-green-500 font-bold">&#10003;</span>
+                ) : (
+                  <span className="text-gray-400 font-bold">{index + 1}</span>
+                )}
+              </div>
+              <div className="mt-1 text-xs text-gray-700 text-center w-20">{step.title}</div>
+            </div>
+          ))}
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-8 bg-white/90 p-6 sm:p-8 rounded-2xl shadow-xl border border-blue-100">
                     {/* Step 1: Basic Information */}
                     {currentStep === 1 && (
                       <div>
@@ -358,13 +338,7 @@ export default function LoanApplication() {
                       )}
                     </div>
                   </form>
-
-
-                </div>
-              </div>
-            );
-          }
-        </form>
+        
       </div>
     </div>
   );
