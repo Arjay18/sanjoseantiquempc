@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+
+interface LoanApplication {
   id: string;
   name: string;
   pbNo: string;
