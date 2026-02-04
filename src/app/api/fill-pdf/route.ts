@@ -94,7 +94,8 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error generating PDF:', error);
-    return new NextResponse(JSON.stringify({ error: 'Failed to generate PDF.' }), {
+    // Return the real error message for debugging (remove in production)
+    return new NextResponse(JSON.stringify({ error: 'Failed to generate PDF.', details: error?.message || String(error) }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
