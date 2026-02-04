@@ -126,7 +126,7 @@ interface LoanApplication {
               <li className="px-4 py-4 text-center text-gray-500">No applications found</li>
             ) : (
               applications.map((application) => (
-                <li key={application.id} className="px-4 py-4">
+                  <li key={application.id} className="px-4 py-4">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center">
@@ -200,7 +200,7 @@ interface LoanApplication {
         </div>
         {previewModalApp && (
           <AttachmentPreviewModal application={previewModalApp} onClose={() => setPreviewModalApp(null)} />
-              ))
+        )}
   const rejectedApplications = branchApplications.filter(app => app.status === 'rejected');
 
   return (
