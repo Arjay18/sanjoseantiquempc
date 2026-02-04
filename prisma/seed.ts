@@ -12,6 +12,7 @@ async function main() {
   try { await prisma.memberRegistration.deleteMany(); } catch (e) { console.warn('memberRegistration table not found, skipping.'); }
   try { await prisma.statistic.deleteMany(); } catch (e) { console.warn('statistic table not found, skipping.'); }
   try { await prisma.user.deleteMany(); } catch (e) { console.warn('user table not found, skipping.'); }
+  try { await prisma.loanApplication.deleteMany(); } catch (e) { console.warn('loanApplication table not found, skipping.'); }
 
   // Seed branch users
   await prisma.user.createMany({
