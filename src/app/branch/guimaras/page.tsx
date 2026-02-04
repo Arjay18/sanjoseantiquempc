@@ -29,6 +29,46 @@ interface AttachmentPreviewModalProps {
 
 function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModalProps) {
   if (!application) return null;
+  // Helper to render preview for a given file
+  const renderPreview = (file: string | undefined, label: string) => {
+    if (!file) return null;
+    // If file is a data URL, check type
+    if (file.startsWith('data:image/')) {
+      return (
+        <div>
+          <div className="font-semibold mb-1">{label}</div>
+          <img src={file} alt={label} className="max-h-96 w-auto border rounded shadow" style={{ maxWidth: '100%' }} />
+        </div>
+      );
+    } else if (file.startsWith('data:application/pdf')) {
+      return (
+        <div>
+          <div className="font-semibold mb-1">{label}</div>
+          <object data={file} type="application/pdf" width="100%" height="400px">
+            <a href={file} target="_blank" rel="noopener noreferrer">View {label}</a>
+          </object>
+        </div>
+      );
+    } else if (file.startsWith('data:')) {
+      // Unknown data type, fallback to download
+      return (
+        <div>
+          <div className="font-semibold mb-1">{label}</div>
+          <a href={file} download className="text-blue-600 underline">Download {label}</a>
+        </div>
+      );
+    } else {
+      // Not a data URL, assume PDF base64 for legacy, fallback to image
+      return (
+        <div>
+          <div className="font-semibold mb-1">{label}</div>
+          <object data={`data:application/pdf;base64,${file}`} type="application/pdf" width="100%" height="400px">
+            <a href={`data:application/pdf;base64,${file}`} target="_blank" rel="noopener noreferrer">View {label}</a>
+          </object>
+        </div>
+      );
+    }
+  };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
       <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
@@ -43,45 +83,9 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
         </button>
         <h2 className="text-xl font-bold mb-4">Verification Attachments</h2>
         <div className="space-y-4">
-          {application.idFile && (
-            <div>
-              <div className="font-semibold mb-1">Valid ID</div>
-              <object
-                data={application.idFile.startsWith('data:') ? application.idFile : `data:application/pdf;base64,${application.idFile}`}
-                type="application/pdf"
-                width="100%"
-                height="400px"
-              >
-                <a href={application.idFile.startsWith('data:') ? application.idFile : `data:application/pdf;base64,${application.idFile}`} target="_blank" rel="noopener noreferrer">View ID</a>
-              </object>
-            </div>
-          )}
-          {application.depositSlipOrEwallet && (
-            <div>
-              <div className="font-semibold mb-1">Deposit Slip/E-wallet</div>
-              <object
-                data={application.depositSlipOrEwallet.startsWith('data:') ? application.depositSlipOrEwallet : `data:application/pdf;base64,${application.depositSlipOrEwallet}`}
-                type="application/pdf"
-                width="100%"
-                height="400px"
-              >
-                <a href={application.depositSlipOrEwallet.startsWith('data:') ? application.depositSlipOrEwallet : `data:application/pdf;base64,${application.depositSlipOrEwallet}`} target="_blank" rel="noopener noreferrer">View Deposit Slip/E-wallet</a>
-              </object>
-            </div>
-          )}
-          {application.memberWithIDAndSlip && (
-            <div>
-              <div className="font-semibold mb-1">Member Photo</div>
-              <object
-                data={application.memberWithIDAndSlip.startsWith('data:') ? application.memberWithIDAndSlip : `data:application/pdf;base64,${application.memberWithIDAndSlip}`}
-                type="application/pdf"
-                width="100%"
-                height="400px"
-              >
-                <a href={application.memberWithIDAndSlip.startsWith('data:') ? application.memberWithIDAndSlip : `data:application/pdf;base64,${application.memberWithIDAndSlip}`} target="_blank" rel="noopener noreferrer">View Member Photo</a>
-              </object>
-            </div>
-          )}
+          {renderPreview(application.idFile, 'Valid ID')}
+          {renderPreview(application.depositSlipOrEwallet, 'Deposit Slip/E-wallet')}
+          {renderPreview(application.memberWithIDAndSlip, 'Member Photo')}
           {!application.idFile && !application.depositSlipOrEwallet && !application.memberWithIDAndSlip && (
             <div className="text-gray-500">No attachments uploaded.</div>
           )}

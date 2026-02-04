@@ -1,3 +1,72 @@
+// Attachment preview modal for images and PDFs
+interface AttachmentPreviewModalProps {
+  application: LoanApplication | null;
+  onClose: () => void;
+}
+
+function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModalProps) {
+  if (!application) return null;
+  const renderPreview = (file: string | undefined, label: string) => {
+    if (!file) return null;
+    if (file.startsWith('data:image/')) {
+      return (
+        <div>
+          <div className="font-semibold mb-1">{label}</div>
+          <img src={file} alt={label} className="max-h-96 w-auto border rounded shadow" style={{ maxWidth: '100%' }} />
+        </div>
+      );
+    } else if (file.startsWith('data:application/pdf')) {
+      return (
+        <div>
+          <div className="font-semibold mb-1">{label}</div>
+          <object data={file} type="application/pdf" width="100%" height="400px">
+            <a href={file} target="_blank" rel="noopener noreferrer">View {label}</a>
+          </object>
+        </div>
+      );
+    } else if (file.startsWith('data:')) {
+      return (
+        <div>
+          <div className="font-semibold mb-1">{label}</div>
+          <a href={file} download className="text-blue-600 underline">Download {label}</a>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className="font-semibold mb-1">{label}</div>
+          <object data={`data:application/pdf;base64,${file}`} type="application/pdf" width="100%" height="400px">
+            <a href={`data:application/pdf;base64,${file}`} target="_blank" rel="noopener noreferrer">View {label}</a>
+          </object>
+        </div>
+      );
+    }
+  };
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+      <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+          aria-label="Close preview"
+        >
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <h2 className="text-xl font-bold mb-4">Verification Attachments</h2>
+        <div className="space-y-4">
+          {renderPreview(application.idFile, 'Valid ID')}
+          {renderPreview(application.depositSlipOrEwallet, 'Deposit Slip/E-wallet')}
+          {renderPreview(application.memberWithIDAndSlip, 'Member Photo')}
+          {!application.idFile && !application.depositSlipOrEwallet && !application.memberWithIDAndSlip && (
+            <div className="text-gray-500">No attachments uploaded.</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 'use client';
 
 import { useSession, signOut } from 'next-auth/react';
@@ -28,6 +97,7 @@ export default function OtonBranchDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [previewModalApp, setPreviewModalApp] = useState<LoanApplication | null>(null);
 
   // Strict authentication check - redirect immediately if not authenticated
   useEffect(() => {
@@ -359,53 +429,12 @@ export default function OtonBranchDashboard() {
                       </a>
                       {/* Attachments links */}
                       {application.idFile && (
-                        <a
-                          href={
-                            application.idFile
-                              ? application.idFile.startsWith('data:')
-                                ? application.idFile
-                                : `data:application/pdf;base64,${application.idFile}`
-                              : '#'
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          onClick={() => setPreviewModalApp(application)}
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
                         >
                           Verification
-                        </a>
-                      )}
-                      {application.depositSlipOrEwallet && (
-                        <a
-                          href={
-                            application.depositSlipOrEwallet
-                              ? application.depositSlipOrEwallet.startsWith('data:')
-                                ? application.depositSlipOrEwallet
-                                : `data:application/pdf;base64,${application.depositSlipOrEwallet}`
-                              : '#'
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                        >
-                          Deposit Slip/E-wallet
-                        </a>
-                      )}
-                      {application.memberWithIDAndSlip && (
-                        <a
-                          href={
-                            application.memberWithIDAndSlip
-                              ? application.memberWithIDAndSlip.startsWith('data:')
-                                ? application.memberWithIDAndSlip
-                                : `data:application/pdf;base64,${application.memberWithIDAndSlip}`
-                              : '#'
-                          }
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                        >
-                          Member Photo
-                        </a>
-                      )}
+                        </button>
                       <button
                         onClick={() => handleDelete(application.id, application.name)}
                         className="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1 rounded text-sm"
@@ -421,5 +450,8 @@ export default function OtonBranchDashboard() {
         </div>
       </div>
     </div>
+      {previewModalApp && (
+        <AttachmentPreviewModal application={previewModalApp} onClose={() => setPreviewModalApp(null)} />
+      )}
   );
 }
