@@ -346,9 +346,7 @@ interface LoanApplication {
                             Reject
                           </button>
                         </>
-                      )}
-                      <a
-                        href={`/api/administrator/loan-applications/${application.id}/pdf`}
+                      ))
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-sm inline-flex items-center"
