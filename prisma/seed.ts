@@ -63,6 +63,24 @@ async function main() {
     ]
   });
 
+  // Seed a test loan application
+  await prisma.loanApplication.create({
+    data: {
+      name: 'Test User',
+      pbNo: 'PB123456',
+      contactNo: '09171234567',
+      email: 'testuser@example.com',
+      address: '123 Test St, Test City',
+      branch: 'sanjose',
+      loanType: 'personal',
+      idType: 'passport',
+      loanAmount: 10000,
+      term: 12,
+      purpose: 'Test loan application',
+      // Optional fields can be omitted or set to null
+    }
+  });
+
   console.log('Database seeded successfully!');
 }
 

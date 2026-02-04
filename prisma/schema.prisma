@@ -32,7 +32,7 @@ model SuccessStory {
   description String
   status      String   @default("draft") // "draft" or "published"
   createdAt   DateTime @default(now())
-  idFile      String? @deprecated("Use attachments relation instead")
+  idFile      String?
 }
 
 model Statistic {
