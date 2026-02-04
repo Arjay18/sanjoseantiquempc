@@ -202,9 +202,7 @@ interface LoanApplication {
         </div>
         {previewModalApp && (
           <AttachmentPreviewModal application={previewModalApp} onClose={() => setPreviewModalApp(null)} />
-        )}
-      </div>
-    </div>
+              ))
   const rejectedApplications = branchApplications.filter(app => app.status === 'rejected');
 
   return (
