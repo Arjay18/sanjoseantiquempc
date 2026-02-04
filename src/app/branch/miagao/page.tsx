@@ -421,18 +421,20 @@ export default function MiagaoBranchDashboard() {
                       </a>
                       {/* Attachments links */}
                       {application.idFile && (
-                        <button
-                          onClick={() => setPreviewModalApp(application)}
-                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
-                        >
-                          Verification
-                        </button>
-                      <button
-                        onClick={() => handleDelete(application.id, application.name)}
-                        className="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1 rounded text-sm"
-                      >
-                        Delete
-                      </button>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => setPreviewModalApp(application)}
+                            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                          >
+                            Verification
+                          </button>
+                          <button
+                            onClick={() => handleDelete(application.id, application.name)}
+                            className="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1 rounded text-sm"
+                          >
+                            Delete
+                          </button>
+                        </div>
                     </div>
                   </div>
                 </li>
