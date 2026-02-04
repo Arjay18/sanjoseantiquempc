@@ -443,15 +443,18 @@ export default function OtonBranchDashboard() {
                             Delete
                           </button>
                         </div>
+                      )}
+                    </div>
+                  </div>
                 </li>
               ))
             )}
           </ul>
         </div>
       </div>
-    </div>
-      {previewModalApp && (
-        <AttachmentPreviewModal application={previewModalApp} onClose={() => setPreviewModalApp(null)} />
-      )}
+    {previewModalApp && (
+      <AttachmentPreviewModal application={previewModalApp} onClose={() => setPreviewModalApp(null)} />
+    )}
+  </div>
   );
 }
