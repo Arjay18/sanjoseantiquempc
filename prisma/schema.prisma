@@ -149,6 +149,8 @@ model LoanApplication {
   loanRepaymentExpense Float?
   miscellaneousExpense Float?
   netIncome Float?
+  depositSlipOrEwallet String?
+  memberWithIDAndSlip String?
 
   // Committee Decision
   committeeApproved Float?

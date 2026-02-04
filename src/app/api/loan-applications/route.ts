@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
           branch: normalizedBranch,
           loanType: formData.loanType,
           idType: formData.idType,
-          idFile: formData.idFile ? JSON.stringify(formData.idFile) : null,
+          idFile: formData.idFile || null,
           loanAmount: parseFloat(formData.loanAmount),
           term: parseInt(formData.term),
           purpose: formData.purpose,
@@ -128,6 +128,8 @@ export async function POST(request: NextRequest) {
           mop: formData.mop,
           processor: formData.processor,
           pdfFile: formData.pdfFile || null,
+          depositSlipOrEwallet: formData.depositSlipOrEwallet || null,
+          memberWithIDAndSlip: formData.memberWithIDAndSlip || null,
         },
       });
     } catch (err: any) {
