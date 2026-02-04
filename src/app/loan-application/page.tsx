@@ -584,9 +584,6 @@ export default function LoanApplication() {
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     placeholder="House No., Street, Barangay, Municipality, Province"
                   />
-                      <option value="Livelihood Loan">Livelihood Loan</option>
-                      <option value="Agricultural Loan">Agricultural Loan</option>
-                    </select>
                   </div>
 
                   <div>
