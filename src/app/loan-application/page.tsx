@@ -331,7 +331,7 @@ export default function LoanApplication() {
           savingsDepositAlkansya: '',
           timeDeposit: '',
           otherDeposits: '',
-          assignmentPassbookNo: '',
+          branch: '',
           shareCapital: '',
           incomeMember: '',
           incomeSpouse: '',
