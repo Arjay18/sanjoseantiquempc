@@ -576,50 +576,14 @@ export default function LoanApplication() {
                     Complete Address <span className="text-red-500">*</span>
                   </label>
                   <textarea
-                    setFormData({
-                      name: '',
-                      passbookNo: '',
-                      pbNo: '',
-                      address: '',
-                      email: '',
-                      contactNo: '',
-                      loanType: '',
-                      idType: '',
-                      term: '',
-                      amountApplied: '',
-                      pesosOnly: '',
-                      purpose: '',
-                      amountInWords: '',
-                      amountInPesos: '',
-                      savingsDepositRegular: '',
-                      savingsDepositUltima: '',
-                      savingsDepositAlkansya: '',
-                      timeDeposit: '',
-                      otherDeposits: '',
-                      branch: '',
-                      shareCapital: '',
-                      incomeMember: '',
-                      incomeSpouse: '',
-                      incomeOtherFamily: '',
-                      incomeBusiness: '',
-                      otherIncome: '',
-                      totalFamilyIncome: '',
-                      food: '',
-                      clothing: '',
-                      shelter: '',
-                      education: '',
-                      electricWaterBills: '',
-                      helper: '',
-                      loanRepayments: '',
-                      miscellaneousExpense: '',
-                      totalFamilyExpenses: '',
-                      netIncome: '',
-                      declarationAccepted: false,
-                      termsAccepted: false,
-                      validIDsAndSignatures: null,
-                      depositSlipOrEwallet: null,
-                      memberWithIDAndSlip: null,
-                    });
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    required
+                    rows={3}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="House No., Street, Barangay, Municipality, Province"
+                  />
                       <option value="Livelihood Loan">Livelihood Loan</option>
                       <option value="Agricultural Loan">Agricultural Loan</option>
                     </select>
