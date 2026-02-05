@@ -3,8 +3,17 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-// Workaround for Next.js dynamic route type bug
-export default function Page({ params }: { params: { userId: string } }) {
+// Next.js 15 dynamic route type fix: use async function and correct PageProps
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
+interface PageProps {
+	params: { userId: string };
+}
+
+export default function Page(props: PageProps) {
+	const { params } = props;
 	const { data: session, status } = useSession();
 	const router = useRouter();
 	const [user, setUser] = useState<any>(null);
