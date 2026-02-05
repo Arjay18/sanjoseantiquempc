@@ -10,20 +10,19 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        passbookNo: { label: "Passbook Number", type: "text" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.username || !credentials?.password) {
+        if (!credentials?.passbookNo || !credentials?.password) {
           return null;
         }
 
-        const adminUsername = process.env.ADMIN_USERNAME;
+        // Check admin credentials (optional, can be removed if not needed)
+        const adminPassbook = process.env.ADMIN_PASSBOOKNO;
         const adminPassword = process.env.ADMIN_PASSWORD;
-
-        // Check administrator credentials
         if (
-          credentials.username === adminUsername &&
+          credentials.passbookNo === adminPassbook &&
           credentials.password === adminPassword
         ) {
           return {
@@ -34,25 +33,22 @@ export const authOptions: NextAuthOptions = {
           };
         }
 
-        // Check branch user credentials
+        // Check user credentials by passbookNo
         try {
           const user = await prisma.user.findUnique({
-            where: { username: credentials.username }
+            where: { passbookNo: credentials.passbookNo }
           });
-
           if (user && await bcrypt.compare(credentials.password, user.password)) {
             return {
               id: user.id,
               name: user.name,
               email: user.email,
-              role: "branch",
-              branch: user.branch
+              role: user.role
             };
           }
         } catch (error) {
           console.error("Database error during authentication:", error);
         }
-
         return null;
       }
     })
@@ -68,14 +64,12 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }: any) {
       if (user) {
         token.role = user.role;
-        token.branch = user.branch;
       }
       return token;
     },
     async session({ session, token }: any) {
       if (token) {
         session.user.role = token.role;
-        session.user.branch = token.branch;
       }
       return session;
     }
