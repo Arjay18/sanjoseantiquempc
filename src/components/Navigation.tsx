@@ -103,6 +103,8 @@ export default function Navigation() {
       ]
     },
     { name: 'Contact', href: '/contact' },
+    { name: 'Login', href: '/administrator/login' },
+    { name: 'Register', href: '/registration' },
   ];
 
   return (
