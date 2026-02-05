@@ -1,20 +1,9 @@
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
 import UserHeader from "./UserHeader";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "User Dashboard | San Jose Antique MPC",
@@ -29,7 +18,7 @@ export default function DashboardLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}
+        className="antialiased min-h-screen flex flex-col bg-white font-sans"
       >
         <AuthProvider>
           <div className="flex min-h-screen flex-col">

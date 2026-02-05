@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
+// Workaround for Next.js dynamic route type bug
 export default function Page({ params }: { params: { userId: string } }) {
 	const { data: session, status } = useSession();
 	const router = useRouter();
@@ -16,7 +17,7 @@ export default function Page({ params }: { params: { userId: string } }) {
 			router.push("/administrator/login");
 			return;
 		}
-		async function fetchUser() {
+		const fetchUser = async () => {
 			setLoading(true);
 			setError("");
 			try {
@@ -28,7 +29,7 @@ export default function Page({ params }: { params: { userId: string } }) {
 				setError("Could not load user dashboard.");
 			}
 			setLoading(false);
-		}
+		};
 		fetchUser();
 	}, [session, status, params.userId, router]);
 
