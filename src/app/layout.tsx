@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
 import CookieConsent from "@/components/CookieConsent";
+import RootLayoutClient from "@/components/RootLayoutClient";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -38,10 +39,7 @@ export const viewport = {
   maximumScale: 1,
 };
 
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   // Use a client-side hook to get the current pathname
   // and conditionally render the Navigation component
   // Only show Navigation if not on /dashboard or its subroutes
