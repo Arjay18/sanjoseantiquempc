@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-export default function Page({ params }: { params: { userId: string } }) {
+export default function Page({ params }) {
 	const { data: session, status } = useSession();
 	const router = useRouter();
 	const [user, setUser] = useState<any>(null);
