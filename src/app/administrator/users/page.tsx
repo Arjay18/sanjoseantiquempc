@@ -54,7 +54,8 @@ export default function AdminUserManagement() {
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, username: string) => {
+    if (!window.confirm(`Are you sure you want to delete user '${username}'? This action cannot be undone.`)) return;
     setMessage("");
     const res = await fetch(`/api/admin/users?id=${id}`, { method: "DELETE" });
     if (res.ok) setMessage("User deleted.");
@@ -101,7 +102,7 @@ export default function AdminUserManagement() {
               <td className="p-2">{user.branch}</td>
               <td className="p-2">{user.role}</td>
               <td className="p-2 flex gap-2">
-                <button onClick={() => handleDelete(user.id)} className="bg-red-600 text-white px-2 py-1 rounded">Delete</button>
+                <button onClick={() => handleDelete(user.id, user.username)} className="bg-red-600 text-white px-2 py-1 rounded">Delete</button>
                 <a
                   href={`/administrator/users/${user.id}/dashboard`}
                   className="bg-blue-600 text-white px-2 py-1 rounded"
