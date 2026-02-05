@@ -104,8 +104,6 @@ export default function Navigation() {
     },
     { name: 'Contact', href: '/contact' },
     { name: 'Login', href: '/login' },
-    { name: 'Register', href: '/registration' },
-    { name: 'Dashboard', href: '/dashboard' },
   ];
 
   return (
