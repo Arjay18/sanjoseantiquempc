@@ -47,15 +47,16 @@ type Application = {
             </tr>
           </thead>
           <tbody>
+            {applications.map((app: Application) => (
               <tr key={app.id} className="border-t">
                 <td className="p-2">{new Date(app.createdAt).toLocaleDateString()}</td>
                 <td className="p-2">{app.loanType}</td>
-                <td className="p-2">₱{app.loanAmount?.toLocaleString()}</td>
+                <td className="p-2">{app.loanAmount?.toLocaleString()}</td>
                 <td className="p-2 font-semibold capitalize">
                   {app.status}
                 </td>
               </tr>
-              ))}
+            ))}
           </tbody>
         </table>
       )}
