@@ -27,7 +27,12 @@ export async function sendEmail({ to, subject, text, html }: SendEmailArgs) {
 }
 
 // Placeholder for SMS integration (e.g., Twilio)
-export async function sendSMS({ to, message }) {
+interface SendSMSArgs {
+  to: string;
+  message: string;
+}
+
+export async function sendSMS({ to, message }: SendSMSArgs) {
   // Integrate with SMS provider here
   return Promise.resolve();
 }
