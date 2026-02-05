@@ -6,8 +6,6 @@ type User = {
   passbookNo: string;
   name?: string;
   email?: string;
-  branch: string;
-  memberCategory?: string;
   role: string;
 };
 
@@ -15,7 +13,7 @@ export default function AdminUserManagement() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [form, setForm] = useState({ passbookNo: "", password: "", name: "", email: "", branch: "", memberCategory: "", role: "branch" });
+  const [form, setForm] = useState({ passbookNo: "", password: "", name: "", email: "", role: "branch" });
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -49,7 +47,7 @@ export default function AdminUserManagement() {
     });
     if (res.ok) {
       setMessage("User added.");
-      setForm({ passbookNo: "", password: "", name: "", email: "", branch: "", memberCategory: "", role: "branch" });
+      setForm({ passbookNo: "", password: "", name: "", email: "", role: "branch" });
     } else {
       setMessage("Add user failed.");
     }
@@ -75,12 +73,6 @@ export default function AdminUserManagement() {
           <input name="password" type="password" value={form.password} onChange={handleChange} placeholder="Password" className="border p-2 rounded w-32" required />
           <input name="name" value={form.name} onChange={handleChange} placeholder="Name" className="border p-2 rounded w-32" />
           <input name="email" value={form.email} onChange={handleChange} placeholder="Email" className="border p-2 rounded w-32" />
-          <input name="branch" value={form.branch} onChange={handleChange} placeholder="Branch" className="border p-2 rounded w-32" />
-          <input name="memberCategory" value={form.memberCategory} onChange={handleChange} placeholder="Member Category" className="border p-2 rounded w-32" />
-          <select name="role" value={form.role} onChange={handleChange} className="border p-2 rounded w-28">
-            <option value="branch">Branch</option>
-            <option value="admin">Admin</option>
-          </select>
           <button type="submit" className="bg-blue-600 text-white px-3 py-1 rounded">Add</button>
         </div>
       </form>
@@ -90,8 +82,6 @@ export default function AdminUserManagement() {
             <th className="p-2">Passbook Number</th>
             <th className="p-2">Name</th>
             <th className="p-2">Email</th>
-            <th className="p-2">Branch</th>
-            <th className="p-2">Member Category</th>
             <th className="p-2">Role</th>
             <th className="p-2">Actions</th>
           </tr>
@@ -102,8 +92,6 @@ export default function AdminUserManagement() {
               <td className="p-2">{user.passbookNo}</td>
               <td className="p-2">{user.name}</td>
               <td className="p-2">{user.email}</td>
-              <td className="p-2">{user.branch}</td>
-              <td className="p-2">{user.memberCategory}</td>
               <td className="p-2">{user.role}</td>
               <td className="p-2 flex gap-2">
                 <button onClick={() => handleDelete(user.id, user.passbookNo)} className="bg-red-600 text-white px-2 py-1 rounded">Delete</button>
