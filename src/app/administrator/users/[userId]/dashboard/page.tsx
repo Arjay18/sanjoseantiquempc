@@ -1,14 +1,11 @@
 
 "use client";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import type { PageProps } from "next";
 
-interface PageProps {
-	params: { userId: string };
-}
-
-export default function Page(props: PageProps) {
 	const { params } = props;
 	const { data: session, status } = useSession();
 	const router = useRouter();
