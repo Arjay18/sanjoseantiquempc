@@ -20,17 +20,13 @@ export async function POST(req: NextRequest) {
   if (!session || !session.user || session.user.role !== 'admin') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  const { username, password, name, email, role, passbookNo, branch } = await req.json();
-  if (!username || !password || !role || !passbookNo || !branch) {
+  const { password, name, email, role, passbookNo } = await req.json();
+  if (!password || !role || !passbookNo) {
     return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
-  }
-  const existing = await prisma.user.findUnique({ where: { username } });
-  if (existing) {
-    return NextResponse.json({ error: 'Username already exists.' }, { status: 400 });
   }
   const hashed = await bcrypt.hash(password, 10);
   await prisma.user.create({
-    data: { username, password: hashed, name, email, role, passbookNo, branch },
+    data: { password: hashed, name, email, role, passbookNo },
   });
   return NextResponse.json({ success: true });
 }

@@ -231,11 +231,11 @@ model ContactInquiry {
 model User {
   id        String   @id @default(cuid())
   passbookNo String  @unique
-  username  String   @unique
+  username  String?  @unique
   password  String
   name      String?
   email     String?
-  branch    String
+  branch    String?
   role      String   // "admin", "branch"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
