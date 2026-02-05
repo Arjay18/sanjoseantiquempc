@@ -230,6 +230,8 @@ model ContactInquiry {
 
 model User {
   id        String   @id @default(cuid())
+  passbookNo String  @unique
+  memberCategory String?
   username  String   @unique
   password  String
   name      String?

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function UserLoginPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [username, setUsername] = useState("");
+  const [passbookNo, setPassbookNo] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -26,14 +26,14 @@ export default function UserLoginPage() {
     setIsLoading(true);
     try {
       const result = await signIn("credentials", {
-        username,
+        passbookNo,
         password,
         redirect: false,
       });
       if (result?.ok) {
         router.push("/dashboard");
       } else {
-        setError("Invalid username or password.");
+        setError("Invalid Passbook Number or password.");
       }
     } catch (err) {
       setError("Login failed. Please try again.");
@@ -64,8 +64,8 @@ export default function UserLoginPage() {
           <form className="space-y-6" onSubmit={handleSubmit} suppressHydrationWarning={true}>
             <div className="space-y-4">
               <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-                  Username
+                <label htmlFor="passbookNo" className="block text-sm font-medium text-gray-700 mb-1">
+                  Passbook Number
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -74,14 +74,14 @@ export default function UserLoginPage() {
                     </svg>
                   </div>
                   <input
-                    id="username"
-                    name="username"
+                    id="passbookNo"
+                    name="passbookNo"
                     type="text"
                     required
                     className="appearance-none relative block w-full pl-10 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-colors"
-                    placeholder="Enter your username"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    placeholder="Enter your Passbook Number"
+                    value={passbookNo}
+                    onChange={e => setPassbookNo(e.target.value)}
                     disabled={isLoading}
                     suppressHydrationWarning={true}
                   />
