@@ -67,21 +67,6 @@ export default function BranchReviewDashboard() {
             </tr>
           </thead>
           <tbody>
-              <tr key={app.id} className="border-t">
-                <td className="p-2">{new Date(app.createdAt).toLocaleDateString()}</td>
-                <td className="p-2">{app.name}</td>
-                <td className="p-2">{app.loanType}</td>
-                <td className="p-2">₱{app.loanAmount?.toLocaleString()}</td>
-                <td className="p-2 font-semibold capitalize">{app.status}</td>
-                <td className="p-2">
-                  {app.status === "pending" && (
-                    <>
-                      <button onClick={() => handleAction(app.id, "approved")} className="bg-green-600 text-white px-2 py-1 rounded mr-2">Approve</button>
-                      <button onClick={() => handleAction(app.id, "rejected")} className="bg-red-600 text-white px-2 py-1 rounded">Reject</button>
-                    </>
-                  )}
-                </td>
-              </tr>
               {applications.map((app: Application) => (
                 <tr key={app.id} className="border-t">
                   <td className="p-2">{new Date(app.createdAt).toLocaleDateString()}</td>
