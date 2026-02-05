@@ -21,7 +21,6 @@ export default function AdminUserManagement() {
     password: "",
     name: "",
     email: "",
-    branch: "",
     role: "branch"
   });
   const [message, setMessage] = useState("");
@@ -44,7 +43,8 @@ export default function AdminUserManagement() {
   }, [message]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm(prevForm => ({ ...prevForm, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,7 +63,6 @@ export default function AdminUserManagement() {
         password: "",
         name: "",
         email: "",
-        branch: "",
         role: "branch"
       });
     } else {
@@ -92,7 +91,6 @@ export default function AdminUserManagement() {
           <input name="password" type="password" value={form.password} onChange={handleChange} placeholder="Password" className="border p-2 rounded w-32" required />
           <input name="name" value={form.name} onChange={handleChange} placeholder="Name" className="border p-2 rounded w-32" />
           <input name="email" value={form.email} onChange={handleChange} placeholder="Email" className="border p-2 rounded w-32" />
-          <input name="branch" value={form.branch} onChange={handleChange} placeholder="Branch" className="border p-2 rounded w-32" required />
           <select name="role" value={form.role} onChange={handleChange} className="border p-2 rounded w-32" required>
             <option value="branch">Branch</option>
             <option value="admin">Admin</option>
