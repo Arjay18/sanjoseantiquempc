@@ -51,6 +51,7 @@ export async function PATCH(req: NextRequest) {
       to: application.email,
       subject: `Loan Application ${status === 'approved' ? 'Approved' : 'Rejected'}`,
       text: `Dear ${application.name || 'Member'},\n\nYour loan application has been ${status}.\n\nThank you.`,
+      html: `<p>Dear ${application.name || 'Member'},</p><p>Your loan application has been <b>${status}</b>.</p><p>Thank you.</p>`
     });
   }
   return NextResponse.json({ success: true });
