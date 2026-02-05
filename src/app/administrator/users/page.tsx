@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 type User = {
   id: string;
   passbookNo: string;
+  username: string;
   name?: string;
   email?: string;
+  branch: string;
   role: string;
 };
 
@@ -13,7 +15,15 @@ export default function AdminUserManagement() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [form, setForm] = useState({ passbookNo: "", password: "", name: "", email: "", role: "branch" });
+  const [form, setForm] = useState({
+    passbookNo: "",
+    username: "",
+    password: "",
+    name: "",
+    email: "",
+    branch: "",
+    role: "branch"
+  });
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -47,7 +57,15 @@ export default function AdminUserManagement() {
     });
     if (res.ok) {
       setMessage("User added.");
-      setForm({ passbookNo: "", password: "", name: "", email: "", role: "branch" });
+      setForm({
+        passbookNo: "",
+        username: "",
+        password: "",
+        name: "",
+        email: "",
+        branch: "",
+        role: "branch"
+      });
     } else {
       setMessage("Add user failed.");
     }
@@ -68,11 +86,17 @@ export default function AdminUserManagement() {
       {error && <p className="text-red-600">{error}</p>}
       {message && <p className="text-blue-700 mb-2">{message}</p>}
       <form onSubmit={handleSubmit} className="space-y-2 mb-6">
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <input name="passbookNo" value={form.passbookNo} onChange={handleChange} placeholder="Passbook Number" className="border p-2 rounded w-32" required />
+          <input name="username" value={form.username} onChange={handleChange} placeholder="Username" className="border p-2 rounded w-32" required />
           <input name="password" type="password" value={form.password} onChange={handleChange} placeholder="Password" className="border p-2 rounded w-32" required />
           <input name="name" value={form.name} onChange={handleChange} placeholder="Name" className="border p-2 rounded w-32" />
           <input name="email" value={form.email} onChange={handleChange} placeholder="Email" className="border p-2 rounded w-32" />
+          <input name="branch" value={form.branch} onChange={handleChange} placeholder="Branch" className="border p-2 rounded w-32" required />
+          <select name="role" value={form.role} onChange={handleChange} className="border p-2 rounded w-32" required>
+            <option value="branch">Branch</option>
+            <option value="admin">Admin</option>
+          </select>
           <button type="submit" className="bg-blue-600 text-white px-3 py-1 rounded">Add</button>
         </div>
       </form>
