@@ -25,7 +25,7 @@ export default function AdminUserManagement() {
     fetchUsers();
   }, [message]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
