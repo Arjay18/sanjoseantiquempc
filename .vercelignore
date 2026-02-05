@@ -1,0 +1,2 @@
+# Ignore uploaded videos from deployment and git
+public/uploads/videos/
