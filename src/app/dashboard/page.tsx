@@ -21,13 +21,25 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Welcome, {session?.user?.name || "User"}!</h2>
-      <div className="space-y-4">
-        <Link href="/loan-application" className="block bg-blue-600 text-white px-4 py-2 rounded text-center">Apply for a Loan</Link>
-        <Link href="/loan-status" className="block bg-green-600 text-white px-4 py-2 rounded text-center">View Loan Status</Link>
-        <Link href="/upload-document" className="block bg-gray-700 text-white px-4 py-2 rounded text-center">Upload Documents</Link>
+    <section className="bg-white rounded-lg shadow p-8">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-blue-900 mb-2">Welcome, {session?.user?.name || "User"}!</h1>
+        <p className="text-gray-600">Access your loan services and account features below.</p>
       </div>
-    </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 flex flex-col items-center">
+          <span className="text-blue-700 font-semibold mb-2">Apply for a Loan</span>
+          <Link href="/loan-application" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full text-center mt-2">Start Application</Link>
+        </div>
+        <div className="bg-green-50 border border-green-200 rounded-lg p-6 flex flex-col items-center">
+          <span className="text-green-700 font-semibold mb-2">View Loan Status</span>
+          <Link href="/loan-status" className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full text-center mt-2">Check Status</Link>
+        </div>
+        <div className="bg-gray-100 border border-gray-300 rounded-lg p-6 flex flex-col items-center">
+          <span className="text-gray-700 font-semibold mb-2">Upload Documents</span>
+          <Link href="/upload-document" className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded w-full text-center mt-2">Upload</Link>
+        </div>
+      </div>
+    </section>
   );
 }
