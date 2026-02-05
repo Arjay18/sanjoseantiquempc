@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-export default function AdminViewUserDashboard({ params }: { params: { userId: string } }) {
+export default function AdminViewUserDashboard(props: { params: { userId: string } }) {
+	const { params } = props;
 	const { data: session, status } = useSession();
 	const router = useRouter();
 	const [user, setUser] = useState<any>(null);
