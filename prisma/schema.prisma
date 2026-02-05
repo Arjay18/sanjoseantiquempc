@@ -58,7 +58,7 @@ model Statistic {
 
 model PMESSession {
   id          String   @id @default(cuid())
-  branch      String
+  branch      String?
   date        DateTime
   time        String
   capacity    Int      @default(50)
