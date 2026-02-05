@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
   if (!session || !session.user || session.user.role !== 'branch') {
     return NextResponse.json([], { status: 401 });
   }
-  const branch = session.user.branch;
+  const branch = (session.user as any).branch || '';
   const applications = await prisma.loanApplication.findMany({
     where: { branch },
     orderBy: { createdAt: 'desc' },
