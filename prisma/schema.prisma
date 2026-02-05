@@ -235,6 +235,7 @@ model User {
   password  String
   name      String?
   email     String?
+  branch    String
   role      String   // "admin", "branch"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
