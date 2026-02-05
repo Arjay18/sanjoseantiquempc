@@ -20,8 +20,8 @@ export async function POST(req: NextRequest) {
   if (!session || !session.user || session.user.role !== 'admin') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  const { username, password, name, email, role } = await req.json();
-  if (!username || !password || !role) {
+  const { username, password, name, email, role, passbookNo, branch } = await req.json();
+  if (!username || !password || !role || !passbookNo || !branch) {
     return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
   }
   const existing = await prisma.user.findUnique({ where: { username } });
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
   }
   const hashed = await bcrypt.hash(password, 10);
   await prisma.user.create({
-    data: { username, password: hashed, name, email, role },
+    data: { username, password: hashed, name, email, role, passbookNo, branch },
   });
   return NextResponse.json({ success: true });
 }
