@@ -21,25 +21,29 @@ async function main() {
         username: 'miagao_admin',
         password: '$2b$10$gsTPwPwIE76QAmVc.MEKq.8X0UVC428ixjYnCgv3Z6DsJ2Me3X0xS',
         role: 'branch',
-        branch: 'miagao'
+        branch: 'miagao',
+        passbookNo: 'PB0001'
       },
       {
         username: 'oton_admin',
         password: '$2b$10$0tFikMSW4YHfZEugRB1Qled50RoeQUhzIIO2lr79WeX9aj6p7RzCu',
         role: 'branch',
-        branch: 'oton'
+        branch: 'oton',
+        passbookNo: 'PB0002'
       },
       {
         username: 'guimaras_admin',
         password: '$2b$10$tbkC2td1c8VjNY1xmm4hnOb95vbNabDl1RsHpNkbfrhuiw4NH6Z1K',
         role: 'branch',
-        branch: 'guimaras'
+        branch: 'guimaras',
+        passbookNo: 'PB0003'
       },
       {
         username: 'sanjose_admin',
         password: '$2b$10$o0UvDwjLhCtdXyvB38icYesw7pQCtg97KyfoG2YEA4oefZg4N8tK6',
         role: 'branch',
-        branch: 'sanjose'
+        branch: 'sanjose',
+        passbookNo: 'PB0004'
       }
     ]
   });
