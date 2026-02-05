@@ -370,6 +370,22 @@ export default function AdminDashboard() {
               <p className="text-sm text-gray-500">Schedule seminars</p>
             </div>
           </Link>
+
+          {/* New: Manage Users button */}
+          <Link
+            href="/administrator/users"
+            className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex-shrink-0">
+              <svg className="h-8 w-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-900">Manage Users</p>
+              <p className="text-sm text-gray-500">View and manage all users</p>
+            </div>
+          </Link>
         </div>
       </div>
 
