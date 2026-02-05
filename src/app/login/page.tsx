@@ -15,7 +15,7 @@ export default function UserLoginPage() {
   useEffect(() => {
     if (status === "loading") return;
     if (session) {
-      router.push("/"); // Redirect to home after login
+      router.push("/dashboard"); // Redirect to dashboard after login
       return;
     }
   }, [session, status, router]);
@@ -31,7 +31,7 @@ export default function UserLoginPage() {
         redirect: false,
       });
       if (result?.ok) {
-        router.push("/");
+        router.push("/dashboard");
       } else {
         setError("Invalid username or password.");
       }
