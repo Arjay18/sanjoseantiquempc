@@ -27,28 +27,9 @@ export default function BranchReportsPage() {
       }
       else {
         setPaymentMessage("Payment failed.");
-      }
-    };
-
-    return (
-      <div className="max-w-5xl mx-auto mt-10 p-6 bg-white rounded shadow">
-        <h2 className="text-2xl font-bold mb-4">Branch Reports & Payment Posting</h2>
-        {loading && <p>Loading...</p>}
-        {error && <p className="text-red-600">{error}</p>}
-        {paymentMessage && <p className="text-blue-700 mb-2">{paymentMessage}</p>}
-        {!loading && !error && applications.length === 0 && <p>No applications found.</p>}
-        {!loading && !error && applications.length > 0 && (
-          <table className="w-full border mt-4 text-sm">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="p-2">Date</th>
-                <th className="p-2">Name</th>
-                <th className="p-2">Loan Type</th>
-                <th className="p-2">Amount</th>
-                <th className="p-2">Status</th>
-                <th className="p-2">Payment</th>
-              </tr>
-            </thead>
+      </div>
+    );
+  }
             <tbody>
               {applications.map((app: Application) => (
                 <tr key={app.id} className="border-t">
