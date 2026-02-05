@@ -1,8 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
 
+type Application = {
+  id: string;
+  createdAt: string;
+  loanType: string;
+  loanAmount: number;
+  status: string;
+};
+
 export default function LoanStatusPage() {
-  const [applications, setApplications] = useState([]);
+  const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -40,11 +48,20 @@ export default function LoanStatusPage() {
             </tr>
           </thead>
           <tbody>
-            {applications.map((app) => (
               <tr key={app.id} className="border-t">
                 <td className="p-2">{new Date(app.createdAt).toLocaleDateString()}</td>
                 <td className="p-2">{app.loanType}</td>
                 <td className="p-2">₱{app.loanAmount?.toLocaleString()}</td>
+                <td className="p-2 font-semibold capitalize">
+                  {app.status}
+                </td>
+              </tr>
+            ))}
+            {applications.map((app: Application) => (
+              <tr key={app.id} className="border-t">
+                <td className="p-2">{new Date(app.createdAt).toLocaleDateString()}</td>
+                <td className="p-2">{app.loanType}</td>
+                <td className="p-2">{app.loanAmount?.toLocaleString()}</td>
                 <td className="p-2 font-semibold capitalize">
                   {app.status}
                 </td>

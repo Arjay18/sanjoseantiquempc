@@ -1,8 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 
+type Application = {
+  id: string;
+  createdAt: string;
+  name: string;
+  loanType: string;
+  loanAmount: number;
+  status: string;
+};
+
 export default function BranchReviewDashboard() {
-  const [applications, setApplications] = useState([]);
+  const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [actionMessage, setActionMessage] = useState("");
@@ -24,7 +33,7 @@ export default function BranchReviewDashboard() {
     fetchApplications();
   }, [actionMessage]);
 
-  const handleAction = async (id, status) => {
+  const handleAction = async (id: string, status: string) => {
     setActionMessage("");
     const res = await fetch(`/api/loan-applications/branch`, {
       method: "PATCH",
@@ -58,12 +67,28 @@ export default function BranchReviewDashboard() {
             </tr>
           </thead>
           <tbody>
-            {applications.map((app) => (
               <tr key={app.id} className="border-t">
                 <td className="p-2">{new Date(app.createdAt).toLocaleDateString()}</td>
                 <td className="p-2">{app.name}</td>
                 <td className="p-2">{app.loanType}</td>
                 <td className="p-2">₱{app.loanAmount?.toLocaleString()}</td>
+                <td className="p-2 font-semibold capitalize">{app.status}</td>
+                <td className="p-2">
+                  {app.status === "pending" && (
+                    <>
+                      <button onClick={() => handleAction(app.id, "approved")} className="bg-green-600 text-white px-2 py-1 rounded mr-2">Approve</button>
+                      <button onClick={() => handleAction(app.id, "rejected")} className="bg-red-600 text-white px-2 py-1 rounded">Reject</button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+            {applications.map((app: Application) => (
+              <tr key={app.id} className="border-t">
+                <td className="p-2">{new Date(app.createdAt).toLocaleDateString()}</td>
+                <td className="p-2">{app.name}</td>
+                <td className="p-2">{app.loanType}</td>
+                <td className="p-2">{app.loanAmount?.toLocaleString()}</td>
                 <td className="p-2 font-semibold capitalize">{app.status}</td>
                 <td className="p-2">
                   {app.status === "pending" && (

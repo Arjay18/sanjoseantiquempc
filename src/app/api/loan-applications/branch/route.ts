@@ -37,11 +37,11 @@ export async function PATCH(req: NextRequest) {
 
   // Audit log
   await logAudit({
-    userId: session.user.id || null,
-    username: session.user.name || null,
+    userId: (session.user as any).id || null,
+    username: (session.user as any).name || null,
     action: `loan_${status}`,
     target: application.id,
-    details: `Loan application ${status} by branch ${session.user.branch}`,
+    details: `Loan application ${status} by branch ${(session.user as any).branch}`,
     ip: req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || '',
   });
 
