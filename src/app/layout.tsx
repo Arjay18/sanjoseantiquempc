@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import { usePathname } from "next/navigation";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
 import CookieConsent from "@/components/CookieConsent";
@@ -39,11 +40,15 @@ export const viewport = {
   maximumScale: 1,
 };
 
-export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Use a client-side hook to get the current pathname
+  // and conditionally render the Navigation component
+  // Only show Navigation if not on /dashboard or its subroutes
+  // This must be a Client Component to use usePathname
+  // So we wrap the body content in a ClientWrapper
   return (
     <html lang="en">
       <head>
@@ -70,16 +75,30 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}
       >
         <AuthProvider>
-          <div className="flex min-h-screen flex-col">
-            <Navigation />
-            <main className="flex-grow pt-16">
-              {children}
-            </main>
-            <Footer />
-            <CookieConsent />
-          </div>
+          <ClientWrapper>
+            {children}
+          </ClientWrapper>
         </AuthProvider>
       </body>
     </html>
+  );
+}
+
+// ClientWrapper is a client component to conditionally render Navigation
+// based on the current pathname
+"use client";
+import React from "react";
+function ClientWrapper({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const showNav = !pathname?.startsWith("/dashboard");
+  return (
+    <div className="flex min-h-screen flex-col">
+      {showNav && <Navigation />}
+      <main className={showNav ? "flex-grow pt-16" : "flex-grow"}>
+        {children}
+      </main>
+      <Footer />
+      <CookieConsent />
+    </div>
   );
 }
