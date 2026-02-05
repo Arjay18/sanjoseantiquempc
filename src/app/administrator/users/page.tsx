@@ -100,8 +100,16 @@ export default function AdminUserManagement() {
               <td className="p-2">{user.email}</td>
               <td className="p-2">{user.branch}</td>
               <td className="p-2">{user.role}</td>
-              <td className="p-2">
+              <td className="p-2 flex gap-2">
                 <button onClick={() => handleDelete(user.id)} className="bg-red-600 text-white px-2 py-1 rounded">Delete</button>
+                <a
+                  href={`/administrator/users/${user.id}/dashboard`}
+                  className="bg-blue-600 text-white px-2 py-1 rounded"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Dashboard
+                </a>
               </td>
             </tr>
           ))}
