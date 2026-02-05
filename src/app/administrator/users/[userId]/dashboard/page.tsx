@@ -1,9 +1,5 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 
-// Next.js 15 dynamic route type fix: use async function and correct PageProps
+"use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
