@@ -138,15 +138,41 @@ export default function LoanApplication() {
     formData.loanRepayments,
     formData.miscellaneousExpense
   ]);
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitMessage(null);
-    // Simulate submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitMessage('Application submitted successfully!');
-    }, 2000);
+    try {
+      // Convert files to base64
+      const validIDsAndSignatures = formData.validIDsAndSignatures ? await fileToBase64(formData.validIDsAndSignatures) : null;
+      const depositSlipOrEwallet = formData.depositSlipOrEwallet ? await fileToBase64(formData.depositSlipOrEwallet) : null;
+      const memberWithIDAndSlip = formData.memberWithIDAndSlip ? await fileToBase64(formData.memberWithIDAndSlip) : null;
+
+      // Prepare data for API
+      const payload = {
+        ...formData,
+        validIDsAndSignatures,
+        depositSlipOrEwallet,
+        memberWithIDAndSlip,
+      };
+
+      const res = await fetch('/api/loan-applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formData: payload }),
+      });
+      if (res.ok) {
+        setSubmitMessage('Application submitted successfully!');
+        // Optionally reset form
+        // setFormData({ ... });
+      } else {
+        const data = await res.json();
+        setSubmitMessage(data.error || 'Submission failed.');
+      }
+    } catch (err) {
+      setSubmitMessage('Submission failed. Please try again.');
+    }
+    setIsSubmitting(false);
   };
 
   // Step navigation handlers

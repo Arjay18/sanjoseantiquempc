@@ -1,3 +1,13 @@
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  username  String?
+  action    String
+  target    String?
+  details   String?
+  ip        String?
+  createdAt DateTime @default(now())
+}
 // prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
