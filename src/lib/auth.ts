@@ -10,19 +10,20 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
+        username: { label: "Username", type: "text" },
         passbookNo: { label: "Passbook Number", type: "text" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.passbookNo || !credentials?.password) {
+        if (!credentials?.password) {
           return null;
         }
 
-        // Check admin credentials (optional, can be removed if not needed)
-        const adminPassbook = process.env.ADMIN_PASSBOOKNO;
+        // Admin login by username
+        const adminUsername = process.env.ADMIN_USERNAME;
         const adminPassword = process.env.ADMIN_PASSWORD;
         if (
-          credentials.passbookNo === adminPassbook &&
+          credentials.username === adminUsername &&
           credentials.password === adminPassword
         ) {
           return {
@@ -33,7 +34,10 @@ export const authOptions: NextAuthOptions = {
           };
         }
 
-        // Check user credentials by passbookNo
+        // Regular user login by passbookNo
+        if (!credentials.passbookNo) {
+          return null;
+        }
         try {
           const user = await prisma.user.findUnique({
             where: { passbookNo: credentials.passbookNo }
