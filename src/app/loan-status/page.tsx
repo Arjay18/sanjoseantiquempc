@@ -9,6 +9,7 @@ type Application = {
   status: string;
 };
 
+export default function LoanStatusPage() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
