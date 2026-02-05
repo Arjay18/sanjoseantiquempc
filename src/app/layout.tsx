@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navigation from "@/components/Navigation";
 import { usePathname } from "next/navigation";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
@@ -75,9 +74,7 @@ export const viewport = {
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}
       >
         <AuthProvider>
-          <ClientWrapper>
-            {children}
-          </ClientWrapper>
+          <RootLayoutClient>{children}</RootLayoutClient>
         </AuthProvider>
       </body>
     </html>
