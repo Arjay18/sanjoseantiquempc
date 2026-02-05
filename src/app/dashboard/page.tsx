@@ -23,7 +23,6 @@ export default function UserDashboard() {
   return (
     <section className="bg-white rounded-lg shadow p-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-blue-900 mb-2">Welcome, {session?.user?.name || "User"}!</h1>
         <p className="text-gray-600">Access your loan services and account features below.</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
