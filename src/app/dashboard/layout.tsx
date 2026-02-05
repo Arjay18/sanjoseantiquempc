@@ -1,8 +1,10 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
+import UserHeader from "./UserHeader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,20 +34,9 @@ export default function DashboardLayout({
         <AuthProvider>
           <div className="flex min-h-screen flex-col">
             <header className="bg-blue-900 text-white shadow-sm border-b border-gray-100">
-              <UserHeader />
+                <UserHeader />
             </header>
             // Add client component for personalized header
-            "use client";
-            import { useSession } from "next-auth/react";
-            function UserHeader() {
-              const { data: session } = useSession();
-              return (
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-16">
-                  <img src="/logo.png" alt="SJMPC Logo" className="h-10 w-10 rounded-lg mr-3" />
-                  <span className="font-bold text-lg tracking-wide">Welcome, {session?.user?.name || "User"}</span>
-                </div>
-              );
-            }
             <main className="flex-grow pt-6 pb-8 bg-gray-50">
               <div className="max-w-4xl mx-auto px-4">
                 {children}
