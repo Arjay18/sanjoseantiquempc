@@ -1,8 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 
+type User = {
+  id: string;
+  username: string;
+  name?: string;
+  email?: string;
+  branch: string;
+  role: string;
+};
+
 export default function AdminUserManagement() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [form, setForm] = useState({ username: "", password: "", name: "", email: "", branch: "", role: "branch" });
@@ -29,7 +38,7 @@ export default function AdminUserManagement() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessage("");
     const res = await fetch("/api/admin/users", {
@@ -45,7 +54,7 @@ export default function AdminUserManagement() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     setMessage("");
     const res = await fetch(`/api/admin/users?id=${id}`, { method: "DELETE" });
     if (res.ok) setMessage("User deleted.");
