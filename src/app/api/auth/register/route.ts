@@ -8,9 +8,9 @@ import { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
-    const { username, password, name, email, branch } = await req.json();
-    if (!username || !password || !branch) {
-      return NextResponse.json({ error: "Username, password, and branch are required." }, { status: 400 });
+    const { username, password, name, email, branch, passbookNo } = await req.json();
+    if (!username || !password || !branch || !passbookNo) {
+      return NextResponse.json({ error: "Username, password, branch, and passbookNo are required." }, { status: 400 });
     }
     const existing = await prisma.user.findUnique({ where: { username } });
     if (existing) {
@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
         name,
         email,
         branch,
+        passbookNo,
         role: "branch",
       },
     });
