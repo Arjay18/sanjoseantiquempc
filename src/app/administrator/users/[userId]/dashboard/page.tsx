@@ -1,8 +1,5 @@
-import type { PageProps } from "next";
-import dynamic from "next/dynamic";
+import UserDashboardClient from "./UserDashboardClient";
 
-const UserDashboardClient = dynamic(() => import("./UserDashboardClient"), { ssr: false });
-
-export default function Page({ params }: PageProps) {
+export default function Page({ params }: { params: { userId: string } }) {
 	return <UserDashboardClient userId={params.userId} />;
 }
