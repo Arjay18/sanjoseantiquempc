@@ -22,7 +22,7 @@ export default function UserDashboard() {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Welcome, {session?.user?.name || session?.user?.username || "User"}!</h2>
+      <h2 className="text-2xl font-bold mb-4">Welcome, {session?.user?.name || "User"}!</h2>
       <div className="space-y-4">
         <Link href="/loan-application" className="block bg-blue-600 text-white px-4 py-2 rounded text-center">Apply for a Loan</Link>
         <Link href="/loan-status" className="block bg-green-600 text-white px-4 py-2 rounded text-center">View Loan Status</Link>
