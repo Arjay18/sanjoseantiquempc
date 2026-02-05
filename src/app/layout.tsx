@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { usePathname } from "next/navigation";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
 import CookieConsent from "@/components/CookieConsent";
@@ -81,21 +80,3 @@ export const viewport = {
   );
 }
 
-// ClientWrapper is a client component to conditionally render Navigation
-// based on the current pathname
-"use client";
-import React from "react";
-function ClientWrapper({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const showNav = !pathname?.startsWith("/dashboard");
-  return (
-    <div className="flex min-h-screen flex-col">
-      {showNav && <Navigation />}
-      <main className={showNav ? "flex-grow pt-16" : "flex-grow"}>
-        {children}
-      </main>
-      <Footer />
-      <CookieConsent />
-    </div>
-  );
-}
