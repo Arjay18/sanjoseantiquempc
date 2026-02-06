@@ -21,8 +21,6 @@ datasource db {
 model NewsPost {
   id          String   @id @default(cuid())
   title       String
-  content     String
-  imageUrl    String?
   author      String?
   category    String?
   caption     String?
@@ -231,12 +229,10 @@ model ContactInquiry {
 model User {
   id        String   @id @default(cuid())
   passbookNo String  @unique
-  username  String?  @unique
-  password  String
-  name      String?
-  email     String?
-  branch    String?
-  role      String   // "admin", "branch"
+    password  String
+    name      String?
+    email     String?
+    role      String   @default("member") // "member" by default
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
