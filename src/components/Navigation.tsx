@@ -104,7 +104,7 @@ export default function Navigation() {
     },
     { name: 'Contact', href: '/contact' },
     {
-      name: 'Login',
+      name: 'Coop Login',
       href: '/login',
     },
   ];
@@ -132,7 +132,7 @@ export default function Navigation() {
           {/* Desktop Menu */}
           <div className="hidden lg:flex lg:items-center lg:space-x-8">
             {menuItems.map((item) => (
-              item.name === 'Login' ? (
+              item.name === 'Coop Login' ? (
                 <Link
                   key={item.name}
                   href={item.href}
@@ -296,7 +296,7 @@ export default function Navigation() {
                 toggleOpen = () => setMobileOnlineOpen(!mobileOnlineOpen);
               }
 
-              if (item.name === 'Login') {
+              if (item.name === 'Coop Login') {
                 return (
                   <Link
                     key={item.name}
