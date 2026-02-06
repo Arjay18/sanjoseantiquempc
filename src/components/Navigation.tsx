@@ -103,7 +103,18 @@ export default function Navigation() {
       ]
     },
     { name: 'Contact', href: '/contact' },
-    { name: 'Login', href: '/login' },
+    {
+      name: 'Login',
+      href: '/login',
+      dropdown: [
+        { name: 'Member Login', href: '/login' },
+        { name: 'Branch Login - San Jose', href: '/branch/sanjose/login' },
+        { name: 'Branch Login - Miagao', href: '/branch/miagao/login' },
+        { name: 'Branch Login - Oton', href: '/branch/oton/login' },
+        { name: 'Branch Login - Guimaras', href: '/branch/guimaras/login' },
+        { name: 'Admin Login', href: '/administrator/login' },
+      ],
+    },
   ];
 
   return (
@@ -129,7 +140,33 @@ export default function Navigation() {
           {/* Desktop Menu */}
           <div className="hidden lg:flex lg:items-center lg:space-x-8">
             {menuItems.map((item) => (
-              item.dropdown ? (
+              item.name === 'Login' ? (
+                <div key={item.name} className="relative">
+                  <button
+                    className="px-3 py-2 text-sm font-bold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-colors flex items-center focus:outline-none"
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    onMouseLeave={() => setDropdownOpen(false)}
+                  >
+                    {item.name}
+                    <ChevronDownIcon className="ml-1 h-4 w-4" />
+                  </button>
+                  {dropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
+                      <div className="py-2">
+                        {item.dropdown.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            href={subItem.href}
+                            className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : item.dropdown ? (
                 <div key={item.name} className="relative"
                   onMouseEnter={() => {
                     if (item.name === 'About Us') {
@@ -268,6 +305,35 @@ export default function Navigation() {
         <div className="max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="py-2">
             {menuItems.map((item) => {
+              if (item.name === 'Login') {
+                return (
+                  <div key={item.name} className="border-b border-gray-100 last:border-b-0">
+                    <button
+                      className="w-full flex items-center justify-between px-6 py-4 text-base font-bold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-colors focus:outline-none"
+                      onClick={toggleOpen}
+                      aria-expanded={isOpen}
+                      aria-label={`Toggle ${item.name} submenu`}
+                    >
+                      {item.name}
+                      <ChevronDownIcon className={`h-6 w-6 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {isOpen && (
+                      <div className="bg-white">
+                        {item.dropdown.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            href={subItem.href}
+                            className="block px-8 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
               const isOpen = item.name === 'About Us' ? mobileAboutOpen :
                             item.name === 'Product and Services' ? mobileServicesOpen :
                             item.name === 'News' ? mobileNewsOpen :
