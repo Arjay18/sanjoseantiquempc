@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: "User dashboard for San Jose Antique MPC members.",
 };
 
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
