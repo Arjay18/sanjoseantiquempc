@@ -47,7 +47,8 @@ export const authOptions: NextAuthOptions = {
               id: user.id,
               name: user.name,
               email: user.email,
-              role: user.role
+              role: user.role,
+              branch: user.role === 'branch' ? (user as any).branch || null : null
             };
           }
         } catch (error) {
@@ -68,12 +69,18 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }: any) {
       if (user) {
         token.role = user.role;
+        if (user.role === 'branch') {
+          token.branch = user.branch;
+        }
       }
       return token;
     },
     async session({ session, token }: any) {
       if (token) {
         session.user.role = token.role;
+        if (token.role === 'branch') {
+          session.user.branch = token.branch;
+        }
       }
       return session;
     }
