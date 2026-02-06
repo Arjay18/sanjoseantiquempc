@@ -18,31 +18,23 @@ async function main() {
   await prisma.user.createMany({
     data: [
       {
-        username: 'miagao_admin',
         password: '$2b$10$gsTPwPwIE76QAmVc.MEKq.8X0UVC428ixjYnCgv3Z6DsJ2Me3X0xS',
         role: 'branch',
-        branch: 'miagao',
         passbookNo: 'PB0001'
       },
       {
-        username: 'oton_admin',
         password: '$2b$10$0tFikMSW4YHfZEugRB1Qled50RoeQUhzIIO2lr79WeX9aj6p7RzCu',
         role: 'branch',
-        branch: 'oton',
         passbookNo: 'PB0002'
       },
       {
-        username: 'guimaras_admin',
         password: '$2b$10$tbkC2td1c8VjNY1xmm4hnOb95vbNabDl1RsHpNkbfrhuiw4NH6Z1K',
         role: 'branch',
-        branch: 'guimaras',
         passbookNo: 'PB0003'
       },
       {
-        username: 'sanjose_admin',
         password: '$2b$10$o0UvDwjLhCtdXyvB38icYesw7pQCtg97KyfoG2YEA4oefZg4N8tK6',
         role: 'branch',
-        branch: 'sanjose',
         passbookNo: 'PB0004'
       }
     ]
@@ -53,14 +45,12 @@ async function main() {
     data: [
       {
         title: 'SJPMC Annual General Meeting 2024',
-        content: 'Join us for our annual general meeting where we will discuss the cooperative\'s achievements and future plans.',
         status: 'published',
         slug: 'annual-general-meeting-2024',
         author: 'SJPMC Admin'
       },
       {
         title: 'New Loan Programs Now Available',
-        content: 'We are excited to announce new loan programs designed to help our members achieve their financial goals.',
         status: 'published',
         slug: 'new-loan-programs-2024',
         author: 'SJPMC Admin'
