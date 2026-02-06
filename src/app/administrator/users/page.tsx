@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 type User = {
   id: string;
   passbookNo: string;
-  username: string;
   name?: string;
   email?: string;
-  branch: string;
   role: string;
 };
 
@@ -17,7 +15,6 @@ export default function AdminUserManagement() {
   const [error, setError] = useState("");
   const [form, setForm] = useState({
     passbookNo: "",
-    username: "",
     password: "",
     name: "",
     email: "",
@@ -59,7 +56,6 @@ export default function AdminUserManagement() {
       setMessage("User added.");
       setForm({
         passbookNo: "",
-        username: "",
         password: "",
         name: "",
         email: "",
