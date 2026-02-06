@@ -8,10 +8,7 @@ import AuthProvider from "@/components/AuthProvider";
 import UserHeader from "./UserHeader";
 import { useEffect, useState } from "react";
 
-export const metadata: Metadata = {
-  title: "User Dashboard | San Jose Antique MPC",
-  description: "User dashboard for San Jose Antique MPC members.",
-};
+// Metadata export removed due to 'use client' directive
 
 export default function DashboardLayout({
   children,
