@@ -87,14 +87,9 @@ export default function AdminUserManagement() {
       <form onSubmit={handleSubmit} className="space-y-2 mb-6">
         <div className="flex gap-2 flex-wrap">
           <input name="passbookNo" value={form.passbookNo} onChange={handleChange} placeholder="Passbook Number" className="border p-2 rounded w-32" required />
-          <input name="username" value={form.username} onChange={handleChange} placeholder="Username" className="border p-2 rounded w-32" required />
           <input name="password" type="password" value={form.password} onChange={handleChange} placeholder="Password" className="border p-2 rounded w-32" required />
           <input name="name" value={form.name} onChange={handleChange} placeholder="Name" className="border p-2 rounded w-32" />
           <input name="email" value={form.email} onChange={handleChange} placeholder="Email" className="border p-2 rounded w-32" />
-          <select name="role" value={form.role} onChange={handleChange} className="border p-2 rounded w-32" required>
-            <option value="branch">Branch</option>
-            <option value="admin">Admin</option>
-          </select>
           <button type="submit" className="bg-blue-600 text-white px-3 py-1 rounded">Add</button>
         </div>
       </form>
