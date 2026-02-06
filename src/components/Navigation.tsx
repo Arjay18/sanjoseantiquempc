@@ -305,6 +305,25 @@ export default function Navigation() {
         <div className="max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="py-2">
             {menuItems.map((item) => {
+              let isOpen = false;
+              let toggleOpen = () => {};
+              if (item.name === 'About Us') {
+                isOpen = mobileAboutOpen;
+                toggleOpen = () => setMobileAboutOpen(!mobileAboutOpen);
+              } else if (item.name === 'Product and Services') {
+                isOpen = mobileServicesOpen;
+                toggleOpen = () => setMobileServicesOpen(!mobileServicesOpen);
+              } else if (item.name === 'News') {
+                isOpen = mobileNewsOpen;
+                toggleOpen = () => setMobileNewsOpen(!mobileNewsOpen);
+              } else if (item.name === 'Online Application') {
+                isOpen = mobileOnlineOpen;
+                toggleOpen = () => setMobileOnlineOpen(!mobileOnlineOpen);
+              } else if (item.name === 'Login') {
+                isOpen = mobileServicesOpen; // Use a dedicated state if you want separate control
+                toggleOpen = () => setMobileServicesOpen(!mobileServicesOpen); // Or create a new state for login dropdown
+              }
+
               if (item.name === 'Login') {
                 return (
                   <div key={item.name} className="border-b border-gray-100 last:border-b-0">
@@ -317,7 +336,7 @@ export default function Navigation() {
                       {item.name}
                       <ChevronDownIcon className={`h-6 w-6 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                     </button>
-                    {isOpen && (
+                    {isOpen && item.dropdown && (
                       <div className="bg-white">
                         {item.dropdown.map((subItem) => (
                           <Link
@@ -334,17 +353,6 @@ export default function Navigation() {
                   </div>
                 );
               }
-              const isOpen = item.name === 'About Us' ? mobileAboutOpen :
-                            item.name === 'Product and Services' ? mobileServicesOpen :
-                            item.name === 'News' ? mobileNewsOpen :
-                            item.name === 'Online Application' ? mobileOnlineOpen : false;
-
-              const toggleOpen = () => {
-                if (item.name === 'About Us') setMobileAboutOpen(!mobileAboutOpen);
-                else if (item.name === 'Product and Services') setMobileServicesOpen(!mobileServicesOpen);
-                else if (item.name === 'News') setMobileNewsOpen(!mobileNewsOpen);
-                else if (item.name === 'Online Application') setMobileOnlineOpen(!mobileOnlineOpen);
-              };
 
               return item.dropdown ? (
                 <div key={item.name} className="border-b border-gray-100 last:border-b-0">
