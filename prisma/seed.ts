@@ -18,6 +18,13 @@ async function main() {
   await prisma.user.createMany({
     data: [
       {
+        passbookNo: 'sanjose_admin',
+        password: '$2b$10$PqQ0TwXeUT6ujA14dn4GmetZvSVca.GLgmqsMtruxB3iYyG7yEnhi', // 'sanjose2026'
+        role: 'branch',
+        name: 'San Jose Branch Admin',
+        email: 'sanjose_admin@sjmpc.com',
+      },
+      {
         password: '$2b$10$gsTPwPwIE76QAmVc.MEKq.8X0UVC428ixjYnCgv3Z6DsJ2Me3X0xS',
         role: 'branch',
         passbookNo: 'PB0001'
