@@ -50,9 +50,7 @@ export default function UserDashboardClient({ userId }: UserDashboardClientProps
       <h2 className="text-2xl font-bold mb-4">User Dashboard (Admin View)</h2>
       <div className="mb-4">
         <p><span className="font-semibold">Name:</span> {user.name}</p>
-        <p><span className="font-semibold">Username:</span> {user.username}</p>
         <p><span className="font-semibold">Email:</span> {user.email}</p>
-        <p><span className="font-semibold">Branch:</span> {user.branch}</p>
         <p><span className="font-semibold">Role:</span> {user.role}</p>
       </div>
       {/* You can add more user-specific dashboard info here, such as loan status, applications, etc. */}
