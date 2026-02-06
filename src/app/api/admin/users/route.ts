@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user || session.user.role !== 'admin') {
+  if (!session || !session.user || session.user.role !== 'administrator') {
     return NextResponse.json([], { status: 401 });
   }
   const users = await prisma.user.findMany({ orderBy: { createdAt: 'desc' } });
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user || session.user.role !== 'admin') {
+  if (!session || !session.user || session.user.role !== 'administrator') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   const { password, name, email, role, passbookNo } = await req.json();
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user || session.user.role !== 'admin') {
+  if (!session || !session.user || session.user.role !== 'administrator') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   const { searchParams } = new URL(req.url);
