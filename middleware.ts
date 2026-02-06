@@ -13,6 +13,11 @@ export default withAuth(
       // Allow RSC prefetches to proceed without auth to avoid 404s during client-side prefetch
       if (isRscPrefetch) return NextResponse.next();
 
+      // Allow public access to branch login pages
+      if (pathname.match(/^\/branch\/[^\/]+\/login$/)) {
+        return NextResponse.next();
+      }
+
       if (!token || token.role !== 'branch') {
         return NextResponse.redirect(new URL('/administrator/login', req.url));
       }
