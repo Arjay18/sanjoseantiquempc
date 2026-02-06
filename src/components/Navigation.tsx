@@ -150,7 +150,7 @@ export default function Navigation() {
                     {item.name}
                     <ChevronDownIcon className="ml-1 h-4 w-4" />
                   </button>
-                  {dropdownOpen && (
+                  {dropdownOpen && item.dropdown && (
                     <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
                       <div className="py-2">
                         {item.dropdown.map((subItem) => (
