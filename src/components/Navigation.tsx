@@ -106,14 +106,6 @@ export default function Navigation() {
     {
       name: 'Login',
       href: '/login',
-      dropdown: [
-        { name: 'Member Login', href: '/login' },
-        { name: 'Branch Login - San Jose', href: '/branch/sanjose/login' },
-        { name: 'Branch Login - Miagao', href: '/branch/miagao/login' },
-        { name: 'Branch Login - Oton', href: '/branch/oton/login' },
-        { name: 'Branch Login - Guimaras', href: '/branch/guimaras/login' },
-        { name: 'Admin Login', href: '/administrator/login' },
-      ],
     },
   ];
 
@@ -141,31 +133,14 @@ export default function Navigation() {
           <div className="hidden lg:flex lg:items-center lg:space-x-8">
             {menuItems.map((item) => (
               item.name === 'Login' ? (
-                <div key={item.name} className="relative">
-                  <button
-                    className="px-3 py-2 text-sm font-bold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-colors flex items-center focus:outline-none"
-                    onMouseEnter={() => setDropdownOpen(true)}
-                    onMouseLeave={() => setDropdownOpen(false)}
-                  >
-                    {item.name}
-                    <ChevronDownIcon className="ml-1 h-4 w-4" />
-                  </button>
-                  {dropdownOpen && item.dropdown && (
-                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
-                      <div className="py-2">
-                        {item.dropdown.map((subItem) => (
-                          <Link
-                            key={subItem.name}
-                            href={subItem.href}
-                            className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="px-4 py-2 text-sm font-bold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-colors flex items-center focus:outline-none"
+                  style={{ marginLeft: '8px' }}
+                >
+                  {item.name}
+                </Link>
               ) : item.dropdown ? (
                 <div key={item.name} className="relative"
                   onMouseEnter={() => {
@@ -319,38 +294,19 @@ export default function Navigation() {
               } else if (item.name === 'Online Application') {
                 isOpen = mobileOnlineOpen;
                 toggleOpen = () => setMobileOnlineOpen(!mobileOnlineOpen);
-              } else if (item.name === 'Login') {
-                isOpen = mobileServicesOpen; // Use a dedicated state if you want separate control
-                toggleOpen = () => setMobileServicesOpen(!mobileServicesOpen); // Or create a new state for login dropdown
               }
 
               if (item.name === 'Login') {
                 return (
-                  <div key={item.name} className="border-b border-gray-100 last:border-b-0">
-                    <button
-                      className="w-full flex items-center justify-between px-6 py-4 text-base font-bold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-colors focus:outline-none"
-                      onClick={toggleOpen}
-                      aria-expanded={isOpen}
-                      aria-label={`Toggle ${item.name} submenu`}
-                    >
-                      {item.name}
-                      <ChevronDownIcon className={`h-6 w-6 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                    {isOpen && item.dropdown && (
-                      <div className="bg-white">
-                        {item.dropdown.map((subItem) => (
-                          <Link
-                            key={subItem.name}
-                            href={subItem.href}
-                            className="block px-8 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block px-6 py-4 text-base font-bold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-colors border-b border-gray-100 last:border-b-0"
+                    style={{ marginLeft: '8px' }}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
                 );
               }
 
