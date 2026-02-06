@@ -22,10 +22,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { title, content, imageUrl, author, category, caption, status = "published" } = await request.json();
+    const { title, author, category, caption, status = "published" } = await request.json();
 
-    if (!title || !content) {
-      return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
+    if (!title) {
+      return NextResponse.json({ error: "Title is required" }, { status: 400 });
     }
 
     const slug = generateSlug(title);
@@ -42,8 +42,7 @@ export async function POST(request: Request) {
     const newsPost = await prisma.newsPost.create({
       data: {
         title,
-        content,
-        imageUrl,
+        // imageUrl removed
         author,
         category,
         caption,
@@ -82,7 +81,6 @@ export async function GET(request: Request) {
       const searchLower = search.toLowerCase();
       where.OR = [
         { title: { contains: searchLower, mode: "insensitive" } },
-        { content: { contains: searchLower, mode: "insensitive" } },
         { author: { contains: searchLower, mode: "insensitive" } },
         { caption: { contains: searchLower, mode: "insensitive" } },
       ];
@@ -119,16 +117,15 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: "Post ID is required" }, { status: 400 });
     }
 
-    const { title, content, imageUrl, author, category, caption, status } = await request.json();
+    const { title, author, category, caption, status } = await request.json();
 
-    if (!title || !content) {
-      return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
+    if (!title) {
+      return NextResponse.json({ error: "Title is required" }, { status: 400 });
     }
 
     const updateData: any = {
       title,
-      content,
-      imageUrl,
+      // imageUrl removed
       author,
       category,
       caption,
