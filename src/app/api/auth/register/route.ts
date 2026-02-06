@@ -8,22 +8,20 @@ import { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
-    const { username, password, name, email, branch, passbookNo } = await req.json();
-    if (!username || !password || !branch || !passbookNo) {
-      return NextResponse.json({ error: "Username, password, branch, and passbookNo are required." }, { status: 400 });
+    const { password, name, email, passbookNo } = await req.json();
+    if (!password || !passbookNo) {
+      return NextResponse.json({ error: "Password and passbookNo are required." }, { status: 400 });
     }
-    const existing = await prisma.user.findUnique({ where: { username } });
+    const existing = await prisma.user.findUnique({ where: { passbookNo } });
     if (existing) {
-      return NextResponse.json({ error: "Username already exists." }, { status: 400 });
+      return NextResponse.json({ error: "Passbook number already exists." }, { status: 400 });
     }
     const hashed = await bcrypt.hash(password, 10);
     await prisma.user.create({
       data: {
-        username,
         password: hashed,
         name,
         email,
-        branch,
         passbookNo,
         role: "branch",
       },
