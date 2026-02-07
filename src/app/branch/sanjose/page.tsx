@@ -298,17 +298,17 @@ export default function SanJoseBranchDashboard() {
   const rejectedApplications = branchApplications.filter(app => app.status === 'rejected');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
       {/* Modern Header */}
       <header className="bg-white shadow-lg sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-blue-600 text-white shadow-lg">
-              <FaBuilding className="h-7 w-7" />
+            <span className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-blue-700 text-white shadow-lg">
+              <FaBuilding className="h-8 w-8" />
             </span>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 tracking-tight">San Jose Branch Dashboard</h1>
-              <p className="text-sm text-gray-600">Welcome back, {session?.user?.name}</p>
+              <h1 className="text-3xl font-bold text-gray-900 tracking-tight">San Jose Branch Dashboard</h1>
+              <p className="text-sm text-gray-600">Welcome, <span className="font-semibold text-blue-700">{session?.user?.name}</span></p>
             </div>
           </div>
           <div className="flex flex-col items-end gap-1">
@@ -326,32 +326,32 @@ export default function SanJoseBranchDashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         {/* Stats Cards */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <div className="bg-white rounded-xl shadow-md p-6 flex items-center gap-4 border-b-4 border-blue-500 animate-fade-in">
-            <FaBuilding className="h-8 w-8 text-blue-500" />
+          <div className="bg-white rounded-xl shadow-md p-6 flex items-center gap-4 border-b-4 border-blue-600 animate-fade-in">
+            <FaBuilding className="h-8 w-8 text-blue-600" />
             <div>
               <div className="text-xs text-gray-500 font-semibold uppercase">Total Applications</div>
-              <div className="text-2xl font-bold text-gray-900">{branchApplications.length}</div>
+              <div className="text-3xl font-bold text-gray-900">{branchApplications.length}</div>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow-md p-6 flex items-center gap-4 border-b-4 border-yellow-400 animate-fade-in">
             <FaHourglassHalf className="h-8 w-8 text-yellow-400" />
             <div>
               <div className="text-xs text-gray-500 font-semibold uppercase">Pending</div>
-              <div className="text-2xl font-bold text-gray-900">{pendingApplications.length}</div>
+              <div className="text-3xl font-bold text-gray-900">{pendingApplications.length}</div>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow-md p-6 flex items-center gap-4 border-b-4 border-green-500 animate-fade-in">
             <FaUserCheck className="h-8 w-8 text-green-500" />
             <div>
               <div className="text-xs text-gray-500 font-semibold uppercase">Approved</div>
-              <div className="text-2xl font-bold text-gray-900">{approvedApplications.length}</div>
+              <div className="text-3xl font-bold text-gray-900">{approvedApplications.length}</div>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow-md p-6 flex items-center gap-4 border-b-4 border-red-500 animate-fade-in">
             <FaUserTimes className="h-8 w-8 text-red-500" />
             <div>
               <div className="text-xs text-gray-500 font-semibold uppercase">Rejected</div>
-              <div className="text-2xl font-bold text-gray-900">{rejectedApplications.length}</div>
+              <div className="text-3xl font-bold text-gray-900">{rejectedApplications.length}</div>
             </div>
           </div>
         </section>
@@ -360,7 +360,7 @@ export default function SanJoseBranchDashboard() {
         <section className="bg-white shadow-lg rounded-xl overflow-hidden animate-fade-in">
           <div className="px-6 py-5 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>
-              <h3 className="text-xl font-semibold text-gray-900">Loan Applications</h3>
+              <h3 className="text-2xl font-semibold text-gray-900">Loan Applications</h3>
               <p className="text-sm text-gray-500">Manage loan applications for San Jose branch</p>
             </div>
           </div>
