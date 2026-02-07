@@ -34,25 +34,44 @@ export const authOptions: NextAuthOptions = {
           };
         }
 
-        // Regular user login by passbookNo
-        if (!credentials.passbookNo) {
-          return null;
-        }
-        try {
-          const user = await prisma.user.findUnique({
-            where: { passbookNo: credentials.passbookNo }
-          });
-          if (user && await bcrypt.compare(credentials.password, user.password)) {
-            return {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              role: user.role,
-              branch: user.role === 'branch' ? (user as any).branch || null : null
-            };
+        // Branch user login by username
+        if (credentials.username) {
+          try {
+            const branchUser = await prisma.branchUser.findUnique({
+              where: { username: credentials.username }
+            });
+            if (branchUser && await bcrypt.compare(credentials.password, branchUser.password)) {
+              return {
+                id: branchUser.id,
+                name: branchUser.username,
+                email: null,
+                role: branchUser.role,
+                branch: branchUser.branch
+              };
+            }
+          } catch (error) {
+            console.error("Database error during branch authentication:", error);
           }
-        } catch (error) {
-          console.error("Database error during authentication:", error);
+        }
+
+        // Regular user login by passbookNo
+        if (credentials.passbookNo) {
+          try {
+            const user = await prisma.user.findUnique({
+              where: { passbookNo: credentials.passbookNo }
+            });
+            if (user && await bcrypt.compare(credentials.password, user.password)) {
+              return {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                branch: user.role === 'branch' ? (user as any).branch || null : null
+              };
+            }
+          } catch (error) {
+            console.error("Database error during authentication:", error);
+          }
         }
         return null;
       }
