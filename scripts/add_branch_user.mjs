@@ -4,29 +4,39 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  const username = 'sanjose_admin';
-  const password = 'sanjoseadmin';
-  const branch = 'sanjose';
-  const role = 'branch';
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
+  // San Jose branch user
   await prisma.branchUser.upsert({
-    where: { username },
+    where: { username: 'sanjose_admin' },
     update: {
-      password: hashedPassword,
-      branch,
-      role,
+      password: await bcrypt.hash('sanjoseadmin', 10),
+      branch: 'sanjose',
+      role: 'branch',
     },
     create: {
-      username,
-      password: hashedPassword,
-      branch,
-      role,
+      username: 'sanjose_admin',
+      password: await bcrypt.hash('sanjoseadmin', 10),
+      branch: 'sanjose',
+      role: 'branch',
     },
   });
 
-  console.log('San Jose branch user added/updated successfully.');
+  // Miagao branch user
+  await prisma.branchUser.upsert({
+    where: { username: 'miagao_admin' },
+    update: {
+      password: await bcrypt.hash('miagaoadmin', 10),
+      branch: 'miagao',
+      role: 'branch',
+    },
+    create: {
+      username: 'miagao_admin',
+      password: await bcrypt.hash('miagaoadmin', 10),
+      branch: 'miagao',
+      role: 'branch',
+    },
+  });
+
+  console.log('San Jose and Miagao branch users added/updated successfully.');
 }
 
 main()
