@@ -23,7 +23,8 @@ interface LoanApplication {
 interface AttachmentPreviewModalProps {
 	application: LoanApplication | null;
 	onClose: () => void;
-}
+};
+// ...existing code...
 
 function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModalProps) {
 	if (!application) return null;
@@ -87,7 +88,7 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 			</div>
 		</div>
 	);
-}
+// ...existing code...
 
 	const { data: session, status } = useSession();
 	const router = useRouter();
@@ -358,7 +359,9 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 													application.status === 'approved' ? 'bg-green-100 text-green-800' :
 													'bg-red-100 text-red-800'
 												}`}>
-													{application.status?.charAt(0).toUpperCase() + application.status?.slice(1)}
+																	{application.status
+																		? application.status.charAt(0).toUpperCase() + application.status.slice(1)
+																		: "Unknown"}
 												</span>
 											</td>
 											<td className="px-6 py-4 whitespace-nowrap text-center">
