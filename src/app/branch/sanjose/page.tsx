@@ -216,8 +216,8 @@ export default function SanJoseBranchDashboard() {
     localStorage.clear();
     sessionStorage.clear();
 
-    // Sign out and redirect
-    await signOut({ callbackUrl: '/administrator/login' });
+    // Sign out and redirect to San Jose branch login
+    await signOut({ callbackUrl: '/branch/sanjose/login' });
   };
 
   const handleStatusUpdate = async (id: string, status: string) => {
