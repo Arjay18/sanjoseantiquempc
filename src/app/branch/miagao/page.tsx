@@ -18,6 +18,7 @@ interface LoanApplication {
 	idFile?: string;
 	depositSlipOrEwallet?: string;
 	memberWithIDAndSlip?: string;
+};
 
 interface AttachmentPreviewModalProps {
 	application: LoanApplication | null;
