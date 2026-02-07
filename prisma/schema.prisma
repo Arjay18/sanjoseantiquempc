@@ -229,10 +229,20 @@ model ContactInquiry {
 model User {
   id        String   @id @default(cuid())
   passbookNo String  @unique
-    password  String
-    name      String?
-    email     String?
-    role      String   @default("member") // "member" by default
+  password  String
+  name      String?
+  email     String?
+  role      String   @default("member") // "member" by default
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BranchUser {
+  id        String   @id @default(cuid())
+  username  String  @unique
+  password  String
+  branch    String
+  role      String   @default("branch")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
