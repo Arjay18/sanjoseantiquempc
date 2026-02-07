@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function BranchLoginNew({ branchName, branchSlug, checkAuthorization }: Props) {
-  const [passbookNo, setPassbookNo] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
     setError("");
     try {
       const result = await signIn("credentials", {
-        passbookNo,
+        username,
         password,
         redirect: false,
       });
@@ -31,7 +31,7 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
       if (result?.ok) {
         // Trigger a full redirect so NextAuth sets cookies server-side
         await signIn("credentials", {
-          passbookNo,
+          username,
           password,
           redirect: true,
           callbackUrl: `/branch/${branchSlug}`,
@@ -65,16 +65,16 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="passbookNo" className="block text-sm font-medium text-slate-700">Username</label>
+              <label htmlFor="username" className="block text-sm font-medium text-slate-700">Username</label>
               <input
-                id="passbookNo"
-                name="passbookNo"
+                id="username"
+                name="username"
                 type="text"
                 required
                 className="mt-1 block w-full rounded-md border border-slate-200 px-3 py-2 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="e.g. sanjose_admin"
-                value={passbookNo}
-                onChange={(e) => setPassbookNo(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
 
