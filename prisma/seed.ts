@@ -21,6 +21,7 @@ async function main() {
         passbookNo: 'sanjose_admin',
         password: '$2b$10$PqQ0TwXeUT6ujA14dn4GmetZvSVca.GLgmqsMtruxB3iYyG7yEnhi', // 'sanjose2026'
         role: 'branch',
+        branch: 'sanjose',
         name: 'San Jose Branch Admin',
         email: 'sanjose_admin@sjmpc.com',
       },
