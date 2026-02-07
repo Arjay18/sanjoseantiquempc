@@ -1,30 +1,9 @@
 "use client";
-import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { FaBuilding, FaClock, FaUserCheck, FaUserTimes, FaHourglassHalf } from 'react-icons/fa';
-
-interface LoanApplication {
-	id: string;
-	name: string;
-	pbNo: string;
-	contactNo?: string;
-	loanAmount?: number;
-	loanType?: string;
-	status?: string;
-	createdAt?: string;
-	reviewedBy?: string;
-	reviewedAt?: string;
-	idFile?: string;
-	depositSlipOrEwallet?: string;
-	memberWithIDAndSlip?: string;
-};
-
+// Attachment preview modal for images and PDFs
 interface AttachmentPreviewModalProps {
 	application: LoanApplication | null;
 	onClose: () => void;
-};
-// ...existing code...
+}
 
 function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModalProps) {
 	if (!application) return null;
@@ -88,8 +67,40 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 			</div>
 		</div>
 	);
-// ...existing code...
+}
 
+import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { FaBuilding, FaClock, FaUserCheck, FaUserTimes, FaHourglassHalf } from 'react-icons/fa';
+function getFormattedDateTime() {
+	const now = new Date();
+	return now.toLocaleString('en-PH', {
+		dateStyle: 'full',
+		timeStyle: 'short',
+		hour12: true,
+		timeZone: 'Asia/Manila',
+	});
+}
+
+interface LoanApplication {
+	id: string;
+	name: string;
+	pbNo: string;
+	contactNo: string;
+	loanAmount: number;
+	loanType: string;
+	status: string;
+	createdAt: string;
+	reviewedBy?: string;
+	reviewedAt?: string;
+	idFile?: string;
+	depositSlipOrEwallet?: string;
+	memberWithIDAndSlip?: string;
+}
+
+export default function MiagaoBranchDashboard() {
 	const { data: session, status } = useSession();
 	const router = useRouter();
 	const [applications, setApplications] = useState<LoanApplication[]>([]);
@@ -97,25 +108,11 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 	const [error, setError] = useState<string | null>(null);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [previewModalApp, setPreviewModalApp] = useState<LoanApplication | null>(null);
-	const [dateTime, setDateTime] = useState(() => {
-		const now = new Date();
-		return now.toLocaleString('en-PH', {
-			dateStyle: 'full',
-			timeStyle: 'short',
-			hour12: true,
-			timeZone: 'Asia/Manila',
-		});
-	});
-
+	const [dateTime, setDateTime] = useState(getFormattedDateTime());
+	// Live date/time update
 	useEffect(() => {
 		const interval = setInterval(() => {
-			const now = new Date();
-			setDateTime(now.toLocaleString('en-PH', {
-				dateStyle: 'full',
-				timeStyle: 'short',
-				hour12: true,
-				timeZone: 'Asia/Manila',
-			}));
+			setDateTime(getFormattedDateTime());
 		}, 1000);
 		return () => clearInterval(interval);
 	}, []);
@@ -123,20 +120,24 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 	// Strict authentication check - redirect immediately if not authenticated
 	useEffect(() => {
 		if (status === 'loading') return;
+
 		if (!session) {
 			router.replace('/branch/miagao/login');
 			return;
 		}
+
 		if ((session.user as any)?.role !== 'branch' || (session.user as any)?.branch !== 'miagao') {
 			router.replace('/branch/miagao/login');
 			return;
 		}
+
 		setIsAuthenticated(true);
+
 		// Fetch data only if authenticated
 		fetch('/api/administrator/loan-applications')
 			.then(res => res.json())
 			.then(data => {
-				setApplications((data.applications || []).filter((app: any) => app.branch === 'miagao'));
+				setApplications(data.applications || []);
 				setLoading(false);
 			})
 			.catch(error => {
@@ -148,12 +149,14 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 	// Continuous session monitoring - check every 3 seconds
 	useEffect(() => {
 		if (!isAuthenticated) return;
+
 		const checkSession = () => {
 			if (!session || (session.user as any)?.role !== 'branch' || (session.user as any)?.branch !== 'miagao') {
 				setIsAuthenticated(false);
 				router.replace('/branch/miagao/login');
 			}
 		};
+
 		const interval = setInterval(checkSession, 3000);
 		return () => clearInterval(interval);
 	}, [session, router, isAuthenticated]);
@@ -161,6 +164,7 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 	// Handle page visibility changes (tab switching, back button)
 	useEffect(() => {
 		if (!isAuthenticated) return;
+
 		const handleVisibilityChange = () => {
 			if (document.visibilityState === 'visible') {
 				if (!session || (session.user as any)?.role !== 'branch' || (session.user as any)?.branch !== 'miagao') {
@@ -169,6 +173,7 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 				}
 			}
 		};
+
 		document.addEventListener('visibilitychange', handleVisibilityChange);
 		return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
 	}, [session, router, isAuthenticated]);
@@ -176,9 +181,11 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 	// Handle browser back/forward navigation
 	useEffect(() => {
 		if (!isAuthenticated) return;
+
 		const handlePopState = (event: PopStateEvent) => {
 			router.replace('/branch/miagao/login');
 		};
+
 		window.addEventListener('popstate', handlePopState);
 		return () => window.removeEventListener('popstate', handlePopState);
 	}, [router, isAuthenticated]);
@@ -193,6 +200,8 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 	const handleSignOut = async () => {
 		localStorage.clear();
 		sessionStorage.clear();
+
+		// Sign out and redirect to Miagao branch login
 		await signOut({ callbackUrl: '/branch/miagao/login' });
 	};
 
@@ -205,9 +214,11 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 				},
 				body: JSON.stringify({ status }),
 			});
+
 			if (response.ok) {
+				// Refresh the applications list
 				const data = await fetch('/api/administrator/loan-applications').then(res => res.json());
-				setApplications((data.applications || []).filter((app: any) => app.branch === 'miagao'));
+				setApplications(data.applications || []);
 			} else {
 				alert('Failed to update application status');
 			}
@@ -220,14 +231,17 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 		if (!confirm(`Are you sure you want to delete the loan application for ${applicantName}? This action cannot be undone.`)) {
 			return;
 		}
+
 		try {
 			const response = await fetch(`/api/administrator/loan-applications/${id}`, {
 				method: 'DELETE',
 			});
+
 			if (response.ok) {
 				alert('Loan application deleted successfully');
+				// Refresh the applications list
 				const data = await fetch('/api/administrator/loan-applications').then(res => res.json());
-				setApplications((data.applications || []).filter((app: any) => app.branch === 'miagao'));
+				setApplications(data.applications || []);
 			} else {
 				const data = await response.json();
 				alert(`Failed to delete application: ${data.error || 'Unknown error'}`);
@@ -237,6 +251,7 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 		}
 	};
 
+	// CRITICAL: Don't render ANY content if not authenticated
 	if (status === 'loading' || !isAuthenticated) {
 		return (
 			<div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -259,7 +274,8 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 		);
 	}
 
-	const branchApplications = applications;
+	// Filter applications for Miagao branch only
+	const branchApplications = applications.filter(app => (app as any).branch === 'miagao');
 	const pendingApplications = branchApplications.filter(app => app.status === 'pending');
 	const approvedApplications = branchApplications.filter(app => app.status === 'approved');
 	const rejectedApplications = branchApplications.filter(app => app.status === 'rejected');
@@ -352,16 +368,14 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 										<tr key={application.id} className={idx % 2 === 0 ? 'bg-white' : 'bg-blue-50'}>
 											<td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{application.name}</td>
 											<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PB#: {application.pbNo}<br />{application.contactNo}</td>
-											<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{application.loanType} <br />₱{application.loanAmount?.toLocaleString()}</td>
+											<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{application.loanType} <br />₱{application.loanAmount.toLocaleString()}</td>
 											<td className="px-6 py-4 whitespace-nowrap">
 												<span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold shadow ${
 													application.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
 													application.status === 'approved' ? 'bg-green-100 text-green-800' :
 													'bg-red-100 text-red-800'
 												}`}>
-																	{application.status
-																		? application.status.charAt(0).toUpperCase() + application.status.slice(1)
-																		: "Unknown"}
+													{application.status.charAt(0).toUpperCase() + application.status.slice(1)}
 												</span>
 											</td>
 											<td className="px-6 py-4 whitespace-nowrap text-center">
@@ -396,22 +410,24 @@ function AttachmentPreviewModal({ application, onClose }: AttachmentPreviewModal
 														</svg>
 														PDF
 													</a>
-													{(application.idFile || application.depositSlipOrEwallet || application.memberWithIDAndSlip) && (
-														<button
-															onClick={() => setPreviewModalApp(application)}
-															className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-semibold shadow transition-colors"
-															title="View verification attachments"
-														>
-															Verification
-														</button>
+													{application.idFile && (
+														<>
+															<button
+																onClick={() => setPreviewModalApp(application)}
+																className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-semibold shadow transition-colors"
+																title="View verification attachments"
+															>
+																Verification
+															</button>
+															<button
+																onClick={() => handleDelete(application.id, application.name)}
+																className="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1 rounded text-xs font-semibold shadow transition-colors"
+																title="Delete application"
+															>
+																Delete
+															</button>
+														</>
 													)}
-													<button
-														onClick={() => handleDelete(application.id, application.name || '')}
-														className="bg-gray-800 hover:bg-gray-900 text-white px-3 py-1 rounded text-xs font-semibold shadow transition-colors"
-														title="Delete application"
-													>
-														Delete
-													</button>
 												</div>
 											</td>
 										</tr>
