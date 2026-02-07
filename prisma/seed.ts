@@ -25,26 +25,6 @@ async function main() {
         name: 'San Jose Branch Admin',
         email: 'sanjose_admin@sjmpc.com',
       },
-      {
-        password: '$2b$10$gsTPwPwIE76QAmVc.MEKq.8X0UVC428ixjYnCgv3Z6DsJ2Me3X0xS',
-        role: 'branch',
-        passbookNo: 'PB0001'
-      },
-      {
-        password: '$2b$10$0tFikMSW4YHfZEugRB1Qled50RoeQUhzIIO2lr79WeX9aj6p7RzCu',
-        role: 'branch',
-        passbookNo: 'PB0002'
-      },
-      {
-        password: '$2b$10$tbkC2td1c8VjNY1xmm4hnOb95vbNabDl1RsHpNkbfrhuiw4NH6Z1K',
-        role: 'branch',
-        passbookNo: 'PB0003'
-      },
-      {
-        password: '$2b$10$o0UvDwjLhCtdXyvB38icYesw7pQCtg97KyfoG2YEA4oefZg4N8tK6',
-        role: 'branch',
-        passbookNo: 'PB0004'
-      }
     ]
   });
 
