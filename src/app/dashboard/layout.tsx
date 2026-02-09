@@ -63,7 +63,7 @@ export default function DashboardLayout({
             </header>
             {/* Add client component for personalized header */}
             <main className="flex-grow pt-6 pb-8 bg-gray-50">
-              <div className="max-w-4xl mx-auto px-4">
+              <div className="w-full px-0">
                 {children}
               </div>
             </main>
