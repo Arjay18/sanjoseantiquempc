@@ -62,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <AuthProvider>
           <RootLayoutClient>{children}</RootLayoutClient>
+          <Footer />
         </AuthProvider>
       </body>
     </html>
