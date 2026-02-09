@@ -36,6 +36,7 @@ export default function UserHeader() {
         {menuOpen && (
           <div className="absolute right-0 mt-12 w-48 bg-white border border-gray-200 rounded shadow-lg z-50">
             <Link href="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</Link>
+              <Link href="/menu" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Menu</Link>
             <Link href="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</Link>
             <button
               onClick={() => signOut({ callbackUrl: "/login" })}

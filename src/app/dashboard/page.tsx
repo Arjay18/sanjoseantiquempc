@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect } from "react";
+import LoanPackagesCarousel from "../../components/LoanPackagesCarousel";
 
 export default function UserDashboard() {
   const { data: session, status } = useSession();
@@ -37,6 +38,9 @@ export default function UserDashboard() {
           <span className="text-gray-700">{session?.user?.email}</span>
         </div>
       </div>
+
+      {/* Loan Packages Carousel */}
+      <LoanPackagesCarousel />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 flex flex-col items-center shadow-sm">
