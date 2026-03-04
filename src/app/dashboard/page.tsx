@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { 
   Wallet, FileText, CreditCard, User, Building2, Trash2, 
   AlertTriangle, CheckCircle, Clock, Upload, Package,
@@ -20,7 +20,7 @@ type Application = {
   branch: string;
 };
 
-export default function UserDashboard() {
+function DashboardContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -479,8 +479,8 @@ export default function UserDashboard() {
                   <Package className="w-6 h-6 text-green-600" />
                 </div>
                 <div className="text-left">
-                  <h3 className="font-bold text900">Loan Packages</h3>
-                  <p className="text-gray-lg text-gray-">View available loans-500 text-sm</p>
+                  <h3 className="font-bold text-lg text-gray-900">Loan Packages</h3>
+                  <p className="text-gray-500 text-sm">View available loans</p>
                 </div>
               </div>
             </Link>
@@ -988,7 +988,7 @@ export default function UserDashboard() {
                 <button 
                   type="button" 
                   onClick={() => navigateToTab('dashboard')}
-                  className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-medium transition"
+                  className="px-6-gray-100 hover py-3 bg:bg-gray-200 text-gray-700 rounded-xl font-medium transition"
                 >
                   Cancel
                 </button>
@@ -1018,4 +1018,22 @@ export default function UserDashboard() {
   );
 
   return renderContent();
+}
+
+// Loading fallback
+function DashboardLoading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
+    </div>
+  );
+}
+
+// Main page component with Suspense boundary
+export default function UserDashboard() {
+  return (
+    <Suspense fallback={<DashboardLoading />}>
+      <DashboardContent />
+    </Suspense>
+  );
 }
