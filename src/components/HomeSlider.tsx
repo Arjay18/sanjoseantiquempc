@@ -42,7 +42,6 @@ export default function HomeSlider() {
           const data: Announcement[] = await res.json();
           
           if (data && data.length > 0) {
-            // Filter active announcements and convert to slides
             const announcementSlides: Slide[] = data
               .filter((a: Announcement) => a.isActive)
               .sort((a: Announcement, b: Announcement) => a.order - b.order)
@@ -109,7 +108,6 @@ export default function HomeSlider() {
 
   return (
     <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
-      {/* Slides */}
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -117,14 +115,12 @@ export default function HomeSlider() {
             index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
-          {/* Background Image with Ken Burns Effect */}
-          <div className={`absolute inset-0 ${index === currentSlide ? 'animate-ken-burns' : ''}`}>
-            {/* Use regular img tag for external URLs (Vercel Blob) */}
+          <div className="absolute inset-0">
             {slide.image.startsWith('http') ? (
               <img
                 src={slide.image}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-full object-cover cursor-pointer"
+                className="w-full h-full object-contain cursor-pointer bg-gray-900"
                 onClick={handleSlideClick}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -146,13 +142,10 @@ export default function HomeSlider() {
               />
             )}
           </div>
-
-          {/* Dark Overlay for better image visibility */}
           <div className="absolute inset-0 bg-black/30" />
         </div>
       ))}
 
-      {/* Navigation Arrows */}
       {slides.length > 1 && (
         <>
           <button
@@ -172,7 +165,6 @@ export default function HomeSlider() {
         </>
       )}
 
-      {/* Dots Navigation */}
       {slides.length > 1 && (
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
           {slides.map((slide, index) => (
@@ -193,21 +185,6 @@ export default function HomeSlider() {
           ))}
         </div>
       )}
-
-      {/* CSS for Ken Burns Effect */}
-      <style jsx>{`
-        @keyframes ken-burns {
-          0% {
-            transform: scale(1);
-          }
-          100% {
-            transform: scale(1.1);
-          }
-        }
-        .animate-ken-burns {
-          animation: ken-burns 10s ease-out forwards;
-        }
-      `}</style>
     </div>
   );
 }
