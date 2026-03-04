@@ -6,12 +6,17 @@ import Testimonials from "@/components/home/Testimonials";
 import PMESSchedule from "@/components/home/PMESSchedule";
 import HowToBecomeMember from "@/components/home/HowToBecomeMember";
 import ServicesShowcase from "@/components/home/ServicesShowcase";
+import Hero from "@/components/home/Hero";
 import { FadeIn } from "@/components/animations/FadeIn";
 
 export default function Home() {
   return (
     <>
       <div className="flex min-h-screen flex-col">
+        <FadeIn direction="up" delay={0}>
+          <Hero />
+        </FadeIn>
+
         <FadeIn direction="up" delay={0.2}>
           <HomeSlider />
         </FadeIn>
