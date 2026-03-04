@@ -2,6 +2,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { 
   Home, 
   FileText, 
@@ -12,16 +13,18 @@ import {
   Menu,
   Bell,
   ChevronDown,
-  Settings,
-  History,
-  TrendingUp
+  X
 } from "lucide-react";
 
 export default function UserHeader() {
   const { data: session } = useSession();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const currentTab = searchParams.get('tab') || 'dashboard';
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -37,13 +40,12 @@ export default function UserHeader() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpen]);
 
-  const userMenuItems = [
-    { icon: Home, label: "Dashboard", href: "/dashboard" },
-    { icon: FileText, label: "My Loans", href: "/loan-status" },
-    { icon: CreditCard, label: "Apply for Loan", href: "/loan-application" },
-    { icon: Upload, label: "Upload Documents", href: "/upload-document" },
-    { icon: History, label: "Loan History", href: "/loan-status" },
-  ];
+  const handleTabChange = (tab: string) => {
+    router.push(`/dashboard?tab=${tab}`);
+    setMobileMenuOpen(false);
+  };
+
+  const isActive = (tab: string) => currentTab === tab;
 
   return (
     <div className="w-full">
@@ -65,46 +67,67 @@ export default function UserHeader() {
           <div className="flex items-center justify-between h-16">
             {/* Logo & Brand */}
             <div className="flex items-center gap-3">
-              <Link href="/dashboard" className="flex items-center gap-3 group">
+              <div className="flex items-center gap-3 group">
                 <div className="relative">
                   <img 
                     src="/logo.png" 
                     alt="SJMPC Logo" 
-                    className="h-10 w-10 rounded-lg shadow-md group-hover:shadow-lg transition-shadow" 
+                    className="h-10 w-10 rounded-lg shadow-md" 
                   />
                 </div>
                 <div className="hidden sm:block">
-                  <span className="text-lg font-bold text-blue-900 group-hover:text-blue-700 transition-colors">
-                    SJMPC
-                  </span>
+                  <span className="text-lg font-bold text-blue-900">SJMPC</span>
                   <p className="text-xs text-gray-500 -mt-1">Member Portal</p>
                 </div>
-              </Link>
+              </div>
             </div>
 
-            {/* Desktop Quick Links */}
+            {/* Desktop Quick Links - Using URL params */}
             <div className="hidden lg:flex items-center gap-2">
-              <Link 
-                href="/loan-application" 
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium shadow-sm hover:shadow"
+              <button 
+                onClick={() => handleTabChange('dashboard')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('dashboard') 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                <Home className="h-4 w-4" />
+                Dashboard
+              </button>
+              <button 
+                onClick={() => handleTabChange('apply')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('apply') 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
               >
                 <CreditCard className="h-4 w-4" />
                 Apply for Loan
-              </Link>
-              <Link 
-                href="/loan-status" 
-                className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium"
+              </button>
+              <button 
+                onClick={() => handleTabChange('loans')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('loans') 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
               >
                 <FileText className="h-4 w-4" />
                 My Loans
-              </Link>
-              <Link 
-                href="/upload-document" 
-                className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium"
+              </button>
+              <button 
+                onClick={() => handleTabChange('upload')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('upload') 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
               >
                 <Upload className="h-4 w-4" />
                 Upload
-              </Link>
+              </button>
             </div>
 
             {/* Right Side - User Menu */}
@@ -148,17 +171,34 @@ export default function UserHeader() {
                     
                     {/* Menu Items */}
                     <div className="py-2">
-                      {userMenuItems.map((item) => (
-                        <Link
-                          key={item.label}
-                          href={item.href}
-                          className="flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          <item.icon className="h-4 w-4" />
-                          {item.label}
-                        </Link>
-                      ))}
+                      <button
+                        onClick={() => { handleTabChange('dashboard'); setMenuOpen(false); }}
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                      >
+                        <Home className="h-4 w-4" />
+                        Dashboard
+                      </button>
+                      <button
+                        onClick={() => { handleTabChange('loans'); setMenuOpen(false); }}
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                      >
+                        <FileText className="h-4 w-4" />
+                        My Loans
+                      </button>
+                      <button
+                        onClick={() => { handleTabChange('apply'); setMenuOpen(false); }}
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                      >
+                        <CreditCard className="h-4 w-4" />
+                        Apply for Loan
+                      </button>
+                      <button
+                        onClick={() => { handleTabChange('upload'); setMenuOpen(false); }}
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                      >
+                        <Upload className="h-4 w-4" />
+                        Upload Documents
+                      </button>
                     </div>
 
                     {/* Divider */}
@@ -191,7 +231,7 @@ export default function UserHeader() {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
               >
-                <Menu className="h-6 w-6" />
+                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
           </div>
@@ -202,38 +242,40 @@ export default function UserHeader() {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-gray-200 shadow-lg">
           <div className="px-4 py-3 space-y-2">
-            <Link 
-              href="/loan-application" 
-              className="flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <CreditCard className="h-5 w-5" />
-              Apply for Loan
-            </Link>
-            <Link 
-              href="/loan-status" 
-              className="flex items-center gap-3 px-4 py-3 bg-gray-100 text-gray-700 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <FileText className="h-5 w-5" />
-              My Loans
-            </Link>
-            <Link 
-              href="/upload-document" 
-              className="flex items-center gap-3 px-4 py-3 bg-gray-100 text-gray-700 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <Upload className="h-5 w-5" />
-              Upload Documents
-            </Link>
-            <Link 
-              href="/dashboard" 
-              className="flex items-center gap-3 px-4 py-3 bg-gray-100 text-gray-700 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+            <button 
+              onClick={() => handleTabChange('dashboard')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg ${
+                isActive('dashboard') ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'
+              }`}
             >
               <Home className="h-5 w-5" />
               Dashboard
-            </Link>
+            </button>
+            <button 
+              onClick={() => handleTabChange('apply')}
+              className="w-full flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-lg"
+            >
+              <CreditCard className="h-5 w-5" />
+              Apply for Loan
+            </button>
+            <button 
+              onClick={() => handleTabChange('loans')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg ${
+                isActive('loans') ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'
+              }`}
+            >
+              <FileText className="h-5 w-5" />
+              My Loans
+            </button>
+            <button 
+              onClick={() => handleTabChange('upload')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg ${
+                isActive('upload') ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'
+              }`}
+            >
+              <Upload className="h-5 w-5" />
+              Upload Documents
+            </button>
           </div>
         </div>
       )}

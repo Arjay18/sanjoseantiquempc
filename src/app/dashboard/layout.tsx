@@ -3,7 +3,6 @@
 import "../globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import UserHeader from "./UserHeader";
-import { useEffect, useState } from "react";
 
 export default function DashboardLayout({
   children,
