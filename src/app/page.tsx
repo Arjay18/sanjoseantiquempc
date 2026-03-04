@@ -17,6 +17,15 @@ export default function Home() {
           <Hero />
         </FadeIn>
 
+        <FadeIn direction="up" delay={0.1}>
+          <div className="bg-gray-50 py-8">
+            <div className="max-w-7xl mx-auto px-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 text-center mb-2">Our Latest Announcement</h2>
+              <p className="text-gray-600 text-center mb-2">Stay updated with our latest news and updates</p>
+            </div>
+          </div>
+        </FadeIn>
+
         <FadeIn direction="up" delay={0.2}>
           <HomeSlider />
         </FadeIn>
