@@ -2,7 +2,6 @@
 import { useSession, signOut } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { 
   Home, 
   FileText, 
@@ -18,13 +17,9 @@ import {
 
 export default function UserHeader() {
   const { data: session } = useSession();
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-
-  const currentTab = searchParams.get('tab') || 'dashboard';
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -39,13 +34,6 @@ export default function UserHeader() {
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpen]);
-
-  const handleTabChange = (tab: string) => {
-    router.push(`/dashboard?tab=${tab}`);
-    setMobileMenuOpen(false);
-  };
-
-  const isActive = (tab: string) => currentTab === tab;
 
   return (
     <div className="w-full">
@@ -80,54 +68,6 @@ export default function UserHeader() {
                   <p className="text-xs text-gray-500 -mt-1">Member Portal</p>
                 </div>
               </div>
-            </div>
-
-            {/* Desktop Quick Links - Using URL params */}
-            <div className="hidden lg:flex items-center gap-2">
-              <button 
-                onClick={() => handleTabChange('dashboard')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('dashboard') 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <Home className="h-4 w-4" />
-                Dashboard
-              </button>
-              <button 
-                onClick={() => handleTabChange('apply')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('apply') 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                }`}
-              >
-                <CreditCard className="h-4 w-4" />
-                Apply for Loan
-              </button>
-              <button 
-                onClick={() => handleTabChange('loans')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('loans') 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <FileText className="h-4 w-4" />
-                My Loans
-              </button>
-              <button 
-                onClick={() => handleTabChange('upload')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('upload') 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <Upload className="h-4 w-4" />
-                Upload
-              </button>
             </div>
 
             {/* Right Side - User Menu */}
@@ -171,41 +111,14 @@ export default function UserHeader() {
                     
                     {/* Menu Items */}
                     <div className="py-2">
-                      <button
-                        onClick={() => { handleTabChange('dashboard'); setMenuOpen(false); }}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                      <Link
+                        href="/dashboard"
+                        className="flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                        onClick={() => setMenuOpen(false)}
                       >
                         <Home className="h-4 w-4" />
                         Dashboard
-                      </button>
-                      <button
-                        onClick={() => { handleTabChange('loans'); setMenuOpen(false); }}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                      >
-                        <FileText className="h-4 w-4" />
-                        My Loans
-                      </button>
-                      <button
-                        onClick={() => { handleTabChange('apply'); setMenuOpen(false); }}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                      >
-                        <CreditCard className="h-4 w-4" />
-                        Apply for Loan
-                      </button>
-                      <button
-                        onClick={() => { handleTabChange('upload'); setMenuOpen(false); }}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                      >
-                        <Upload className="h-4 w-4" />
-                        Upload Documents
-                      </button>
-                    </div>
-
-                    {/* Divider */}
-                    <div className="border-t border-gray-200"></div>
-
-                    {/* Bottom Actions */}
-                    <div className="py-2">
+                      </Link>
                       <Link
                         href="/profile"
                         className="flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
@@ -214,6 +127,13 @@ export default function UserHeader() {
                         <User className="h-4 w-4" />
                         Profile Settings
                       </Link>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-gray-200"></div>
+
+                    {/* Bottom Actions */}
+                    <div className="py-2">
                       <button
                         onClick={() => signOut({ callbackUrl: "/login" })}
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-red-600 hover:bg-red-50 transition-colors"
@@ -242,40 +162,14 @@ export default function UserHeader() {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-gray-200 shadow-lg">
           <div className="px-4 py-3 space-y-2">
-            <button 
-              onClick={() => handleTabChange('dashboard')}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg ${
-                isActive('dashboard') ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'
-              }`}
+            <Link 
+              href="/dashboard"
+              className="w-full flex items-center gap-3 px-4 py-3 bg-gray-100 text-gray-700 rounded-lg"
+              onClick={() => setMobileMenuOpen(false)}
             >
               <Home className="h-5 w-5" />
               Dashboard
-            </button>
-            <button 
-              onClick={() => handleTabChange('apply')}
-              className="w-full flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-lg"
-            >
-              <CreditCard className="h-5 w-5" />
-              Apply for Loan
-            </button>
-            <button 
-              onClick={() => handleTabChange('loans')}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg ${
-                isActive('loans') ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'
-              }`}
-            >
-              <FileText className="h-5 w-5" />
-              My Loans
-            </button>
-            <button 
-              onClick={() => handleTabChange('upload')}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg ${
-                isActive('upload') ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'
-              }`}
-            >
-              <Upload className="h-5 w-5" />
-              Upload Documents
-            </button>
+            </Link>
           </div>
         </div>
       )}

@@ -1,9 +1,9 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { 
   Wallet, FileText, CreditCard, User, Building2, Trash2, 
   AlertTriangle, CheckCircle, Clock, Upload, Package,
@@ -20,12 +20,13 @@ type Application = {
   branch: string;
 };
 
-function DashboardContent() {
+type ActiveTab = 'dashboard' | 'apply' | 'loans' | 'upload';
+
+export default function UserDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const searchParams = useSearchParams();
   
-  const currentTab = searchParams.get('tab') || 'dashboard';
+  const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
   
   // Dashboard state
   const [showLoanForm, setShowLoanForm] = useState(false);
@@ -89,14 +90,14 @@ function DashboardContent() {
     memberWithIDAndSlip: null,
   });
 
-  // Sync showLoanForm with URL tab parameter
+  // Sync showLoanForm with tab parameter
   useEffect(() => {
-    if (currentTab === 'apply') {
+    if (activeTab === 'apply') {
       setShowLoanForm(true);
     } else {
       setShowLoanForm(false);
     }
-  }, [currentTab]);
+  }, [activeTab]);
 
   useEffect(() => {
     if (status === "loading") return;
@@ -230,8 +231,7 @@ function DashboardContent() {
           validIDsAndSignatures: null, depositSlipOrEwallet: null, memberWithIDAndSlip: null,
         });
         setCurrentStep(1);
-        setShowLoanForm(false);
-        router.push('/dashboard?tab=loans');
+        setActiveTab('loans');
         const res = await fetch("/api/loan-applications/user");
         if (res.ok) {
           const data = await res.json();
@@ -269,6 +269,11 @@ function DashboardContent() {
   const nextStep = () => setCurrentStep(s => Math.min(s + 1, totalSteps));
   const prevStep = () => setCurrentStep(s => Math.max(s - 1, 1));
 
+  const navigateToTab = (tab: ActiveTab) => {
+    setActiveTab(tab);
+    setCurrentStep(1);
+  };
+
   const steps = [
     { number: 1, title: 'Personal', description: 'Personal Info', icon: User },
     { number: 2, title: 'Loan', description: 'Loan Details', icon: CreditCard },
@@ -280,10 +285,6 @@ function DashboardContent() {
   const pendingCount = applications.filter(a => a.status === 'pending').length;
   const approvedCount = applications.filter(a => a.status === 'approved').length;
   const rejectedCount = applications.filter(a => a.status === 'rejected').length;
-
-  const navigateToTab = (tab: string) => {
-    router.push(`/dashboard?tab=${tab}`);
-  };
 
   if (status === "loading") {
     return (
@@ -297,15 +298,15 @@ function DashboardContent() {
     return null;
   }
 
-  // Render content based on current tab
+  // Render content based on active tab
   const renderContent = () => {
     // Apply for Loan tab - show just the form
-    if (currentTab === 'apply') {
+    if (activeTab === 'apply') {
       return renderLoanForm();
     }
 
     // My Loans tab - show only applications
-    if (currentTab === 'loans') {
+    if (activeTab === 'loans') {
       return (
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-8">
           <div className="mb-6">
@@ -322,7 +323,7 @@ function DashboardContent() {
     }
 
     // Upload tab - show upload section
-    if (currentTab === 'upload') {
+    if (activeTab === 'upload') {
       return (
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-8">
           <div className="mb-6">
@@ -988,7 +989,7 @@ function DashboardContent() {
                 <button 
                   type="button" 
                   onClick={() => navigateToTab('dashboard')}
-                  className="px-6-gray-100 hover py-3 bg:bg-gray-200 text-gray-700 rounded-xl font-medium transition"
+                  className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-medium transition"
                 >
                   Cancel
                 </button>
@@ -1018,22 +1019,4 @@ function DashboardContent() {
   );
 
   return renderContent();
-}
-
-// Loading fallback
-function DashboardLoading() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
-    </div>
-  );
-}
-
-// Main page component with Suspense boundary
-export default function UserDashboard() {
-  return (
-    <Suspense fallback={<DashboardLoading />}>
-      <DashboardContent />
-    </Suspense>
-  );
 }
