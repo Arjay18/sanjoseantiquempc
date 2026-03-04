@@ -11,6 +11,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { image, buttonLink, isActive, order } = body;
 
+    console.log('Creating announcement:', { image, buttonLink, isActive, order });
+
     if (!image) {
       return NextResponse.json({ error: 'Image is required' }, { status: 400 });
     }
@@ -24,10 +26,35 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    console.log('Announcement created successfully:', announcement);
     return NextResponse.json(announcement, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating slider:', error);
-    return NextResponse.json({ error: 'Failed to create slider' }, { status: 500 });
+    console.error('Error code:', error?.code);
+    console.error('Error message:', error?.message);
+    
+    // Check for specific Prisma errors
+    if (error?.code === 'P1001') {
+      return NextResponse.json({ 
+        error: 'Database connection failed', 
+        details: 'Could not reach the database server. Please check your connection.',
+        code: error?.code
+      }, { status: 503 });
+    }
+    
+    if (error?.code === 'P2025') {
+      return NextResponse.json({ 
+        error: 'Database table not found', 
+        details: 'The announcements table does not exist. Please run prisma db push.',
+        code: error?.code
+      }, { status: 500 });
+    }
+    
+    return NextResponse.json({ 
+      error: 'Failed to create slider', 
+      details: error?.message || 'Unknown error',
+      code: error?.code
+    }, { status: 500 });
   }
 }
 
@@ -41,6 +68,8 @@ export async function GET(request: Request) {
 
     const where = includeInactive ? {} : { isActive: true };
 
+    console.log('Fetching announcements, includeInactive:', includeInactive);
+
     const announcements = await prisma.announcement.findMany({
       where,
       orderBy: [
@@ -49,10 +78,24 @@ export async function GET(request: Request) {
       ],
     });
 
+    console.log('Found announcements:', announcements.length);
     return NextResponse.json(announcements);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching slider images:', error);
-    // Return empty array when database is unavailable
+    console.error('Error code:', error?.code);
+    
+    // If database is unavailable, still return empty array but log the error
+    if (error?.code === 'P1001') {
+      console.warn('Database unavailable, returning empty array');
+      return NextResponse.json([]);
+    }
+    
+    // If table doesn't exist
+    if (error?.code === 'P2025') {
+      console.warn('Table does not exist, returning empty array');
+      return NextResponse.json([]);
+    }
+    
     return NextResponse.json([]);
   }
 }
@@ -84,9 +127,14 @@ export async function PUT(request: NextRequest) {
     });
 
     return NextResponse.json(announcement);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating slider:', error);
-    return NextResponse.json({ error: 'Failed to update slider' }, { status: 500 });
+    
+    if (error?.code === 'P1001') {
+      return NextResponse.json({ error: 'Database connection failed' }, { status: 503 });
+    }
+    
+    return NextResponse.json({ error: 'Failed to update slider', details: error?.message }, { status: 500 });
   }
 }
 
@@ -107,8 +155,13 @@ export async function DELETE(request: NextRequest) {
     });
 
     return NextResponse.json({ message: 'Slider deleted successfully' });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error deleting slider:', error);
-    return NextResponse.json({ error: 'Failed to delete slider' }, { status: 500 });
+    
+    if (error?.code === 'P1001') {
+      return NextResponse.json({ error: 'Database connection failed' }, { status: 503 });
+    }
+    
+    return NextResponse.json({ error: 'Failed to delete slider', details: error?.message }, { status: 500 });
   }
 }
