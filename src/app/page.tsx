@@ -34,7 +34,7 @@ export default function Home() {
                     <span className="block text-blue-600">From SJMPC</span>
                   </p>
                   <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Stay updated with the latest announcements, news, and updates from San Jose Municipal Cooperative.
+                    Stay updated with the latest announcements, news, and updates from San Jose Multi-Purpose Cooperative.
                   </p>
                 </div>
               </FadeIn>
