@@ -1,17 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { 
   Plus, Edit, Trash2, Eye, EyeOff, 
-  Image, Save, X, ArrowLeft 
+  Image, Save, X, ArrowLeft, Upload
 } from "lucide-react";
 
 type Announcement = {
   id: string;
+  title: string;
+  subtitle: string | null;
+  description: string | null;
   image: string;
-  link: string | null;
+  buttonText: string | null;
+  buttonLink: string | null;
+  theme: string;
   isActive: boolean;
   order: number;
   createdAt: string;
@@ -26,10 +31,17 @@ export default function AnnouncementsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
+    title: '',
+    subtitle: '',
+    description: '',
     image: '',
-    link: '',
+    buttonText: '',
+    buttonLink: '',
+    theme: 'blue',
     isActive: true,
     order: 0,
   });
@@ -56,12 +68,61 @@ export default function AnnouncementsPage() {
     setLoading(false);
   };
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setMessage({ type: 'error', text: 'Invalid file type. Allowed: JPG, PNG, GIF, WebP' });
+      return;
+    }
+
+    // Validate file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      setMessage({ type: 'error', text: 'File too large. Maximum size is 10MB' });
+      return;
+    }
+
+    setUploading(true);
+    setMessage(null);
+
+    try {
+      const uploadData = new FormData();
+      uploadData.append('file', file);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: uploadData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setFormData((prev: typeof formData) => ({ ...prev, image: data.url }));
+        setMessage({ type: 'success', text: 'Image uploaded successfully!' });
+      } else {
+        const data = await res.json();
+        setMessage({ type: 'error', text: data.error || 'Failed to upload image' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Error uploading file' });
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
 
+    if (!formData.title) {
+      setMessage({ type: 'error', text: 'Title is required' });
+      return;
+    }
+
     if (!formData.image) {
-      setMessage({ type: 'error', text: 'Image URL is required' });
+      setMessage({ type: 'error', text: 'Please upload an image' });
       return;
     }
 
@@ -92,8 +153,13 @@ export default function AnnouncementsPage() {
 
   const handleEdit = (announcement: Announcement) => {
     setFormData({
+      title: announcement.title,
+      subtitle: announcement.subtitle || '',
+      description: announcement.description || '',
       image: announcement.image,
-      link: announcement.link || '',
+      buttonText: announcement.buttonText || '',
+      buttonLink: announcement.buttonLink || '',
+      theme: announcement.theme,
       isActive: announcement.isActive,
       order: announcement.order,
     });
@@ -134,13 +200,21 @@ export default function AnnouncementsPage() {
 
   const resetForm = () => {
     setFormData({
+      title: '',
+      subtitle: '',
+      description: '',
       image: '',
-      link: '',
+      buttonText: '',
+      buttonLink: '',
+      theme: 'blue',
       isActive: true,
       order: 0,
     });
     setEditingId(null);
     setShowForm(false);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   if (status === "loading" || loading) {
@@ -166,8 +240,8 @@ export default function AnnouncementsPage() {
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="text-2xl font-bold">Slider Images</h1>
-              <p className="text-blue-200 text-sm">Manage homepage slider images</p>
+              <h1 className="text-2xl font-bold">Slider Announcements</h1>
+              <p className="text-blue-200 text-sm">Manage homepage slider announcements</p>
             </div>
           </div>
           <button
@@ -175,7 +249,7 @@ export default function AnnouncementsPage() {
             className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition"
           >
             <Plus className="w-5 h-5" />
-            Add Image
+            Add New
           </button>
         </div>
       </div>
@@ -196,10 +270,10 @@ export default function AnnouncementsPage() {
         {/* Form Modal */}
         {showForm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-              <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+              <div className="p-6 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white">
                 <h2 className="text-xl font-bold text-gray-900">
-                  {editingId ? 'Edit Image' : 'Add Slider Image'}
+                  {editingId ? 'Edit Announcement' : 'New Announcement'}
                 </h2>
                 <button onClick={resetForm} className="p-2 hover:bg-gray-100 rounded-lg">
                   <X className="w-5 h-5" />
@@ -207,32 +281,110 @@ export default function AnnouncementsPage() {
               </div>
               
               <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                {/* Image Upload */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Image URL *</label>
-                  <input
-                    type="text"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="https://example.com/slider-image.jpg"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
-                  <p className="text-xs text-gray-500 mt-1">Enter the URL of the image</p>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Slider Image *</label>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-400 transition">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                      id="image-upload"
+                      disabled={uploading}
+                    />
+                    <label htmlFor="image-upload" className="cursor-pointer">
+                      {uploading ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600 mb-2"></div>
+                          <span className="text-gray-500">Uploading...</span>
+                        </div>
+                      ) : formData.image ? (
+                        <div className="flex flex-col items-center">
+                          <img src={formData.image} alt="Preview" className="max-h-40 rounded-lg mb-2" />
+                          <span className="text-blue-600 text-sm">Click to change image</span>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center">
+                          <Upload className="w-10 h-10 text-gray-400 mb-2" />
+                          <span className="text-gray-600 font-medium">Click to upload image</span>
+                          <span className="text-gray-400 text-sm mt-1">JPG, PNG, GIF, WebP (max 10MB)</span>
+                        </div>
+                      )}
+                    </label>
+                  </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Link (optional)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
                   <input
                     type="text"
-                    value={formData.link}
-                    onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                    placeholder="/contact"
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Enter announcement title"
+                    required
                   />
-                  <p className="text-xs text-gray-500 mt-1">Where to go when clicked</p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Subtitle</label>
+                  <input
+                    type="text"
+                    value={formData.subtitle}
+                    onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Optional subtitle"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                  <textarea
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    rows={3}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Optional description"
+                  />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Button Text</label>
+                    <input
+                      type="text"
+                      value={formData.buttonText}
+                      onChange={(e) => setFormData({ ...formData, buttonText: e.target.value })}
+                      placeholder="Learn More"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Button Link</label>
+                    <input
+                      type="text"
+                      value={formData.buttonLink}
+                      onChange={(e) => setFormData({ ...formData, buttonLink: e.target.value })}
+                      placeholder="/services"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Theme</label>
+                    <select
+                      value={formData.theme}
+                      onChange={(e) => setFormData({ ...formData, theme: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value="blue">Blue</option>
+                      <option value="gold">Gold</option>
+                    </select>
+                  </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Order</label>
                     <input
@@ -256,14 +408,18 @@ export default function AnnouncementsPage() {
                 </div>
 
                 {/* Preview */}
-                {formData.image && (
-                  <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-                    <p className="text-xs text-gray-500 mb-2">Preview:</p>
-                    <img 
-                      src={formData.image} 
-                      alt="Preview" 
-                      className="w-full h-32 object-cover rounded-lg" 
-                    />
+                {formData.title && formData.image && (
+                  <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <h3 className="text-sm font-medium text-gray-700 mb-2">Preview</h3>
+                    <div className="relative h-32 rounded-lg overflow-hidden">
+                      <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <div className="text-center">
+                          <h4 className="text-white font-bold text-lg">{formData.title}</h4>
+                          {formData.subtitle && <p className="text-white/80 text-sm">{formData.subtitle}</p>}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
 
@@ -280,7 +436,7 @@ export default function AnnouncementsPage() {
                     className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2"
                   >
                     <Save className="w-4 h-4" />
-                    {editingId ? 'Update' : 'Add Image'}
+                    {editingId ? 'Update' : 'Create'}
                   </button>
                 </div>
               </form>
@@ -291,21 +447,21 @@ export default function AnnouncementsPage() {
         {/* Announcements List */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="p-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">All Slider Images</h2>
-            <p className="text-sm text-gray-500">{announcements.length} image(s)</p>
+            <h2 className="text-lg font-semibold text-gray-900">All Announcements</h2>
+            <p className="text-sm text-gray-500">{announcements.length} announcement(s)</p>
           </div>
 
           {announcements.length === 0 ? (
             <div className="p-12 text-center">
               <Image className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No Images Yet</h3>
-              <p className="text-gray-500 mb-4">Add images to display on the homepage slider</p>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No Announcements Yet</h3>
+              <p className="text-gray-500 mb-4">Create your first announcement to display on the homepage slider</p>
               <button
                 onClick={() => setShowForm(true)}
                 className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
               >
                 <Plus className="w-5 h-5" />
-                Add Image
+                Create Announcement
               </button>
             </div>
           ) : (
@@ -313,20 +469,28 @@ export default function AnnouncementsPage() {
               {announcements.map((announcement) => (
                 <div key={announcement.id} className="p-4 flex items-center gap-4 hover:bg-gray-50">
                   {/* Image Preview */}
-                  <div className="w-24 h-16 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
-                    <img 
-                      src={announcement.image} 
-                      alt="Slider" 
-                      className="w-full h-full object-cover" 
-                    />
+                  <div className="w-20 h-14 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
+                    {announcement.image ? (
+                      <img src={announcement.image} alt={announcement.title} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className={`w-full h-full ${announcement.theme === 'blue' ? 'bg-blue-600' : 'bg-yellow-500'}`} />
+                    )}
                   </div>
 
                   {/* Content */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-gray-500 truncate">
-                      {announcement.link ? `Links to: ${announcement.link}` : 'No link'}
-                    </p>
+                    <h3 className="font-medium text-gray-900 truncate">{announcement.title}</h3>
+                    {announcement.subtitle && (
+                      <p className="text-sm text-gray-500 truncate">{announcement.subtitle}</p>
+                    )}
                     <div className="flex items-center gap-3 mt-1">
+                      <span className={`text-xs px-2 py-0.5 rounded ${
+                        announcement.theme === 'blue' 
+                          ? 'bg-blue-100 text-blue-700' 
+                          : 'bg-yellow-100 text-yellow-700'
+                      }`}>
+                        {announcement.theme}
+                      </span>
                       <span className="text-xs text-gray-500">Order: {announcement.order}</span>
                     </div>
                   </div>
