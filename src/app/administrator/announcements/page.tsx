@@ -69,9 +69,9 @@ export default function AnnouncementsPage() {
       return;
     }
 
-    // Validate file size (max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      setMessage({ type: 'error', text: 'File too large. Maximum size is 10MB' });
+    // Validate file size (max 20MB)
+    if (file.size > 20 * 1024 * 1024) {
+      setMessage({ type: 'error', text: 'File too large. Maximum size is 20MB' });
       return;
     }
 
@@ -284,7 +284,7 @@ export default function AnnouncementsPage() {
                         <div className="flex flex-col items-center">
                           <Upload className="w-12 h-12 text-gray-400 mb-3" />
                           <span className="text-gray-600 font-medium">Click to upload image</span>
-                          <span className="text-gray-400 text-sm mt-1">JPG, PNG, GIF, WebP (max 10MB)</span>
+                          <span className="text-gray-400 text-sm mt-1">JPG, PNG, GIF, WebP (max 20MB)</span>
                         </div>
                       )}
                     </label>

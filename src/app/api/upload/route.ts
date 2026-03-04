@@ -52,8 +52,8 @@ export async function POST(request: Request) {
       }, { status: 400 });
     }
 
-    // Validate file size (max 10MB)
-    const maxSize = 10 * 1024 * 1024; // 10MB
+    // Validate file size (max 20MB)
+    const maxSize = 20 * 1024 * 1024; // 20MB
     if (file.size > maxSize) {
       console.error('File too large:', file.size);
       return NextResponse.json({ 
