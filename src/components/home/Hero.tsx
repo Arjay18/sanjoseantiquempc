@@ -28,7 +28,7 @@ export default function Hero() {
             </h1>
             
             <p className="text-gray-600 text-lg md:text-xl mb-8 max-w-xl mx-auto lg:mx-0">
-              San Jose Municipal Cooperative is your partner in financial success. 
+              San Jose Multi-Purpose Cooperative is your partner in financial success. 
               Join thousands of satisfied members today.
             </p>
             
