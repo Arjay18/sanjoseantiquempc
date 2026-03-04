@@ -119,18 +119,32 @@ export default function HomeSlider() {
         >
           {/* Background Image with Ken Burns Effect */}
           <div className={`absolute inset-0 ${index === currentSlide ? 'animate-ken-burns' : ''}`}>
-            <Image
-              src={slide.image}
-              alt={`Slide ${index + 1}`}
-              fill
-              className="object-cover cursor-pointer"
-              priority={index === 0}
-              onClick={handleSlideClick}
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = '/slider/slide1.jpg';
-              }}
-            />
+            {/* Use regular img tag for external URLs (Vercel Blob) */}
+            {slide.image.startsWith('http') ? (
+              <img
+                src={slide.image}
+                alt={`Slide ${index + 1}`}
+                className="w-full h-full object-cover cursor-pointer"
+                onClick={handleSlideClick}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/slider/slide1.jpg';
+                }}
+              />
+            ) : (
+              <Image
+                src={slide.image}
+                alt={`Slide ${index + 1}`}
+                fill
+                className="object-cover cursor-pointer"
+                priority={index === 0}
+                onClick={handleSlideClick}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/slider/slide1.jpg';
+                }}
+              />
+            )}
           </div>
 
           {/* Dark Overlay for better image visibility */}
