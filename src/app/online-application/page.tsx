@@ -166,10 +166,10 @@ export default function OnlineApplication() {
                   real-time tracking, and instant preliminary approvals for qualified applications.
                 </p>
                 <Link
-                  href="/loan-application"
+                  href="/dashboard"
                   className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  Start Loan Application
+                  Go to My Dashboard
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </div>
@@ -213,10 +213,10 @@ export default function OnlineApplication() {
                   Start your online loan application today and experience the convenience of digital banking with SJMPC.
                 </p>
                 <Link
-                  href="/loan-application"
+                  href="/dashboard"
                   className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold text-lg rounded-2xl hover:shadow-xl hover:shadow-white/25 transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  Apply Now
+                  Go to Dashboard
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </div>

@@ -98,7 +98,6 @@ export default function Navigation() {
       name: 'Online Application',
       href: '/online-application',
       dropdown: [
-        { name: 'Loan Application', href: '/loan-application' },
         { name: 'Online PMES', href: '/online-pmes' },
       ]
     },
