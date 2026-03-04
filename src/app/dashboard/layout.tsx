@@ -1,9 +1,7 @@
-
 "use client";
 
 import type { Metadata } from "next";
 import "../globals.css";
-import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
 import UserHeader from "./UserHeader";
 import { useEffect, useState } from "react";
@@ -67,7 +65,6 @@ export default function DashboardLayout({
                 {children}
               </div>
             </main>
-            <Footer />
           </div>
         </AuthProvider>
       </body>
