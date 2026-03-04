@@ -4,26 +4,21 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // -----------------------
-// CREATE ANNOUNCEMENT (POST)
+// CREATE SLIDER IMAGE (POST)
 // -----------------------
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { title, image, subtitle, description, buttonText, buttonLink, theme, isActive, order } = body;
+    const { image, buttonLink, isActive, order } = body;
 
-    if (!title || !image) {
-      return NextResponse.json({ error: 'Title and image are required' }, { status: 400 });
+    if (!image) {
+      return NextResponse.json({ error: 'Image is required' }, { status: 400 });
     }
 
     const announcement = await prisma.announcement.create({
       data: {
-        title,
         image,
-        subtitle: subtitle || null,
-        description: description || null,
-        buttonText: buttonText || null,
         buttonLink: buttonLink || null,
-        theme: theme || 'blue',
         isActive: isActive !== undefined ? isActive : true,
         order: order || 0,
       },
@@ -31,13 +26,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(announcement, { status: 201 });
   } catch (error) {
-    console.error('Error creating announcement:', error);
-    return NextResponse.json({ error: 'Failed to create announcement' }, { status: 500 });
+    console.error('Error creating slider:', error);
+    return NextResponse.json({ error: 'Failed to create slider' }, { status: 500 });
   }
 }
 
 // -----------------------
-// GET ALL ACTIVE ANNOUNCEMENTS (GET)
+// GET ALL ACTIVE SLIDER IMAGES (GET)
 // -----------------------
 export async function GET(request: Request) {
   try {
@@ -56,14 +51,14 @@ export async function GET(request: Request) {
 
     return NextResponse.json(announcements);
   } catch (error) {
-    console.error('Error fetching announcements:', error);
+    console.error('Error fetching slider images:', error);
     // Return empty array when database is unavailable
     return NextResponse.json([]);
   }
 }
 
 // -----------------------
-// UPDATE ANNOUNCEMENT (PUT)
+// UPDATE SLIDER IMAGE (PUT)
 // -----------------------
 export async function PUT(request: NextRequest) {
   try {
@@ -71,20 +66,15 @@ export async function PUT(request: NextRequest) {
     const id = url.searchParams.get('id');
 
     if (!id) {
-      return NextResponse.json({ error: 'Announcement ID is required' }, { status: 400 });
+      return NextResponse.json({ error: 'ID is required' }, { status: 400 });
     }
 
     const body = await request.json();
-    const { title, subtitle, description, image, buttonText, buttonLink, theme, isActive, order } = body;
+    const { image, buttonLink, isActive, order } = body;
 
     const updateData: any = {};
-    if (title !== undefined) updateData.title = title;
-    if (subtitle !== undefined) updateData.subtitle = subtitle;
-    if (description !== undefined) updateData.description = description;
     if (image !== undefined) updateData.image = image;
-    if (buttonText !== undefined) updateData.buttonText = buttonText;
     if (buttonLink !== undefined) updateData.buttonLink = buttonLink;
-    if (theme !== undefined) updateData.theme = theme;
     if (isActive !== undefined) updateData.isActive = isActive;
     if (order !== undefined) updateData.order = order;
 
@@ -95,13 +85,13 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json(announcement);
   } catch (error) {
-    console.error('Error updating announcement:', error);
-    return NextResponse.json({ error: 'Failed to update announcement' }, { status: 500 });
+    console.error('Error updating slider:', error);
+    return NextResponse.json({ error: 'Failed to update slider' }, { status: 500 });
   }
 }
 
 // -----------------------
-// DELETE ANNOUNCEMENT (DELETE)
+// DELETE SLIDER IMAGE (DELETE)
 // -----------------------
 export async function DELETE(request: NextRequest) {
   try {
@@ -109,16 +99,16 @@ export async function DELETE(request: NextRequest) {
     const id = url.searchParams.get('id');
 
     if (!id) {
-      return NextResponse.json({ error: 'Announcement ID is required' }, { status: 400 });
+      return NextResponse.json({ error: 'ID is required' }, { status: 400 });
     }
 
     await prisma.announcement.delete({
       where: { id },
     });
 
-    return NextResponse.json({ message: 'Announcement deleted successfully' });
+    return NextResponse.json({ message: 'Slider deleted successfully' });
   } catch (error) {
-    console.error('Error deleting announcement:', error);
-    return NextResponse.json({ error: 'Failed to delete announcement' }, { status: 500 });
+    console.error('Error deleting slider:', error);
+    return NextResponse.json({ error: 'Failed to delete slider' }, { status: 500 });
   }
 }

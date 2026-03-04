@@ -5,18 +5,13 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { 
   Plus, Edit, Trash2, Eye, EyeOff, 
-  Image, Save, X, ArrowLeft, Upload
+  Image, Save, X, ArrowLeft, Upload, ExternalLink
 } from "lucide-react";
 
 type Announcement = {
   id: string;
-  title: string;
-  subtitle: string | null;
-  description: string | null;
   image: string;
-  buttonText: string | null;
   buttonLink: string | null;
-  theme: string;
   isActive: boolean;
   order: number;
   createdAt: string;
@@ -35,13 +30,8 @@ export default function AnnouncementsPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
-    title: '',
-    subtitle: '',
-    description: '',
     image: '',
-    buttonText: '',
     buttonLink: '',
-    theme: 'blue',
     isActive: true,
     order: 0,
   });
@@ -116,11 +106,6 @@ export default function AnnouncementsPage() {
     e.preventDefault();
     setMessage(null);
 
-    if (!formData.title) {
-      setMessage({ type: 'error', text: 'Title is required' });
-      return;
-    }
-
     if (!formData.image) {
       setMessage({ type: 'error', text: 'Please upload an image' });
       return;
@@ -139,27 +124,22 @@ export default function AnnouncementsPage() {
       });
 
       if (res.ok) {
-        setMessage({ type: 'success', text: editingId ? 'Announcement updated!' : 'Announcement created!' });
+        setMessage({ type: 'success', text: editingId ? 'Slider updated!' : 'Slider created!' });
         resetForm();
         fetchAnnouncements();
       } else {
         const data = await res.json();
-        setMessage({ type: 'error', text: data.error || 'Failed to save announcement' });
+        setMessage({ type: 'error', text: data.error || 'Failed to save slider' });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to save announcement' });
+      setMessage({ type: 'error', text: 'Failed to save slider' });
     }
   };
 
   const handleEdit = (announcement: Announcement) => {
     setFormData({
-      title: announcement.title,
-      subtitle: announcement.subtitle || '',
-      description: announcement.description || '',
       image: announcement.image,
-      buttonText: announcement.buttonText || '',
       buttonLink: announcement.buttonLink || '',
-      theme: announcement.theme,
       isActive: announcement.isActive,
       order: announcement.order,
     });
@@ -168,18 +148,18 @@ export default function AnnouncementsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this announcement?')) return;
+    if (!confirm('Are you sure you want to delete this slider?')) return;
 
     try {
       const res = await fetch(`/api/announcements?id=${id}`, { method: 'DELETE' });
       if (res.ok) {
-        setMessage({ type: 'success', text: 'Announcement deleted!' });
+        setMessage({ type: 'success', text: 'Slider deleted!' });
         fetchAnnouncements();
       } else {
-        setMessage({ type: 'error', text: 'Failed to delete announcement' });
+        setMessage({ type: 'error', text: 'Failed to delete slider' });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to delete announcement' });
+      setMessage({ type: 'error', text: 'Failed to delete slider' });
     }
   };
 
@@ -194,19 +174,14 @@ export default function AnnouncementsPage() {
         fetchAnnouncements();
       }
     } catch (error) {
-      console.error('Error toggling announcement:', error);
+      console.error('Error toggling slider:', error);
     }
   };
 
   const resetForm = () => {
     setFormData({
-      title: '',
-      subtitle: '',
-      description: '',
       image: '',
-      buttonText: '',
       buttonLink: '',
-      theme: 'blue',
       isActive: true,
       order: 0,
     });
@@ -240,8 +215,8 @@ export default function AnnouncementsPage() {
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
-              <h1 className="text-2xl font-bold">Slider Announcements</h1>
-              <p className="text-blue-200 text-sm">Manage homepage slider announcements</p>
+              <h1 className="text-2xl font-bold">Homepage Slider</h1>
+              <p className="text-blue-200 text-sm">Manage homepage slider images</p>
             </div>
           </div>
           <button
@@ -249,7 +224,7 @@ export default function AnnouncementsPage() {
             className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition"
           >
             <Plus className="w-5 h-5" />
-            Add New
+            Add Image
           </button>
         </div>
       </div>
@@ -270,10 +245,10 @@ export default function AnnouncementsPage() {
         {/* Form Modal */}
         {showForm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg">
+              <div className="p-6 border-b border-gray-200 flex items-center justify-between">
                 <h2 className="text-xl font-bold text-gray-900">
-                  {editingId ? 'Edit Announcement' : 'New Announcement'}
+                  {editingId ? 'Edit Slider Image' : 'Add Slider Image'}
                 </h2>
                 <button onClick={resetForm} className="p-2 hover:bg-gray-100 rounded-lg">
                   <X className="w-5 h-5" />
@@ -284,7 +259,7 @@ export default function AnnouncementsPage() {
                 {/* Image Upload */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Slider Image *</label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-400 transition">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition">
                     <input
                       ref={fileInputRef}
                       type="file"
@@ -302,12 +277,12 @@ export default function AnnouncementsPage() {
                         </div>
                       ) : formData.image ? (
                         <div className="flex flex-col items-center">
-                          <img src={formData.image} alt="Preview" className="max-h-40 rounded-lg mb-2" />
+                          <img src={formData.image} alt="Preview" className="max-h-48 rounded-lg mb-2" />
                           <span className="text-blue-600 text-sm">Click to change image</span>
                         </div>
                       ) : (
                         <div className="flex flex-col items-center">
-                          <Upload className="w-10 h-10 text-gray-400 mb-2" />
+                          <Upload className="w-12 h-12 text-gray-400 mb-3" />
                           <span className="text-gray-600 font-medium">Click to upload image</span>
                           <span className="text-gray-400 text-sm mt-1">JPG, PNG, GIF, WebP (max 10MB)</span>
                         </div>
@@ -316,112 +291,49 @@ export default function AnnouncementsPage() {
                   </div>
                 </div>
 
+                {/* Optional Link */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
-                  <input
-                    type="text"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Enter announcement title"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Subtitle</label>
-                  <input
-                    type="text"
-                    value={formData.subtitle}
-                    onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Optional subtitle"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                  <textarea
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    rows={3}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Optional description"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Button Text</label>
-                    <input
-                      type="text"
-                      value={formData.buttonText}
-                      onChange={(e) => setFormData({ ...formData, buttonText: e.target.value })}
-                      placeholder="Learn More"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Button Link</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Link (optional)
+                  </label>
+                  <div className="relative">
+                    <ExternalLink className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <input
                       type="text"
                       value={formData.buttonLink}
                       onChange={(e) => setFormData({ ...formData, buttonLink: e.target.value })}
-                      placeholder="/services"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="/services or https://example.com"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
+                  <p className="text-xs text-gray-500 mt-1">Where to go when someone clicks the slider</p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Theme</label>
-                    <select
-                      value={formData.theme}
-                      onChange={(e) => setFormData({ ...formData, theme: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    >
-                      <option value="blue">Blue</option>
-                      <option value="gold">Gold</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Order</label>
+                {/* Order */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+                  <input
+                    type="number"
+                    value={formData.order}
+                    onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="0"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Lower numbers appear first</p>
+                </div>
+
+                {/* Active Toggle */}
+                <div className="flex items-center gap-3">
+                  <label className="flex items-center gap-2 cursor-pointer">
                     <input
-                      type="number"
-                      value={formData.order}
-                      onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      type="checkbox"
+                      checked={formData.isActive}
+                      onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                      className="w-4 h-4 text-blue-600 rounded"
                     />
-                  </div>
-                  <div className="flex items-center pt-6">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={formData.isActive}
-                        onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                        className="w-4 h-4 text-blue-600 rounded"
-                      />
-                      <span className="text-sm text-gray-700">Active</span>
-                    </label>
-                  </div>
+                    <span className="text-sm text-gray-700">Show on homepage</span>
+                  </label>
                 </div>
-
-                {/* Preview */}
-                {formData.title && formData.image && (
-                  <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                    <h3 className="text-sm font-medium text-gray-700 mb-2">Preview</h3>
-                    <div className="relative h-32 rounded-lg overflow-hidden">
-                      <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                        <div className="text-center">
-                          <h4 className="text-white font-bold text-lg">{formData.title}</h4>
-                          {formData.subtitle && <p className="text-white/80 text-sm">{formData.subtitle}</p>}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
 
                 <div className="flex gap-3 pt-4">
                   <button
@@ -436,7 +348,7 @@ export default function AnnouncementsPage() {
                     className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2"
                   >
                     <Save className="w-4 h-4" />
-                    {editingId ? 'Update' : 'Create'}
+                    {editingId ? 'Update' : 'Save'}
                   </button>
                 </div>
               </form>
@@ -444,65 +356,47 @@ export default function AnnouncementsPage() {
           </div>
         )}
 
-        {/* Announcements List */}
+        {/* Sliders List */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="p-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">All Announcements</h2>
-            <p className="text-sm text-gray-500">{announcements.length} announcement(s)</p>
+            <h2 className="text-lg font-semibold text-gray-900">All Slider Images</h2>
+            <p className="text-sm text-gray-500">{announcements.length} image(s)</p>
           </div>
 
           {announcements.length === 0 ? (
             <div className="p-12 text-center">
               <Image className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No Announcements Yet</h3>
-              <p className="text-gray-500 mb-4">Create your first announcement to display on the homepage slider</p>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No Slider Images Yet</h3>
+              <p className="text-gray-500 mb-4">Upload your first image to display on the homepage slider</p>
               <button
                 onClick={() => setShowForm(true)}
                 className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
               >
                 <Plus className="w-5 h-5" />
-                Create Announcement
+                Upload Image
               </button>
             </div>
           ) : (
-            <div className="divide-y divide-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
               {announcements.map((announcement) => (
-                <div key={announcement.id} className="p-4 flex items-center gap-4 hover:bg-gray-50">
-                  {/* Image Preview */}
-                  <div className="w-20 h-14 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
-                    {announcement.image ? (
-                      <img src={announcement.image} alt={announcement.title} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className={`w-full h-full ${announcement.theme === 'blue' ? 'bg-blue-600' : 'bg-yellow-500'}`} />
-                    )}
+                <div key={announcement.id} className="relative group rounded-lg overflow-hidden bg-gray-100">
+                  {/* Image */}
+                  <div className="aspect-video">
+                    <img 
+                      src={announcement.image} 
+                      alt="Slider" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-gray-900 truncate">{announcement.title}</h3>
-                    {announcement.subtitle && (
-                      <p className="text-sm text-gray-500 truncate">{announcement.subtitle}</p>
-                    )}
-                    <div className="flex items-center gap-3 mt-1">
-                      <span className={`text-xs px-2 py-0.5 rounded ${
-                        announcement.theme === 'blue' 
-                          ? 'bg-blue-100 text-blue-700' 
-                          : 'bg-yellow-100 text-yellow-700'
-                      }`}>
-                        {announcement.theme}
-                      </span>
-                      <span className="text-xs text-gray-500">Order: {announcement.order}</span>
-                    </div>
-                  </div>
-
-                  {/* Status */}
-                  <div className="flex items-center gap-2">
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2">
                     <button
                       onClick={() => handleToggleActive(announcement.id, announcement.isActive)}
                       className={`p-2 rounded-lg transition ${
                         announcement.isActive 
-                          ? 'text-green-600 hover:bg-green-50' 
-                          : 'text-gray-400 hover:bg-gray-100'
+                          ? 'bg-green-600 text-white hover:bg-green-700' 
+                          : 'bg-gray-600 text-white hover:bg-gray-700'
                       }`}
                       title={announcement.isActive ? 'Active - Click to deactivate' : 'Inactive - Click to activate'}
                     >
@@ -511,18 +405,45 @@ export default function AnnouncementsPage() {
 
                     <button
                       onClick={() => handleEdit(announcement)}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                      className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
                       <Edit className="w-5 h-5" />
                     </button>
 
                     <button
                       onClick={() => handleDelete(announcement.id)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                      className="p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
                     >
                       <Trash2 className="w-5 h-5" />
                     </button>
                   </div>
+
+                  {/* Status Badge */}
+                  <div className="absolute top-2 left-2">
+                    <span className={`text-xs px-2 py-1 rounded ${
+                      announcement.isActive 
+                        ? 'bg-green-600 text-white' 
+                        : 'bg-gray-600 text-white'
+                    }`}>
+                      {announcement.isActive ? 'Active' : 'Inactive'}
+                    </span>
+                  </div>
+
+                  {/* Order Badge */}
+                  <div className="absolute top-2 right-2">
+                    <span className="text-xs px-2 py-1 rounded bg-black/50 text-white">
+                      Order: {announcement.order}
+                    </span>
+                  </div>
+
+                  {/* Link */}
+                  {announcement.buttonLink && (
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <span className="text-xs px-2 py-1 rounded bg-black/50 text-white truncate block">
+                        → {announcement.buttonLink}
+                      </span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 interface Announcement {
   id: string;
   image: string;
-  link: string | null;
+  buttonLink: string | null;
   isActive: boolean;
   order: number;
 }
@@ -48,7 +48,7 @@ export default function HomeSlider() {
               .sort((a: Announcement, b: Announcement) => a.order - b.order)
               .map((a: Announcement) => ({
                 image: a.image || '/slider/slide1.jpg',
-                link: a.link || null,
+                link: a.buttonLink || null,
               }));
             
             if (announcementSlides.length > 0) {

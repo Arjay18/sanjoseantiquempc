@@ -32,13 +32,8 @@ model NewsPost {
 
 model Announcement {
   id            String   @id @default(cuid())
-  title         String   // Title for the announcement
-  subtitle      String?  // Optional subtitle
-  description   String?  // Optional description
-  image         String   // Image URL (required)
-  buttonText    String?  // Button text
-  buttonLink    String?  // Button link
-  theme         String   @default("blue") // "blue" or "gold"
+  image         String   // Image URL (required) - stored in Vercel Blob
+  buttonLink    String?  // Optional link when clicking the slider
   isActive      Boolean  @default(true)
   order         Int      @default(0)
   createdAt     DateTime @default(now())
