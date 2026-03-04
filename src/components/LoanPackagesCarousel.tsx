@@ -16,152 +16,139 @@ const loanPackages: LoanPackage[] = [
   {
     title: "Providential Loan",
     description: "Special loan program for members facing financial difficulties with reduced rates.",
-    icon: <Star className="w-12 h-12" />,
+    icon: <Star className="w-8 h-8" />,
     color: "from-amber-500 to-orange-600",
     bgGradient: "from-amber-50 to-orange-50",
-    features: ["Emergency financial assistance", "Reduced interest rates", "Flexible payment schedules"],
+    features: ["Emergency assistance", "Reduced rates", "Flexible payments"],
   },
   {
     title: "Salary Loan",
     description: "Loans based on regular salary income with fast processing.",
-    icon: <Zap className="w-12 h-12" />,
+    icon: <Zap className="w-8 h-8" />,
     color: "from-yellow-500 to-amber-600",
     bgGradient: "from-yellow-50 to-amber-50",
-    features: ["Based on salary income", "Fast processing", "Competitive rates"],
+    features: ["Salary-based", "Fast processing", "Competitive rates"],
   },
   {
     title: "Pension Loan",
     description: "Special program for pensioners with competitive senior rates.",
-    icon: <Heart className="w-12 h-12" />,
+    icon: <Heart className="w-8 h-8" />,
     color: "from-rose-500 to-pink-600",
     bgGradient: "from-rose-50 to-pink-50",
-    features: ["Pension-backed security", "Competitive senior rates", "Flexible terms"],
+    features: ["Pension-backed", "Senior rates", "Flexible terms"],
   },
   {
     title: "Educational Loan",
     description: "Support for educational goals with flexible repayment options.",
-    icon: <GraduationCap className="w-12 h-12" />,
+    icon: <GraduationCap className="w-8 h-8" />,
     color: "from-indigo-500 to-blue-600",
     bgGradient: "from-indigo-50 to-blue-50",
-    features: ["Tuition and academic expenses", "Flexible repayment", "Co-maker options"],
+    features: ["Tuition expenses", "Flexible repayment", "Co-maker options"],
   },
   {
     title: "Cellphone Loan",
     description: "Latest mobile devices financing with accessories included.",
-    icon: <Smartphone className="w-12 h-12" />,
+    icon: <Smartphone className="w-8 h-8" />,
     color: "from-violet-500 to-purple-600",
     bgGradient: "from-violet-50 to-purple-50",
-    features: ["Latest mobile devices", "Accessories included", "Flexible payment terms"],
+    features: ["Latest devices", "Accessories included", "Flexible terms"],
   },
   {
     title: "Appliances Loan",
     description: "Home appliances financing with extended warranty options.",
-    icon: <Home className="w-12 h-12" />,
+    icon: <Home className="w-8 h-8" />,
     color: "from-teal-500 to-cyan-600",
     bgGradient: "from-teal-50 to-cyan-50",
-    features: ["Home appliances", "Electronics financing", "Extended warranty options"],
+    features: ["Home appliances", "Electronics financing", "Warranty options"],
   },
   {
     title: "Honorarium Loan",
     description: "Professional development financing for career advancement.",
-    icon: <Award className="w-12 h-12" />,
+    icon: <Award className="w-8 h-8" />,
     color: "from-emerald-500 to-green-600",
     bgGradient: "from-emerald-50 to-green-50",
     features: ["Professional development", "Certification courses", "Career advancement"],
   },
   {
     title: "Micro-Enterprise Loan",
-    description: "Support for small businesses and micro-enterprises with comprehensive financing.",
-    icon: <Briefcase className="w-12 h-12" />,
+    description: "Support for small businesses with comprehensive financing.",
+    icon: <Briefcase className="w-8 h-8" />,
     color: "from-slate-500 to-zinc-600",
     bgGradient: "from-slate-50 to-zinc-50",
-    features: ["Business startup capital", "Working capital financing", "Equipment and inventory"],
+    features: ["Startup capital", "Working capital", "Equipment & inventory"],
   },
   {
     title: "Agricultural Loan",
     description: "Specialized financing for farming and agricultural activities.",
-    icon: <Tractor className="w-12 h-12" />,
+    icon: <Tractor className="w-8 h-8" />,
     color: "from-lime-500 to-green-700",
     bgGradient: "from-lime-50 to-green-50",
-    features: ["Crop production financing", "Livestock and poultry raising", "Farm equipment and machinery"],
+    features: ["Crop production", "Livestock raising", "Farm equipment"],
   },
   {
-    title: "Hospitalization/Burial Loan",
-    description: "Financial support for medical emergencies and burial expenses with quick processing.",
-    icon: <Hospital className="w-12 h-12" />,
+    title: "Hospitalization Loan",
+    description: "Financial support for medical emergencies with quick processing.",
+    icon: <Hospital className="w-8 h-8" />,
     color: "from-red-500 to-rose-600",
     bgGradient: "from-red-50 to-rose-50",
-    features: ["Coverage for hospitalization costs", "Burial and funeral expenses", "Quick emergency processing"],
+    features: ["Hospital costs", "Funeral expenses", "Quick processing"],
   },
   {
     title: "Calamity Loan",
-    description: "Assistance for members affected by natural disasters and calamities.",
-    icon: <Wind className="w-12 h-12" />,
+    description: "Assistance for members affected by natural disasters.",
+    icon: <Wind className="w-8 h-8" />,
     color: "from-sky-500 to-blue-700",
     bgGradient: "from-sky-50 to-blue-50",
-    features: ["Natural disaster support", "Emergency relief funding", "Reduced interest rates"],
+    features: ["Disaster support", "Emergency relief", "Reduced rates"],
   },
   {
     title: "Petty Cash Loan",
-    description: "Small amount loans for daily operational expenses with fast approval.",
-    icon: <Coins className="w-12 h-12" />,
+    description: "Small amount loans for daily expenses with fast approval.",
+    icon: <Coins className="w-8 h-8" />,
     color: "from-green-500 to-emerald-600",
     bgGradient: "from-green-50 to-emerald-50",
-    features: ["Quick processing", "Low interest rates", "Short repayment period"],
+    features: ["Quick processing", "Low interest", "Short period"],
   },
   {
     title: "Rice Loan",
-    description: "Seasonal loans for rice farming and related agricultural activities.",
-    icon: <Wheat className="w-12 h-12" />,
+    description: "Seasonal loans for rice farming and agricultural activities.",
+    icon: <Wheat className="w-8 h-8" />,
     color: "from-yellow-600 to-amber-700",
     bgGradient: "from-yellow-50 to-amber-50",
-    features: ["Seasonal financing", "Agricultural focus", "Harvest-based repayment"],
+    features: ["Seasonal financing", "Agricultural focus", "Harvest repayment"],
   },
 ];
 
+const ITEMS_PER_PAGE = 3;
+const TOTAL_PAGES = Math.ceil(loanPackages.length / ITEMS_PER_PAGE);
+
 export default function LoanPackagesCarousel() {
-  const [current, setCurrent] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [autoplay, setAutoplay] = useState(true);
 
   const next = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrent((c) => (c + 1) % loanPackages.length);
+    setCurrentPage((c) => (c + 1) % TOTAL_PAGES);
     setTimeout(() => setIsAnimating(false), 300);
   };
 
   const prev = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrent((c) => (c - 1 + loanPackages.length) % loanPackages.length);
+    setCurrentPage((c) => (c - 1 + TOTAL_PAGES) % TOTAL_PAGES);
     setTimeout(() => setIsAnimating(false), 300);
   };
 
-  const goToSlide = (index: number) => {
-    if (isAnimating || index === current) return;
-    setIsAnimating(true);
-    setCurrent(index);
-    setTimeout(() => setIsAnimating(false), 300);
+  const getVisiblePackages = () => {
+    const start = currentPage * ITEMS_PER_PAGE;
+    return loanPackages.slice(start, start + ITEMS_PER_PAGE);
   };
 
-  // Autoplay functionality
-  useEffect(() => {
-    if (!autoplay) return;
-    const interval = setInterval(() => {
-      next();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [autoplay, current]);
-
-  const pkg = loanPackages[current];
+  const visiblePackages = getVisiblePackages();
 
   return (
-    <div 
-      className="relative w-full max-w-5xl mx-auto"
-      onMouseEnter={() => setAutoplay(false)}
-      onMouseLeave={() => setAutoplay(true)}
-    >
+    <div className="relative w-full max-w-6xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
@@ -171,8 +158,11 @@ export default function LoanPackagesCarousel() {
           <h3 className="text-xl font-bold text-gray-900">Loan Packages</h3>
         </div>
         
-        {/* Navigation Buttons */}
+        {/* Navigation */}
         <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-500 mr-2">
+            {currentPage + 1} of {TOTAL_PAGES}
+          </span>
           <button 
             onClick={prev}
             className="p-2 rounded-xl bg-white border border-gray-200 shadow-sm hover:bg-gray-50 hover:shadow-md transition-all duration-200 group"
@@ -188,104 +178,81 @@ export default function LoanPackagesCarousel() {
         </div>
       </div>
 
-      {/* Carousel Card */}
-      <div className="relative overflow-hidden rounded-3xl">
-        <div 
-          className={`relative bg-gradient-to-br ${pkg.bgGradient} p-8 md:p-10 min-h-[320px] flex flex-col transition-all duration-500 ${isAnimating ? 'opacity-80 scale-[0.98]' : 'opacity-100 scale-100'}`}
-        >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-white to-transparent rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-white to-transparent rounded-full translate-y-1/2 -translate-x-1/2"></div>
-          </div>
-
-          {/* Content */}
-          <div className="relative z-10 flex-1 flex flex-col">
-            <div className="flex items-start justify-between mb-4">
-              {/* Icon */}
-              <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${pkg.color} flex items-center justify-center shadow-xl text-white transform -rotate-6`}>
-                {pkg.icon}
-              </div>
+      {/* Cards Container */}
+      <div className={`relative overflow-hidden transition-all duration-300 ${isAnimating ? 'opacity-80' : 'opacity-100'}`}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {visiblePackages.map((pkg, idx) => (
+            <div 
+              key={idx}
+              className="relative bg-gradient-to-br ${pkg.bgGradient} rounded-2xl p-6 border border-white/50 shadow-lg hover:shadow-xl transition-all duration-300 group"
+            >
+              {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/40 to-transparent rounded-full -translate-y-1/2 translate-x-1/2"></div>
               
-              {/* Package Number */}
-              <div className="text-sm font-medium text-gray-400">
-                {current + 1} / {loanPackages.length}
+              {/* Content */}
+              <div className="relative z-10">
+                {/* Icon */}
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${pkg.color} flex items-center justify-center shadow-lg text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  {pkg.icon}
+                </div>
+
+                {/* Title */}
+                <h4 className="text-lg font-bold text-gray-900 mb-2">
+                  {pkg.title}
+                </h4>
+                
+                {/* Description */}
+                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  {pkg.description}
+                </p>
+
+                {/* Features */}
+                <div className="space-y-2 mb-4">
+                  {pkg.features.slice(0, 3).map((feature, i) => (
+                    <div 
+                      key={i}
+                      className="flex items-center gap-2 text-xs text-gray-600"
+                    >
+                      <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${pkg.color}`} />
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <Link 
+                  href="/dashboard"
+                  className={`inline-flex items-center gap-1 text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors group/btn`}
+                >
+                  Apply Now
+                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                </Link>
               </div>
             </div>
-
-            {/* Title & Description */}
-            <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              {pkg.title}
-            </h4>
-            <p className="text-gray-600 mb-6 text-base md:text-lg leading-relaxed max-w-2xl">
-              {pkg.description}
-            </p>
-
-            {/* Features */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-              {pkg.features.map((feature, i) => (
-                <div 
-                  key={i}
-                  className="flex items-center gap-2 bg-white/70 backdrop-blur-sm rounded-xl px-3 py-2 text-sm text-gray-700"
-                >
-                  <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${pkg.color}`} />
-                  {feature}
-                </div>
-              ))}
-            </div>
-
-            {/* CTA Button */}
-            <div className="mt-auto">
-              <Link 
-                href="/dashboard"
-                className={`inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r ${pkg.color} text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group`}
-              >
-                Apply Now
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
       {/* Dots Navigation */}
-      <div className="flex justify-center mt-6 gap-2 flex-wrap">
-        {loanPackages.map((_, idx) => (
+      <div className="flex justify-center mt-6 gap-2">
+        {Array.from({ length: TOTAL_PAGES }).map((_, idx) => (
           <button
             key={idx}
-            onClick={() => goToSlide(idx)}
-            className={`relative h-2 rounded-full transition-all duration-300 ${
-              idx === current 
+            onClick={() => {
+              if (!isAnimating) {
+                setIsAnimating(true);
+                setCurrentPage(idx);
+                setTimeout(() => setIsAnimating(false), 300);
+              }
+            }}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              idx === currentPage 
                 ? 'w-8 bg-gradient-to-r from-blue-500 to-indigo-600' 
                 : 'w-2 bg-gray-300 hover:bg-gray-400'
             }`}
-            aria-label={`Go to package ${idx + 1}`}
-          >
-            {idx === current && (
-              <span className="absolute inset-0 rounded-full bg-white/30 animate-pulse"></span>
-            )}
-          </button>
+            aria-label={`Go to page ${idx + 1}`}
+          />
         ))}
-      </div>
-
-      {/* Package Pills */}
-      <div className="flex justify-center gap-2 mt-4 flex-wrap">
-        {loanPackages.slice(0, 7).map((pkg, idx) => (
-          <button
-            key={idx}
-            onClick={() => goToSlide(idx)}
-            className={`text-xs px-3 py-1 rounded-full transition-all duration-200 ${
-              idx === current
-                ? 'bg-blue-600 text-white font-medium'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            {pkg.title.split(' ')[0]}
-          </button>
-        ))}
-        {loanPackages.length > 7 && (
-          <span className="text-xs text-gray-400 self-center">+{loanPackages.length - 7} more</span>
-        )}
       </div>
     </div>
   );
