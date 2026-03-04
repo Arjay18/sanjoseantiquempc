@@ -30,6 +30,21 @@ model NewsPost {
   updatedAt   DateTime @updatedAt
 }
 
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String?
+  description String?
+  image       String?
+  buttonText  String?
+  buttonLink  String?
+  theme       String   @default("blue") // "blue" or "gold"
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model SuccessStory {
   id          String   @id @default(cuid())
   title       String
@@ -65,7 +80,7 @@ model PMESSession {
   zoomMeetingId String?
   zoomPassword String?
   zoomJoinUrl  String?
-  zoomStartUrl String?
+  zoomStartUrl  String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -1,28 +1,20 @@
-# Task: Move Loan Application Form to User Dashboard - COMPLETED
+# Task: Create Announcement System for Slider
 
-## Summary of Changes:
+## Plan:
+1. [x] Add Announcement model to Prisma schema
+2. [x] Create Announcement API endpoints
+3. [x] Create Admin Announcement page
+4. [x] Update HomeSlider to fetch announcements
+5. [x] Add link to admin dashboard
 
-### 1. Created new API endpoint:
-- `src/app/api/loan-applications/user/[id]/route.ts` - DELETE endpoint for users to delete their own loan applications
+## Files Created:
+- `src/app/api/announcements/route.ts` - API for announcements CRUD
+- `src/app/admin/announcements/page.tsx` - Admin page to manage announcements
 
-### 2. Updated dashboard layout:
-- `src/app/dashboard/layout.tsx` - Simplified to use UserHeader component only (no duplicate headers)
+## Files Modified:
+- `prisma/schema.prisma` - Added Announcement model
+- `src/components/HomeSlider.tsx` - Now fetches announcements from API
+- `src/app/administrator/page.tsx` - Added link to announcements
 
-### 3. Updated UserHeader:
-- `src/app/dashboard/UserHeader.tsx` - Added navigation using URL query parameters (tab parameter)
-  - Uses `?tab=dashboard`, `?tab=apply`, `?tab=loans`, `?tab=upload`
-
-### 4. Updated dashboard page:
-- `src/app/dashboard/page.tsx` - Single-page application with tab-based navigation
-  - Dashboard tab: Shows stats, quick actions, loan packages carousel, and applications
-  - Apply tab: Shows the complete loan application form
-  - Loans tab: Shows only user's loan applications with delete option
-  - Upload tab: Shows document upload section
-
-### 5. Online Application page:
-- `src/app/online-application/page.tsx` - Already links to `/dashboard` for loan applications
-
-## Testing:
-- Dashboard loads at http://localhost:3000/dashboard
-- User can navigate between tabs (dashboard, apply, loans, upload) without page redirects
-- Content changes dynamically based on selected tab
+## Note:
+- Run `npx prisma generate` and `npx prisma db push` to update the database with the new Announcement model
