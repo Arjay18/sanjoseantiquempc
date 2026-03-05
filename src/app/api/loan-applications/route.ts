@@ -79,6 +79,7 @@ export async function POST(request: NextRequest) {
           idType: formData.idType || 'Other',
           idFile: formData.idFile || null,
           loanAmount: parseFloat(formData.loanAmount),
+          amountInWords: formData.amountInWords || null,
           term: parseInt(formData.term),
           purpose: formData.purpose,
           promissoryNoteAmount: formData.promissoryNoteAmount ? parseFloat(formData.promissoryNoteAmount) : null,

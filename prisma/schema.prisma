@@ -107,6 +107,7 @@ model LoanApplication {
 
   // Loan Details
   loanAmount  Float
+  amountInWords String?  // Amount in words (e.g., "Fifty Thousand Pesos")
   term        Int
   purpose     String
 

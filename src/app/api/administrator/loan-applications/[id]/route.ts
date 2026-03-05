@@ -69,7 +69,7 @@ export async function PUT(request: NextRequest, ctx: any) {
         status: body.status,
         notes: body.notes,
         reviewedBy: session.user?.name || session.user?.email || null,
-        reviewedAt: new Date(),
+        reviewedAt: body.status !== 'pending' ? new Date() : null,
       },
     });
 
