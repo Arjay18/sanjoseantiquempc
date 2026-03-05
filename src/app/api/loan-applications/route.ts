@@ -7,20 +7,32 @@ export async function POST(request: NextRequest) {
   try {
     const { formData } = await request.json();
 
+    // Debug: Log received data
+    console.log('=== LOAN APPLICATION DEBUG ===');
+    console.log('formData keys:', Object.keys(formData));
+    console.log('loanAmount:', formData.loanAmount, 'type:', typeof formData.loanAmount);
+    console.log('term:', formData.term, 'type:', typeof formData.term);
+    console.log('pbNo:', formData.pbNo);
+    console.log('branch:', formData.branch);
+    console.log('loanType:', formData.loanType);
+    console.log('=============================');
+
     // Backend validation for required fields and numeric types
     const requiredFields = [
       'name', 'pbNo', 'contactNo', 'address', 'loanType', 'loanAmount', 'term', 'purpose', 'branch'
     ];
     const missingFields = requiredFields.filter(field => {
+      const value = formData[field];
       // Accept 0 for numeric fields, but not empty string or undefined
-      if (formData[field] === undefined || formData[field] === null || formData[field] === '') return true;
+      if (value === undefined || value === null || value === '') return true;
       return false;
     });
     if (missingFields.length > 0) {
       return NextResponse.json({
         error: 'Missing required fields',
         details: `The following fields are required: ${missingFields.join(', ')}`,
-        formData
+        missingFields,
+        receivedFields: Object.keys(formData)
       }, { status: 400 });
     }
 
@@ -37,7 +49,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         error: 'Invalid numeric fields',
         details: `The following fields must be valid numbers: ${invalidNumeric.map(f => f.label).join(', ')}`,
-        formData
+        invalidFields: invalidNumeric,
+        loanAmountValue: formData.loanAmount,
+        termValue: formData.term
       }, { status: 400 });
     }
 
@@ -157,7 +171,7 @@ export async function POST(request: NextRequest) {
     if (error && typeof error === 'object') {
       for (const key in error) {
         if (Object.prototype.hasOwnProperty.call(error, key)) {
-          console.error(`Error property [${key}]:`, (error as any)[key]);
+          console.error(`Error Property [${key}]:`, (error as any)[key]);
         }
       }
     }
