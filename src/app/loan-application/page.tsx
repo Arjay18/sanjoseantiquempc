@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { Wallet, AlertTriangle, User, FileText, CreditCard, Home, Building2 } from 'lucide-react';
@@ -144,9 +144,9 @@ export default function LoanApplication() {
     setSubmitMessage(null);
     try {
       // Convert files to base64
-      const validIDsAndSignatures = formData.validIDsAndSignatures ? await fileToBase64(formData.validIDsAndSignatures) : null;
-      const depositSlipOrEwallet = formData.depositSlipOrEwallet ? await fileToBase64(formData.depositSlipOrEwallet) : null;
-      const memberWithIDAndSlip = formData.memberWithIDAndSlip ? await fileToBase64(formData.memberWithIDAndSlip) : null;
+      // Skip file uploads to avoid payload size issues - files can be uploaded separately later
+      
+      
 
       // Prepare data for API - Map amountApplied to loanAmount for backend compatibility
       const payload = {
@@ -249,7 +249,7 @@ export default function LoanApplication() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <input name="loanType" value={formData.loanType} onChange={handleInputChange} placeholder="Loan Type (e.g. Regular, Emergency)" className="input input-bordered bg-yellow-50 focus:bg-white" required />
                           <input name="term" value={formData.term} onChange={handleInputChange} placeholder="Term (months)" className="input input-bordered bg-yellow-50 focus:bg-white" required />
-                          <input name="amountApplied" value={formData.amountApplied} onChange={handleInputChange} placeholder="Amount Applied (₱)" className="input input-bordered bg-yellow-50 focus:bg-white" required />
+                          <input name="amountApplied" value={formData.amountApplied} onChange={handleInputChange} placeholder="Amount Applied (?)" className="input input-bordered bg-yellow-50 focus:bg-white" required />
                           <input name="purpose" value={formData.purpose} onChange={handleInputChange} placeholder="Purpose of Loan" className="input input-bordered bg-yellow-50 focus:bg-white" required />
                         </div>
                       </div>

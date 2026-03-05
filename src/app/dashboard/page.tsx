@@ -197,9 +197,9 @@ export default function UserDashboard() {
     setIsSubmitting(true);
     setSubmitMessage(null);
     try {
-      const validIDsAndSignatures = formData.validIDsAndSignatures ? await fileToBase64(formData.validIDsAndSignatures) : null;
-      const depositSlipOrEwallet = formData.depositSlipOrEwallet ? await fileToBase64(formData.depositSlipOrEwallet) : null;
-      const memberWithIDAndSlip = formData.memberWithIDAndSlip ? await fileToBase64(formData.memberWithIDAndSlip) : null;
+      // Skip file uploads to avoid payload size issues - files can be uploaded separately later
+      
+      
 
       // Map amountApplied to loanAmount for backend compatibility
       const payload = {
