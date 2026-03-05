@@ -37,7 +37,7 @@ export default function UserDashboard() {
   // Form state
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 4;
+  const totalSteps = 5;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileNames, setFileNames] = useState({
     validIDsAndSignatures: '',
@@ -224,6 +224,7 @@ export default function UserDashboard() {
           contactNo: '', loanType: '', idType: '', term: '', amountApplied: '',
           pesosOnly: '', purpose: '', amountInWords: '', amountInPesos: '',
           savingsDepositRegular: '', savingsDepositUltima: '', savingsDepositAlkansya: '',
+          assignmentAmount: '', assignmentPbNo: '', shareCapital: '', timeDeposit: '', otherDeposits: '',
           timeDeposit: '', otherDeposits: '', branch: '', shareCapital: '',
           incomeMember: '', incomeSpouse: '', incomeOtherFamily: '', incomeBusiness: '',
           otherIncome: '', totalFamilyIncome: '', food: '', clothing: '', shelter: '',
@@ -296,7 +297,8 @@ export default function UserDashboard() {
     { number: 1, title: 'Personal', description: 'Personal Info', icon: User },
     { number: 2, title: 'Loan', description: 'Loan Details', icon: CreditCard },
     { number: 3, title: 'Financial', description: 'Income & Expenses', icon: Wallet },
-    { number: 4, title: 'Requirements', description: 'Upload & Review', icon: FileText },
+    { number: 4, title: 'Assignment', description: 'Deposit & Shares', icon: Building2 },
+    { number: 5, title: 'Requirements', description: 'Upload & Review', icon: FileText },
   ];
 
   // Calculate stats
@@ -904,8 +906,100 @@ export default function UserDashboard() {
               </div>
             )}
 
-            {/* Step 4: Requirements */}
+            {/* Step 4: Assignment of Deposit */}
             {currentStep === 4 && (
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 mb-4">
+                  <Building2 className="w-5 h-5 text-blue-600" />
+                  <h3 className="text-lg font-semibold text-gray-900">Assignment of Deposit & Share Capital</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Passbook No.</label>
+                    <input 
+                      name="assignmentPbNo" 
+                      value={formData.assignmentPbNo || formData.passbookNo} 
+                      onChange={handleInputChange} 
+                      placeholder="Enter passbook number"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Share Capital (₱)</label>
+                    <input 
+                      name="shareCapital" 
+                      value={formData.shareCapital} 
+                      onChange={handleInputChange} 
+                      placeholder="Enter share capital"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Regular Savings (₱)</label>
+                    <input 
+                      name="savingsDepositRegular" 
+                      value={formData.savingsDepositRegular} 
+                      onChange={handleInputChange} 
+                      placeholder="Enter regular savings"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Ultima Savings (₱)</label>
+                    <input 
+                      name="savingsDepositUltima" 
+                      value={formData.savingsDepositUltima} 
+                      onChange={handleInputChange} 
+                      placeholder="Enter ultima savings"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Alkansya (₱)</label>
+                    <input 
+                      name="savingsDepositAlkansya" 
+                      value={formData.savingsDepositAlkansya} 
+                      onChange={handleInputChange} 
+                      placeholder="Enter alkansya"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Time Deposit (₱)</label>
+                    <input 
+                      name="timeDeposit" 
+                      value={formData.timeDeposit} 
+                      onChange={handleInputChange} 
+                      placeholder="Enter time deposit"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Other Deposits (₱)</label>
+                    <input 
+                      name="otherDeposits" 
+                      value={formData.otherDeposits} 
+                      onChange={handleInputChange} 
+                      placeholder="Enter other deposits"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Assignment Amount (₱)</label>
+                    <input 
+                      name="assignmentAmount" 
+                      value={formData.assignmentAmount} 
+                      onChange={handleInputChange} 
+                      placeholder="Enter assignment amount"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Step 5: Requirements */}
+            {currentStep === 5 && (
               <div className="space-y-4">
                 <div className="flex items-center gap-2 mb-4">
                   <Building2 className="w-5 h-5 text-purple-600" />
