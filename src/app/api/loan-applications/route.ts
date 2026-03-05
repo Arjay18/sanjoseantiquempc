@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
           address: formData.address,
           branch: normalizedBranch,
           loanType: formData.loanType,
-          idType: formData.idType,
+          idType: formData.idType || 'Other',
           idFile: formData.idFile || null,
           loanAmount: parseFloat(formData.loanAmount),
           term: parseInt(formData.term),
