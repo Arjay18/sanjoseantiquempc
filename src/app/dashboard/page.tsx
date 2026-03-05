@@ -774,14 +774,19 @@ export default function UserDashboard() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Branch</label>
-                    <input 
-                      name="branch" 
-                      value={formData.branch} 
-                      onChange={handleInputChange} 
-                      placeholder="e.g. San Jose"
+                    <select
+                      name="branch"
+                      value={formData.branch}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                      required 
-                    />
+                      required
+                    >
+                      <option value="">Select Branch</option>
+                      <option value="sanjose">San Jose</option>
+                      <option value="miagao">Miagao</option>
+                      <option value="oton">Oton</option>
+                      <option value="guimaras">Guimaras</option>
+                    </select>
                   </div>
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
