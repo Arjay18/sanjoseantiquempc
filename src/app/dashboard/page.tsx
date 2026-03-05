@@ -241,10 +241,12 @@ export default function UserDashboard() {
         }
       } else {
         const data = await res.json();
-        setSubmitMessage(data.error || 'Submission failed.');
+        console.error('Submission error response:', data);
+        setSubmitMessage(data.error || data.details || 'Submission failed. Status: ' + res.status);
       }
     } catch (err) {
-      setSubmitMessage('Submission failed. Please try again.');
+      console.error('Loan submission error:', err);
+      setSubmitMessage('Submission failed. Please try again. Error: ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
     setIsSubmitting(false);
   };
