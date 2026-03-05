@@ -62,6 +62,10 @@ export async function POST(request: NextRequest) {
     try {
       // Normalize branch value
       const normalizedBranch = (formData.branch || 'sanjose').trim().toLowerCase();
+      
+      // Debug: Log all received fields
+      console.log('All received formData:', JSON.stringify(formData, null, 2));
+      
       application = await prisma.loanApplication.create({
         data: {
           name: formData.name,
@@ -146,12 +150,19 @@ export async function POST(request: NextRequest) {
         },
       });
     } catch (err: any) {
-      // Handle unique constraint violation
-      if (err.code === 'P2002' && err.meta && err.meta.target && err.meta.target.includes('pbNo_branch_loanType')) {
-        return NextResponse.json({
-          error: 'Duplicate application',
-          message: 'A loan application for this member, branch, and loan type already exists.'
-        }, { status: 409 });
+      // Handle unique constraint violation - check for the actual field names
+      if (err.code === 'P2002' && err.meta && err.meta.target) {
+        const target = err.meta.target;
+        const hasPbNo = target.includes('pbNo');
+        const hasBranch = target.includes('branch');
+        const hasLoanType = target.includes('loanType');
+        
+        if (hasPbNo && hasBranch && hasLoanType) {
+          return NextResponse.json({
+            error: 'Duplicate application',
+            message: 'A loan application with this passbook number, branch, and loan type already exists. Please use a different passbook number or loan type.'
+          }, { status: 409 });
+        }
       }
       throw err;
     }

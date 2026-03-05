@@ -143,18 +143,51 @@ export default function LoanApplication() {
     setIsSubmitting(true);
     setSubmitMessage(null);
     try {
-      // Convert files to base64
-      // Skip file uploads to avoid payload size issues - files can be uploaded separately later
-      
-      
-
-      // Prepare data for API - Map amountApplied to loanAmount for backend compatibility
+      // Prepare data for API - Map only the required fields properly
       const payload = {
-        ...formData,
+        // Basic Information - ensure pbNo is properly mapped
+        name: formData.name,
+        pbNo: formData.pbNo || formData.passbookNo,
+        address: formData.address,
+        email: formData.email,
+        contactNo: formData.contactNo,
+        branch: formData.branch,
         
-        
-        
+        // Loan Details - map amountApplied to loanAmount
+        loanType: formData.loanType,
+        idType: formData.idType || 'Other',  // Provide default if empty
         loanAmount: formData.amountApplied,
+        term: formData.term,
+        purpose: formData.purpose,
+        amountInWords: formData.amountInWords || null,
+        
+        // Financial Information
+        incomeMember: formData.incomeMember || null,
+        incomeSpouse: formData.incomeSpouse || null,
+        incomeOtherFamily: formData.incomeOtherFamily || null,
+        incomeBusiness: formData.incomeBusiness || null,
+        otherIncome: formData.otherIncome || null,
+        totalFamilyIncome: formData.totalFamilyIncome || null,
+        
+        // Expenses
+        food: formData.food || null,
+        clothing: formData.clothing || null,
+        shelter: formData.shelter || null,
+        education: formData.education || null,
+        electricWaterBills: formData.electricWaterBills || null,
+        helper: formData.helper || null,
+        loanRepayments: formData.loanRepayments || null,
+        miscellaneousExpense: formData.miscellaneousExpense || null,
+        totalFamilyExpenses: formData.totalFamilyExpenses || null,
+        netIncome: formData.netIncome || null,
+        
+        // Savings/Deposits
+        savingsDepositRegular: formData.savingsDepositRegular || null,
+        savingsDepositUltima: formData.savingsDepositUltima || null,
+        savingsDepositAlkansya: formData.savingsDepositAlkansya || null,
+        timeDeposit: formData.timeDeposit || null,
+        otherDeposits: formData.otherDeposits || null,
+        shareCapital: formData.shareCapital || null,
       };
 
       const res = await fetch('/api/loan-applications', {
@@ -162,16 +195,65 @@ export default function LoanApplication() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ formData: payload }),
       });
+      
+      const data = await res.json();
+      
       if (res.ok) {
         setSubmitMessage('Application submitted successfully!');
-        // Optionally reset form
-        // setFormData({ ... });
+        // Reset form after successful submission
+        setFormData({
+          name: '',
+          passbookNo: '',
+          pbNo: '',
+          address: '',
+          email: '',
+          contactNo: '',
+          loanType: '',
+          idType: '',
+          term: '',
+          amountApplied: '',
+          pesosOnly: '',
+          purpose: '',
+          amountInWords: '',
+          amountInPesos: '',
+          savingsDepositRegular: '',
+          savingsDepositUltima: '',
+          savingsDepositAlkansya: '',
+          timeDeposit: '',
+          otherDeposits: '',
+          branch: '',
+          shareCapital: '',
+          incomeMember: '',
+          incomeSpouse: '',
+          incomeOtherFamily: '',
+          incomeBusiness: '',
+          otherIncome: '',
+          totalFamilyIncome: '',
+          food: '',
+          clothing: '',
+          shelter: '',
+          education: '',
+          electricWaterBills: '',
+          helper: '',
+          loanRepayments: '',
+          miscellaneousExpense: '',
+          totalFamilyExpenses: '',
+          netIncome: '',
+          declarationAccepted: false,
+          termsAccepted: false,
+          validIDsAndSignatures: null,
+          depositSlipOrEwallet: null,
+          memberWithIDAndSlip: null,
+        });
+        setCurrentStep(1);
       } else {
-        const data = await res.json();
-        setSubmitMessage(data.error || 'Submission failed.');
+        // Show detailed error message from backend
+        const errorMsg = data.details || data.message || data.error || 'Submission failed.';
+        setSubmitMessage(errorMsg);
       }
     } catch (err) {
-      setSubmitMessage('Submission failed. Please try again.');
+      console.error('Submission error:', err);
+      setSubmitMessage('Submission failed. Please check your connection and try again.');
     }
     setIsSubmitting(false);
   };
@@ -202,7 +284,11 @@ export default function LoanApplication() {
           <p className="text-gray-600 text-lg">San Jose Multi-Purpose Cooperative</p>
         </div>
         {submitMessage && (
-          <div className="mb-4 p-3 rounded-xl bg-green-100 text-green-800 text-center font-semibold border border-green-300 shadow">
+          <div className={`mb-4 p-3 rounded-xl text-center font-semibold border shadow ${
+            submitMessage.includes('success') || submitMessage.includes('submitted')
+              ? 'bg-green-100 text-green-800 border-green-300'
+              : 'bg-red-100 text-red-800 border-red-300'
+          }`}>
             {submitMessage}
           </div>
         )}
