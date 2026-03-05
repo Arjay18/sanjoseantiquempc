@@ -201,11 +201,13 @@ export default function UserDashboard() {
       const depositSlipOrEwallet = formData.depositSlipOrEwallet ? await fileToBase64(formData.depositSlipOrEwallet) : null;
       const memberWithIDAndSlip = formData.memberWithIDAndSlip ? await fileToBase64(formData.memberWithIDAndSlip) : null;
 
+      // Map amountApplied to loanAmount for backend compatibility
       const payload = {
         ...formData,
         validIDsAndSignatures,
         depositSlipOrEwallet,
         memberWithIDAndSlip,
+        loanAmount: formData.amountApplied,
       };
 
       const res = await fetch('/api/loan-applications', {

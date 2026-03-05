@@ -148,12 +148,13 @@ export default function LoanApplication() {
       const depositSlipOrEwallet = formData.depositSlipOrEwallet ? await fileToBase64(formData.depositSlipOrEwallet) : null;
       const memberWithIDAndSlip = formData.memberWithIDAndSlip ? await fileToBase64(formData.memberWithIDAndSlip) : null;
 
-      // Prepare data for API
+      // Prepare data for API - Map amountApplied to loanAmount for backend compatibility
       const payload = {
         ...formData,
         validIDsAndSignatures,
         depositSlipOrEwallet,
         memberWithIDAndSlip,
+        loanAmount: formData.amountApplied,
       };
 
       const res = await fetch('/api/loan-applications', {
@@ -369,4 +370,3 @@ export default function LoanApplication() {
     </div>
   );
 }
-

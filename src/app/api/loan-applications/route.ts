@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
     // Backend validation for required fields and numeric types
     const requiredFields = [
-      'name', 'pbNo', 'contactNo', 'address', 'loanType', 'loanAmount', 'term', 'purpose', 'idType', 'branch'
+      'name', 'pbNo', 'contactNo', 'address', 'loanType', 'loanAmount', 'term', 'purpose', 'branch'
     ];
     const missingFields = requiredFields.filter(field => {
       // Accept 0 for numeric fields, but not empty string or undefined
