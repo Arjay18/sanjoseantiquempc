@@ -88,6 +88,8 @@ export default function UserDashboard() {
     validIDsAndSignatures: null,
     depositSlipOrEwallet: null,
     memberWithIDAndSlip: null,
+    assignmentAmount: '',
+    assignmentPbNo: '',
   });
 
   // Sync showLoanForm with tab parameter
@@ -224,8 +226,8 @@ export default function UserDashboard() {
           contactNo: '', loanType: '', idType: '', term: '', amountApplied: '',
           pesosOnly: '', purpose: '', amountInWords: '', amountInPesos: '',
           savingsDepositRegular: '', savingsDepositUltima: '', savingsDepositAlkansya: '',
-          assignmentAmount: '', assignmentPbNo: '', shareCapital: '', timeDeposit: '', otherDeposits: '',
           timeDeposit: '', otherDeposits: '', branch: '', shareCapital: '',
+          assignmentAmount: '', assignmentPbNo: '',
           incomeMember: '', incomeSpouse: '', incomeOtherFamily: '', incomeBusiness: '',
           otherIncome: '', totalFamilyIncome: '', food: '', clothing: '', shelter: '',
           education: '', electricWaterBills: '', helper: '', loanRepayments: '',
