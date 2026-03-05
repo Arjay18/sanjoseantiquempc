@@ -8,31 +8,15 @@ const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest, ctx: any) {
   try {
-    // Debug: log incoming request cookies and params to help diagnose auth issues
-    try {
-      console.debug('[administrator/loan-applications/[id]] GET cookies:', request.headers.get('cookie')?.slice(0, 100));
-      console.debug('[administrator/loan-applications/[id]] GET params:', ctx?.params);
-    } catch (e) {
-      console.debug('[administrator/loan-applications/[id]] GET debug failed', e);
-    }
-
     const session = await getServerSession(authOptions);
-    console.debug('[administrator/loan-applications/[id]] GET session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : null);
     if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const { id } = ctx.params as { id: string };
-    const url = new URL(request.url);
-    const debugMode = url.searchParams.get('debug') === '1';
-
     const application = await prisma.loanApplication.findUnique({ where: { id } });
     if (!application) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
     if (session.user.role === 'branch' && (session.user as any).branch !== application.branch) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
-    if (debugMode) {
-      return NextResponse.json({ application, session });
     }
 
     return NextResponse.json(application);
@@ -44,22 +28,48 @@ export async function GET(request: NextRequest, ctx: any) {
 
 export async function PUT(request: NextRequest, ctx: any) {
   try {
-    console.debug('[administrator/loan-applications/[id]] PUT params:', ctx?.params);
     const session = await getServerSession(authOptions);
-    console.debug('[administrator/loan-applications/[id]] PUT session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : null);
-    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    
+    // Debug: log session info
+    console.log('[PUT] Session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : 'No session');
+    
+    if (!session) {
+      console.log('[PUT] No session found - returning 401');
+      return NextResponse.json({ error: 'Unauthorized - Please login first' }, { status: 401 });
+    }
 
-    // Only branch users can update loan applications
-    if (session.user.role === 'administrator') {
+    // Check if user is branch user
+    const userRole = session.user?.role;
+    console.log('[PUT] User role:', userRole);
+    
+    if (userRole === 'administrator') {
+      console.log('[PUT] Administrator trying to update - blocking');
       return NextResponse.json({ error: 'Administrators can only view loan applications' }, { status: 403 });
+    }
+
+    // Only branch users can update
+    if (userRole !== 'branch') {
+      console.log('[PUT] User is not a branch user - blocking');
+      return NextResponse.json({ error: 'Only branch users can update loan applications' }, { status: 403 });
     }
 
     const { id } = ctx.params as { id: string };
     const body = await request.json();
+    
+    console.log('[PUT] Updating application:', id, 'with status:', body.status);
 
     const existing = await prisma.loanApplication.findUnique({ where: { id } });
-    if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-    if (session.user.role === 'branch' && (session.user as any).branch !== existing.branch) {
+    if (!existing) {
+      console.log('[PUT] Application not found:', id);
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+
+    // Check if branch matches
+    const userBranch = (session.user as any)?.branch;
+    console.log('[PUT] User branch:', userBranch, 'Application branch:', existing.branch);
+    
+    if (userBranch !== existing.branch) {
+      console.log('[PUT] Branch mismatch - blocking');
       return NextResponse.json({ error: 'Forbidden - You can only update applications for your branch' }, { status: 403 });
     }
 
@@ -73,6 +83,9 @@ export async function PUT(request: NextRequest, ctx: any) {
       },
     });
 
+    console.log('[PUT] Application updated successfully:', updated.id);
+
+    // Send notifications
     if (existing.status === 'pending' && (body.status === 'approved' || body.status === 'rejected')) {
       try {
         await sendLoanStatusNotifications({
@@ -95,26 +108,23 @@ export async function PUT(request: NextRequest, ctx: any) {
     return NextResponse.json(updated);
   } catch (error) {
     console.error('Error updating application:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error', details: String(error) }, { status: 500 });
   }
 }
 
 export async function DELETE(request: NextRequest, ctx: any) {
   try {
-    console.debug('[administrator/loan-applications/[id]] DELETE params:', ctx?.params);
     const session = await getServerSession(authOptions);
-    console.debug('[administrator/loan-applications/[id]] DELETE session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : null);
     if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    // Only branch users can delete loan applications
     if (session.user.role === 'administrator') {
       return NextResponse.json({ error: 'Administrators can only view loan applications' }, { status: 403 });
     }
 
     const { id } = ctx.params as { id: string };
-
     const existing = await prisma.loanApplication.findUnique({ where: { id } });
     if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+
     if (session.user.role === 'branch' && (session.user as any).branch !== existing.branch) {
       return NextResponse.json({ error: 'Forbidden - You can only delete applications for your branch' }, { status: 403 });
     }
