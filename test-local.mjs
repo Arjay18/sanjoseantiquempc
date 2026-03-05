@@ -1,6 +1,6 @@
 const testData = {
   name: 'Test User',
-  pbNo: 'PB123459',
+  pbNo: 'PB123460',
   contactNo: '09123456789',
   address: '123 Test Street',
   loanType: 'Regular',
@@ -10,11 +10,11 @@ const testData = {
   branch: 'sanjose'
 };
 
-fetch('https://sanjoseantiquempc.vercel.app/api/loan-applications', {
+fetch('http://localhost:3000/api/loan-applications', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ formData: testData })
 })
 .then(res => res.json())
-.then(data => console.log('Success:', data))
+.then(data => console.log('Success:', JSON.stringify(data, null, 2)))
 .catch(err => console.error('Error:', err));
