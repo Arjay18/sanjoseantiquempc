@@ -199,17 +199,53 @@ export default function UserDashboard() {
     setIsSubmitting(true);
     setSubmitMessage(null);
     try {
-      // Skip file uploads to avoid payload size issues - files can be uploaded separately later
-      
-      
-
-      // Map amountApplied to loanAmount for backend compatibility
+      // Prepare data for API - Map only the required fields properly
       const payload = {
-        ...formData,
+        // Basic Information - ensure pbNo is properly mapped
+        name: formData.name,
+        pbNo: formData.pbNo || formData.passbookNo,
+        address: formData.address,
+        email: formData.email,
+        contactNo: formData.contactNo,
+        branch: formData.branch,
         
-        
-        
+        // Loan Details - map amountApplied to loanAmount
+        loanType: formData.loanType,
+        idType: formData.idType || 'Other',  // Provide default if empty
         loanAmount: formData.amountApplied,
+        term: formData.term,
+        purpose: formData.purpose,
+        amountInWords: formData.amountInWords || null,
+        
+        // Financial Information
+        incomeMember: formData.incomeMember || null,
+        incomeSpouse: formData.incomeSpouse || null,
+        incomeOtherFamily: formData.incomeOtherFamily || null,
+        incomeBusiness: formData.incomeBusiness || null,
+        otherIncome: formData.otherIncome || null,
+        totalFamilyIncome: formData.totalFamilyIncome || null,
+        
+        // Expenses
+        food: formData.food || null,
+        clothing: formData.clothing || null,
+        shelter: formData.shelter || null,
+        education: formData.education || null,
+        electricWaterBills: formData.electricWaterBills || null,
+        helper: formData.helper || null,
+        loanRepayments: formData.loanRepayments || null,
+        miscellaneousExpense: formData.miscellaneousExpense || null,
+        totalFamilyExpenses: formData.totalFamilyExpenses || null,
+        netIncome: formData.netIncome || null,
+        
+        // Savings/Deposits
+        savingsDepositRegular: formData.savingsDepositRegular || null,
+        savingsDepositUltima: formData.savingsDepositUltima || null,
+        savingsDepositAlkansya: formData.savingsDepositAlkansya || null,
+        timeDeposit: formData.timeDeposit || null,
+        otherDeposits: formData.otherDeposits || null,
+        shareCapital: formData.shareCapital || null,
+        assignmentPbNo: formData.assignmentPbNo || null,
+        assignmentAmount: formData.assignmentAmount || null,
       };
 
       const res = await fetch('/api/loan-applications', {
@@ -218,6 +254,8 @@ export default function UserDashboard() {
         body: JSON.stringify({ formData: payload }),
       });
 
+      const data = await res.json();
+      
       if (res.ok) {
         setSubmitMessage('Application submitted successfully!');
         setFormData({
@@ -243,27 +281,13 @@ export default function UserDashboard() {
           setApplications(data);
         }
       } else {
-        // Try to get JSON response, but handle non-JSON responses
-        let errorMessage = 'Submission failed. Status: ' + res.status;
-        try {
-          const contentType = res.headers.get('content-type');
-          if (contentType && contentType.includes('application/json')) {
-            const data = await res.json();
-            console.error('Submission error response:', data);
-            errorMessage = data.error || data.details || errorMessage;
-          } else {
-            const text = await res.text();
-            console.error('Submission error (non-JSON):', text);
-            errorMessage = 'Server error: ' + res.status;
-          }
-        } catch (e) {
-          console.error('Error parsing response:', e);
-        }
-        setSubmitMessage(errorMessage);
+        // Show detailed error message from backend
+        const errorMsg = data.details || data.message || data.error || 'Submission failed. Status: ' + res.status;
+        setSubmitMessage(errorMsg);
       }
     } catch (err) {
       console.error('Loan submission error:', err);
-      setSubmitMessage('Submission failed. Please try again. Error: ' + (err instanceof Error ? err.message : 'Unknown error'));
+      setSubmitMessage('Submission failed. Please check your connection and try again.');
     }
     setIsSubmitting(false);
   };
