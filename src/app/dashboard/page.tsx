@@ -204,9 +204,9 @@ export default function UserDashboard() {
       // Map amountApplied to loanAmount for backend compatibility
       const payload = {
         ...formData,
-        validIDsAndSignatures,
-        depositSlipOrEwallet,
-        memberWithIDAndSlip,
+        
+        
+        
         loanAmount: formData.amountApplied,
       };
 

@@ -151,9 +151,9 @@ export default function LoanApplication() {
       // Prepare data for API - Map amountApplied to loanAmount for backend compatibility
       const payload = {
         ...formData,
-        validIDsAndSignatures,
-        depositSlipOrEwallet,
-        memberWithIDAndSlip,
+        
+        
+        
         loanAmount: formData.amountApplied,
       };
 
