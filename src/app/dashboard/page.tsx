@@ -240,9 +240,23 @@ export default function UserDashboard() {
           setApplications(data);
         }
       } else {
-        const data = await res.json();
-        console.error('Submission error response:', data);
-        setSubmitMessage(data.error || data.details || 'Submission failed. Status: ' + res.status);
+        // Try to get JSON response, but handle non-JSON responses
+        let errorMessage = 'Submission failed. Status: ' + res.status;
+        try {
+          const contentType = res.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            const data = await res.json();
+            console.error('Submission error response:', data);
+            errorMessage = data.error || data.details || errorMessage;
+          } else {
+            const text = await res.text();
+            console.error('Submission error (non-JSON):', text);
+            errorMessage = 'Server error: ' + res.status;
+          }
+        } catch (e) {
+          console.error('Error parsing response:', e);
+        }
+        setSubmitMessage(errorMessage);
       }
     } catch (err) {
       console.error('Loan submission error:', err);
