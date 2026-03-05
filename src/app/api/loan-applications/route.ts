@@ -10,11 +10,6 @@ export async function POST(request: NextRequest) {
     // Debug: Log received data
     console.log('=== LOAN APPLICATION DEBUG ===');
     console.log('formData keys:', Object.keys(formData));
-    console.log('loanAmount:', formData.loanAmount, 'type:', typeof formData.loanAmount);
-    console.log('term:', formData.term, 'type:', typeof formData.term);
-    console.log('pbNo:', formData.pbNo);
-    console.log('branch:', formData.branch);
-    console.log('loanType:', formData.loanType);
     console.log('=============================');
 
     // Backend validation for required fields and numeric types
@@ -92,10 +87,11 @@ export async function POST(request: NextRequest) {
           coMakerName2: formData.coMakerName2,
           witnessName1: formData.witnessName1,
           witnessName2: formData.witnessName2,
+          // Assignment of Deposit - map frontend fields to backend
           assignmentAmount: formData.assignmentAmount ? parseFloat(formData.assignmentAmount) : null,
-          regularSavings: formData.regularSavings,
-          ultimaSavings: formData.ultimaSavings,
-          alkansyaSavings: formData.alkansyaSavings,
+          regularSavings: formData.savingsDepositRegular || formData.regularSavings || null,
+          ultimaSavings: formData.savingsDepositUltima || formData.ultimaSavings || null,
+          alkansyaSavings: formData.savingsDepositAlkansya || formData.alkansyaSavings || null,
           timeDeposit: formData.timeDeposit,
           otherDeposits: formData.otherDeposits,
           assignmentPbNo: formData.assignmentPbNo,
@@ -112,17 +108,19 @@ export async function POST(request: NextRequest) {
           assignmentCoMakerName2: formData.assignmentCoMakerName2,
           assignmentWitnessName1: formData.assignmentWitnessName1,
           assignmentWitnessName2: formData.assignmentWitnessName2,
-          memberIncome: formData.memberIncome ? parseFloat(formData.memberIncome) : null,
-          spouseIncome: formData.spouseIncome ? parseFloat(formData.spouseIncome) : null,
+          // Income fields - map frontend names to backend
+          memberIncome: formData.incomeMember ? parseFloat(formData.incomeMember) : null,
+          spouseIncome: formData.incomeSpouse ? parseFloat(formData.incomeSpouse) : null,
           otherIncome: formData.otherIncome ? parseFloat(formData.otherIncome) : null,
-          businessIncome: formData.businessIncome ? parseFloat(formData.businessIncome) : null,
-          foodExpense: formData.foodExpense ? parseFloat(formData.foodExpense) : null,
-          clothingExpense: formData.clothingExpense ? parseFloat(formData.clothingExpense) : null,
-          shelterExpense: formData.shelterExpense ? parseFloat(formData.shelterExpense) : null,
-          educationExpense: formData.educationExpense ? parseFloat(formData.educationExpense) : null,
-          electricWaterExpense: formData.electricWaterExpense ? parseFloat(formData.electricWaterExpense) : null,
-          helperExpense: formData.helperExpense ? parseFloat(formData.helperExpense) : null,
-          loanRepaymentExpense: formData.loanRepaymentExpense ? parseFloat(formData.loanRepaymentExpense) : null,
+          businessIncome: formData.incomeBusiness ? parseFloat(formData.incomeBusiness) : null,
+          // Expense fields - map frontend names to backend
+          foodExpense: formData.food ? parseFloat(formData.food) : null,
+          clothingExpense: formData.clothing ? parseFloat(formData.clothing) : null,
+          shelterExpense: formData.shelter ? parseFloat(formData.shelter) : null,
+          educationExpense: formData.education ? parseFloat(formData.education) : null,
+          electricWaterExpense: formData.electricWaterBills ? parseFloat(formData.electricWaterBills) : null,
+          helperExpense: formData.helper ? parseFloat(formData.helper) : null,
+          loanRepaymentExpense: formData.loanRepayments ? parseFloat(formData.loanRepayments) : null,
           miscellaneousExpense: formData.miscellaneousExpense ? parseFloat(formData.miscellaneousExpense) : null,
           netIncome: formData.netIncome ? parseFloat(formData.netIncome) : null,
           committeeApproved: formData.committeeApproved ? parseFloat(formData.committeeApproved) : null,
