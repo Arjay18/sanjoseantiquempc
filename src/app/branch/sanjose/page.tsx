@@ -132,6 +132,8 @@ export default function SanJoseBranchDashboard() {
   };
 
   const handleStatusUpdate = async (id: string, newStatus: string) => {
+    console.log('handleStatusUpdate called with:', id, newStatus);
+    alert(`Processing ${newStatus} for application ${id}...`);
     try {
       const response = await fetch(`/api/administrator/loan-applications/${id}`, {
         method: 'PUT',
@@ -139,17 +141,20 @@ export default function SanJoseBranchDashboard() {
         body: JSON.stringify({ status: newStatus }),
       });
 
+      console.log('Response status:', response.status);
       const data = await response.json();
+      console.log('Response data:', data);
       
       if (response.ok) {
         const refreshData = await fetch('/api/administrator/loan-applications').then(res => res.json());
         setApplications(refreshData.applications || []);
         alert(`Application ${newStatus === 'approved' ? 'approved' : 'rejected'} successfully!`);
       } else {
-        alert(`Failed to update application status: ${data.error || 'Unknown error'}`);
+        alert(`Failed: ${data.error || 'Unknown error'}`);
       }
     } catch (error) {
-      alert('An error occurred while updating the status. Please try again.');
+      console.error('Error:', error);
+      alert('An error occurred. Check console for details.');
     }
   };
 
