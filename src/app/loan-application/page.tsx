@@ -143,6 +143,13 @@ export default function LoanApplication() {
     setIsSubmitting(true);
     setSubmitMessage(null);
     try {
+      // Debug: Log file inputs
+      console.log('=== FILE UPLOAD DEBUG ===');
+      console.log('validIDsAndSignatures:', formData.validIDsAndSignatures ? 'File selected: ' + (formData.validIDsAndSignatures as File).name : 'No file');
+      console.log('depositSlipOrEwallet:', formData.depositSlipOrEwallet ? 'File selected: ' + (formData.depositSlipOrEwallet as File).name : 'No file');
+      console.log('memberWithIDAndSlip:', formData.memberWithIDAndSlip ? 'File selected: ' + (formData.memberWithIDAndSlip as File).name : 'No file');
+      console.log('=========================');
+      
       // Convert file uploads to base64
       let idFileBase64 = null;
       let depositSlipBase64 = null;
@@ -150,7 +157,8 @@ export default function LoanApplication() {
       
       if (formData.validIDsAndSignatures) {
         try {
-          idFileBase64 = await fileToBase64(formData.validIDsAndSignatures);
+          idFileBase64 = await fileToBase64(formData.validIDsAndSignatures as File);
+          console.log('idFileBase64 converted, length:', idFileBase64 ? idFileBase64.length : 0);
         } catch (err) {
           console.error('Error converting validIDsAndSignatures:', err);
         }
@@ -158,7 +166,8 @@ export default function LoanApplication() {
       
       if (formData.depositSlipOrEwallet) {
         try {
-          depositSlipBase64 = await fileToBase64(formData.depositSlipOrEwallet);
+          depositSlipBase64 = await fileToBase64(formData.depositSlipOrEwallet as File);
+          console.log('depositSlipBase64 converted, length:', depositSlipBase64 ? depositSlipBase64.length : 0);
         } catch (err) {
           console.error('Error converting depositSlipOrEwallet:', err);
         }
@@ -166,11 +175,19 @@ export default function LoanApplication() {
       
       if (formData.memberWithIDAndSlip) {
         try {
-          memberWithIDBase64 = await fileToBase64(formData.memberWithIDAndSlip);
+          memberWithIDBase64 = await fileToBase64(formData.memberWithIDAndSlip as File);
+          console.log('memberWithIDBase64 converted, length:', memberWithIDBase64 ? memberWithIDBase64.length : 0);
         } catch (err) {
           console.error('Error converting memberWithIDAndSlip:', err);
         }
       }
+
+      // Debug: Log what's being sent to API
+      console.log('=== PAYLOAD DEBUG ===');
+      console.log('idFile:', idFileBase64 ? 'Present (' + idFileBase64.length + ' chars)' : 'null');
+      console.log('depositSlipOrEwallet:', depositSlipBase64 ? 'Present (' + depositSlipBase64.length + ' chars)' : 'null');
+      console.log('memberWithIDAndSlip:', memberWithIDBase64 ? 'Present (' + memberWithIDBase64.length + ' chars)' : 'null');
+      console.log('=====================');
 
       // Prepare data for API - Map only the required fields properly
       const payload = {
