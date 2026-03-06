@@ -30,6 +30,8 @@ export async function GET(request: NextRequest) {
     });
 
 
+    const userBranch = (session.user as any)?.branch?.trim().toLowerCase();
+    
     const where: any = {};
     if (status && status !== 'all') {
       where.status = status;
@@ -39,9 +41,14 @@ export async function GET(request: NextRequest) {
       if (branchParam && ['sanjose', 'miagao', 'oton', 'guimaras'].includes(branchParam.trim().toLowerCase())) {
         where.branch = branchParam.trim().toLowerCase();
       }
-    } else if (session.user.role === 'branch') {
-      // Branch users can only see their own branch, ignore branchParam
-      where.branch = (session.user as any).branch.trim().toLowerCase();
+    } else if (session.user.role === 'branch' && userBranch) {
+      // Branch users can see their own branch OR applications with no branch (legacy data)
+      // This ensures older applications without branch field are still visible
+      where.OR = [
+        { branch: userBranch },
+        { branch: null },
+        { branch: '' }
+      ];
     }
 
     console.log('Query where clause:', where);
@@ -86,6 +93,23 @@ export async function POST(request: NextRequest) {
   try {
     const { formData } = await request.json();
 
+    // Debug: Log received data
+    console.log('=== LOAN APPLICATION DEBUG ===');
+    console.log('formData keys:', Object.keys(formData));
+    console.log('branch:', formData.branch);
+    console.log('idFile present:', !!formData.idFile);
+    console.log('depositSlipOrEwallet present:', !!formData.depositSlipOrEwallet);
+    console.log('memberWithIDAndSlip present:', !!formData.memberWithIDAndSlip);
+    console.log('=============================');
+
+    // Validate required fields
+    if (!formData.branch) {
+      console.warn('No branch provided, defaulting to sanjose');
+    }
+
+    // Normalize branch value
+    const normalizedBranch = (formData.branch || 'sanjose').trim().toLowerCase();
+
     const application = await prisma.loanApplication.create({
       data: {
         name: formData.name,
@@ -93,9 +117,13 @@ export async function POST(request: NextRequest) {
         contactNo: formData.contactNo,
         email: formData.email,
         address: formData.address,
+        branch: normalizedBranch, // Make sure branch is saved
         loanType: formData.loanType,
-        idType: formData.idType,
-        idFile: formData.idFile ? JSON.stringify(formData.idFile) : null, // Store the file path or base64 string
+        idType: formData.idType || 'Other',
+        // Store file data directly (not JSON stringified)
+        idFile: formData.idFile || null,
+        depositSlipOrEwallet: formData.depositSlipOrEwallet || null,
+        memberWithIDAndSlip: formData.memberWithIDAndSlip || null,
         loanAmount: parseFloat(formData.loanAmount),
         term: parseInt(formData.term),
         purpose: formData.purpose,
@@ -160,6 +188,15 @@ export async function POST(request: NextRequest) {
         mop: formData.mop,
         processor: formData.processor,
       },
+    });
+
+    console.log('Loan application created successfully:', {
+      id: application.id,
+      name: application.name,
+      branch: application.branch,
+      hasIdFile: !!application.idFile,
+      hasDepositSlip: !!application.depositSlipOrEwallet,
+      hasMemberPhoto: !!application.memberWithIDAndSlip
     });
 
     return NextResponse.json(application, { status: 201 });
