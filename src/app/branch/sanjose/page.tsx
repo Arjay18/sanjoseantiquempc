@@ -435,7 +435,7 @@ export default function SanJoseBranchDashboard() {
                             </svg>
                             PDF
                           </a>
-                          {application.idFile && (
+                          {(application.idFile || application.depositSlipOrEwallet || application.memberWithIDAndSlip) && (
                             <>
                               <button
                                 onClick={() => setPreviewModalApp(application)}
