@@ -6,9 +6,9 @@ import path from 'path';
 
 const prisma = new PrismaClient();
 
-export async function GET(request: NextRequest, ctx: any) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = ctx.params as { id: string };
+    const { id } = await params;
 
     const application = await prisma.loanApplication.findUnique({
       where: { id },
