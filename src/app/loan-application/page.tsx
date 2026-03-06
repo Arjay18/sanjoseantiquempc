@@ -143,6 +143,35 @@ export default function LoanApplication() {
     setIsSubmitting(true);
     setSubmitMessage(null);
     try {
+      // Convert file uploads to base64
+      let idFileBase64 = null;
+      let depositSlipBase64 = null;
+      let memberWithIDBase64 = null;
+      
+      if (formData.validIDsAndSignatures) {
+        try {
+          idFileBase64 = await fileToBase64(formData.validIDsAndSignatures);
+        } catch (err) {
+          console.error('Error converting validIDsAndSignatures:', err);
+        }
+      }
+      
+      if (formData.depositSlipOrEwallet) {
+        try {
+          depositSlipBase64 = await fileToBase64(formData.depositSlipOrEwallet);
+        } catch (err) {
+          console.error('Error converting depositSlipOrEwallet:', err);
+        }
+      }
+      
+      if (formData.memberWithIDAndSlip) {
+        try {
+          memberWithIDBase64 = await fileToBase64(formData.memberWithIDAndSlip);
+        } catch (err) {
+          console.error('Error converting memberWithIDAndSlip:', err);
+        }
+      }
+
       // Prepare data for API - Map only the required fields properly
       const payload = {
         // Basic Information - ensure pbNo is properly mapped
@@ -188,6 +217,11 @@ export default function LoanApplication() {
         timeDeposit: formData.timeDeposit || null,
         otherDeposits: formData.otherDeposits || null,
         shareCapital: formData.shareCapital || null,
+        
+        // File uploads - include the base64 encoded files
+        idFile: idFileBase64,
+        depositSlipOrEwallet: depositSlipBase64,
+        memberWithIDAndSlip: memberWithIDBase64,
       };
 
       const res = await fetch('/api/loan-applications', {
