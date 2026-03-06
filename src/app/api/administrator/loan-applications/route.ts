@@ -15,8 +15,6 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
     const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '10');
-    const skip = (page - 1) * limit;
 
     // Allow an administrator to view all branches; branch-role users see only their branch.
     // Administrators can optionally filter by `branch` query param when needed.
@@ -29,8 +27,11 @@ export async function GET(request: NextRequest) {
       status
     });
 
-
     const userBranch = (session.user as any)?.branch?.trim().toLowerCase();
+    
+    // Use a higher limit to get more applications
+    const appLimit = 100;
+    const skip = (page - 1) * appLimit;
     
     const where: any = {};
     if (status && status !== 'all') {
@@ -41,13 +42,14 @@ export async function GET(request: NextRequest) {
       if (branchParam && ['sanjose', 'miagao', 'oton', 'guimaras'].includes(branchParam.trim().toLowerCase())) {
         where.branch = branchParam.trim().toLowerCase();
       }
+      // Admins can see all applications by default
     } else if (session.user.role === 'branch' && userBranch) {
       // Branch users can see their own branch OR applications with no branch (legacy data)
       // This ensures older applications without branch field are still visible
+      // Use OR to include both user's branch and null/empty branch
       where.OR = [
         { branch: userBranch },
-        { branch: null },
-        { branch: '' }
+        { branch: null }
       ];
     }
 
@@ -60,7 +62,7 @@ export async function GET(request: NextRequest) {
         where,
         orderBy: { createdAt: 'desc' },
         skip,
-        take: limit,
+        take: appLimit,
       }),
       prisma.loanApplication.count({ where }),
     ]);
@@ -75,9 +77,9 @@ export async function GET(request: NextRequest) {
       applications,
       pagination: {
         page,
-        limit,
+        limit: appLimit,
         total,
-        pages: Math.ceil(total / limit),
+        pages: Math.ceil(total / appLimit),
       },
     });
   } catch (error) {
