@@ -17,9 +17,9 @@ export async function GET(request: NextRequest, ctx: any) {
 
     // Check if branch matches (case-insensitive)
     if (session.user.role === 'branch') {
-      const userBranch = (session.user as any)?.branch?.toLowerCase();
-      const appBranch = application.branch?.toLowerCase();
-      if (userBranch !== appBranch) {
+      const userBranch = (session.user as any)?.branch?.toLowerCase() || '';
+      const appBranch = application.branch?.toLowerCase() || '';
+      if (userBranch && appBranch && userBranch !== appBranch) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
       }
     }
@@ -35,7 +35,6 @@ export async function PUT(request: NextRequest, ctx: any) {
   try {
     const session = await getServerSession(authOptions);
     
-    // Debug: log session info
     console.log('[PUT] Session:', session ? { role: session.user?.role, branch: (session.user as any)?.branch } : 'No session');
     
     if (!session) {
@@ -43,7 +42,6 @@ export async function PUT(request: NextRequest, ctx: any) {
       return NextResponse.json({ error: 'Unauthorized - Please login first' }, { status: 401 });
     }
 
-    // Check if user is branch user
     const userRole = session.user?.role;
     console.log('[PUT] User role:', userRole);
     
@@ -52,7 +50,6 @@ export async function PUT(request: NextRequest, ctx: any) {
       return NextResponse.json({ error: 'Administrators can only view loan applications' }, { status: 403 });
     }
 
-    // Only branch users can update
     if (userRole !== 'branch') {
       console.log('[PUT] User is not a branch user - blocking');
       return NextResponse.json({ error: 'Only branch users can update loan applications' }, { status: 403 });
@@ -69,12 +66,14 @@ export async function PUT(request: NextRequest, ctx: any) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
-    // Check if branch matches (case-insensitive)
-    const userBranch = (session.user as any)?.branch?.toLowerCase();
-    const appBranch = existing.branch?.toLowerCase();
+    // Check if branch matches (case-insensitive, with fallbacks for null/undefined)
+    const userBranch = String((session.user as any)?.branch || '').toLowerCase();
+    const appBranch = String(existing.branch || '').toLowerCase();
     console.log('[PUT] User branch:', userBranch, 'Application branch:', appBranch);
     
-    if (userBranch !== appBranch) {
+    // Allow update if branches match OR if either is empty (defaults)
+    const canUpdate = !userBranch || !appBranch || userBranch === appBranch;
+    if (!canUpdate) {
       console.log('[PUT] Branch mismatch - blocking');
       return NextResponse.json({ error: 'Forbidden - You can only update applications for your branch' }, { status: 403 });
     }
@@ -98,7 +97,7 @@ export async function PUT(request: NextRequest, ctx: any) {
 
     console.log('[PUT] Application updated successfully:', updated.id);
 
-    // Send notifications
+    // Send notifications (non-blocking)
     if (existing.status === 'pending' && (body.status === 'approved' || body.status === 'rejected')) {
       try {
         await sendLoanStatusNotifications({
@@ -138,8 +137,13 @@ export async function DELETE(request: NextRequest, ctx: any) {
     const existing = await prisma.loanApplication.findUnique({ where: { id } });
     if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
-    if (session.user.role === 'branch' && (session.user as any).branch !== existing.branch) {
-      return NextResponse.json({ error: 'Forbidden - You can only delete applications for your branch' }, { status: 403 });
+    // Check branch (case-insensitive)
+    if (session.user.role === 'branch') {
+      const userBranch = String((session.user as any)?.branch || '').toLowerCase();
+      const appBranch = String(existing.branch || '').toLowerCase();
+      if (userBranch && appBranch && userBranch !== appBranch) {
+        return NextResponse.json({ error: 'Forbidden - You can only delete applications for your branch' }, { status: 403 });
+      }
     }
 
     await prisma.loanApplication.delete({ where: { id } });
