@@ -220,26 +220,30 @@ export default function SanJoseBranchDashboard() {
     await signOut({ callbackUrl: '/branch/sanjose/login' });
   };
 
-  const handleStatusUpdate = async (id: string, status: string) => {
+  const handleStatusUpdate = async (id: string, newStatus: string) => {
     try {
       const response = await fetch(`/api/administrator/loan-applications/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ status: newStatus }),
       });
 
+      const data = await response.json();
+      
       if (response.ok) {
         // Refresh the applications list
-        const data = await fetch('/api/administrator/loan-applications').then(res => res.json());
-        setApplications(data.applications || []);
+        const refreshData = await fetch('/api/administrator/loan-applications').then(res => res.json());
+        setApplications(refreshData.applications || []);
+        alert(`Application ${newStatus === 'approved' ? 'approved' : 'rejected'} successfully!`);
       } else {
-        alert('Failed to update application status');
+        console.error('Update failed:', data);
+        alert(`Failed to update application status: ${data.error || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Error updating status:', error);
-      alert('An error occurred while updating the status');
+      alert('An error occurred while updating the status. Please try again.');
     }
   };
 
@@ -291,8 +295,11 @@ export default function SanJoseBranchDashboard() {
     );
   }
 
-  // Filter applications for San Jose branch only
-  const branchApplications = applications.filter(app => (app as any).branch === 'sanjose');
+  // Filter applications for San Jose branch only (case-insensitive and handle undefined)
+  const branchApplications = applications.filter(app => {
+    const appBranch = (app as any)?.branch;
+    return appBranch === 'sanjose' || appBranch === 'San Jose' || appBranch === 'SANJOSE';
+  });
   const pendingApplications = branchApplications.filter(app => app.status === 'pending');
   const approvedApplications = branchApplications.filter(app => app.status === 'approved');
   const rejectedApplications = branchApplications.filter(app => app.status === 'rejected');
