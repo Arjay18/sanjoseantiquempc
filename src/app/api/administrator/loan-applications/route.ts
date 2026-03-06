@@ -15,47 +15,31 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
     const page = parseInt(searchParams.get('page') || '1');
-
-    // Allow an administrator to view all branches; branch-role users see only their branch.
-    // Administrators can optionally filter by `branch` query param when needed.
-    const branchParam = searchParams.get('branch');
+    const appLimit = 100;
+    const skip = (page - 1) * appLimit;
 
     console.log('Loan applications query:', {
       userRole: session.user.role,
       userBranch: (session.user as any).branch,
-      branchParam,
       status
     });
 
     const userBranch = (session.user as any)?.branch?.trim().toLowerCase();
     
-    // Use a higher limit to get more applications
-    const appLimit = 100;
-    const skip = (page - 1) * appLimit;
-    
+    // Build where clause
     const where: any = {};
     if (status && status !== 'all') {
       where.status = status;
     }
-    if (session.user.role === 'admin') {
-      // Admins: if branchParam is present, filter strictly by branch
-      if (branchParam && ['sanjose', 'miagao', 'oton', 'guimaras'].includes(branchParam.trim().toLowerCase())) {
-        where.branch = branchParam.trim().toLowerCase();
-      }
-      // Admins can see all applications by default
-    } else if (session.user.role === 'branch' && userBranch) {
-      // Branch users can see their own branch OR applications with no branch (legacy data)
-      // This ensures older applications without branch field are still visible
-      // Use OR to include both user's branch and null/empty branch
-      where.OR = [
-        { branch: userBranch },
-        { branch: null }
-      ];
+    
+    // For now, branch users see ALL applications to debug the issue
+    // This will help us understand if the applications are being saved correctly
+    if (session.user.role === 'branch') {
+      console.log('Branch user detected - showing all applications for debugging');
+      // Don't add any branch filter - show everything
     }
 
     console.log('Query where clause:', where);
-    console.log('Filtering by branch?', session.user.role === 'branch');
-    console.log('Branch value:', (session.user as any).branch);
 
     const [applications, total] = await Promise.all([
       prisma.loanApplication.findMany({
@@ -67,7 +51,8 @@ export async function GET(request: NextRequest) {
       prisma.loanApplication.count({ where }),
     ]);
 
-    console.log('Returned applications:', applications.map(app => ({ 
+    console.log('Returned applications count:', applications.length);
+    console.log('Applications branches:', applications.map(app => ({ 
       id: app.id, 
       name: app.name, 
       branch: app.branch 
@@ -99,106 +84,160 @@ export async function POST(request: NextRequest) {
     console.log('=== LOAN APPLICATION DEBUG ===');
     console.log('formData keys:', Object.keys(formData));
     console.log('branch:', formData.branch);
-    console.log('idFile present:', !!formData.idFile);
-    console.log('depositSlipOrEwallet present:', !!formData.depositSlipOrEwallet);
-    console.log('memberWithIDAndSlip present:', !!formData.memberWithIDAndSlip);
     console.log('=============================');
 
-    // Validate required fields
-    if (!formData.branch) {
-      console.warn('No branch provided, defaulting to sanjose');
+    // Backend validation for required fields and numeric types
+    const requiredFields = [
+      'name', 'pbNo', 'contactNo', 'address', 'loanType', 'loanAmount', 'term', 'purpose', 'branch'
+    ];
+    const missingFields = requiredFields.filter(field => {
+      const value = formData[field];
+      if (value === undefined || value === null || value === '') return true;
+      return false;
+    });
+    if (missingFields.length > 0) {
+      return NextResponse.json({
+        error: 'Missing required fields',
+        details: `The following fields are required: ${missingFields.join(', ')}`,
+        missingFields,
+        receivedFields: Object.keys(formData)
+      }, { status: 400 });
     }
 
-    // Normalize branch value
-    const normalizedBranch = (formData.branch || 'sanjose').trim().toLowerCase();
-
-    const application = await prisma.loanApplication.create({
-      data: {
-        name: formData.name,
-        pbNo: formData.pbNo,
-        contactNo: formData.contactNo,
-        email: formData.email,
-        address: formData.address,
-        branch: normalizedBranch, // Make sure branch is saved
-        loanType: formData.loanType,
-        idType: formData.idType || 'Other',
-        // Store file data directly (not JSON stringified)
-        idFile: formData.idFile || null,
-        depositSlipOrEwallet: formData.depositSlipOrEwallet || null,
-        memberWithIDAndSlip: formData.memberWithIDAndSlip || null,
-        loanAmount: parseFloat(formData.loanAmount),
-        term: parseInt(formData.term),
-        purpose: formData.purpose,
-        promissoryNoteAmount: formData.promissoryNoteAmount ? parseFloat(formData.promissoryNoteAmount) : null,
-        promissoryNoteTerm: formData.promissoryNoteTerm,
-        promissoryNotePaymentSchedule: formData.promissoryNotePaymentSchedule,
-        promissoryNoteStartingOn: formData.promissoryNoteStartingOn,
-        makerName1: formData.makerName1,
-        makerName2: formData.makerName2,
-        coMakerName1: formData.coMakerName1,
-        coMakerName2: formData.coMakerName2,
-        witnessName1: formData.witnessName1,
-        witnessName2: formData.witnessName2,
-        assignmentAmount: formData.assignmentAmount ? parseFloat(formData.assignmentAmount) : null,
-        regularSavings: formData.regularSavings,
-        ultimaSavings: formData.ultimaSavings,
-        alkansyaSavings: formData.alkansyaSavings,
-        timeDeposit: formData.timeDeposit,
-        otherDeposits: formData.otherDeposits,
-        assignmentPbNo: formData.assignmentPbNo,
-        shareCapital: formData.shareCapital,
-        signatureDate: formData.signatureDate,
-        assignmentMaker1: formData.assignmentMaker1,
-        assignmentMaker2: formData.assignmentMaker2,
-        assignmentCoMaker1: formData.assignmentCoMaker1,
-        assignmentCoMaker2: formData.assignmentCoMaker2,
-        assignmentWitness1: formData.assignmentWitness1,
-        assignmentWitness2: formData.assignmentWitness2,
-        makerSpouseName: formData.makerSpouseName,
-        assignmentCoMakerName1: formData.assignmentCoMakerName1,
-        assignmentCoMakerName2: formData.assignmentCoMakerName2,
-        assignmentWitnessName1: formData.assignmentWitnessName1,
-        assignmentWitnessName2: formData.assignmentWitnessName2,
-        memberIncome: formData.memberIncome ? parseFloat(formData.memberIncome) : null,
-        spouseIncome: formData.spouseIncome ? parseFloat(formData.spouseIncome) : null,
-        otherIncome: formData.otherIncome ? parseFloat(formData.otherIncome) : null,
-        businessIncome: formData.businessIncome ? parseFloat(formData.businessIncome) : null,
-        foodExpense: formData.foodExpense ? parseFloat(formData.foodExpense) : null,
-        clothingExpense: formData.clothingExpense ? parseFloat(formData.clothingExpense) : null,
-        shelterExpense: formData.shelterExpense ? parseFloat(formData.shelterExpense) : null,
-        educationExpense: formData.educationExpense ? parseFloat(formData.educationExpense) : null,
-        electricWaterExpense: formData.electricWaterExpense ? parseFloat(formData.electricWaterExpense) : null,
-        helperExpense: formData.helperExpense ? parseFloat(formData.helperExpense) : null,
-        loanRepaymentExpense: formData.loanRepaymentExpense ? parseFloat(formData.loanRepaymentExpense) : null,
-        miscellaneousExpense: formData.miscellaneousExpense ? parseFloat(formData.miscellaneousExpense) : null,
-        netIncome: formData.netIncome ? parseFloat(formData.netIncome) : null,
-        committeeApproved: formData.committeeApproved ? parseFloat(formData.committeeApproved) : null,
-        committeeReduced: formData.committeeReduced ? parseFloat(formData.committeeReduced) : null,
-        receivedBy: formData.receivedBy,
-        checkedBy: formData.checkedBy,
-        approvedBy: formData.approvedBy,
-        referenceNo: formData.referenceNo,
-        loanTypeDisclosure: formData.loanTypeDisclosure,
-        loanAmountDisclosure: formData.loanAmountDisclosure ? parseFloat(formData.loanAmountDisclosure) : null,
-        charges: formData.charges ? parseFloat(formData.charges) : null,
-        netProceeds: formData.netProceeds ? parseFloat(formData.netProceeds) : null,
-        effectiveInterestRate: formData.effectiveInterestRate ? parseFloat(formData.effectiveInterestRate) : null,
-        nominalInterestRate: formData.nominalInterestRate ? parseFloat(formData.nominalInterestRate) : null,
-        penalty: formData.penalty ? parseFloat(formData.penalty) : null,
-        interestRate: formData.interestRate ? parseFloat(formData.interestRate) : null,
-        voucherNo: formData.voucherNo,
-        mop: formData.mop,
-        processor: formData.processor,
-      },
+    // Validate numeric fields
+    const numericFields = [
+      { key: 'loanAmount', label: 'loanAmount' },
+      { key: 'term', label: 'term' }
+    ];
+    const invalidNumeric = numericFields.filter(f => {
+      const value = formData[f.key];
+      return value === '' || value === null || value === undefined || isNaN(Number(value));
     });
+    if (invalidNumeric.length > 0) {
+      return NextResponse.json({
+        error: 'Invalid numeric fields',
+        details: `The following fields must be valid numbers: ${invalidNumeric.map(f => f.label).join(', ')}`,
+        invalidFields: invalidNumeric,
+        loanAmountValue: formData.loanAmount,
+        termValue: formData.term
+      }, { status: 400 });
+    }
+
+    console.log('Received loan application:', {
+      name: formData.name,
+      branch: formData.branch,
+      loanType: formData.loanType,
+      loanAmount: formData.loanAmount,
+      email: formData.email
+    });
+
+    let application;
+    try {
+      // Normalize branch value - ensure it's lowercase
+      const normalizedBranch = (formData.branch || 'sanjose').trim().toLowerCase();
+      
+      application = await prisma.loanApplication.create({
+        data: {
+          name: formData.name,
+          pbNo: formData.pbNo,
+          contactNo: formData.contactNo,
+          email: formData.email,
+          address: formData.address,
+          branch: normalizedBranch,
+          loanType: formData.loanType,
+          idType: formData.idType || 'Other',
+          idFile: formData.idFile || null,
+          loanAmount: parseFloat(formData.loanAmount),
+          amountInWords: formData.amountInWords || null,
+          term: parseInt(formData.term),
+          purpose: formData.purpose,
+          promissoryNoteAmount: formData.promissoryNoteAmount ? parseFloat(formData.promissoryNoteAmount) : null,
+          promissoryNoteTerm: formData.promissoryNoteTerm,
+          promissoryNotePaymentSchedule: formData.promissoryNotePaymentSchedule,
+          promissoryNoteStartingOn: formData.promissoryNoteStartingOn,
+          makerName1: formData.makerName1,
+          makerName2: formData.makerName2,
+          coMakerName1: formData.coMakerName1,
+          coMakerName2: formData.coMakerName2,
+          witnessName1: formData.witnessName1,
+          witnessName2: formData.witnessName2,
+          assignmentAmount: formData.assignmentAmount ? parseFloat(formData.assignmentAmount) : null,
+          regularSavings: formData.savingsDepositRegular || formData.regularSavings || null,
+          ultimaSavings: formData.savingsDepositUltima || formData.ultimaSavings || null,
+          alkansyaSavings: formData.savingsDepositAlkansya || formData.alkansyaSavings || null,
+          timeDeposit: formData.timeDeposit,
+          otherDeposits: formData.otherDeposits,
+          assignmentPbNo: formData.assignmentPbNo,
+          shareCapital: formData.shareCapital,
+          signatureDate: formData.signatureDate,
+          assignmentMaker1: formData.assignmentMaker1,
+          assignmentMaker2: formData.assignmentMaker2,
+          assignmentCoMaker1: formData.assignmentCoMaker1,
+          assignmentCoMaker2: formData.assignmentCoMaker2,
+          assignmentWitness1: formData.assignmentWitness1,
+          assignmentWitness2: formData.assignmentWitness2,
+          makerSpouseName: formData.makerSpouseName,
+          assignmentCoMakerName1: formData.assignmentCoMakerName1,
+          assignmentCoMakerName2: formData.assignmentCoMakerName2,
+          assignmentWitnessName1: formData.assignmentWitnessName1,
+          assignmentWitnessName2: formData.assignmentWitnessName2,
+          memberIncome: formData.incomeMember ? parseFloat(formData.incomeMember) : null,
+          spouseIncome: formData.incomeSpouse ? parseFloat(formData.incomeSpouse) : null,
+          otherIncome: formData.otherIncome ? parseFloat(formData.otherIncome) : null,
+          businessIncome: formData.incomeBusiness ? parseFloat(formData.incomeBusiness) : null,
+          foodExpense: formData.food ? parseFloat(formData.food) : null,
+          clothingExpense: formData.clothing ? parseFloat(formData.clothing) : null,
+          shelterExpense: formData.shelter ? parseFloat(formData.shelter) : null,
+          educationExpense: formData.education ? parseFloat(formData.education) : null,
+          electricWaterExpense: formData.electricWaterBills ? parseFloat(formData.electricWaterBills) : null,
+          helperExpense: formData.helper ? parseFloat(formData.helper) : null,
+          loanRepaymentExpense: formData.loanRepayments ? parseFloat(formData.loanRepayments) : null,
+          miscellaneousExpense: formData.miscellaneousExpense ? parseFloat(formData.miscellaneousExpense) : null,
+          netIncome: formData.netIncome ? parseFloat(formData.netIncome) : null,
+          committeeApproved: formData.committeeApproved ? parseFloat(formData.committeeApproved) : null,
+          committeeReduced: formData.committeeReduced ? parseFloat(formData.committeeReduced) : null,
+          receivedBy: formData.receivedBy,
+          checkedBy: formData.checkedBy,
+          approvedBy: formData.approvedBy,
+          referenceNo: formData.referenceNo,
+          loanTypeDisclosure: formData.loanTypeDisclosure,
+          loanAmountDisclosure: formData.loanAmountDisclosure ? parseFloat(formData.loanAmountDisclosure) : null,
+          charges: formData.charges ? parseFloat(formData.charges) : null,
+          netProceeds: formData.netProceeds ? parseFloat(formData.netProceeds) : null,
+          effectiveInterestRate: formData.effectiveInterestRate ? parseFloat(formData.effectiveInterestRate) : null,
+          nominalInterestRate: formData.nominalInterestRate ? parseFloat(formData.nominalInterestRate) : null,
+          penalty: formData.penalty ? parseFloat(formData.penalty) : null,
+          interestRate: formData.interestRate ? parseFloat(formData.interestRate) : null,
+          voucherNo: formData.voucherNo,
+          mop: formData.mop,
+          processor: formData.processor,
+          pdfFile: formData.pdfFile || null,
+          depositSlipOrEwallet: formData.depositSlipOrEwallet || null,
+          memberWithIDAndSlip: formData.memberWithIDAndSlip || null,
+        },
+      });
+    } catch (err: any) {
+      if (err.code === 'P2002' && err.meta && err.meta.target) {
+        const target = err.meta.target;
+        const hasPbNo = target.includes('pbNo');
+        const hasBranch = target.includes('branch');
+        const hasLoanType = target.includes('loanType');
+        
+        if (hasPbNo && hasBranch && hasLoanType) {
+          return NextResponse.json({
+            error: 'Duplicate application',
+            message: 'A loan application with this passbook number, branch, and loan type already exists. Please use a different passbook number or loan type.'
+          }, { status: 409 });
+        }
+      }
+      throw err;
+    }
 
     console.log('Loan application created successfully:', {
       id: application.id,
       name: application.name,
       branch: application.branch,
-      hasIdFile: !!application.idFile,
-      hasDepositSlip: !!application.depositSlipOrEwallet,
-      hasMemberPhoto: !!application.memberWithIDAndSlip
+      status: application.status
     });
 
     return NextResponse.json(application, { status: 201 });
