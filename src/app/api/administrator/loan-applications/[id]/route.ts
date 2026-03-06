@@ -15,8 +15,13 @@ export async function GET(request: NextRequest, ctx: any) {
     const application = await prisma.loanApplication.findUnique({ where: { id } });
     if (!application) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
-    if (session.user.role === 'branch' && (session.user as any).branch !== application.branch) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    // Check if branch matches (case-insensitive)
+    if (session.user.role === 'branch') {
+      const userBranch = (session.user as any)?.branch?.toLowerCase();
+      const appBranch = application.branch?.toLowerCase();
+      if (userBranch !== appBranch) {
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      }
     }
 
     return NextResponse.json(application);
@@ -64,14 +69,22 @@ export async function PUT(request: NextRequest, ctx: any) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
-    // Check if branch matches
-    const userBranch = (session.user as any)?.branch;
-    console.log('[PUT] User branch:', userBranch, 'Application branch:', existing.branch);
+    // Check if branch matches (case-insensitive)
+    const userBranch = (session.user as any)?.branch?.toLowerCase();
+    const appBranch = existing.branch?.toLowerCase();
+    console.log('[PUT] User branch:', userBranch, 'Application branch:', appBranch);
     
-    if (userBranch !== existing.branch) {
+    if (userBranch !== appBranch) {
       console.log('[PUT] Branch mismatch - blocking');
       return NextResponse.json({ error: 'Forbidden - You can only update applications for your branch' }, { status: 403 });
     }
+
+    console.log('[PUT] Updating database with:', {
+      status: body.status,
+      notes: body.notes,
+      reviewedBy: session.user?.name || session.user?.email || null,
+      reviewedAt: body.status !== 'pending' ? new Date() : null,
+    });
 
     const updated = await prisma.loanApplication.update({
       where: { id },

@@ -295,10 +295,11 @@ export default function SanJoseBranchDashboard() {
     );
   }
 
-  // Filter applications for San Jose branch only (case-insensitive and handle undefined)
+  // Filter applications for San Jose branch only (case-insensitive, handle undefined/null - default to sanjose)
   const branchApplications = applications.filter(app => {
     const appBranch = (app as any)?.branch;
-    return appBranch === 'sanjose' || appBranch === 'San Jose' || appBranch === 'SANJOSE';
+    // Include applications with no branch (default), or branch explicitly set to sanjose
+    return !appBranch || appBranch === 'sanjose' || appBranch === 'San Jose' || appBranch === 'SANJOSE' || appBranch.toLowerCase() === 'sanjose';
   });
   const pendingApplications = branchApplications.filter(app => app.status === 'pending');
   const approvedApplications = branchApplications.filter(app => app.status === 'approved');
