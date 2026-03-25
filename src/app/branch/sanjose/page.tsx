@@ -24,6 +24,7 @@ interface LoanApplication {
   loanAmount: number;
   loanType: string;
   status: string;
+  branch?: string;
   createdAt: string;
   reviewedBy?: string;
   reviewedAt?: string;
@@ -32,8 +33,15 @@ interface LoanApplication {
   memberWithIDAndSlip?: string;
 }
 
+interface UserSession {
+  role?: string;
+  branch?: string;
+  name?: string;
+}
+
 export default function SanJoseBranchDashboard() {
   const { data: session, status } = useSession();
+  const user = session?.user as UserSession | undefined;
   const router = useRouter();
   const [applications, setApplications] = useState<LoanApplication[]>([]);
   const [loading, setLoading] = useState(true);
@@ -57,7 +65,7 @@ export default function SanJoseBranchDashboard() {
       return;
     }
 
-    if ((session.user as any)?.role !== 'branch' || (session.user as any)?.branch !== 'sanjose') {
+    if (user?.role !== 'branch' || user?.branch !== 'sanjose') {
       router.replace('/branch/sanjose/login');
       return;
     }
@@ -81,7 +89,7 @@ export default function SanJoseBranchDashboard() {
     if (!isAuthenticated) return;
 
     const checkSession = () => {
-      if (!session || (session.user as any)?.role !== 'branch' || (session.user as any)?.branch !== 'sanjose') {
+      if (!session || user?.role !== 'branch' || user?.branch !== 'sanjose') {
         setIsAuthenticated(false);
         router.replace('/branch/sanjose/login');
       }
@@ -96,7 +104,7 @@ export default function SanJoseBranchDashboard() {
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        if (!session || (session.user as any)?.role !== 'branch' || (session.user as any)?.branch !== 'sanjose') {
+        if (!session || user?.role !== 'branch' || user?.branch !== 'sanjose') {
           setIsAuthenticated(false);
           router.replace('/branch/sanjose/login');
         }
@@ -201,8 +209,8 @@ export default function SanJoseBranchDashboard() {
   }
 
   const branchApplications = applications.filter(app => {
-    const appBranch = (app as any)?.branch;
-    return !appBranch || appBranch === 'sanjose' || appBranch === 'San Jose' || appBranch === 'SANJOSE' || appBranch.toLowerCase() === 'sanjose';
+    const appBranch = app.branch?.toLowerCase().trim();
+    return !appBranch || appBranch === 'sanjose';
   });
   const pendingApplications = branchApplications.filter(app => app.status === 'pending');
   const approvedApplications = branchApplications.filter(app => app.status === 'approved');
