@@ -80,9 +80,9 @@ export default function LoanApplication() {
 
     if (type === 'file' && files && files[0]) {
       const file = files[0];
-      const maxSize = 2 * 1024 * 1024; // 2MB limit
+      const maxSize = 1 * 1024 * 1024; // 1MB limit
       if (file.size > maxSize) {
-        alert(`File ${file.name} is too large. Maximum size is 2MB.`);
+        alert(`File ${file.name} is too large. Maximum size is 1MB.`);
         e.target.value = ''; // Reset file input
         return;
       }
@@ -190,6 +190,14 @@ export default function LoanApplication() {
         } catch (err) {
           console.error('Error converting memberWithIDAndSlip:', err);
         }
+      }
+
+      // Check total payload size to prevent 413 errors (Server limit is usually ~4.5MB)
+      const totalBase64Size = (idFileBase64?.length || 0) + (depositSlipBase64?.length || 0) + (memberWithIDBase64?.length || 0);
+      const approxSizeMB = totalBase64Size / (1024 * 1024);
+      
+      if (approxSizeMB > 4) {
+         throw new Error(`Total file size (${approxSizeMB.toFixed(2)}MB) exceeds the limit. Please use smaller images.`);
       }
 
       // Debug: Log what's being sent to API
