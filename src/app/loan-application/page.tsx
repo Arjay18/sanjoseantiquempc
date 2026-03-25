@@ -78,6 +78,16 @@ export default function LoanApplication() {
     const checked = (e.target as HTMLInputElement).checked;
     const files = (e.target as HTMLInputElement).files;
 
+    if (type === 'file' && files && files[0]) {
+      const file = files[0];
+      const maxSize = 4 * 1024 * 1024; // 4MB limit
+      if (file.size > maxSize) {
+        alert(`File ${file.name} is too large. Maximum size is 4MB.`);
+        e.target.value = ''; // Reset file input
+        return;
+      }
+    }
+
     setFormData(prev => {
       if (name === 'passbookNo') {
         return {
@@ -304,7 +314,7 @@ export default function LoanApplication() {
       }
     } catch (err) {
       console.error('Submission error:', err);
-      setSubmitMessage('Submission failed. Please check your connection and try again.');
+      setSubmitMessage('Submission failed. Please check your connection or try uploading smaller files.');
     }
     setIsSubmitting(false);
   };

@@ -5,7 +5,16 @@ const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {
-    const { formData } = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch (e) {
+      return NextResponse.json({
+        error: 'Invalid request',
+        details: 'The request body is invalid or the files are too large. Please try smaller files.'
+      }, { status: 400 });
+    }
+    const { formData } = body;
 
     // Debug: Log received data
     console.log('=== LOAN APPLICATION DEBUG ===');
