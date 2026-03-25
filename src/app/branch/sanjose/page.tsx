@@ -3,7 +3,6 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { FaBuilding, FaClock, FaUserCheck, FaUserTimes, FaHourglassHalf } from 'react-icons/fa';
 import VerificationModal from '@/components/VerificationModal';
 
