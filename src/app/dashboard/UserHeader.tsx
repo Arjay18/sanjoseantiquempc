@@ -12,14 +12,25 @@ import {
   Menu,
   Bell,
   ChevronDown,
-  X
+  X,
+  CheckCheck
 } from "lucide-react";
+
+type Notification = {
+  id: string;
+  loanType: string;
+  status: string;
+  updatedAt: string;
+};
 
 export default function UserHeader() {
   const { data: session } = useSession();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [notificationMenuOpen, setNotificationMenuOpen] = useState(false);
+  const notificationMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -34,6 +45,41 @@ export default function UserHeader() {
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpen]);
+
+  useEffect(() => {
+    async function fetchNotifications() {
+      try {
+        const res = await fetch('/api/notifications');
+        if (res.ok) {
+          const data = await res.json();
+          setNotifications(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch notifications", error);
+      }
+    }
+    fetchNotifications();
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (notificationMenuRef.current && !notificationMenuRef.current.contains(event.target as Node)) {
+        setNotificationMenuOpen(false);
+      }
+    }
+    if (notificationMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [notificationMenuOpen]);
+
+  const handleMarkAllAsRead = async () => {
+    // In a real app, this would be a POST request to an API endpoint to update the database
+    // await fetch('/api/notifications/read', { method: 'POST' });
+    setNotifications([]); // For now, just clear them from the UI
+  };
 
   return (
     <div className="w-full">
@@ -73,10 +119,48 @@ export default function UserHeader() {
             {/* Right Side - User Menu */}
             <div className="flex items-center gap-3">
               {/* Notifications */}
-              <button className="relative p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                <Bell className="h-5 w-5" />
-                <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
-              </button>
+              <div className="relative" ref={notificationMenuRef}>
+                <button
+                  onClick={() => setNotificationMenuOpen((v) => !v)}
+                  className="relative p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                >
+                  <Bell className="h-5 w-5" />
+                  {notifications.length > 0 && (
+                    <span className="absolute top-1 right-1 h-2.5 w-2.5 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
+                  )}
+                </button>
+
+                {notificationMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-200 z-50 overflow-hidden">
+                    <div className="px-4 py-3 flex justify-between items-center border-b border-gray-100">
+                      <h3 className="font-semibold text-gray-800">Notifications</h3>
+                      {notifications.length > 0 && (
+                        <button onClick={handleMarkAllAsRead} className="text-xs text-blue-600 hover:underline flex items-center gap-1">
+                          <CheckCheck className="w-3 h-3" />
+                          Mark all as read
+                        </button>
+                      )}
+                    </div>
+                    <div className="max-h-80 overflow-y-auto">
+                      {notifications.length > 0 ? (
+                        notifications.map((notif) => (
+                          <div key={notif.id} className="p-3 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 cursor-pointer">
+                            <p className="text-sm text-gray-800">
+                              Your <span className="font-semibold">{notif.loanType}</span> application status is now <span className={`font-semibold ${notif.status === 'approved' ? 'text-green-600' : notif.status === 'rejected' ? 'text-red-600' : 'text-yellow-600'}`}>{notif.status}</span>.
+                            </p>
+                            <p className="text-xs text-gray-400 mt-1">{new Date(notif.updatedAt).toLocaleString()}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="p-8 text-center">
+                          <Bell className="w-8 h-8 mx-auto text-gray-300" />
+                          <p className="mt-2 text-sm text-gray-500">No new notifications</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
 
               {/* User Dropdown */}
               <div className="relative" ref={menuRef}>

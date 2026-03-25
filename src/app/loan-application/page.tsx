@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Wallet, AlertTriangle, User, FileText, CreditCard, Home, Building2 } from 'lucide-react';
+import { Wallet, AlertTriangle, User, FileText, CreditCard, Home, Building2, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function LoanApplication() {
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
@@ -18,6 +18,7 @@ export default function LoanApplication() {
   });
   // Wizard step logic
   const [currentStep, setCurrentStep] = useState(1);
+  const [showReview, setShowReview] = useState(false); // Toggle for Review Section
   const totalSteps = 4;
 
   const [formData, setFormData] = useState({
@@ -78,6 +79,12 @@ export default function LoanApplication() {
         setFormData(prev => ({ ...prev, ...parsed }));
       } catch (e) {
         console.error("Failed to load draft", e);
+      }
+      
+      // Load saved step
+      const savedStep = localStorage.getItem('loanAppStep');
+      if (savedStep) {
+        setCurrentStep(parseInt(savedStep));
       }
     }
   }, []);
@@ -315,6 +322,7 @@ export default function LoanApplication() {
         
         // Clear draft and previews on success
         localStorage.removeItem('loanAppDraft');
+        localStorage.removeItem('loanAppStep');
         setFilePreviews({
           validIDsAndSignatures: null,
           depositSlipOrEwallet: null,
@@ -380,8 +388,21 @@ export default function LoanApplication() {
   };
 
   // Step navigation handlers
-  const nextStep = () => setCurrentStep((s) => Math.min(s + 1, totalSteps));
-  const prevStep = () => setCurrentStep((s) => Math.max(s - 1, 1));
+  const nextStep = () => {
+    setCurrentStep((s) => {
+      const next = Math.min(s + 1, totalSteps);
+      localStorage.setItem('loanAppStep', next.toString());
+      return next;
+    });
+  };
+
+  const prevStep = () => {
+    setCurrentStep((s) => {
+      const prev = Math.max(s - 1, 1);
+      localStorage.setItem('loanAppStep', prev.toString());
+      return prev;
+    });
+  };
   const goToStep = (n: number) => setCurrentStep(n);
 
   // Steps definition for progress bar
@@ -491,6 +512,48 @@ export default function LoanApplication() {
                     {/* Step 4: Requirements & Declaration */}
                     {currentStep === 4 && (
                       <div>
+                        {/* Feature: Review Application Summary */}
+                        <div className="mb-8 bg-gray-50 rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                          <button
+                            type="button"
+                            onClick={() => setShowReview(!showReview)}
+                            className="w-full flex items-center justify-between p-4 text-left font-semibold text-gray-700 hover:bg-gray-100 transition-colors"
+                          >
+                            <span className="flex items-center gap-2 text-blue-900">
+                              <FileText className="w-5 h-5 text-blue-500" />
+                              Review Application Details
+                            </span>
+                            {showReview ? <ChevronUp className="w-5 h-5 text-gray-500" /> : <ChevronDown className="w-5 h-5 text-gray-500" />}
+                          </button>
+                          
+                          {showReview && (
+                            <div className="p-5 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm bg-white">
+                              <div className="space-y-3">
+                                <h4 className="font-bold text-blue-900 border-b border-blue-100 pb-2 mb-2">Personal Info</h4>
+                                <p className="grid grid-cols-3 gap-2"><span className="text-gray-500 col-span-1">Name:</span> <span className="col-span-2 font-medium">{formData.name || '-'}</span></p>
+                                <p className="grid grid-cols-3 gap-2"><span className="text-gray-500 col-span-1">Contact:</span> <span className="col-span-2 font-medium">{formData.contactNo || '-'}</span></p>
+                                <p className="grid grid-cols-3 gap-2"><span className="text-gray-500 col-span-1">Email:</span> <span className="col-span-2 font-medium">{formData.email || '-'}</span></p>
+                                <p className="grid grid-cols-3 gap-2"><span className="text-gray-500 col-span-1">Address:</span> <span className="col-span-2 font-medium">{formData.address || '-'}</span></p>
+                              </div>
+                              <div className="space-y-3">
+                                <h4 className="font-bold text-yellow-900 border-b border-yellow-100 pb-2 mb-2">Loan Details</h4>
+                                <p className="grid grid-cols-3 gap-2"><span className="text-gray-500 col-span-1">Type:</span> <span className="col-span-2 font-medium">{formData.loanType || '-'}</span></p>
+                                <p className="grid grid-cols-3 gap-2"><span className="text-gray-500 col-span-1">Amount:</span> <span className="col-span-2 font-medium text-green-600">{formData.amountApplied ? `₱${parseFloat(formData.amountApplied).toLocaleString()}` : '-'}</span></p>
+                                <p className="grid grid-cols-3 gap-2"><span className="text-gray-500 col-span-1">Term:</span> <span className="col-span-2 font-medium">{formData.term ? `${formData.term} months` : '-'}</span></p>
+                                <p className="grid grid-cols-3 gap-2"><span className="text-gray-500 col-span-1">Purpose:</span> <span className="col-span-2 font-medium">{formData.purpose || '-'}</span></p>
+                              </div>
+                              <div className="space-y-3 md:col-span-2">
+                                <h4 className="font-bold text-green-900 border-b border-green-100 pb-2 mb-2">Financial Summary</h4>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                  <div className="bg-green-50 p-3 rounded-lg"><span className="text-gray-500 block text-xs uppercase mb-1">Total Income</span> <span className="font-bold text-green-700 text-lg">{formData.totalFamilyIncome ? `₱${parseFloat(formData.totalFamilyIncome).toLocaleString()}` : '₱0.00'}</span></div>
+                                  <div className="bg-red-50 p-3 rounded-lg"><span className="text-gray-500 block text-xs uppercase mb-1">Total Expenses</span> <span className="font-bold text-red-700 text-lg">{formData.totalFamilyExpenses ? `₱${parseFloat(formData.totalFamilyExpenses).toLocaleString()}` : '₱0.00'}</span></div>
+                                  <div className="bg-blue-50 p-3 rounded-lg"><span className="text-gray-500 block text-xs uppercase mb-1">Net Income</span> <span className="font-bold text-blue-700 text-lg">{formData.netIncome ? `₱${parseFloat(formData.netIncome).toLocaleString()}` : '₱0.00'}</span></div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
                         <div className="flex items-center gap-2 mb-2 mt-6">
                           <Building2 className="w-6 h-6 text-purple-600" />
                           <h2 className="text-lg font-bold text-purple-900">Requirements</h2>

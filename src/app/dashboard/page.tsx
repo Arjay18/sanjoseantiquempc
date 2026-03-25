@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { 
-  Wallet, FileText, CreditCard, User, Building2, Trash2, 
-  AlertTriangle, CheckCircle, Clock, Upload, Package,
-  Plus, Eye, Home
+  Wallet, FileText, CreditCard, User, Building2, Trash2,
+  AlertTriangle, CheckCircle, Clock, Package,
+  Plus, Eye, Home, Calculator, X, Calendar
 } from "lucide-react";
 import LoanPackagesCarousel from "../../components/LoanPackagesCarousel";
 
@@ -20,98 +20,26 @@ type Application = {
   branch: string;
 };
 
-type ActiveTab = 'dashboard' | 'apply' | 'loans' | 'upload';
-
 export default function UserDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   
-  const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
-  
   // Dashboard state
-  const [showLoanForm, setShowLoanForm] = useState(false);
   const [applications, setApplications] = useState<Application[]>([]);
   const [loadingApplications, setLoadingApplications] = useState(true);
   const [actionMessage, setActionMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  // Form state
-  const [submitMessage, setSubmitMessage] = useState<string | null>(null);
-  const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 5;
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [fileNames, setFileNames] = useState({
-    validIDsAndSignatures: '',
-    depositSlipOrEwallet: '',
-    memberWithIDAndSlip: '',
-  });
-
-  const [formData, setFormData] = useState({
-    name: '',
-    passbookNo: '',
-    pbNo: '',
-    address: '',
-    email: '',
-    contactNo: '',
-    loanType: '',
-    idType: '',
-    term: '',
-    amountApplied: '',
-    pesosOnly: '',
-    purpose: '',
-    amountInWords: '',
-    amountInPesos: '',
-    savingsDepositRegular: '',
-    savingsDepositUltima: '',
-    savingsDepositAlkansya: '',
-    timeDeposit: '',
-    otherDeposits: '',
-    branch: '',
-    shareCapital: '',
-    incomeMember: '',
-    incomeSpouse: '',
-    incomeOtherFamily: '',
-    incomeBusiness: '',
-    otherIncome: '',
-    totalFamilyIncome: '',
-    food: '',
-    clothing: '',
-    shelter: '',
-    education: '',
-    electricWaterBills: '',
-    helper: '',
-    loanRepayments: '',
-    miscellaneousExpense: '',
-    totalFamilyExpenses: '',
-    netIncome: '',
-    declarationAccepted: false,
-    termsAccepted: false,
-    validIDsAndSignatures: null,
-    depositSlipOrEwallet: null,
-    memberWithIDAndSlip: null,
-    assignmentAmount: '',
-    assignmentPbNo: '',
-  });
-
-  // Sync showLoanForm with tab parameter
-  useEffect(() => {
-    if (activeTab === 'apply') {
-      setShowLoanForm(true);
-    } else {
-      setShowLoanForm(false);
-    }
-  }, [activeTab]);
+  // Calculator State
+  const [showCalculator, setShowCalculator] = useState(false);
+  const [calcAmount, setCalcAmount] = useState('');
+  const [calcTerm, setCalcTerm] = useState('');
+  const [calcResult, setCalcResult] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === "loading") return;
     if (!session) {
       router.push("/login");
     } else {
-      if (session.user?.email) {
-        setFormData(prev => ({ ...prev, email: session.user?.email || '' }));
-      }
-      if (session.user?.name) {
-        setFormData(prev => ({ ...prev, name: session.user?.name || '' }));
-      }
     }
   }, [session, status, router]);
 
@@ -133,197 +61,24 @@ export default function UserDashboard() {
     fetchApplications();
   }, [session]);
 
-  useEffect(() => {
-    const totalIncome =
-      (parseFloat(formData.incomeMember || '0') || 0) +
-      (parseFloat(formData.incomeSpouse || '0') || 0) +
-      (parseFloat(formData.incomeOtherFamily || '0') || 0) +
-      (parseFloat(formData.incomeBusiness || '0') || 0) +
-      (parseFloat(formData.otherIncome || '0') || 0);
-
-    const totalExpenses =
-      (parseFloat(formData.food || '0') || 0) +
-      (parseFloat(formData.clothing || '0') || 0) +
-      (parseFloat(formData.shelter || '0') || 0) +
-      (parseFloat(formData.education || '0') || 0) +
-      (parseFloat(formData.electricWaterBills || '0') || 0) +
-      (parseFloat(formData.helper || '0') || 0) +
-      (parseFloat(formData.loanRepayments || '0') || 0) +
-      (parseFloat(formData.miscellaneousExpense || '0') || 0);
-
-    const netIncome = totalIncome - totalExpenses;
-
-    setFormData(prev => ({
-      ...prev,
-      totalFamilyIncome: totalIncome ? totalIncome.toFixed(2) : '',
-      totalFamilyExpenses: totalExpenses ? totalExpenses.toFixed(2) : '',
-      netIncome: netIncome ? netIncome.toFixed(2) : '',
-    }));
-  }, [
-    formData.incomeMember, formData.incomeSpouse, formData.incomeOtherFamily,
-    formData.incomeBusiness, formData.otherIncome, formData.food, formData.clothing,
-    formData.shelter, formData.education, formData.electricWaterBills, formData.helper,
-    formData.loanRepayments, formData.miscellaneousExpense
-  ]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-    const checked = (e.target as HTMLInputElement).checked;
-    const files = (e.target as HTMLInputElement).files;
-
-    setFormData(prev => {
-      if (name === 'passbookNo') {
-        return { ...prev, passbookNo: value, pbNo: value };
-      }
-      if (type === 'file') {
-        setFileNames(f => ({ ...f, [name]: files && files[0] ? files[0].name : '' }));
-      }
-      return {
-        ...prev,
-        [name]: type === 'checkbox' ? checked : type === 'file' ? (files?.[0] || null) : value
-      };
-    });
-  };
-
-  const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = error => reject(error);
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitMessage(null);
-    try {
-      // Convert file uploads to base64
-      let idFileBase64 = null;
-      let depositSlipBase64 = null;
-      let memberWithIDBase64 = null;
+    const principal = parseFloat(calcAmount);
+    const months = parseFloat(calcTerm);
+    
+    if (principal && months) {
+      // Simple estimation logic (Adjust rate as per cooperative policy, e.g., 1.5% per month)
+      // Formula: (Principal / Term) + (Principal * InterestRate)
+      const interestRate = 0.015; // 1.5% per month
+      const monthlyPrincipal = principal / months;
+      const monthlyInterest = principal * interestRate;
+      const totalMonthly = monthlyPrincipal + monthlyInterest;
       
-      if (formData.validIDsAndSignatures) {
-        try {
-          idFileBase64 = await fileToBase64(formData.validIDsAndSignatures as File);
-        } catch (err) {
-          console.error('Error converting validIDsAndSignatures:', err);
-        }
-      }
-      
-      if (formData.depositSlipOrEwallet) {
-        try {
-          depositSlipBase64 = await fileToBase64(formData.depositSlipOrEwallet as File);
-        } catch (err) {
-          console.error('Error converting depositSlipOrEwallet:', err);
-        }
-      }
-      
-      if (formData.memberWithIDAndSlip) {
-        try {
-          memberWithIDBase64 = await fileToBase64(formData.memberWithIDAndSlip as File);
-        } catch (err) {
-          console.error('Error converting memberWithIDAndSlip:', err);
-        }
-      }
-
-      // Prepare data for API - Map only the required fields properly
-      const payload = {
-        // Basic Information - ensure pbNo is properly mapped
-        name: formData.name,
-        pbNo: formData.pbNo || formData.passbookNo,
-        address: formData.address,
-        email: formData.email,
-        contactNo: formData.contactNo,
-        branch: formData.branch,
-        
-        // Loan Details - map amountApplied to loanAmount
-        loanType: formData.loanType,
-        idType: formData.idType || 'Other',  // Provide default if empty
-        loanAmount: formData.amountApplied,
-        term: formData.term,
-        purpose: formData.purpose,
-        amountInWords: formData.amountInWords || null,
-        
-        // Financial Information
-        incomeMember: formData.incomeMember || null,
-        incomeSpouse: formData.incomeSpouse || null,
-        incomeOtherFamily: formData.incomeOtherFamily || null,
-        incomeBusiness: formData.incomeBusiness || null,
-        otherIncome: formData.otherIncome || null,
-        totalFamilyIncome: formData.totalFamilyIncome || null,
-        
-        // Expenses
-        food: formData.food || null,
-        clothing: formData.clothing || null,
-        shelter: formData.shelter || null,
-        education: formData.education || null,
-        electricWaterBills: formData.electricWaterBills || null,
-        helper: formData.helper || null,
-        loanRepayments: formData.loanRepayments || null,
-        miscellaneousExpense: formData.miscellaneousExpense || null,
-        totalFamilyExpenses: formData.totalFamilyExpenses || null,
-        netIncome: formData.netIncome || null,
-        
-        // Savings/Deposits
-        savingsDepositRegular: formData.savingsDepositRegular || null,
-        savingsDepositUltima: formData.savingsDepositUltima || null,
-        savingsDepositAlkansya: formData.savingsDepositAlkansya || null,
-        timeDeposit: formData.timeDeposit || null,
-        otherDeposits: formData.otherDeposits || null,
-        shareCapital: formData.shareCapital || null,
-        assignmentPbNo: formData.assignmentPbNo || null,
-        assignmentAmount: formData.assignmentAmount || null,
-        
-        // File uploads - include the base64 encoded files
-        idFile: idFileBase64,
-        depositSlipOrEwallet: depositSlipBase64,
-        memberWithIDAndSlip: memberWithIDBase64,
-      };
-
-      const res = await fetch('/api/loan-applications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formData: payload }),
-      });
-
-      const data = await res.json();
-      
-      if (res.ok) {
-        setSubmitMessage('Application submitted successfully!');
-        setFormData({
-          name: session?.user?.name || '',
-          passbookNo: '', pbNo: '', address: '', email: session?.user?.email || '',
-          contactNo: '', loanType: '', idType: '', term: '', amountApplied: '',
-          pesosOnly: '', purpose: '', amountInWords: '', amountInPesos: '',
-          savingsDepositRegular: '', savingsDepositUltima: '', savingsDepositAlkansya: '',
-          timeDeposit: '', otherDeposits: '', branch: '', shareCapital: '',
-          assignmentAmount: '', assignmentPbNo: '',
-          incomeMember: '', incomeSpouse: '', incomeOtherFamily: '', incomeBusiness: '',
-          otherIncome: '', totalFamilyIncome: '', food: '', clothing: '', shelter: '',
-          education: '', electricWaterBills: '', helper: '', loanRepayments: '',
-          miscellaneousExpense: '', totalFamilyExpenses: '', netIncome: '',
-          declarationAccepted: false, termsAccepted: false,
-          validIDsAndSignatures: null, depositSlipOrEwallet: null, memberWithIDAndSlip: null,
-        });
-        setCurrentStep(1);
-        setActiveTab('loans');
-        const res = await fetch("/api/loan-applications/user");
-        if (res.ok) {
-          const data = await res.json();
-          setApplications(data);
-        }
-      } else {
-        // Show detailed error message from backend
-        const errorMsg = data.details || data.message || data.error || 'Submission failed. Status: ' + res.status;
-        setSubmitMessage(errorMsg);
-      }
-    } catch (err) {
-      console.error('Loan submission error:', err);
-      setSubmitMessage('Submission failed. Please check your connection and try again.');
+      setCalcResult(totalMonthly.toLocaleString('en-PH', { 
+        style: 'currency', 
+        currency: 'PHP' 
+      }));
     }
-    setIsSubmitting(false);
   };
 
   const handleDelete = async (id: string) => {
@@ -345,22 +100,6 @@ export default function UserDashboard() {
     }
   };
 
-  const nextStep = () => setCurrentStep(s => Math.min(s + 1, totalSteps));
-  const prevStep = () => setCurrentStep(s => Math.max(s - 1, 1));
-
-  const navigateToTab = (tab: ActiveTab) => {
-    setActiveTab(tab);
-    setCurrentStep(1);
-  };
-
-  const steps = [
-    { number: 1, title: 'Personal', description: 'Personal Info', icon: User },
-    { number: 2, title: 'Loan', description: 'Loan Details', icon: CreditCard },
-    { number: 3, title: 'Financial', description: 'Income & Expenses', icon: Wallet },
-    { number: 4, title: 'Assignment', description: 'Deposit & Shares', icon: Building2 },
-    { number: 5, title: 'Requirements', description: 'Upload & Review', icon: FileText },
-  ];
-
   // Calculate stats
   const pendingCount = applications.filter(a => a.status === 'pending').length;
   const approvedCount = applications.filter(a => a.status === 'approved').length;
@@ -378,52 +117,107 @@ export default function UserDashboard() {
     return null;
   }
 
-  // Render content based on active tab
-  const renderContent = () => {
-    // Apply for Loan tab - show just the form
-    if (activeTab === 'apply') {
-      return renderLoanForm();
-    }
-
-    // My Loans tab - show only applications
-    if (activeTab === 'loans') {
-      return (
-        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-8">
-          <div className="mb-6">
-            <button 
-              onClick={() => navigateToTab('dashboard')}
-              className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-            >
-              ← Back to Dashboard
-            </button>
+  const renderApplicationsSection = (showTitle: boolean = true) => (
+    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+      {showTitle && (
+        <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-blue-600" />
+              My Loan Applications
+            </h2>
+            <p className="text-gray-500 text-sm mt-1">Manage and track your submitted applications</p>
           </div>
-          {renderApplicationsSection()}
+          {applications.length > 0 && (
+            <div className="text-sm text-gray-500">
+              Showing {applications.length} application{applications.length !== 1 ? 's' : ''}
+            </div>
+          )}
         </div>
-      );
-    }
+      )}
 
-    // Upload tab - show upload section
-    if (activeTab === 'upload') {
-      return (
-        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-8">
-          <div className="mb-6">
-            <button 
-              onClick={() => navigateToTab('dashboard')}
-              className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-            >
-              ← Back to Dashboard
-            </button>
+      {loadingApplications ? (
+        <div className="p-12 text-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="text-gray-500 mt-3">Loading applications...</p>
+        </div>
+      ) : applications.length === 0 ? (
+        <div className="p-12 text-center">
+          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <FileText className="w-10 h-10 text-gray-400" />
           </div>
-          {renderUploadSection()}
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">No Applications Yet</h3>
+          <p className="text-gray-500 mb-6 max-w-md mx-auto">
+            You haven't submitted any loan applications. Start your first application today!
+          </p>
+          <Link
+            href="/loan-application"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition"
+          >
+            <Plus className="w-5 h-5" />
+            Apply for a Loan
+          </Link>
         </div>
-      );
-    }
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gray-50">
+                <th className="p-4 text-left text-sm font-semibold text-gray-700">Date</th>
+                <th className="p-4 text-left text-sm font-semibold text-gray-700">Loan Type</th>
+                <th className="p-4 text-left text-sm font-semibold text-gray-700">Amount</th>
+                <th className="p-4 text-left text-sm font-semibold text-gray-700">Branch</th>
+                <th className="p-4 text-left text-sm font-semibold text-gray-700">Status</th>
+                <th className="p-4 text-left text-sm font-semibold text-gray-700">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {applications.map((app: Application, index) => (
+                <tr 
+                  key={app.id} 
+                  className={`border-t border-gray-100 hover:bg-gray-50 transition ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}
+                >
+                  <td className="p-4 text-sm text-gray-600">
+                    {new Date(app.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="p-4 text-sm font-medium text-gray-900">{app.loanType}</td>
+                  <td className="p-4 text-sm font-semibold text-green-600">₱{app.loanAmount?.toLocaleString()}</td>
+                  <td className="p-4 text-sm text-gray-600 capitalize">{app.branch}</td>
+                  <td className="p-4">
+                    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
+                      app.status === 'approved' ? 'bg-green-100 text-green-700' :
+                      app.status === 'rejected' ? 'bg-red-100 text-red-700' :
+                      app.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                      'bg-gray-100 text-gray-700'
+                    }`}>
+                      {app.status === 'approved' && <CheckCircle className="w-3 h-3" />}
+                      {app.status === 'rejected' && <AlertTriangle className="w-3 h-3" />}
+                      {app.status === 'pending' && <Clock className="w-3 h-3" />}
+                      {app.status}
+                    </span>
+                  </td>
+                  <td className="p-4">
+                    <button
+                      onClick={() => handleDelete(app.id)}
+                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                      title="Delete application"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
 
-    // Default: Dashboard view
-    return (
-      <>
-        {/* Hero Header */}
-        <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white py-12 px-4 md:px-8 lg:px-16">
+  return (
+    <>
+      {/* Hero Header */}
+      <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white py-12 px-4 md:px-8 lg:px-16">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div>
@@ -504,10 +298,50 @@ export default function UserDashboard() {
             </div>
           )}
 
+          {/* Loan Calculator Modal */}
+          {showCalculator && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+              <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-4 flex justify-between items-center text-white">
+                  <div className="flex items-center gap-2">
+                    <Calculator className="w-5 h-5" />
+                    <h3 className="font-bold">Quick Loan Calculator</h3>
+                  </div>
+                  <button onClick={() => setShowCalculator(false)} className="hover:bg-white/20 p-1 rounded-full transition">
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <div className="p-6">
+                  <form onSubmit={handleCalculate} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Loan Amount (₱)</label>
+                      <input type="number" value={calcAmount} onChange={e => setCalcAmount(e.target.value)} className="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. 50000" required />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Term (Months)</label>
+                      <input type="number" value={calcTerm} onChange={e => setCalcTerm(e.target.value)} className="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. 12" required />
+                    </div>
+                    <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-200">
+                      Calculate Repayment
+                    </button>
+                  </form>
+                  
+                  {calcResult && (
+                    <div className="mt-6 bg-green-50 rounded-xl p-4 border border-green-100 text-center">
+                      <p className="text-gray-500 text-sm mb-1">Estimated Monthly Payment</p>
+                      <p className="text-3xl font-bold text-green-700">{calcResult}</p>
+                      <p className="text-xs text-gray-400 mt-2">*Estimation only. Final computation may vary.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Quick Actions */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <button
-              onClick={() => navigateToTab('apply')}
+            <Link
+              href="/loan-application"
               className="group bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
               <div className="flex items-center gap-4">
@@ -515,14 +349,14 @@ export default function UserDashboard() {
                   <Plus className="w-6 h-6" />
                 </div>
                 <div className="text-left">
-                  <h3 className="font-bold text-lg">New Application</h3>
+                  <h3 className="font-bold text-lg">New Loan</h3>
                   <p className="text-blue-100 text-sm">Apply for a loan</p>
                 </div>
               </div>
-            </button>
+            </Link>
 
             <button
-              onClick={() => navigateToTab('loans')}
+              onClick={() => document.getElementById('applications-table')?.scrollIntoView({ behavior: 'smooth' })}
               className="group bg-white hover:bg-gray-50 rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
             >
               <div className="flex items-center gap-4">
@@ -537,16 +371,16 @@ export default function UserDashboard() {
             </button>
 
             <button
-              onClick={() => navigateToTab('upload')}
+              onClick={() => setShowCalculator(true)}
               className="group bg-white hover:bg-gray-50 rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
             >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                  <Upload className="w-6 h-6 text-purple-600" />
+                  <Calculator className="w-6 h-6 text-purple-600" />
                 </div>
                 <div className="text-left">
-                  <h3 className="font-bold text-lg text-gray-900">Upload Docs</h3>
-                  <p className="text-gray-500 text-sm">Submit required files</p>
+                  <h3 className="font-bold text-lg text-gray-900">Calculator</h3>
+                  <p className="text-gray-500 text-sm">Estimate payments</p>
                 </div>
               </div>
             </button>
@@ -567,6 +401,53 @@ export default function UserDashboard() {
             </Link>
           </div>
 
+          {/* Recent Activity Section */}
+          {applications.length > 0 && (
+            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-blue-600" />
+                  Recent Activity
+                </h2>
+                <button onClick={() => document.getElementById('applications-table')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm text-blue-600 font-medium hover:underline">
+                  View All
+                </button>
+              </div>
+              <div className="space-y-3">
+                {applications.slice(0, 3).map((app) => (
+                  <div key={app.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:bg-blue-50 transition-colors group">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                        app.status === 'approved' ? 'bg-green-100 text-green-600' :
+                        app.status === 'rejected' ? 'bg-red-100 text-red-600' :
+                        'bg-yellow-100 text-yellow-600'
+                      }`}>
+                        {app.status === 'approved' ? <CheckCircle className="w-5 h-5" /> : 
+                         app.status === 'rejected' ? <AlertTriangle className="w-5 h-5" /> : 
+                         <Clock className="w-5 h-5" />}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-gray-900">{app.loanType} Application</h4>
+                        <p className="text-sm text-gray-500 flex items-center gap-2">
+                          <Calendar className="w-3 h-3" /> {new Date(app.createdAt).toLocaleDateString()}
+                          <span className="text-gray-300">|</span>
+                          <span className="font-medium text-gray-700">₱{app.loanAmount.toLocaleString()}</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${
+                      app.status === 'approved' ? 'bg-green-100 text-green-700' :
+                      app.status === 'rejected' ? 'bg-red-100 text-red-700' :
+                      'bg-yellow-100 text-yellow-700'
+                    }`}>
+                      {app.status}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Loan Packages Carousel */}
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
             <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -577,623 +458,10 @@ export default function UserDashboard() {
           </div>
 
           {/* My Applications Section */}
-          {renderApplicationsSection(false)}
+          <div id="applications-table">
+            {renderApplicationsSection()}
+          </div>
         </div>
       </>
     );
-  };
-
-  const renderApplicationsSection = (showBackButton: boolean = true) => (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-blue-600" />
-            My Loan Applications
-          </h2>
-          <p className="text-gray-500 text-sm mt-1">Manage and track your submitted applications</p>
-        </div>
-        {applications.length > 0 && (
-          <div className="text-sm text-gray-500">
-            Showing {applications.length} application{applications.length !== 1 ? 's' : ''}
-          </div>
-        )}
-      </div>
-
-      {loadingApplications ? (
-        <div className="p-12 text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="text-gray-500 mt-3">Loading applications...</p>
-        </div>
-      ) : applications.length === 0 ? (
-        <div className="p-12 text-center">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FileText className="w-10 h-10 text-gray-400" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No Applications Yet</h3>
-          <p className="text-gray-500 mb-6 max-w-md mx-auto">
-            You haven't submitted any loan applications. Start your first application today!
-          </p>
-          <button
-            onClick={() => navigateToTab('apply')}
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition"
-          >
-            <Plus className="w-5 h-5" />
-            Apply for a Loan
-          </button>
-        </div>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Date</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Loan Type</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Amount</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Branch</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Status</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {applications.map((app: Application, index) => (
-                <tr 
-                  key={app.id} 
-                  className={`border-t border-gray-100 hover:bg-gray-50 transition ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}
-                >
-                  <td className="p-4 text-sm text-gray-600">
-                    {new Date(app.createdAt).toLocaleDateString()}
-                  </td>
-                  <td className="p-4 text-sm font-medium text-gray-900">{app.loanType}</td>
-                  <td className="p-4 text-sm font-semibold text-green-600">₱{app.loanAmount?.toLocaleString()}</td>
-                  <td className="p-4 text-sm text-gray-600 capitalize">{app.branch}</td>
-                  <td className="p-4">
-                    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
-                      app.status === 'approved' ? 'bg-green-100 text-green-700' :
-                      app.status === 'rejected' ? 'bg-red-100 text-red-700' :
-                      app.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-gray-100 text-gray-700'
-                    }`}>
-                      {app.status === 'approved' && <CheckCircle className="w-3 h-3" />}
-                      {app.status === 'rejected' && <AlertTriangle className="w-3 h-3" />}
-                      {app.status === 'pending' && <Clock className="w-3 h-3" />}
-                      {app.status}
-                    </span>
-                  </td>
-                  <td className="p-4">
-                    <button
-                      onClick={() => handleDelete(app.id)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
-                      title="Delete application"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </div>
-  );
-
-  const renderUploadSection = () => (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-      <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-        <Upload className="w-5 h-5 text-purple-600" />
-        Upload Documents
-      </h2>
-      <p className="text-gray-500 mb-6">Upload your required documents for loan applications</p>
-      
-      <div className="space-y-4">
-        <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-          <label className="block text-sm font-medium text-purple-900 mb-2">
-            📄 Scanned copy of 2 Valid IDs with 3 specimen signatures
-          </label>
-          <input 
-            type="file" 
-            className="w-full px-3 py-2 rounded-lg border border-purple-200" 
-          />
-        </div>
-
-        <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-          <label className="block text-sm font-medium text-purple-900 mb-2">
-            💳 Scanned copy of validated deposit slip or e-wallet
-          </label>
-          <input 
-            type="file" 
-            className="w-full px-3 py-2 rounded-lg border border-purple-200" 
-          />
-        </div>
-
-        <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-          <label className="block text-sm font-medium text-purple-900 mb-2">
-            📸 Picture of member holding ID and deposit slip
-          </label>
-          <input 
-            type="file" 
-            className="w-full px-3 py-2 rounded-lg border border-purple-200" 
-          />
-        </div>
-
-        <button className="w-full bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl font-medium transition">
-          Upload Documents
-        </button>
-      </div>
-    </div>
-  );
-
-  const renderLoanForm = () => (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-8">
-      <div className="mb-6">
-        <button 
-          onClick={() => navigateToTab('dashboard')}
-          className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-        >
-          ← Back to Dashboard
-        </button>
-      </div>
-
-      {/* Loan Application Form */}
-      <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-        {/* Form Header */}
-        <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white p-6">
-          <h2 className="text-2xl font-bold">New Loan Application</h2>
-          <p className="text-blue-100 text-sm mt-1">Complete the form below to apply for a loan</p>
-
-          {/* Progress Steps */}
-          <div className="flex items-center justify-between mt-6 px-4">
-            {steps.map((step, index) => (
-              <div key={index} className="flex flex-col items-center flex-1">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
-                  currentStep > index + 1 
-                    ? 'bg-green-500 text-white' 
-                    : currentStep === index + 1
-                    ? 'bg-white text-blue-600'
-                    : 'bg-blue-500/50 text-white'
-                }`}>
-                  {currentStep > index + 1 ? '✓' : index + 1}
-                </div>
-                <span className={`text-xs mt-2 text-center hidden sm:block ${currentStep === index + 1 ? 'text-white font-medium' : 'text-blue-200'}`}>
-                  {step.title}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Form Content */}
-        <div className="p-6">
-          {submitMessage && (
-            <div className={`mb-6 p-4 rounded-xl flex items-center gap-3 ${
-              submitMessage.includes('success') 
-                ? 'bg-green-50 text-green-800 border border-green-200' 
-                : 'bg-red-50 text-red-800 border border-red-200'
-            }`}>
-              {submitMessage.includes('success') ? (
-                <CheckCircle className="w-5 h-5" />
-              ) : (
-                <AlertTriangle className="w-5 h-5" />
-              )}
-              {submitMessage}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Step 1: Basic Information */}
-            {currentStep === 1 && (
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <User className="w-5 h-5 text-blue-600" />
-                  <h3 className="text-lg font-semibold text-gray-900">Personal Information</h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="sm:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                    <input 
-                      name="name" 
-                      value={formData.name} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter your full name"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                      required 
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Passbook No.</label>
-                    <input 
-                      name="passbookNo" 
-                      value={formData.passbookNo} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter passbook number"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                      required 
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                    <input 
-                      name="email" 
-                      value={formData.email} 
-                      onChange={handleInputChange} 
-                      placeholder="your@email.com"
-                      type="email"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                      required 
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Contact Number</label>
-                    <input 
-                      name="contactNo" 
-                      value={formData.contactNo} 
-                      onChange={handleInputChange} 
-                      placeholder="09xx..."
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                      required 
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Branch</label>
-                    <select
-                      name="branch"
-                      value={formData.branch}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                      required
-                    >
-                      <option value="">Select Branch</option>
-                      <option value="sanjose">San Jose</option>
-                      <option value="miagao">Miagao</option>
-                      <option value="oton">Oton</option>
-                      <option value="guimaras">Guimaras</option>
-                    </select>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                    <input 
-                      name="address" 
-                      value={formData.address} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter your complete address"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                      required 
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 2: Loan Details */}
-            {currentStep === 2 && (
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <CreditCard className="w-5 h-5 text-yellow-600" />
-                  <h3 className="text-lg font-semibold text-gray-900">Loan Details</h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Loan Type</label>
-                    <input 
-                      name="loanType" 
-                      value={formData.loanType} 
-                      onChange={handleInputChange} 
-                      placeholder="e.g. Regular, Emergency"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-100 transition"
-                      required 
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Term (months)</label>
-                    <input 
-                      name="term" 
-                      value={formData.term} 
-                      onChange={handleInputChange} 
-                      placeholder="e.g. 12, 24, 36"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-100 transition"
-                      required 
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Amount Applied (₱)</label>
-                    <input 
-                      name="amountApplied" 
-                      value={formData.amountApplied} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter amount"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-100 transition"
-                      required 
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Purpose of Loan</label>
-                    <input 
-                      name="purpose" 
-                      value={formData.purpose} 
-                      onChange={handleInputChange} 
-                      placeholder="e.g. Business, Medical, Education"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-100 transition"
-                      required 
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 3: Financial Information */}
-            {currentStep === 3 && (
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <Wallet className="w-5 h-5 text-green-600" />
-                  <h3 className="text-lg font-semibold text-gray-900">Financial Information</h3>
-                </div>
-                
-                <div className="bg-green-50 rounded-xl p-4 mb-4">
-                  <h4 className="font-medium text-green-900 mb-3">Income Sources</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input name="incomeMember" value={formData.incomeMember} onChange={handleInputChange} placeholder="Member Income" className="px-3 py-2 rounded-lg border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100" />
-                    <input name="incomeSpouse" value={formData.incomeSpouse} onChange={handleInputChange} placeholder="Spouse Income" className="px-3 py-2 rounded-lg border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100" />
-                    <input name="incomeBusiness" value={formData.incomeBusiness} onChange={handleInputChange} placeholder="Business Income" className="px-3 py-2 rounded-lg border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100" />
-                    <input name="otherIncome" value={formData.otherIncome} onChange={handleInputChange} placeholder="Other Income" className="px-3 py-2 rounded-lg border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100" />
-                  </div>
-                  <div className="mt-3 pt-3 border-t border-green-200">
-                    <span className="text-sm text-green-800 font-medium">Total: ₱{formData.totalFamilyIncome || '0'}</span>
-                  </div>
-                </div>
-
-                <div className="bg-red-50 rounded-xl p-4 mb-4">
-                  <h4 className="font-medium text-red-900 mb-3">Monthly Expenses</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input name="food" value={formData.food} onChange={handleInputChange} placeholder="Food" className="px-3 py-2 rounded-lg border border-red-200 focus:border-red-500 focus:ring-2 focus:ring-red-100" />
-                    <input name="clothing" value={formData.clothing} onChange={handleInputChange} placeholder="Clothing" className="px-3 py-2 rounded-lg border border-red-200 focus:border-red-500 focus:ring-2 focus:ring-red-100" />
-                    <input name="shelter" value={formData.shelter} onChange={handleInputChange} placeholder="Shelter" className="px-3 py-2 rounded-lg border border-red-200 focus:border-red-500 focus:ring-2 focus:ring-red-100" />
-                    <input name="education" value={formData.education} onChange={handleInputChange} placeholder="Education" className="px-3 py-2 rounded-lg border border-red-200 focus:border-red-500 focus:ring-2 focus:ring-red-100" />
-                    <input name="electricWaterBills" value={formData.electricWaterBills} onChange={handleInputChange} placeholder="Electric/Water" className="px-3 py-2 rounded-lg border border-red-200 focus:border-red-500 focus:ring-2 focus:ring-red-100" />
-                    <input name="loanRepayments" value={formData.loanRepayments} onChange={handleInputChange} placeholder="Loan Repayments" className="px-3 py-2 rounded-lg border border-red-200 focus:border-red-500 focus:ring-2 focus:ring-red-100" />
-                  </div>
-                  <div className="mt-3 pt-3 border-t border-red-200">
-                    <span className="text-sm text-red-800 font-medium">Total: ₱{formData.totalFamilyExpenses || '0'}</span>
-                  </div>
-                </div>
-
-                <div className="bg-blue-50 rounded-xl p-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-blue-900">Net Income</span>
-                    <span className="text-lg font-bold text-blue-700">₱{formData.netIncome || '0'}</span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 4: Assignment of Deposit */}
-            {currentStep === 4 && (
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <Building2 className="w-5 h-5 text-blue-600" />
-                  <h3 className="text-lg font-semibold text-gray-900">Assignment of Deposit & Share Capital</h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Passbook No.</label>
-                    <input 
-                      name="assignmentPbNo" 
-                      value={formData.assignmentPbNo || formData.passbookNo} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter passbook number"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Share Capital (₱)</label>
-                    <input 
-                      name="shareCapital" 
-                      value={formData.shareCapital} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter share capital"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Regular Savings (₱)</label>
-                    <input 
-                      name="savingsDepositRegular" 
-                      value={formData.savingsDepositRegular} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter regular savings"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Ultima Savings (₱)</label>
-                    <input 
-                      name="savingsDepositUltima" 
-                      value={formData.savingsDepositUltima} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter ultima savings"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Alkansya (₱)</label>
-                    <input 
-                      name="savingsDepositAlkansya" 
-                      value={formData.savingsDepositAlkansya} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter alkansya"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Time Deposit (₱)</label>
-                    <input 
-                      name="timeDeposit" 
-                      value={formData.timeDeposit} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter time deposit"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Other Deposits (₱)</label>
-                    <input 
-                      name="otherDeposits" 
-                      value={formData.otherDeposits} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter other deposits"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Assignment Amount (₱)</label>
-                    <input 
-                      name="assignmentAmount" 
-                      value={formData.assignmentAmount} 
-                      onChange={handleInputChange} 
-                      placeholder="Enter assignment amount"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 5: Requirements */}
-            {currentStep === 5 && (
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <Building2 className="w-5 h-5 text-purple-600" />
-                  <h3 className="text-lg font-semibold text-gray-900">Requirements & Documents</h3>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-                    <label className="block text-sm font-medium text-purple-900 mb-2">
-                      📄 Scanned copy of 2 Valid IDs with 3 specimen signatures
-                    </label>
-                    <input 
-                      type="file" 
-                      name="validIDsAndSignatures" 
-                      onChange={handleInputChange} 
-                      className="w-full px-3 py-2 rounded-lg border border-purple-200" 
-                    />
-                    {fileNames.validIDsAndSignatures && (
-                      <p className="text-xs text-purple-600 mt-1">✓ Selected: {fileNames.validIDsAndSignatures}</p>
-                    )}
-                  </div>
-
-                  <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-                    <label className="block text-sm font-medium text-purple-900 mb-2">
-                      💳 Scanned copy of validated deposit slip or e-wallet
-                    </label>
-                    <input 
-                      type="file" 
-                      name="depositSlipOrEwallet" 
-                      onChange={handleInputChange} 
-                      className="w-full px-3 py-2 rounded-lg border border-purple-200" 
-                    />
-                    {fileNames.depositSlipOrEwallet && (
-                      <p className="text-xs text-purple-600 mt-1">✓ Selected: {fileNames.depositSlipOrEwallet}</p>
-                    )}
-                  </div>
-
-                  <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-                    <label className="block text-sm font-medium text-purple-900 mb-2">
-                      📸 Picture of member holding ID and deposit slip
-                    </label>
-                    <input 
-                      type="file" 
-                      name="memberWithIDAndSlip" 
-                      onChange={handleInputChange} 
-                      className="w-full px-3 py-2 rounded-lg border border-purple-200" 
-                    />
-                    {fileNames.memberWithIDAndSlip && (
-                      <p className="text-xs text-purple-600 mt-1">✓ Selected: {fileNames.memberWithIDAndSlip}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Declaration */}
-                <div className="bg-blue-50 rounded-xl p-5 border border-blue-100">
-                  <h4 className="font-semibold text-blue-900 mb-3">📋 Declaration and Consent</h4>
-                  <ul className="text-sm text-blue-800 space-y-2 mb-4">
-                    <li>✓ I declare that the information provided is true and correct.</li>
-                    <li>✓ I authorize SJMPC to verify any information provided.</li>
-                    <li>✓ I consent to the collection and processing of my personal data.</li>
-                    <li>✓ I understand that false statements may result in denial.</li>
-                  </ul>
-                  <div className="space-y-3">
-                    <label className="flex items-center gap-3 cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        id="declarationAccepted" 
-                        name="declarationAccepted" 
-                        checked={formData.declarationAccepted} 
-                        onChange={handleInputChange}
-                        className="w-5 h-5 text-blue-600 rounded" 
-                        required 
-                      />
-                      <span className="text-sm text-gray-700">I have read and agree to the Declaration and Consent</span>
-                    </label>
-                    <label className="flex items-center gap-3 cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        id="termsAccepted" 
-                        name="termsAccepted" 
-                        checked={formData.termsAccepted} 
-                        onChange={handleInputChange}
-                        className="w-5 h-5 text-blue-600 rounded" 
-                        required 
-                      />
-                      <span className="text-sm text-gray-700">I have read and agree to the Terms and Conditions</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Navigation Buttons */}
-            <div className="flex justify-between pt-4 border-t border-gray-100">
-              {currentStep > 1 ? (
-                <button 
-                  type="button" 
-                  onClick={prevStep}
-                  className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-medium transition"
-                >
-                  ← Previous
-                </button>
-              ) : (
-                <button 
-                  type="button" 
-                  onClick={() => navigateToTab('dashboard')}
-                  className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-medium transition"
-                >
-                  Cancel
-                </button>
-              )}
-              {currentStep < totalSteps ? (
-                <button 
-                  type="button" 
-                  onClick={nextStep}
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition"
-                >
-                  Next →
-                </button>
-              ) : (
-                <button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition disabled:opacity-50"
-                >
-                  {isSubmitting ? 'Submitting...' : '✓ Submit Application'}
-                </button>
-              )}
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-
-  return renderContent();
 }
