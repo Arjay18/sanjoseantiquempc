@@ -83,9 +83,6 @@ export default function VerificationModal({ application, onClose }: Verification
               download={`${doc.label.replace(/\s+/g, '-')}-${application.pbNo}.jpg`}
               className="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-gray-800 px-3 py-1 rounded-full text-sm font-medium shadow flex items-center gap-1"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
               <Download className="w-4 h-4" />
               Download
             </a>
@@ -96,9 +93,6 @@ export default function VerificationModal({ application, onClose }: Verification
           <div className="bg-white rounded-lg p-4">
             <object data={file} type="application/pdf" width="100%" height="300px" className="rounded">
               <div className="flex flex-col items-center justify-center py-8">
-                <svg className="w-16 h-16 text-red-500 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
                 <FileText className="w-16 h-16 text-red-500 mb-2" />
                 <p className="text-gray-600 mb-2">PDF Document</p>
                 <a href={file} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
@@ -119,9 +113,6 @@ export default function VerificationModal({ application, onClose }: Verification
         <div className="bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-white/20 p-2 rounded-lg">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <div>
@@ -136,18 +127,12 @@ export default function VerificationModal({ application, onClose }: Verification
                 onClick={() => setViewMode('grid')}
                 className={`px-3 py-1 rounded-md text-sm font-medium transition ${viewMode === 'grid' ? 'bg-white text-green-600' : 'text-white/80 hover:text-white'}`}
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                </svg>
                 <LayoutGrid className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setViewMode('single')}
                 className={`px-3 py-1 rounded-md text-sm font-medium transition ${viewMode === 'single' ? 'bg-white text-green-600' : 'text-white/80 hover:text-white'}`}
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                </svg>
                 <Expand className="w-4 h-4" />
               </button>
             </div>
@@ -157,9 +142,6 @@ export default function VerificationModal({ application, onClose }: Verification
               className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-lg transition"
               aria-label="Close preview"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -169,9 +151,6 @@ export default function VerificationModal({ application, onClose }: Verification
         <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
           {availableDocs.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16">
-              <svg className="w-20 h-20 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
               <FileX2 className="w-20 h-20 text-gray-300 mb-4" />
               <p className="text-gray-500 text-lg">No documents uploaded</p>
             </div>
@@ -191,18 +170,12 @@ export default function VerificationModal({ application, onClose }: Verification
                     onClick={handlePrev}
                     className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg hover:bg-gray-50 p-3 rounded-full"
                   >
-                    <svg className="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
                     <ChevronLeft className="w-5 h-5 text-gray-700" />
                   </button>
                   <button
                     onClick={handleNext}
                     className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg hover:bg-gray-50 p-3 rounded-full"
                   >
-                    <svg className="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
                     <ChevronRight className="w-5 h-5 text-gray-700" />
                   </button>
                 </>
