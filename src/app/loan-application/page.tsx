@@ -80,9 +80,9 @@ export default function LoanApplication() {
 
     if (type === 'file' && files && files[0]) {
       const file = files[0];
-      const maxSize = 4 * 1024 * 1024; // 4MB limit
+      const maxSize = 2 * 1024 * 1024; // 2MB limit
       if (file.size > maxSize) {
-        alert(`File ${file.name} is too large. Maximum size is 4MB.`);
+        alert(`File ${file.name} is too large. Maximum size is 2MB.`);
         e.target.value = ''; // Reset file input
         return;
       }
@@ -257,8 +257,15 @@ export default function LoanApplication() {
         body: JSON.stringify({ formData: payload }),
       });
       
-      const data = await res.json();
-      
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        // If JSON parsing fails, it's usually because the server returned an HTML error (like 413 Payload Too Large)
+        // or the connection was closed.
+        throw new Error('Submission failed: The files are likely too large. Please try smaller files.');
+      }
+
       if (res.ok) {
         setSubmitMessage('Application submitted successfully!');
         // Reset form after successful submission
@@ -314,7 +321,7 @@ export default function LoanApplication() {
       }
     } catch (err) {
       console.error('Submission error:', err);
-      setSubmitMessage('Submission failed. Please check your connection or try uploading smaller files.');
+      setSubmitMessage(err instanceof Error ? err.message : 'Submission failed. Please check your connection or try uploading smaller files.');
     }
     setIsSubmitting(false);
   };
