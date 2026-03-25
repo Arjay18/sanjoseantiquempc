@@ -10,6 +10,12 @@ export default function LoanApplication() {
     depositSlipOrEwallet: '',
     memberWithIDAndSlip: '',
   });
+  // Store image previews
+  const [filePreviews, setFilePreviews] = useState<{ [key: string]: string | null }>({
+    validIDsAndSignatures: null,
+    depositSlipOrEwallet: null,
+    memberWithIDAndSlip: null,
+  });
   // Wizard step logic
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
@@ -63,6 +69,29 @@ export default function LoanApplication() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Suggestion 1: Auto-load draft from localStorage on mount
+  useEffect(() => {
+    const savedDraft = localStorage.getItem('loanAppDraft');
+    if (savedDraft) {
+      try {
+        const parsed = JSON.parse(savedDraft);
+        setFormData(prev => ({ ...prev, ...parsed }));
+      } catch (e) {
+        console.error("Failed to load draft", e);
+      }
+    }
+  }, []);
+
+  // Suggestion 1: Auto-save draft (debounced) whenever formData changes
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      // Exclude files from draft saving (they can't be stringified easily)
+      const { validIDsAndSignatures, depositSlipOrEwallet, memberWithIDAndSlip, ...textData } = formData;
+      localStorage.setItem('loanAppDraft', JSON.stringify(textData));
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [formData]);
+
   // Helper function to convert file to base64
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -86,6 +115,13 @@ export default function LoanApplication() {
         e.target.value = ''; // Reset file input
         return;
       }
+
+      // Suggestion 2: Generate preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFilePreviews(prev => ({ ...prev, [name]: reader.result as string }));
+      };
+      reader.readAsDataURL(file);
     }
 
     setFormData(prev => {
@@ -276,6 +312,15 @@ export default function LoanApplication() {
 
       if (res.ok) {
         setSubmitMessage('Application submitted successfully!');
+        
+        // Clear draft and previews on success
+        localStorage.removeItem('loanAppDraft');
+        setFilePreviews({
+          validIDsAndSignatures: null,
+          depositSlipOrEwallet: null,
+          memberWithIDAndSlip: null,
+        });
+
         // Reset form after successful submission
         setFormData({
           name: '',
@@ -455,16 +500,31 @@ export default function LoanApplication() {
                             <label className="block mb-1 font-medium">Scanned copy of 2 Valid IDs with 3 specimen signatures</label>
                             <input type="file" name="validIDsAndSignatures" onChange={handleInputChange} className="input input-bordered" />
                             {fileNames.validIDsAndSignatures && <div className="text-xs text-gray-500 mt-1">Selected: {fileNames.validIDsAndSignatures}</div>}
+                            {filePreviews.validIDsAndSignatures && (
+                              <div className="mt-2 relative h-32 w-full bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
+                                <img src={filePreviews.validIDsAndSignatures} alt="Preview" className="w-full h-full object-contain" />
+                              </div>
+                            )}
                           </div>
                           <div className="bg-purple-50 rounded-lg p-3 border border-purple-100">
                             <label className="block mb-1 font-medium">Scanned copy of validated deposit slip or screenshot of verified e-wallet account</label>
                             <input type="file" name="depositSlipOrEwallet" onChange={handleInputChange} className="input input-bordered" />
                             {fileNames.depositSlipOrEwallet && <div className="text-xs text-gray-500 mt-1">Selected: {fileNames.depositSlipOrEwallet}</div>}
+                            {filePreviews.depositSlipOrEwallet && (
+                              <div className="mt-2 relative h-32 w-full bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
+                                <img src={filePreviews.depositSlipOrEwallet} alt="Preview" className="w-full h-full object-contain" />
+                              </div>
+                            )}
                           </div>
                           <div className="bg-purple-50 rounded-lg p-3 border border-purple-100 sm:col-span-2">
                             <label className="block mb-1 font-medium">Picture of member borrower holding valid ID and validated deposit slip</label>
                             <input type="file" name="memberWithIDAndSlip" onChange={handleInputChange} className="input input-bordered" />
                             {fileNames.memberWithIDAndSlip && <div className="text-xs text-gray-500 mt-1">Selected: {fileNames.memberWithIDAndSlip}</div>}
+                            {filePreviews.memberWithIDAndSlip && (
+                              <div className="mt-2 relative h-48 w-full bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
+                                <img src={filePreviews.memberWithIDAndSlip} alt="Preview" className="w-full h-full object-contain" />
+                              </div>
+                            )}
                           </div>
                         </div>
                         {/* Declaration and Consent */}
