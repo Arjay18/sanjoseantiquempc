@@ -71,7 +71,7 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
                 name="username"
                 type="text"
                 required
-                className="mt-1 block w-full rounded-md border border-slate-200 px-3 py-2 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border border-slate-200 px-3 py-2 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 placeholder="e.g. sanjose_admin"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -85,7 +85,7 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
                 name="password"
                 type="password"
                 required
-                className="mt-1 block w-full rounded-md border border-slate-200 px-3 py-2 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border border-slate-200 px-3 py-2 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 placeholder="Your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -98,12 +98,12 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <input id="remember" name="remember" type="checkbox" className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded" />
+                <input id="remember" name="remember" type="checkbox" className="h-4 w-4 text-green-600 focus:ring-green-500 border-slate-300 rounded" />
                 <label htmlFor="remember" className="ml-2 block text-sm text-slate-600">Remember me</label>
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-blue-600 hover:text-blue-500">Forgot password?</a>
+                <a href="#" className="font-medium text-green-600 hover:text-green-500">Forgot password?</a>
               </div>
             </div>
 
@@ -111,7 +111,7 @@ export default function BranchLoginNew({ branchName, branchSlug, checkAuthorizat
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
+                className="w-full inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-white text-sm font-medium hover:bg-green-700 disabled:opacity-50"
               >
                 {loading ? 'Signing in...' : 'Sign in'}
               </button>

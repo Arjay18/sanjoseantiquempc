@@ -49,14 +49,14 @@ export default function CookieConsent() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[9999] animate-slide-up">
-      <div className="bg-white border-t-4 border-blue-600 shadow-2xl">
+      <div className="bg-white border-t-4 border-green-600 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             {/* Icon and Content */}
             <div className="flex items-start gap-3 flex-1">
               <div className="flex-shrink-0">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Cookie className="w-5 h-5 text-blue-600" />
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <Cookie className="w-5 h-5 text-green-600" />
                 </div>
               </div>
               <div className="flex-1">
@@ -68,7 +68,7 @@ export default function CookieConsent() {
                   By clicking "Accept All", you consent to our use of cookies. 
                   <Link 
                     href="/data-protection" 
-                    className="text-blue-600 hover:underline ml-1 font-medium"
+                    className="text-green-600 hover:underline ml-1 font-medium"
                   >
                     Learn more
                   </Link>
@@ -86,7 +86,7 @@ export default function CookieConsent() {
               </button>
               <button
                 onClick={handleAccept}
-                className="flex-1 sm:flex-none px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+                className="flex-1 sm:flex-none px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Accept All
               </button>
@@ -103,13 +103,13 @@ export default function CookieConsent() {
           {/* Additional Links */}
           <div className="mt-3 pt-3 border-t border-gray-200">
             <div className="flex flex-wrap gap-4 text-xs text-gray-500">
-              <Link href="/privacy" className="hover:text-blue-600 hover:underline">
+              <Link href="/privacy" className="hover:text-green-600 hover:underline">
                 Privacy Policy
               </Link>
-              <Link href="/data-protection" className="hover:text-blue-600 hover:underline">
+              <Link href="/data-protection" className="hover:text-green-600 hover:underline">
                 Data Protection
               </Link>
-              <Link href="/terms" className="hover:text-blue-600 hover:underline">
+              <Link href="/terms" className="hover:text-green-600 hover:underline">
                 Terms of Service
               </Link>
             </div>

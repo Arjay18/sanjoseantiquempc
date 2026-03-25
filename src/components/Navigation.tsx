@@ -122,7 +122,7 @@ export default function Navigation() {
                 height={40}
                 className="rounded-lg"
               />
-              <span className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+              <span className="text-2xl font-bold text-gray-900 hover:text-green-600 transition-colors">
                 SJMPC
               </span>
             </Link>
@@ -135,7 +135,7 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="px-4 py-2 text-sm font-bold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-colors flex items-center focus:outline-none"
+                  className="px-4 py-2 text-sm font-bold text-white bg-green-600 rounded-md shadow hover:bg-green-700 transition-colors flex items-center focus:outline-none"
                   style={{ marginLeft: '8px' }}
                 >
                   {item.name}
@@ -193,7 +193,7 @@ export default function Navigation() {
                               <button
                                 onMouseEnter={() => setBranchesDropdownOpen(true)}
                                 onMouseLeave={() => setBranchesDropdownOpen(false)}
-                                className="flex items-center justify-between w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
+                                className="flex items-center justify-between w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-green-600 transition-colors"
                               >
                                 {subItem.name}
                                 <ChevronRightIcon className="ml-1 h-4 w-4" />
@@ -209,7 +209,7 @@ export default function Navigation() {
                                       <Link
                                         key={branchItem.name}
                                         href={branchItem.href}
-                                        className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                      className="block px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors"
                                       >
                                         {branchItem.name}
                                       </Link>
@@ -222,7 +222,7 @@ export default function Navigation() {
                             <Link
                               key={subItem.name}
                               href={subItem.href}
-                              className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                              className="block px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors"
                             >
                               {subItem.name}
                             </Link>
@@ -238,7 +238,7 @@ export default function Navigation() {
                   href={item.href}
                   className={`px-3 py-2 text-sm font-medium transition-colors flex items-center ${
                     pathname === item.href
-                      ? 'text-blue-600 bg-blue-50 rounded-md'
+                      ? 'text-green-600 bg-green-50 rounded-md'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
@@ -253,7 +253,7 @@ export default function Navigation() {
             <button
               type="button"
               onClick={() => setIsMenuOpen(prev => !prev)}
-              className="inline-flex items-center justify-center p-3 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-gray-200 cursor-pointer touch-manipulation"
+              className="inline-flex items-center justify-center p-3 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 active:bg-gray-200 cursor-pointer touch-manipulation"
               aria-expanded={isMenuOpen}
               aria-label="Toggle mobile menu"
             >
@@ -300,7 +300,7 @@ export default function Navigation() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block px-6 py-4 text-base font-bold text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 transition-colors border-b border-gray-100 last:border-b-0"
+                    className="block px-6 py-4 text-base font-bold text-white bg-green-600 rounded-md shadow hover:bg-green-700 transition-colors border-b border-gray-100 last:border-b-0"
                     style={{ marginLeft: '8px' }}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -339,7 +339,7 @@ export default function Navigation() {
                           <div key={subItem.name}>
                             <button
                               onClick={() => setMobileBranchesOpen(!mobileBranchesOpen)}
-                              className="flex items-center justify-between w-full px-8 py-4 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors active:bg-gray-200 touch-manipulation"
+                              className="flex items-center justify-between w-full px-8 py-4 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-green-600 transition-colors active:bg-gray-200 touch-manipulation"
                             >
                               {subItem.name}
                               <ChevronDownIcon className={`ml-1 h-5 w-5 transform transition-transform duration-200 ${
@@ -349,12 +349,12 @@ export default function Navigation() {
 
                             {/* Branches sub-menu */}
                             {mobileBranchesOpen && (
-                              <div className="bg-white border-l-2 border-blue-500 ml-8 animate-fadeIn">
+                              <div className="bg-white border-l-2 border-green-500 ml-8 animate-fadeIn">
                                 {subItem.dropdown.map((branchItem) => (
                                   <Link
                                     key={branchItem.name}
                                     href={branchItem.href}
-                                    className="block px-6 py-3 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                    className="block px-6 py-3 text-sm text-gray-600 hover:bg-green-50 hover:text-green-600 transition-colors"
                                     onClick={() => {
                                       setIsMenuOpen(false);
                                       setMobileBranchesOpen(false);
@@ -370,7 +370,7 @@ export default function Navigation() {
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            className="block px-8 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                            className="block px-8 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {subItem.name}
@@ -386,8 +386,8 @@ export default function Navigation() {
                   href={item.href}
                   className={`block px-6 py-4 text-base font-medium transition-colors border-b border-gray-100 last:border-b-0 ${
                     pathname === item.href
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-900 hover:bg-gray-50 hover:text-blue-600'
+                      ? 'text-green-600 bg-green-50'
+                      : 'text-gray-900 hover:bg-gray-50 hover:text-green-600'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >

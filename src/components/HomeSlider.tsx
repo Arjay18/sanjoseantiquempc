@@ -123,7 +123,7 @@ export default function HomeSlider() {
     return (
       <div className="w-full bg-white py-4">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="relative h-[400px] md:h-[500px] lg:h-[600px] bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 rounded-2xl overflow-hidden">
+          <div className="relative h-[400px] md:h-[500px] lg:h-[600px] bg-gradient-to-br from-green-900 via-green-800 to-green-900 rounded-2xl overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
             </div>
@@ -145,9 +145,9 @@ export default function HomeSlider() {
             onMouseLeave={() => setIsHovered(false)}
           >
             {/* Left Side Design */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 bg-gradient-to-r from-blue-50 to-white z-20 flex flex-col justify-center items-center gap-6 border-r border-gray-100">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <Shield className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
+            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 bg-gradient-to-r from-green-50 to-white z-20 flex flex-col justify-center items-center gap-6 border-r border-gray-100">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <Shield className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
               </div>
               <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center">
                 <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
@@ -158,12 +158,12 @@ export default function HomeSlider() {
             </div>
 
             {/* Right Side Design */}
-            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 bg-gradient-to-l from-blue-50 to-white z-20 flex flex-col justify-center items-center gap-6 border-l border-gray-100">
+            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 bg-gradient-to-l from-green-50 to-white z-20 flex flex-col justify-center items-center gap-6 border-l border-gray-100">
               <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center">
                 <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
               </div>
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <Shield className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <Shield className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
               </div>
               <div className="w-10 h-10 md:w-12 md:h-12 bg-orange-100 rounded-full flex items-center justify-center">
                 <Clock className="w-5 h-5 md:w-6 md:h-6 text-orange-600" />
@@ -171,7 +171,7 @@ export default function HomeSlider() {
             </div>
 
             {/* Main Content Area */}
-            <div className="absolute left-16 right-16 md:left-24 md:right-24 lg:left-32 lg:right-32 top-0 bottom-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 rounded-xl">
+            <div className="absolute left-16 right-16 md:left-24 md:right-24 lg:left-32 lg:right-32 top-0 bottom-0 bg-gradient-to-br from-green-900 via-green-800 to-green-900 rounded-xl">
               {/* Slides */}
               {slides.map((slide, index) => (
                 <div
@@ -186,7 +186,7 @@ export default function HomeSlider() {
                       <img
                         src={slide.image}
                         alt={slide.title || `Slide ${index + 1}`}
-                        className="w-full h-full object-contain cursor-pointer bg-blue-900/50"
+                        className="w-full h-full object-contain cursor-pointer bg-green-900/50"
                         onClick={handleSlideClick}
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
@@ -230,7 +230,7 @@ export default function HomeSlider() {
                       {slide.link && (
                         <Link
                           href={slide.link}
-                          className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-blue-900 transition-all duration-300 transform hover:scale-105"
+                          className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-green-900 transition-all duration-300 transform hover:scale-105"
                         >
                           Learn More
                           <ArrowRight className="ml-2 w-4 h-4" />

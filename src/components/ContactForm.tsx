@@ -127,11 +127,11 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-green-50">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-block p-2 bg-gradient-to-r from-blue-500/10 to-green-500/10 rounded-2xl mb-6">
+          <div className="inline-block p-2 bg-gradient-to-r from-green-500/10 to-green-500/10 rounded-2xl mb-6">
             <h2 className="text-4xl md:text-5xl font-black text-gray-900">
               Get In Touch
             </h2>
@@ -148,7 +148,7 @@ export default function ContactForm() {
             {/* Main Office */}
             <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-green-500 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center">
                   <MapPinIcon className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900">Main Office</h3>
@@ -156,11 +156,11 @@ export default function ContactForm() {
               <div className="space-y-3 text-sm text-gray-600">
                 <p className="font-medium">Tradetown Funda-Dalipe, San Jose, Antique</p>
                 <div className="flex items-center space-x-2">
-                  <PhoneIcon className="w-4 h-4 text-blue-500" />
+                  <PhoneIcon className="w-4 h-4 text-green-500" />
                   <span>(036) 540-8209</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <EnvelopeIcon className="w-4 h-4 text-blue-500" />
+                  <EnvelopeIcon className="w-4 h-4 text-green-500" />
                   <span>sanjosempc@yahoo.com</span>
                 </div>
               </div>
@@ -169,7 +169,7 @@ export default function ContactForm() {
             {/* Business Hours */}
             <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-green-500 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center">
                   <ClockIcon className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900">Business Hours</h3>
@@ -191,7 +191,7 @@ export default function ContactForm() {
             </div>
 
             {/* Quick Contact Options */}
-            <div className="bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl p-6 text-white">
+            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-6 text-white">
               <h3 className="text-lg font-bold mb-4">Need Immediate Help?</h3>
               <div className="space-y-3">
                 <a
@@ -228,7 +228,7 @@ export default function ContactForm() {
                       id="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${
                         errors.name ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
                       placeholder="Enter your full name"
@@ -249,7 +249,7 @@ export default function ContactForm() {
                       id="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${
                         errors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
                       placeholder="your.email@example.com"
@@ -273,7 +273,7 @@ export default function ContactForm() {
                       id="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${
                         errors.phone ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
                       placeholder="+63 917 XXX XXXX"
@@ -293,7 +293,7 @@ export default function ContactForm() {
                       id="inquiryType"
                       value={formData.inquiryType}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${
                         errors.inquiryType ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
                       suppressHydrationWarning={true}
@@ -322,7 +322,7 @@ export default function ContactForm() {
                       id="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all ${
                         errors.subject ? 'border-red-500 bg-red-50' : 'border-gray-300'
                       }`}
                       placeholder="Brief description of your inquiry"
@@ -344,7 +344,7 @@ export default function ContactForm() {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none ${
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all resize-none ${
                       errors.message ? 'border-red-500 bg-red-50' : 'border-gray-300'
                     }`}
                     placeholder="Please provide details about your inquiry..."
@@ -360,7 +360,7 @@ export default function ContactForm() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold py-4 px-8 rounded-xl hover:from-blue-600 hover:to-green-600 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-4 px-8 rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                     suppressHydrationWarning={true}
                   >
                     {isSubmitting ? (

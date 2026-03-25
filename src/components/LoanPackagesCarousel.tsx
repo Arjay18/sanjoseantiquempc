@@ -41,8 +41,8 @@ const loanPackages: LoanPackage[] = [
     title: "Educational Loan",
     description: "Support for educational goals with flexible repayment options.",
     icon: <GraduationCap className="w-8 h-8" />,
-    color: "from-indigo-500 to-blue-600",
-    bgGradient: "from-indigo-50 to-blue-50",
+    color: "from-green-500 to-emerald-600",
+    bgGradient: "from-green-50 to-emerald-50",
     features: ["Tuition expenses", "Flexible repayment", "Co-maker options"],
   },
   {
@@ -97,8 +97,8 @@ const loanPackages: LoanPackage[] = [
     title: "Calamity Loan",
     description: "Assistance for members affected by natural disasters.",
     icon: <Wind className="w-8 h-8" />,
-    color: "from-sky-500 to-blue-700",
-    bgGradient: "from-sky-50 to-blue-50",
+    color: "from-sky-500 to-teal-700",
+    bgGradient: "from-sky-50 to-teal-50",
     features: ["Disaster support", "Emergency relief", "Reduced rates"],
   },
   {
@@ -152,7 +152,7 @@ export default function LoanPackagesCarousel() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+          <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
             <Star className="w-5 h-5 text-white" />
           </div>
           <h3 className="text-xl font-bold text-gray-900">Loan Packages</h3>
@@ -167,13 +167,13 @@ export default function LoanPackagesCarousel() {
             onClick={prev}
             className="p-2 rounded-xl bg-white border border-gray-200 shadow-sm hover:bg-gray-50 hover:shadow-md transition-all duration-200 group"
           >
-            <ChevronLeft className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors" />
+            <ChevronLeft className="w-5 h-5 text-gray-600 group-hover:text-green-600 transition-colors" />
           </button>
           <button 
             onClick={next}
             className="p-2 rounded-xl bg-white border border-gray-200 shadow-sm hover:bg-gray-50 hover:shadow-md transition-all duration-200 group"
           >
-            <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors" />
+            <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-green-600 transition-colors" />
           </button>
         </div>
       </div>
@@ -247,7 +247,7 @@ export default function LoanPackagesCarousel() {
             }}
             className={`h-2 rounded-full transition-all duration-300 ${
               idx === currentPage 
-                ? 'w-8 bg-gradient-to-r from-blue-500 to-indigo-600' 
+                ? 'w-8 bg-gradient-to-r from-green-500 to-emerald-600' 
                 : 'w-2 bg-gray-300 hover:bg-gray-400'
             }`}
             aria-label={`Go to page ${idx + 1}`}
