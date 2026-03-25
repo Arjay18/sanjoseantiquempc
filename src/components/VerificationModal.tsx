@@ -55,13 +55,13 @@ export default function VerificationModal({ application, onClose }: Verification
     const fileExt = file.split(';')[0].split('/')[1] || 'file';
     
     const colorClasses: Record<string, string> = {
-      blue: 'border-blue-200 bg-blue-50',
+      blue: 'border-green-200 bg-green-50',
       green: 'border-green-200 bg-green-50',
       purple: 'border-purple-200 bg-purple-50',
     };
     
     return (
-      <div className={`p-4 rounded-xl border-2 ${colorClasses[doc.color]} ${isActive ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}>
+      <div className={`p-4 rounded-xl border-2 ${colorClasses[doc.color]} ${isActive ? 'ring-2 ring-offset-2 ring-green-500' : ''}`}>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="text-2xl">{doc.icon}</span>
@@ -113,7 +113,7 @@ export default function VerificationModal({ application, onClose }: Verification
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full mx-4 max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-4 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-white/20 p-2 rounded-lg">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -122,7 +122,7 @@ export default function VerificationModal({ application, onClose }: Verification
             </div>
             <div>
               <h2 className="text-xl font-bold">Verification Documents</h2>
-              <p className="text-blue-100 text-sm">Applicant: {application.name} | PB#: {application.pbNo}</p>
+              <p className="text-green-100 text-sm">Applicant: {application.name} | PB#: {application.pbNo}</p>
             </div>
           </div>
           
@@ -130,7 +130,7 @@ export default function VerificationModal({ application, onClose }: Verification
             <div className="bg-white/20 rounded-lg p-1 flex">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition ${viewMode === 'grid' ? 'bg-white text-blue-600' : 'text-white/80 hover:text-white'}`}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition ${viewMode === 'grid' ? 'bg-white text-green-600' : 'text-white/80 hover:text-white'}`}
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -138,7 +138,7 @@ export default function VerificationModal({ application, onClose }: Verification
               </button>
               <button
                 onClick={() => setViewMode('single')}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition ${viewMode === 'single' ? 'bg-white text-blue-600' : 'text-white/80 hover:text-white'}`}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition ${viewMode === 'single' ? 'bg-white text-green-600' : 'text-white/80 hover:text-white'}`}
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
@@ -207,7 +207,7 @@ export default function VerificationModal({ application, onClose }: Verification
                       <button
                         key={idx}
                         onClick={() => setCurrentImageIndex(idx)}
-                        className={`w-2 h-2 rounded-full transition ${idx === currentImageIndex ? 'bg-blue-600' : 'bg-gray-300'}`}
+                        className={`w-2 h-2 rounded-full transition ${idx === currentImageIndex ? 'bg-green-600' : 'bg-gray-300'}`}
                       />
                     ))}
                   </div>
@@ -228,7 +228,7 @@ export default function VerificationModal({ application, onClose }: Verification
           </div>
           <button
             onClick={onClose}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
           >
             Close
           </button>

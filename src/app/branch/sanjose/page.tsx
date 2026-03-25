@@ -190,7 +190,7 @@ export default function SanJoseBranchDashboard() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Verifying authentication...</p>
         </div>
       </div>
@@ -201,7 +201,7 @@ export default function SanJoseBranchDashboard() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -217,16 +217,16 @@ export default function SanJoseBranchDashboard() {
   const rejectedApplications = branchApplications.filter(app => app.status === 'rejected');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
+    <div className="min-h-screen bg-gradient-to-br from-green-100 to-green-200">
       <header className="bg-white shadow-lg sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-blue-700 text-white shadow-lg">
+            <span className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-green-700 text-white shadow-lg">
               <FaBuilding className="h-8 w-8" />
             </span>
             <div>
               <h1 className="text-3xl font-bold text-gray-900 tracking-tight">San Jose Branch Dashboard</h1>
-              <p className="text-sm text-gray-600">Welcome, <span className="font-semibold text-blue-700">{session?.user?.name}</span></p>
+              <p className="text-sm text-gray-600">Welcome, <span className="font-semibold text-green-700">{session?.user?.name}</span></p>
             </div>
           </div>
           <div className="flex flex-col items-end gap-1">
@@ -243,8 +243,8 @@ export default function SanJoseBranchDashboard() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <div className="bg-white rounded-xl shadow-md p-6 flex items-center gap-4 border-b-4 border-blue-600">
-            <FaBuilding className="h-8 w-8 text-blue-600" />
+          <div className="bg-white rounded-xl shadow-md p-6 flex items-center gap-4 border-b-4 border-green-600">
+            <FaBuilding className="h-8 w-8 text-green-600" />
             <div>
               <div className="text-xs text-gray-500 font-semibold uppercase">Total Applications</div>
               <div className="text-3xl font-bold text-gray-900">{branchApplications.length}</div>
@@ -280,7 +280,7 @@ export default function SanJoseBranchDashboard() {
           </div>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-blue-50">
+              <thead className="bg-green-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Applicant</th>
                   <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">PB# / Contact</th>
@@ -296,7 +296,7 @@ export default function SanJoseBranchDashboard() {
                   </tr>
                 ) : (
                   branchApplications.map((application, idx) => (
-                    <tr key={application.id} className={idx % 2 === 0 ? 'bg-white' : 'bg-blue-50'}>
+                    <tr key={application.id} className={idx % 2 === 0 ? 'bg-white' : 'bg-green-50'}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{application.name}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PB#: {application.pbNo}<br />{application.contactNo}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{application.loanType} <br />₱{application.loanAmount.toLocaleString()}</td>
@@ -339,7 +339,7 @@ export default function SanJoseBranchDashboard() {
                             <>
                               <button
                                 onClick={() => setPreviewModalApp(application)}
-                                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-semibold shadow transition-colors"
+                                className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-semibold shadow transition-colors"
                               >
                                 Verification
                               </button>
