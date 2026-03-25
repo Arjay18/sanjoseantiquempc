@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { FaFilePdf } from 'react-icons/fa';
 
 interface VerificationModalProps {
   application: {
@@ -97,9 +98,7 @@ export default function VerificationModal({ application, onClose }: Verification
           <div className="bg-white rounded-lg p-4">
             <object data={fileData} type="application/pdf" width="100%" height="300px" className="rounded">
               <div className="flex flex-col items-center justify-center py-8">
-                <svg className="w-16 h-16 text-red-500 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
+                <FaFilePdf className="w-16 h-16 text-red-500 mb-2" />
                 <p className="text-gray-600 mb-2">PDF Document</p>
                 <a href={fileData} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                   Open in new tab
