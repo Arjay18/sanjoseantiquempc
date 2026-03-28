@@ -35,6 +35,7 @@ export async function GET(request: Request) {
         loanType: true,
         status: true,
         updatedAt: true,
+        pdfFile: true,
       }
     });
 
