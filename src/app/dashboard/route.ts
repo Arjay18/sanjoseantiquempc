@@ -1,10 +1,9 @@
 import { getServerSession } from 'next-auth/next';
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-// Note: In a production app, you should export a single prisma instance 
-// from a global lib file to prevent multiple instances in development.
+import { authOptions } from '@/lib/auth';
+
 const prisma = new PrismaClient();
 
 export async function GET(request: Request) {
