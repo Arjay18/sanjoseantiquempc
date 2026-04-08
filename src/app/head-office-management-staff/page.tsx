@@ -93,13 +93,13 @@ export default function HeadOfficeManagementStaffPage() {
                 {/* Enhanced Image/Icon Container */}
                 <div className="relative mb-6">
                   {member.image ? (
-                    <div className="relative w-36 h-36 rounded-3xl overflow-hidden shadow-2xl mx-auto ring-4 ring-white/20 group-hover:ring-white/30 transition-all duration-500 group-hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
+                    <div className="relative w-44 h-44 rounded-3xl overflow-hidden shadow-2xl mx-auto ring-4 ring-white/20 group-hover:ring-white/30 transition-all duration-500 group-hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
                       <Image
                         src={member.image}
                         alt={member.name}
                         fill
-                        className="object-contain transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 144px, 144px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 176px, 176px"
                       />
                       {/* Subtle Overlay */}
                       <div className={`absolute inset-0 bg-gradient-to-t ${member.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
