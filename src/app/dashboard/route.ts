@@ -8,13 +8,14 @@ const prisma = new PrismaClient();
 
 export async function GET(request: Request) {
   try {
-  const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
 
-    // Define "notifications" as loan applications updated in the last 30 days
+    // For this feature, we'll define a "notification" as a loan application
+    // that has been updated recently. A more advanced implementation could use a dedicated Notification model.
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
