@@ -98,6 +98,7 @@ export default function HeadOfficeManagementStaffPage() {
                         src={member.image}
                         alt={member.name}
                         fill
+                        quality={100}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 176px, 176px"
                       />
