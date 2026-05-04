@@ -1,48 +1,64 @@
-import { getServerSession } from 'next-auth/next';
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+// Singleton pattern for Prisma
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
+const prisma = globalForPrisma.prisma || new PrismaClient();
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// Note: In a production app, use a singleton for Prisma to prevent 
-// reaching connection limits during development hot-reloads.
-const prisma = new PrismaClient();
-
-export async function GET(request: Request) {
+export async function GET() {
   try {
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.email) {
-    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+    const evaluations = await prisma.evaluation.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+    return NextResponse.json(evaluations);
+  } catch (error) {
+    console.error('Error fetching evaluations:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
+}
 
-    // Define "notifications" as loan applications updated in the last 30 days
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    
+    // Validate required fields based on your form
+    const { activity, venue, date, ratings, comments, name, gender, time } = body;
+    
+    if (!activity || !venue || !ratings) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
 
-    const applications = await prisma.loanApplication.findMany({
-      where: {
-        email: session.user.email,
-        updatedAt: {
-          gte: thirtyDaysAgo,
-        },
+    // Create the evaluation record
+    // Note: You will need to add an 'Evaluation' model to your schema.prisma first
+    const evaluation = await prisma.evaluation.create({
+      data: {
+        name: name || "Anonymous",
+        gender: gender,
+        activity: activity,
+        venue: venue,
+        date: date,
+        time: time,
+        // Storing ratings as a JSON object or individual columns
+        q1: ratings.q1,
+        q2: ratings.q2,
+        q3: ratings.q3,
+        q4: ratings.q4,
+        q5: ratings.q5,
+        q6: ratings.q6,
+        q7: ratings.q7,
+        q8: ratings.q8,
+        q9: ratings.q9,
+        comments: comments,
       },
-      orderBy: {
-        updatedAt: 'desc',
-      },
-      take: 5, // Limit to 5 recent notifications
-      select: {
-        id: true,
-        loanType: true,
-        status: true,
-        updatedAt: true,
-        pdfFile: true,
-      }
     });
 
-    return NextResponse.json(applications);
+    return NextResponse.json({ message: 'Evaluation submitted successfully', id: evaluation.id }, { status: 201 });
   } catch (error) {
-    console.error('Error fetching notifications:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error('Error saving evaluation:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' }, 
+      { status: 500 }
+    );
   }
 }
