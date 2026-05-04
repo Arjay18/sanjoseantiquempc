@@ -31,7 +31,7 @@ export default function EvaluationDashboard() {
   }, []);
 
   const calculateAverage = (key: string) => {
-    if (evaluations.length === 0) return 0;
+    if (evaluations.length === 0) return "0";
     const sum = evaluations.reduce((acc, curr) => acc + (curr[key] || 0), 0);
     return (sum / evaluations.length).toFixed(1);
   };
