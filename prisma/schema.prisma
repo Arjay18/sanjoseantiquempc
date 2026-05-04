@@ -257,3 +257,24 @@ model BranchUser {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Evaluation {
+  id        String   @id @default(cuid())
+  name      String?  @default("Anonymous")
+  gender    String?
+  activity  String
+  venue     String
+  date      String?
+  time      String?
+  q1        Int
+  q2        Int
+  q3        Int
+  q4        Int
+  q5        Int
+  q6        Int
+  q7        Int
+  q8        Int
+  q9        Int
+  comments  String?
+  createdAt DateTime @default(now())
+}
