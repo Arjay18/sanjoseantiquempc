@@ -311,6 +311,13 @@ export default function OnlineApplication() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <Link
+                href="/evaluate"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-600 to-teal-600 text-white font-semibold rounded-2xl hover:shadow-xl hover:shadow-green-500/25 transition-all duration-300 transform hover:-translate-y-1"
+              >
+                Submit Evaluation
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+              <Link
                 href="/services"
                 className="inline-flex items-center px-8 py-4 border-2 border-gray-300 text-gray-700 bg-white/50 backdrop-blur-sm font-semibold rounded-2xl hover:bg-white/80 transition-all duration-300 transform hover:-translate-y-1"
               >

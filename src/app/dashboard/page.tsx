@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { 
   Wallet, FileText, CreditCard, User, Building2, Trash2,
-  AlertTriangle, CheckCircle, Clock, Package,
+  AlertTriangle, CheckCircle, Clock, Package, ClipboardCheck,
   Plus, Eye, Home, Calculator, X, Calendar
 } from "lucide-react";
 import LoanPackagesCarousel from "../../components/LoanPackagesCarousel";
@@ -354,6 +354,22 @@ export default function UserDashboard() {
                 </div>
               </div>
             </Link>
+
+            <Link
+              href="/evaluate" // Assuming /evaluate is the correct path for the evaluation form
+              className="group bg-white hover:bg-gray-50 rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                  <ClipboardCheck className="w-6 h-6 text-green-600" />
+                </div>
+                <div className="text-left">
+                  <h3 className="font-bold text-lg text-gray-900">Member Evaluation</h3>
+                  <p className="text-gray-500 text-sm">Share your feedback</p>
+                </div>
+              </div>
+            </Link>
+
 
             <button
               onClick={() => document.getElementById('applications-table')?.scrollIntoView({ behavior: 'smooth' })}
