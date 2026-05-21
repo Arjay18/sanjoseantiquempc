@@ -145,8 +145,9 @@ function ApplicationsTable({
                       ? "bg-green-100 text-green-700"
                       : app.status === "rejected"
                         ? "bg-red-100 text-red-700"
-                        : "bg-yellow-100 text-yellow-700"
-                      : "bg-gray-100 text-gray-700"
+                        : app.status === "pending"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-gray-100 text-gray-700"
                   }`}
                 >
                   {app.status === "approved" && <CheckCircle className="w-3 h-3" />}
@@ -527,7 +528,9 @@ export default function UserDashboard() {
                         ? "bg-green-100 text-green-700"
                         : app.status === "rejected"
                           ? "bg-red-100 text-red-700"
-                          : "bg-yellow-100 text-yellow-700"
+                          : app.status === "pending"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : "bg-gray-100 text-gray-700"
                     }`}
                   >
                     {app.status}
