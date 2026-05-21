@@ -1,24 +1,85 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle, ArrowRight, ArrowLeft, Save } from "lucide-react";
+import { CheckCircle, ArrowRight, ArrowLeft, Save, Upload, FileText } from "lucide-react";
+
+interface LoanFormData {
+  // Step 1: Personal
+  fullName: string;
+  email: string;
+  phone: string;
+  pbNo: string;
+  // Step 2: Loan
+  loanType: string;
+  loanAmount: string;
+  loanTerm: string;
+  branch: string;
+  // Step 3: Financial
+  monthlyIncome: string;
+  employmentStatus: string;
+  // Step 4: Requirements (Base64 strings)
+  idFile: string;
+  depositSlipOrEwallet: string;
+  memberWithIDAndSlip: string;
+}
 
 export default function LoanForm() {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState<LoanFormData>({
+    fullName: "",
+    email: "",
+    phone: "",
+    pbNo: "",
+    loanType: "",
+    loanAmount: "",
+    loanTerm: "",
+    branch: "",
+    monthlyIncome: "",
+    employmentStatus: "",
+    idFile: "",
+    depositSlipOrEwallet: "",
+    memberWithIDAndSlip: "",
+  });
 
   const nextStep = () => setStep((s) => s + 1);
   const prevStep = () => setStep((s) => s - 1);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: keyof LoanFormData) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({ ...prev, [fieldName]: reader.result as string }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (step < 4) {
+      nextStep();
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
-      // Example API call logic
-      // const res = await fetch("/api/loan-applications", { method: "POST", ... });
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulation
+      const res = await fetch("/api/loan-applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error("Failed to submit");
+      
       setSubmitted(true);
     } catch (error) {
       console.error("Submission failed", error);
@@ -42,7 +103,7 @@ export default function LoanForm() {
   return (
     <div className="p-6">
       {/* Step Indicator */}
-      <div className="flex items-center justify-between mb-8 max-w-xs mx-auto">
+      <div className="flex items-center justify-between mb-10 max-w-md mx-auto">
         {[1, 2, 3, 4].map((i) => (
           <div key={i} className="flex items-center">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${step >= i ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>
@@ -55,20 +116,118 @@ export default function LoanForm() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Step Content */}
-        <div className="min-h-[200px]">
+        <div className="min-h-[300px]">
           {step === 1 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
               <h3 className="text-lg font-bold mb-4">Personal Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder="Full Name" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
-                <input type="email" placeholder="Email Address" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Full Name</label>
+                  <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Juan Dela Cruz" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Email Address</label>
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="juan@example.com" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Phone Number</label>
+                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="09123456789" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Passbook (PB) Number</label>
+                  <input type="text" name="pbNo" value={formData.pbNo} onChange={handleChange} placeholder="PB-12345" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                </div>
               </div>
             </div>
           )}
           
-          {step > 1 && (
-            <div className="animate-in fade-in slide-in-from-right-4 duration-300 text-center py-10 text-gray-500 italic">
-              Step {step} fields (Loan, Financial, or Requirements) go here...
+          {step === 2 && (
+            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+              <h3 className="text-lg font-bold mb-4">Loan Details</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Loan Type</label>
+                  <select name="loanType" value={formData.loanType} onChange={handleChange} className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <option value="">Select Type</option>
+                    <option value="Salary Loan">Salary Loan</option>
+                    <option value="Providential Loan">Providential Loan</option>
+                    <option value="Agricultural Loan">Agricultural Loan</option>
+                    <option value="Educational Loan">Educational Loan</option>
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Desired Amount (₱)</label>
+                  <input type="number" name="loanAmount" value={formData.loanAmount} onChange={handleChange} placeholder="50000" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Term (Months)</label>
+                  <input type="number" name="loanTerm" value={formData.loanTerm} onChange={handleChange} placeholder="12" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Preferred Branch</label>
+                  <select name="branch" value={formData.branch} onChange={handleChange} className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <option value="">Select Branch</option>
+                    <option value="main">Main Office</option>
+                    <option value="miagao">Miagao Branch</option>
+                    <option value="oton">Oton Branch</option>
+                    <option value="guimaras">Guimaras Branch</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
+            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+              <h3 className="text-lg font-bold mb-4">Financial Information</h3>
+              <div className="grid grid-cols-1 gap-4">
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Monthly Gross Income (₱)</label>
+                  <input type="number" name="monthlyIncome" value={formData.monthlyIncome} onChange={handleChange} placeholder="25000" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Employment Status</label>
+                  <select name="employmentStatus" value={formData.employmentStatus} onChange={handleChange} className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <option value="">Select Status</option>
+                    <option value="Regular">Regular / Permanent</option>
+                    <option value="Contractual">Contractual</option>
+                    <option value="Self-Employed">Self-Employed</option>
+                    <option value="Government">Government Employee</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+              <h3 className="text-lg font-bold mb-4">Upload Requirements</h3>
+              <div className="space-y-4">
+                <div className="p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-blue-400 transition-colors">
+                  <label className="flex flex-col items-center cursor-pointer">
+                    <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                    <span className="text-sm font-medium text-gray-600">Valid ID</span>
+                    <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "idFile")} className="hidden" />
+                    {formData.idFile && <span className="text-xs text-green-600 mt-1 flex items-center gap-1"><CheckCircle className="w-3 h-3" /> File selected</span>}
+                  </label>
+                </div>
+                <div className="p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-blue-400 transition-colors">
+                  <label className="flex flex-col items-center cursor-pointer">
+                    <FileText className="w-8 h-8 text-gray-400 mb-2" />
+                    <span className="text-sm font-medium text-gray-600">Deposit Slip / E-wallet Receipt</span>
+                    <input type="file" accept="image/*,application/pdf" onChange={(e) => handleFileChange(e, "depositSlipOrEwallet")} className="hidden" />
+                    {formData.depositSlipOrEwallet && <span className="text-xs text-green-600 mt-1 flex items-center gap-1"><CheckCircle className="w-3 h-3" /> File selected</span>}
+                  </label>
+                </div>
+                <div className="p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-blue-400 transition-colors">
+                  <label className="flex flex-col items-center cursor-pointer">
+                    <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                    <span className="text-sm font-medium text-gray-600">Member Photo with ID</span>
+                    <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "memberWithIDAndSlip")} className="hidden" />
+                    {formData.memberWithIDAndSlip && <span className="text-xs text-green-600 mt-1 flex items-center gap-1"><CheckCircle className="w-3 h-3" /> File selected</span>}
+                  </label>
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -83,24 +242,19 @@ export default function LoanForm() {
           >
             <ArrowLeft className="w-4 h-4" /> Previous
           </button>
-          
-          {step < 4 ? (
-            <button
-              type="button"
-              onClick={nextStep}
-              className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-lg shadow-blue-200 transition"
-            >
-              Next <ArrowRight className="w-4 h-4" />
-            </button>
-          ) : (
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 shadow-lg shadow-green-200 transition"
-            >
-              {isSubmitting ? "Submitting..." : "Submit Application"} <Save className="w-4 h-4" />
-            </button>
-          )}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`flex items-center gap-2 px-6 py-2 text-white rounded-lg transition shadow-lg ${
+              step === 4 ? "bg-green-600 hover:bg-green-700 shadow-green-200" : "bg-blue-600 hover:bg-blue-700 shadow-blue-200"
+            } disabled:opacity-50`}
+          >
+            {step === 4 ? (
+              <>{isSubmitting ? "Submitting..." : "Submit Application"} <Save className="w-4 h-4" /></>
+            ) : (
+              <>Next <ArrowRight className="w-4 h-4" /></>
+            )}
+          </button>
         </div>
       </form>
     </div>
