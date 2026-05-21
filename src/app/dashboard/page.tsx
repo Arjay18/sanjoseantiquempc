@@ -37,6 +37,141 @@ type Application = {
   branch: string;
 };
 
+/**
+ * Sub-component for displaying individual statistic cards
+ */
+function StatCard({ 
+  label, 
+  count, 
+  icon: Icon, 
+  colorClass, 
+  iconBgClass 
+}: { 
+  label: string; 
+  count: number; 
+  icon: any; 
+  colorClass: string; 
+  iconBgClass: string;
+}) {
+  return (
+    <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-gray-500 text-sm font-medium">{label}</p>
+          <p className={`text-3xl font-bold mt-1 ${colorClass}`}>{count}</p>
+        </div>
+        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${iconBgClass}`}>
+          <Icon className={`w-6 h-6 ${colorClass.replace('text-', 'text-').split(' ')[0]}`} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Sub-component for the Applications Table to improve maintainability
+ */
+function ApplicationsTable({ 
+  applications, 
+  loading, 
+  onDelete, 
+  onApply 
+}: { 
+  applications: Application[]; 
+  loading: boolean; 
+  onDelete: (id: string) => void;
+  onApply: () => void;
+}) {
+  if (loading) {
+    return (
+      <div className="p-12 text-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-600 mx-auto"></div>
+        <p className="text-gray-500 mt-3">Loading applications...</p>
+      </div>
+    );
+  }
+
+  if (applications.length === 0) {
+    return (
+      <div className="p-12 text-center">
+        <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <FileText className="w-10 h-10 text-gray-400" />
+        </div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">No Applications Yet</h3>
+        <p className="text-gray-500 mb-6 max-w-md mx-auto">
+          You haven't submitted any loan applications. Start your first application today!
+        </p>
+        <button
+          type="button"
+          onClick={onApply}
+          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition"
+        >
+          <Plus className="w-5 h-5" />
+          Apply for a Loan
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full">
+        <thead>
+          <tr className="bg-gray-50">
+            <th className="p-4 text-left text-sm font-semibold text-gray-700">Date</th>
+            <th className="p-4 text-left text-sm font-semibold text-gray-700">Loan Type</th>
+            <th className="p-4 text-left text-sm font-semibold text-gray-700">Amount</th>
+            <th className="p-4 text-left text-sm font-semibold text-gray-700">Branch</th>
+            <th className="p-4 text-left text-sm font-semibold text-gray-700">Status</th>
+            <th className="p-4 text-left text-sm font-semibold text-gray-700">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {applications.map((app, index) => (
+            <tr
+              key={app.id}
+              className={`border-t border-gray-100 hover:bg-gray-50 transition ${
+                index % 2 === 0 ? "bg-white" : "bg-gray-50/50"
+              }`}
+            >
+              <td className="p-4 text-sm text-gray-600">{new Date(app.createdAt).toLocaleDateString()}</td>
+              <td className="p-4 text-sm font-medium text-gray-900">{app.loanType}</td>
+              <td className="p-4 text-sm font-semibold text-green-600">₱{app.loanAmount?.toLocaleString()}</td>
+              <td className="p-4 text-sm text-gray-600 capitalize">{app.branch}</td>
+              <td className="p-4">
+                <span
+                  className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
+                    app.status === "approved"
+                      ? "bg-green-100 text-green-700"
+                      : app.status === "rejected"
+                        ? "bg-red-100 text-red-700"
+                        : "bg-yellow-100 text-yellow-700"
+                      : "bg-gray-100 text-gray-700"
+                  }`}
+                >
+                  {app.status === "approved" && <CheckCircle className="w-3 h-3" />}
+                  {app.status === "rejected" && <AlertTriangle className="w-3 h-3" />}
+                  {app.status === "pending" && <Clock className="w-3 h-3" />}
+                  {app.status}
+                </span>
+              </td>
+              <td className="p-4">
+                <button
+                  onClick={() => onDelete(app.id)}
+                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                  title="Delete application"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export default function UserDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -143,109 +278,6 @@ export default function UserDashboard() {
 
   if (!session) return null;
 
-  const renderApplicationsSection = (showTitle: boolean = true) => (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      {showTitle && (
-        <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-blue-600" />
-              My Loan Applications
-            </h2>
-            <p className="text-gray-500 text-sm mt-1">Manage and track your submitted applications</p>
-          </div>
-          {applications.length > 0 && (
-            <div className="text-sm text-gray-500">
-              Showing {applications.length} application{applications.length !== 1 ? "s" : ""}
-            </div>
-          )}
-        </div>
-      )}
-
-      {loadingApplications ? (
-        <div className="p-12 text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="text-gray-500 mt-3">Loading applications...</p>
-        </div>
-      ) : applications.length === 0 ? (
-        <div className="p-12 text-center">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FileText className="w-10 h-10 text-gray-400" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No Applications Yet</h3>
-          <p className="text-gray-500 mb-6 max-w-md mx-auto">
-            You haven't submitted any loan applications. Start your first application today!
-          </p>
-          <button
-            type="button"
-            onClick={() => setShowNewLoanModal(true)}
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition"
-          >
-            <Plus className="w-5 h-5" />
-            Apply for a Loan
-          </button>
-        </div>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Date</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Loan Type</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Amount</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Branch</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Status</th>
-                <th className="p-4 text-left text-sm font-semibold text-gray-700">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {applications.map((app: Application, index) => (
-                <tr
-                  key={app.id}
-                  className={`border-t border-gray-100 hover:bg-gray-50 transition ${
-                    index % 2 === 0 ? "bg-white" : "bg-gray-50/50"
-                  }`}
-                >
-                  <td className="p-4 text-sm text-gray-600">{new Date(app.createdAt).toLocaleDateString()}</td>
-                  <td className="p-4 text-sm font-medium text-gray-900">{app.loanType}</td>
-                  <td className="p-4 text-sm font-semibold text-green-600">₱{app.loanAmount?.toLocaleString()}</td>
-                  <td className="p-4 text-sm text-gray-600 capitalize">{app.branch}</td>
-                  <td className="p-4">
-                    <span
-                      className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
-                        app.status === "approved"
-                          ? "bg-green-100 text-green-700"
-                          : app.status === "rejected"
-                            ? "bg-red-100 text-red-700"
-                            : app.status === "pending"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : "bg-gray-100 text-gray-700"
-                      }`}
-                    >
-                      {app.status === "approved" && <CheckCircle className="w-3 h-3" />}
-                      {app.status === "rejected" && <AlertTriangle className="w-3 h-3" />}
-                      {app.status === "pending" && <Clock className="w-3 h-3" />}
-                      {app.status}
-                    </span>
-                  </td>
-                  <td className="p-4">
-                    <button
-                      onClick={() => handleDelete(app.id)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
-                      title="Delete application"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </div>
-  );
-
   return (
     <>
       <Modal
@@ -273,74 +305,38 @@ export default function UserDashboard() {
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 -mt-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm font-medium">Total Applications</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{applications.length}</p>
-              </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <FileText className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm font-medium">Pending</p>
-                <p className="text-3xl font-bold text-yellow-600 mt-1">{pendingCount}</p>
-              </div>
-              <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                <Clock className="w-6 h-6 text-yellow-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm font-medium">Approved</p>
-                <p className="text-3xl font-bold text-green-600 mt-1">{approvedCount}</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm font-medium">Rejected</p>
-                <p className="text-3xl font-bold text-red-600 mt-1">{rejectedCount}</p>
-              </div>
-              <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-                <AlertTriangle className="w-6 h-6 text-red-600" />
-              </div>
-            </div>
-          </div>
+          <StatCard 
+            label="Total Applications" 
+            count={applications.length} 
+            icon={FileText} 
+            colorClass="text-gray-900" 
+            iconBgClass="bg-blue-100" 
+          />
+          <StatCard 
+            label="Pending" 
+            count={pendingCount} 
+            icon={Clock} 
+            colorClass="text-yellow-600" 
+            iconBgClass="bg-yellow-100" 
+          />
+          <StatCard 
+            label="Approved" 
+            count={approvedCount} 
+            icon={CheckCircle} 
+            colorClass="text-green-600" 
+            iconBgClass="bg-green-100" 
+          />
+          <StatCard 
+            label="Rejected" 
+            count={rejectedCount} 
+            icon={AlertTriangle} 
+            colorClass="text-red-600" 
+            iconBgClass="bg-red-100" 
+          />
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-8 flex flex-col gap-8">
-        {actionMessage && (
-          <div
-            className={`p-4 rounded-xl border flex items-center gap-3 ${
-              actionMessage.type === "success"
-                ? "bg-green-50 text-green-800 border-green-200"
-                : "bg-red-50 text-red-800 border-red-200"
-            }`}
-          >
-            {actionMessage.type === "success" ? (
-              <CheckCircle className="w-5 h-5" />
-            ) : (
-              <AlertTriangle className="w-5 h-5" />
-            )}
-            {actionMessage.text}
-          </div>
-        )}
-
         {showCalculator && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
@@ -550,9 +546,29 @@ export default function UserDashboard() {
           <LoanPackagesCarousel />
         </div>
 
-        <div id="applications-table">{renderApplicationsSection()}</div>
+        <div id="applications-table" className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <FileText className="w-5 h-5 text-blue-600" />
+                My Loan Applications
+              </h2>
+              <p className="text-gray-500 text-sm mt-1">Manage and track your submitted applications</p>
+            </div>
+            {applications.length > 0 && (
+              <div className="text-sm text-gray-500">
+                Showing {applications.length} application{applications.length !== 1 ? "s" : ""}
+              </div>
+            )}
+          </div>
+          <ApplicationsTable 
+            applications={applications} 
+            loading={loadingApplications} 
+            onDelete={handleDelete} 
+            onApply={() => setShowNewLoanModal(true)} 
+          />
+        </div>
       </div>
     </>
   );
 }
-
