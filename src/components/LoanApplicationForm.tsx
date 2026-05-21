@@ -6,8 +6,8 @@ import dynamic from 'next/dynamic';
 // Dynamically load the /online-application page as a component.
 const LoanApplication = dynamic(async () => {
   // Load the client component without creating a static TS module import.
-  const mod: any = await import("../app/online-application/page");
-  return mod?.default;
+  const mod: any = await import("../app/online-application/page").catch(() => ({}));
+  return mod?.default ?? (() => null);
 }, {
   ssr: false,
 });
