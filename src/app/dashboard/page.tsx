@@ -44,13 +44,13 @@ function StatCard({
   label, 
   count, 
   icon: Icon, 
-  colorClass, 
+  textColor, 
   iconBgClass 
 }: { 
   label: string; 
   count: number; 
-  icon: any; 
-  colorClass: string; 
+  icon: React.ElementType; 
+  textColor: string; 
   iconBgClass: string;
 }) {
   return (
@@ -58,10 +58,10 @@ function StatCard({
       <div className="flex items-center justify-between">
         <div>
           <p className="text-gray-500 text-sm font-medium">{label}</p>
-          <p className={`text-3xl font-bold mt-1 ${colorClass}`}>{count}</p>
+          <p className={`text-3xl font-bold mt-1 ${textColor}`}>{count}</p>
         </div>
         <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${iconBgClass}`}>
-          <Icon className={`w-6 h-6 ${colorClass.replace('text-', 'text-').split(' ')[0]}`} />
+          <Icon className={`w-6 h-6 ${textColor}`} />
         </div>
       </div>
     </div>
@@ -145,9 +145,7 @@ function ApplicationsTable({
                       ? "bg-green-100 text-green-700"
                       : app.status === "rejected"
                         ? "bg-red-100 text-red-700"
-                        : app.status === "pending"
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "bg-gray-100 text-gray-700"
+                        : "bg-yellow-100 text-yellow-700"
                   }`}
                 >
                   {app.status === "approved" && <CheckCircle className="w-3 h-3" />}
@@ -265,9 +263,11 @@ export default function UserDashboard() {
   };
 
   // Calculate stats
-  const pendingCount = applications.filter((a) => a.status === "pending").length;
-  const approvedCount = applications.filter((a) => a.status === "approved").length;
-  const rejectedCount = applications.filter((a) => a.status === "rejected").length;
+  const stats = useMemo(() => ({
+    pending: applications.filter((a) => a.status === "pending").length,
+    approved: applications.filter((a) => a.status === "approved").length,
+    rejected: applications.filter((a) => a.status === "rejected").length,
+  }), [applications]);
 
   if (status === "loading") {
     return (
@@ -310,34 +310,51 @@ export default function UserDashboard() {
             label="Total Applications" 
             count={applications.length} 
             icon={FileText} 
-            colorClass="text-gray-900" 
+            textColor="text-gray-900" 
             iconBgClass="bg-blue-100" 
           />
           <StatCard 
             label="Pending" 
-            count={pendingCount} 
+            count={stats.pending} 
             icon={Clock} 
-            colorClass="text-yellow-600" 
+            textColor="text-yellow-600" 
             iconBgClass="bg-yellow-100" 
           />
           <StatCard 
             label="Approved" 
-            count={approvedCount} 
+            count={stats.approved} 
             icon={CheckCircle} 
-            colorClass="text-green-600" 
+            textColor="text-green-600" 
             iconBgClass="bg-green-100" 
           />
           <StatCard 
             label="Rejected" 
-            count={rejectedCount} 
+            count={stats.rejected} 
             icon={AlertTriangle} 
-            colorClass="text-red-600" 
+            textColor="text-red-600" 
             iconBgClass="bg-red-100" 
           />
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-8 flex flex-col gap-8">
+        {actionMessage && (
+          <div
+            className={`p-4 rounded-xl border flex items-center gap-3 ${
+              actionMessage.type === "success"
+                ? "bg-green-50 text-green-800 border-green-200"
+                : "bg-red-50 text-red-800 border-red-200"
+            }`}
+          >
+            {actionMessage.type === "success" ? (
+              <CheckCircle className="w-5 h-5" />
+            ) : (
+              <AlertTriangle className="w-5 h-5" />
+            )}
+            {actionMessage.text}
+          </div>
+        )}
+
         {showCalculator && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
@@ -528,9 +545,7 @@ export default function UserDashboard() {
                         ? "bg-green-100 text-green-700"
                         : app.status === "rejected"
                           ? "bg-red-100 text-red-700"
-                          : app.status === "pending"
-                            ? "bg-yellow-100 text-yellow-700"
-                            : "bg-gray-100 text-gray-700"
+                          : "bg-yellow-100 text-yellow-700"
                     }`}
                   >
                     {app.status}
