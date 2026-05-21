@@ -72,10 +72,18 @@ export default function LoanForm() {
     setIsSubmitting(true);
     
     try {
+      // Convert numeric fields from strings to numbers before sending to API
+      const payload = {
+        ...formData,
+        loanAmount: parseFloat(formData.loanAmount) || 0,
+        loanTerm: parseInt(formData.loanTerm) || 0,
+        monthlyIncome: parseFloat(formData.monthlyIncome) || 0,
+      };
+
       const res = await fetch("/api/loan-applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) throw new Error("Failed to submit");

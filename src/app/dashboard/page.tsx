@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   Wallet,
   FileText,
@@ -36,6 +36,24 @@ type Application = {
   status: string;
   branch: string;
 };
+
+const STATUS_CONFIG: Record<string, { color: string; icon: React.ElementType }> = {
+  approved: { color: "bg-green-100 text-green-700", icon: CheckCircle },
+  rejected: { color: "bg-red-100 text-red-700", icon: AlertTriangle },
+  pending: { color: "bg-yellow-100 text-yellow-700", icon: Clock },
+};
+
+function StatusBadge({ status }: { status: string }) {
+  const config = STATUS_CONFIG[status] || STATUS_CONFIG.pending;
+  const StatusIcon = config.icon;
+  
+  return (
+    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${config.color}`}>
+      <StatusIcon className="w-3 h-3" />
+      {status}
+    </span>
+  );
+}
 
 /**
  * Sub-component for displaying individual statistic cards
@@ -139,20 +157,7 @@ function ApplicationsTable({
               <td className="p-4 text-sm font-semibold text-green-600">₱{app.loanAmount?.toLocaleString()}</td>
               <td className="p-4 text-sm text-gray-600 capitalize">{app.branch}</td>
               <td className="p-4">
-                <span
-                  className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
-                    app.status === "approved"
-                      ? "bg-green-100 text-green-700"
-                      : app.status === "rejected"
-                        ? "bg-red-100 text-red-700"
-                        : "bg-yellow-100 text-yellow-700"
-                  }`}
-                >
-                  {app.status === "approved" && <CheckCircle className="w-3 h-3" />}
-                  {app.status === "rejected" && <AlertTriangle className="w-3 h-3" />}
-                  {app.status === "pending" && <Clock className="w-3 h-3" />}
-                  {app.status}
-                </span>
+                <StatusBadge status={app.status} />
               </td>
               <td className="p-4">
                 <button
@@ -513,22 +518,11 @@ export default function UserDashboard() {
                   className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:bg-blue-50 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
+                    {/* Use the shared config for consistent activity icons */}
                     <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        app.status === "approved"
-                          ? "bg-green-100 text-green-600"
-                          : app.status === "rejected"
-                            ? "bg-red-100 text-red-600"
-                            : "bg-yellow-100 text-yellow-600"
-                      }`}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center ${(STATUS_CONFIG[app.status] || STATUS_CONFIG.pending).color.replace('bg-', 'bg-').split(' ')[0]} ${STATUS_CONFIG[app.status]?.color.split(' ')[1] || 'text-yellow-600'}`}
                     >
-                      {app.status === "approved" ? (
-                        <CheckCircle className="w-5 h-5" />
-                      ) : app.status === "rejected" ? (
-                        <AlertTriangle className="w-5 h-5" />
-                      ) : (
-                        <Clock className="w-5 h-5" />
-                      )}
+                      {React.createElement(STATUS_CONFIG[app.status]?.icon || STATUS_CONFIG.pending.icon, { className: "w-5 h-5" })}
                     </div>
                     <div>
                       <h4 className="font-bold text-gray-900">{app.loanType} Application</h4>
@@ -541,11 +535,7 @@ export default function UserDashboard() {
                   </div>
                   <div
                     className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${
-                      app.status === "approved"
-                        ? "bg-green-100 text-green-700"
-                        : app.status === "rejected"
-                          ? "bg-red-100 text-red-700"
-                          : "bg-yellow-100 text-yellow-700"
+                      STATUS_CONFIG[app.status]?.color || STATUS_CONFIG.pending.color
                     }`}
                   >
                     {app.status}
