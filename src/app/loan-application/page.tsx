@@ -456,12 +456,18 @@ export default function LoanApplication() {
         <form onSubmit={handleSubmit} className="space-y-8 bg-white/90 p-6 sm:p-8 rounded-2xl shadow-xl border border-blue-100">
                     {/* Step 1: Basic Information */}
                     {currentStep === 1 && (
-                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <User className="w-6 h-6 text-blue-500" />
-                          <h2 className="text-lg font-bold text-blue-900">Basic Information</h2>
+                      <div className="animate-in fade-in duration-200">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center">
+                            <User className="w-5 h-5 text-blue-600" />
+                          </div>
+                          <div>
+                            <h2 className="text-lg font-extrabold text-blue-900">Basic Information</h2>
+                            <p className="text-sm text-gray-600">Complete the personal details for your application.</p>
+                          </div>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
                           <input name="name" value={formData.name} onChange={handleInputChange} placeholder="Full Name" className="input input-bordered bg-blue-50 focus:bg-white" required />
                           <input name="passbookNo" value={formData.passbookNo} onChange={handleInputChange} placeholder="Passbook No. (as in passbook)" className="input input-bordered bg-blue-50 focus:bg-white" required />
                           <input name="address" value={formData.address} onChange={handleInputChange} placeholder="Address" className="input input-bordered bg-blue-50 focus:bg-white" required />
