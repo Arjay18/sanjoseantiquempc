@@ -328,7 +328,7 @@ export default function AnnouncementsPage() {
                     <h3 className="text-sm font-medium text-gray-700 mb-2">Preview</h3>
                     <div className="relative h-32 rounded-lg overflow-hidden">
                       {formData.image ? (
-                        <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
+                        <img src={formData.image} alt="Announcement Preview" className="w-full h-full object-cover" />
                       ) : (
                         <div className={`w-full h-full ${formData.theme === 'blue' ? 'bg-blue-600' : 'bg-yellow-500'}`} />
                       )}
@@ -390,7 +390,7 @@ export default function AnnouncementsPage() {
                   {/* Image Preview */}
                   <div className="w-20 h-14 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
                     {announcement.image ? (
-                      <img src={announcement.image} alt={announcement.title} className="w-full h-full object-cover" />
+                      <img src={announcement.image} alt={announcement.title || "Announcement"} className="w-full h-full object-cover" />
                     ) : (
                       <div className={`w-full h-full ${announcement.theme === 'blue' ? 'bg-blue-600' : 'bg-yellow-500'}`} />
                     )}
