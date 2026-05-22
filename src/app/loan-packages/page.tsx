@@ -2,6 +2,38 @@
 
 import { PhilippinePeso, Heart, Clock, CheckCircle, BookOpen, Phone, Home, Award, Building2, Tractor, Shield, Wallet, Wheat, AlertTriangle } from 'lucide-react';
 
+interface LoanCardProps {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  features: string[];
+  borderColor: string;
+  iconGradient: string;
+  emoji: string;
+  iconColor: string;
+}
+
+const LoanCard = ({ icon: Icon, title, description, features, borderColor, iconGradient, emoji, iconColor }: LoanCardProps) => (
+  <div className={`group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 ${borderColor}`}>
+    <div className="flex items-center justify-between mb-4">
+      <div className={`w-12 h-12 bg-gradient-to-br ${iconGradient} rounded-xl flex items-center justify-center`}>
+        <Icon className="w-6 h-6 text-white" />
+      </div>
+      <span className="text-2xl">{emoji}</span>
+    </div>
+    <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
+    <p className="text-sm text-gray-600 mb-4">{description}</p>
+    <div className="space-y-2">
+      {features.map((feature, index) => (
+        <div key={index} className="flex items-start text-sm">
+          <CheckCircle className={`w-4 h-4 ${iconColor} mr-2 mt-0.5 flex-shrink-0`} />
+          <span className="text-gray-700">{feature}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 export default function LoanPackages() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
