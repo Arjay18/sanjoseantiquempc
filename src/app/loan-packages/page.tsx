@@ -2,6 +2,147 @@
 
 import { PhilippinePeso, Heart, Clock, CheckCircle, BookOpen, Phone, Home, Award, Building2, Tractor, Shield, Wallet, Wheat, AlertTriangle } from 'lucide-react';
 
+const LOAN_CATEGORIES = {
+  multiPurpose: [
+    {
+      icon: Shield,
+      title: "Providential Loan",
+      description: "Special loan program for members facing financial difficulties with reduced rates.",
+      features: ["Emergency financial assistance", "Reduced interest rates", "Flexible payment schedules"],
+      borderColor: "border-green-500",
+      iconGradient: "from-green-400 to-green-600",
+      emoji: "★",
+      iconColor: "text-green-500"
+    },
+    {
+      icon: Wallet,
+      title: "Salary Loan",
+      description: "Loans based on regular salary income with fast processing.",
+      features: ["Based on salary income", "Fast processing", "Competitive rates"],
+      borderColor: "border-yellow-500",
+      iconGradient: "from-yellow-400 to-yellow-600",
+      emoji: "⚡",
+      iconColor: "text-yellow-500"
+    },
+    {
+      icon: Award,
+      title: "Pension Loan",
+      description: "Special program for pensioners with competitive senior rates.",
+      features: ["Pension-backed security", "Competitive senior rates", "Flexible terms"],
+      borderColor: "border-blue-500",
+      iconGradient: "from-blue-400 to-blue-600",
+      emoji: "👴",
+      iconColor: "text-blue-500"
+    },
+    {
+      icon: BookOpen,
+      title: "Educational Loan",
+      description: "Support for educational goals with flexible repayment options.",
+      features: ["Tuition and academic expenses", "Flexible repayment", "Co-maker options"],
+      borderColor: "border-green-500",
+      iconGradient: "from-green-400 to-green-600",
+      emoji: "📚",
+      iconColor: "text-green-500"
+    },
+    {
+      icon: Phone,
+      title: "Cellphone Loan",
+      description: "Latest mobile devices financing with accessories included.",
+      features: ["Latest mobile devices", "Accessories included", "Flexible payment terms"],
+      borderColor: "border-yellow-500",
+      iconGradient: "from-yellow-400 to-yellow-600",
+      emoji: "📱",
+      iconColor: "text-yellow-500"
+    },
+    {
+      icon: Home,
+      title: "Appliances Loan",
+      description: "Home appliances financing with extended warranty options.",
+      features: ["Home appliances", "Electronics financing", "Extended warranty options"],
+      borderColor: "border-blue-500",
+      iconGradient: "from-blue-400 to-blue-600",
+      emoji: "🏠",
+      iconColor: "text-blue-500"
+    },
+    {
+      icon: Award,
+      title: "Honorarium Loan",
+      description: "Professional development financing for career advancement.",
+      features: ["Professional development", "Certification courses", "Career advancement"],
+      borderColor: "border-green-500",
+      iconGradient: "from-green-400 to-green-600",
+      emoji: "🎓",
+      iconColor: "text-green-500"
+    }
+  ],
+  productive: [
+    {
+      icon: Building2,
+      title: "Micro-Enterprise Loan",
+      description: "Support for small businesses and micro-enterprises with comprehensive financing.",
+      features: ["Business startup capital", "Working capital financing", "Equipment and inventory"],
+      borderColor: "border-green-500",
+      iconGradient: "from-green-400 to-green-600",
+      emoji: "💼",
+      iconColor: "text-green-500"
+    },
+    {
+      icon: Tractor,
+      title: "Agricultural Loan",
+      description: "Specialized financing for farming and agricultural activities.",
+      features: ["Crop production financing", "Livestock and poultry raising", "Farm equipment and machinery"],
+      borderColor: "border-yellow-500",
+      iconGradient: "from-yellow-400 to-yellow-600",
+      emoji: "🚜",
+      iconColor: "text-yellow-500"
+    }
+  ],
+  emergency: [
+    {
+      icon: Heart,
+      title: "Hospitalization/Burial Loan",
+      description: "Financial support for medical emergencies and burial expenses with quick processing.",
+      features: ["Coverage for hospitalization costs", "Burial and funeral expenses", "Quick emergency processing"],
+      borderColor: "border-red-500",
+      iconGradient: "from-red-400 to-red-600",
+      emoji: "🏥",
+      iconColor: "text-red-500"
+    },
+    {
+      icon: AlertTriangle,
+      title: "Calamity Loan",
+      description: "Assistance for members affected by natural disasters and calamities.",
+      features: ["Natural disaster support", "Emergency relief funding", "Reduced interest rates"],
+      borderColor: "border-orange-500",
+      iconGradient: "from-orange-400 to-orange-600",
+      emoji: "🌪️",
+      iconColor: "text-orange-500"
+    }
+  ],
+  shortTerm: [
+    {
+      icon: PhilippinePeso,
+      title: "Petty Cash Loan",
+      description: "Small amount loans for daily operational expenses with fast approval.",
+      features: ["Quick processing", "Low interest rates", "Short repayment period"],
+      borderColor: "border-blue-500",
+      iconGradient: "from-blue-400 to-blue-600",
+      emoji: "💰",
+      iconColor: "text-blue-500"
+    },
+    {
+      icon: Wheat,
+      title: "Rice Loan",
+      description: "Seasonal loans for rice farming and related agricultural activities.",
+      features: ["Seasonal financing", "Agricultural focus", "Harvest-based repayment"],
+      borderColor: "border-yellow-500",
+      iconGradient: "from-yellow-400 to-yellow-600",
+      emoji: "🌾",
+      iconColor: "text-yellow-500"
+    }
+  ]
+};
+
 interface LoanCardProps {
   icon: React.ElementType;
   title: string;
@@ -115,187 +256,9 @@ export default function LoanPackages() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Loan Card - Providential */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">★</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Providential Loan</h3>
-            <p className="text-sm text-gray-600 mb-4">Special loan program for members facing financial difficulties with reduced rates.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Emergency financial assistance</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Reduced interest rates</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Flexible payment schedules</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Loan Card - Salary */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-yellow-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                <Wallet className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">⚡</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Salary Loan</h3>
-            <p className="text-sm text-gray-600 mb-4">Loans based on regular salary income with fast processing.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Based on salary income</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Fast processing</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Competitive rates</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Loan Card - Pension */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-blue-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center">
-                <Award className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">👴</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Pension Loan</h3>
-            <p className="text-sm text-gray-600 mb-4">Special program for pensioners with competitive senior rates.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Pension-backed security</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Competitive senior rates</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Flexible terms</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Loan Card - Educational */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">📚</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Educational Loan</h3>
-            <p className="text-sm text-gray-600 mb-4">Support for educational goals with flexible repayment options.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Tuition and academic expenses</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Flexible repayment</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Co-maker options</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Loan Card - Cellphone */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-yellow-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                <Phone className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">📱</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Cellphone Loan</h3>
-            <p className="text-sm text-gray-600 mb-4">Latest mobile devices financing with accessories included.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Latest mobile devices</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Accessories included</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Flexible payment terms</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Loan Card - Appliances */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-blue-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center">
-                <Home className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">🏠</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Appliances Loan</h3>
-            <p className="text-sm text-gray-600 mb-4">Home appliances financing with extended warranty options.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Home appliances</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Electronics financing</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Extended warranty options</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Loan Card - Honorarium */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
-                <Award className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">🎓</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Honorarium Loan</h3>
-            <p className="text-sm text-gray-600 mb-4">Professional development financing for career advancement.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Professional development</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Certification courses</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Career advancement</span>
-              </div>
-            </div>
-          </div>
+          {LOAN_CATEGORIES.multiPurpose.map((loan, index) => (
+            <LoanCard key={index} {...loan} />
+          ))}
         </div>
       </section>
 
@@ -315,57 +278,9 @@ export default function LoanPackages() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Micro-Enterprise */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-green-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">💼</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Micro-Enterprise Loan</h3>
-            <p className="text-sm text-gray-600 mb-4">Support for small businesses and micro-enterprises with comprehensive financing.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Business startup capital</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Working capital financing</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Equipment and inventory</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Agricultural */}
-          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-yellow-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                <Tractor className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">🚜</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Agricultural Loan</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Specialized financing for farming and agricultural activities.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Crop production financing</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Livestock and poultry raising</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Farm equipment and machinery</span>
-        </div>
-            </div>
-          </div>
+          {LOAN_CATEGORIES.productive.map((loan, index) => (
+            <LoanCard key={index} {...loan} />
+          ))}
         </div>
       </section>
 
@@ -385,57 +300,9 @@ export default function LoanPackages() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Hospitalization/Burial */}
-          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-red-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-xl flex items-center justify-center">
-                <Heart className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">🏥</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Hospitalization/Burial Loan</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Financial support for medical emergencies and burial expenses with quick processing.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Coverage for hospitalization costs</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Burial and funeral expenses</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Quick emergency processing</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Calamity */}
-          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-orange-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center">
-                <AlertTriangle className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">🌪️</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Calamity Loan</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Assistance for members affected by natural disasters and calamities.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-orange-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Natural disaster support</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-orange-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Emergency relief funding</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-orange-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Reduced interest rates</span>
-              </div>
-            </div>
-          </div>
+          {LOAN_CATEGORIES.emergency.map((loan, index) => (
+            <LoanCard key={index} {...loan} />
+          ))}
         </div>
       </section>
 
@@ -455,57 +322,9 @@ export default function LoanPackages() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Petty Cash */}
-          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-blue-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center">
-                <PhilippinePeso className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">💰</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Petty Cash Loan</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Small amount loans for daily operational expenses with fast approval.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Quick processing</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Low interest rates</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Short repayment period</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Rice Loan */}
-          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-yellow-500">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                <Wheat className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl">🌾</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Rice Loan</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Seasonal loans for rice farming and related agricultural activities.</p>
-            <div className="space-y-2">
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Seasonal financing</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Agricultural focus</span>
-              </div>
-              <div className="flex items-start text-sm">
-                <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">Harvest-based repayment</span>
-              </div>
-            </div>
-          </div>
+          {LOAN_CATEGORIES.shortTerm.map((loan, index) => (
+            <LoanCard key={index} {...loan} />
+          ))}
         </div>
       </section>
 
