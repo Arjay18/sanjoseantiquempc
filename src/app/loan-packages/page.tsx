@@ -483,7 +483,7 @@ export default function LoanPackages() {
           <h2 className="text-3xl font-bold mb-4">Ready to Apply?</h2>
           <p className="text-xl mb-8 text-blue-100">Get started with your loan application today</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="/loan-application" className="px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            <a href="" className="px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
               Apply Online
             </a>
             <a href="/contact" className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white border-2 border-white rounded-xl font-semibold hover:bg-white/30 transition-all">
