@@ -1,2 +1,5 @@
-// Config loader issues in Vercel; configuration moved to package.json
-export default {};
+export default {
+  migrations: {
+    seed: 'node prisma/seed.ts',
+  },
+};
