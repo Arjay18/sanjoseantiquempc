@@ -15,10 +15,15 @@ interface VerificationModalProps {
 }
 
 export default function VerificationModal({ application, onClose }: VerificationModalProps) {
-  if (!application) return null;
-  
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [viewMode, setViewMode] = useState<'grid' | 'single'>('grid');
+  
+  useEffect(() => {
+    setCurrentImageIndex(0);
+    setViewMode('grid');
+  }, [application]);
+
+  if (!application) return null;
   
   const documents = [
     { key: 'idFile', label: 'Valid ID', icon: '📄', color: 'blue' },
@@ -27,11 +32,6 @@ export default function VerificationModal({ application, onClose }: Verification
   ];
   
   const availableDocs = documents.filter(doc => application[doc.key as keyof LoanApplication]);
-  
-  useEffect(() => {
-    setCurrentImageIndex(0);
-    setViewMode('grid');
-  }, [application]);
   
   const handlePrev = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? availableDocs.length - 1 : prev - 1));

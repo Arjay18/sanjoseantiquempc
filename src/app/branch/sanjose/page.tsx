@@ -83,7 +83,7 @@ export default function SanJoseBranchDashboard() {
         setError('Failed to load loan applications');
         setLoading(false);
       });
-  }, [session, status, router]);
+  }, [session, status, router, user?.role, user?.branch]);
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -97,7 +97,7 @@ export default function SanJoseBranchDashboard() {
 
     const interval = setInterval(checkSession, 3000);
     return () => clearInterval(interval);
-  }, [session, router, isAuthenticated]);
+  }, [session, router, isAuthenticated, user?.role, user?.branch]);
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -113,7 +113,7 @@ export default function SanJoseBranchDashboard() {
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [session, router, isAuthenticated]);
+  }, [session, router, isAuthenticated, user?.role, user?.branch]);
 
   useEffect(() => {
     if (!isAuthenticated) return;

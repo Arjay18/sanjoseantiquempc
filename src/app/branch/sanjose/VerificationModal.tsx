@@ -22,10 +22,15 @@ interface DocumentType {
 }
 
 export default function VerificationModal({ application, onClose }: VerificationModalProps) {
-  if (!application) return null;
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [viewMode, setViewMode] = useState<'grid' | 'single'>('grid');
+
+  useEffect(() => {
+    setCurrentIndex(0);
+    setViewMode('grid');
+  }, [application]);
+
+  if (!application) return null;
 
   const documents: DocumentType[] = [
     { key: 'idFile', label: 'Valid ID', icon: '📄', color: 'blue' },
@@ -34,11 +39,6 @@ export default function VerificationModal({ application, onClose }: Verification
   ];
 
   const availableDocs = documents.filter((doc) => application[doc.key]);
-
-  useEffect(() => {
-    setCurrentIndex(0);
-    setViewMode('grid');
-  }, [application]);
 
   const renderDocument = (docConfig: DocumentType, isFullView = false) => {
     const fileData = application[docConfig.key];
