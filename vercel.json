@@ -1,5 +1,6 @@
 {
-  "buildCommand": "npx prisma generate && npx prisma db push schema.prisma --accept-data-loss && npm run build",
+  "buildCommand": "npx prisma generate && npx prisma db push schema.prisma --accept-data-loss && npm run build -- --ignoreDeprecations=6.0",
+
   "outputDirectory": ".next",
   "framework": "nextjs",
   "functions": {
