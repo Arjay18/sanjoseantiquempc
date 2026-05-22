@@ -1,11 +1,13 @@
 import UserDashboardClient from "./UserDashboardClient";
 
-type PageProps = {
-  params: { userId: string };
-};
-
-export default async function Page({ params }: PageProps) {
-  return <UserDashboardClient userId={params.userId} />;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ userId: string }>;
+}) {
+  const resolvedParams = await params;
+  return <UserDashboardClient userId={resolvedParams.userId} />;
 }
+
 
 
