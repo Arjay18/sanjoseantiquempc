@@ -5,17 +5,19 @@ import { CheckCircle, ArrowRight, ArrowLeft, Save, Upload, FileText } from "luci
 
 interface LoanFormData {
   // Step 1: Personal
-  fullName: string;
+  name: string;
   email: string;
-  phone: string;
+  contactNo: string;
   pbNo: string;
+  address: string;
   // Step 2: Loan
   loanType: string;
   loanAmount: string;
-  loanTerm: string;
+  term: string;
+  purpose: string;
   branch: string;
   // Step 3: Financial
-  monthlyIncome: string;
+  memberIncome: string;
   employmentStatus: string;
   // Step 4: Requirements (Base64 strings)
   idFile: string;
@@ -28,15 +30,17 @@ export default function LoanForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<LoanFormData>({
-    fullName: "",
+    name: "",
     email: "",
-    phone: "",
+    contactNo: "",
     pbNo: "",
+    address: "",
     loanType: "",
     loanAmount: "",
-    loanTerm: "",
+    term: "",
+    purpose: "",
     branch: "",
-    monthlyIncome: "",
+    memberIncome: "",
     employmentStatus: "",
     idFile: "",
     depositSlipOrEwallet: "",
@@ -76,8 +80,8 @@ export default function LoanForm() {
       const payload = {
         ...formData,
         loanAmount: parseFloat(formData.loanAmount) || 0,
-        loanTerm: parseInt(formData.loanTerm) || 0,
-        monthlyIncome: parseFloat(formData.monthlyIncome) || 0,
+        term: parseInt(formData.term) || 0,
+        memberIncome: parseFloat(formData.memberIncome) || 0,
       };
 
       const res = await fetch("/api/loan-applications", {
@@ -130,20 +134,24 @@ export default function LoanForm() {
               <h3 className="text-lg font-bold mb-4">Personal Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-700">Full Name</label>
-                  <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Juan Dela Cruz" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                  <label className="text-sm font-medium text-gray-700">Full Name *</label>
+                  <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Juan Dela Cruz" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
                 </div>
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-gray-700">Email Address</label>
                   <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="juan@example.com" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-700">Phone Number</label>
-                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="09123456789" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                  <label className="text-sm font-medium text-gray-700">Contact Number *</label>
+                  <input type="tel" name="contactNo" value={formData.contactNo} onChange={handleChange} placeholder="09123456789" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
                 </div>
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-gray-700">Passbook (PB) Number</label>
                   <input type="text" name="pbNo" value={formData.pbNo} onChange={handleChange} placeholder="PB-12345" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                </div>
+                <div className="space-y-1 md:col-span-2">
+                  <label className="text-sm font-medium text-gray-700">Complete Address *</label>
+                  <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="House No, Street, Brgy, Town, Province" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
                 </div>
               </div>
             </div>
@@ -169,7 +177,7 @@ export default function LoanForm() {
                 </div>
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-gray-700">Term (Months)</label>
-                  <input type="number" name="loanTerm" value={formData.loanTerm} onChange={handleChange} placeholder="12" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                  <input type="number" name="term" value={formData.term} onChange={handleChange} placeholder="12" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
                 </div>
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-gray-700">Preferred Branch</label>
@@ -181,6 +189,10 @@ export default function LoanForm() {
                     <option value="guimaras">Guimaras Branch</option>
                   </select>
                 </div>
+                <div className="space-y-1 md:col-span-2">
+                  <label className="text-sm font-medium text-gray-700">Purpose of Loan *</label>
+                  <input type="text" name="purpose" value={formData.purpose} onChange={handleChange} placeholder="e.g. Business Capital, Hospitalization, Tuition" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                </div>
               </div>
             </div>
           )}
@@ -191,7 +203,7 @@ export default function LoanForm() {
               <div className="grid grid-cols-1 gap-4">
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-gray-700">Monthly Gross Income (₱)</label>
-                  <input type="number" name="monthlyIncome" value={formData.monthlyIncome} onChange={handleChange} placeholder="25000" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                  <input type="number" name="memberIncome" value={formData.memberIncome} onChange={handleChange} placeholder="25000" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
                 </div>
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-gray-700">Employment Status</label>
