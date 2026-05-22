@@ -416,15 +416,19 @@ export default function LoanApplication() {
   // Main return block: multi-step wizard
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-yellow-100 py-12">
-      <div className="max-w-2xl mx-auto px-2 sm:px-4">
+      <div className="max-w-4xl mx-auto px-2 sm:px-4">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-extrabold text-blue-900 mb-2 tracking-tight">
-            <span className="inline-block align-middle mr-2"><FileText className="inline w-8 h-8 text-blue-600" /></span>
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 backdrop-blur border border-blue-100 shadow-sm">
+            <FileText className="w-6 h-6 text-blue-600" />
+            <p className="text-sm font-semibold text-blue-900">San Jose Multi-Purpose Cooperative</p>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-blue-900 mt-4 mb-2 tracking-tight">
             Loan <span className="bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">Application</span>
           </h1>
-          <p className="text-gray-600 text-lg">San Jose Multi-Purpose Cooperative</p>
+          <p className="text-gray-600 text-base sm:text-lg">Please complete the wizard step-by-step.</p>
         </div>
+
         {submitMessage && (
           <div className={`mb-4 p-3 rounded-xl text-center font-semibold border shadow ${
             submitMessage.includes('success') || submitMessage.includes('submitted')
