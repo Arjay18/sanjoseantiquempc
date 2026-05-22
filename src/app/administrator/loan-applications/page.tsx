@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense, useCallback } from 'react';
 import Link from 'next/link';
 
 interface LoanApplication {
@@ -35,16 +35,7 @@ function LoanApplicationsContent() {
 
   // No branch filter needed
 
-  useEffect(() => {
-    if (status === 'loading') return;
-    if (!session) {
-      router.push('/administrator/login');
-      return;
-    }
-    fetchApplications();
-  }, [session, status, filter, currentPage]);
-
-  const fetchApplications = async () => {
+  const fetchApplications = useCallback(async () => {
     try {
       const queryParams = new URLSearchParams({
         status: filter,
@@ -71,7 +62,16 @@ function LoanApplicationsContent() {
       setTotalPages(1);
       setLoading(false);
     }
-  };
+  }, [filter, currentPage]);
+
+  useEffect(() => {
+    if (status === 'loading') return;
+    if (!session) {
+      router.push('/administrator/login');
+      return;
+    }
+    fetchApplications();
+  }, [session, status, router, fetchApplications]);
 
   const updateApplicationStatus = async (id: string, status: 'approved' | 'rejected', notes?: string) => {
     try {
