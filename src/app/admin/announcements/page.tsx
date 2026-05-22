@@ -390,7 +390,7 @@ export default function AnnouncementsPage() {
                   {/* Image Preview */}
                   <div className="w-20 h-14 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
                     {announcement.image ? (
-                      <img src={announcement.image} alt={announcement.title || "Announcement"} className="w-full h-full object-cover" />
+                      <img src={announcement.image} alt={`Announcement: ${announcement.title}`} className="w-full h-full object-cover" />
                     ) : (
                       <div className={`w-full h-full ${announcement.theme === 'blue' ? 'bg-blue-600' : 'bg-yellow-500'}`} />
                     )}

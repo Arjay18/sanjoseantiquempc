@@ -277,7 +277,7 @@ export default function AnnouncementsPage() {
                         </div>
                       ) : formData.image ? (
                         <div className="flex flex-col items-center">
-                          <img src={formData.image} alt="Slider Preview" className="max-h-48 rounded-lg mb-2" />
+                          <img src={formData.image} alt="Announcement Slider Preview" className="max-h-48 rounded-lg mb-2" />
                           <span className="text-blue-600 text-sm">Click to change image</span>
                         </div>
                       ) : (
