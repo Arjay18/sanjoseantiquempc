@@ -32,7 +32,11 @@ interface Slide {
 const defaultSlides: Slide[] = [
   { image: '/slider/slide1.jpg', link: '/online-application', title: 'Apply for a Loan', description: 'Get the financial support you need' },
   { image: '/slider/slide2.jpg', link: '/loan-packages', title: 'Loan Packages', description: 'Choose the best loan for you' },
+  { image: '/slider/slide3.jpg', link: '/savings-product', title: 'Savings Products', description: 'Grow your savings with us' },
+  { image: '/slider/slide4.jpg', link: '/about', title: 'About SJMPC', description: 'Learn more about SJMPC' },
   { image: '/slider/slide5.jpg', link: '/news', title: 'Latest News', description: 'Stay updated with our news' },
+  { image: '/slider/slide6.jpg', link: '/services', title: 'Our Services', description: 'Discover what we offer' },
+  { image: '/slider/slide7.jpg', link: '/about', title: 'Join Our Cooperative', description: 'Become a member today' },
 ];
 
 export default function NewsSlider() {
