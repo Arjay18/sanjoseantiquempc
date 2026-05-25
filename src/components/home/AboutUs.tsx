@@ -15,10 +15,11 @@ export default function AboutUs() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-10 items-stretch">
+          <div className="grid lg:grid-cols-12 gap-10 items-center">
             {/* Left Content */}
             <FadeIn direction="left" delay={0.15}>
               <div className="lg:col-span-5 flex flex-col justify-center">
+
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold mb-6 w-fit">
                   <CheckCircle className="w-4 h-4 mr-2" />
                   About San Jose Antique MPC
