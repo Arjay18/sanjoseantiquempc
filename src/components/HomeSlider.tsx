@@ -55,35 +55,38 @@ export default function HomeSlider() {
     async function fetchAnnouncements() {
       try {
         const res = await fetch('/api/announcements');
-        if (res.ok) {
-          const data: Announcement[] = await res.json();
-          
-          if (data && data.length > 0) {
-            const announcementSlides: Slide[] = data
-              .filter((a: Announcement) => a.isActive)
-              .sort((a: Announcement, b: Announcement) => a.order - b.order)
-              .map((a: Announcement) => ({
-                image: a.image || '/slider/slide1.jpg',
-                link: a.buttonLink || null,
-                title: (a as any).title || undefined,
-                description: (a as any).description || undefined,
-              }));
-            
-            // Keep the slider at 7 images for layout consistency.
-            // If API returns fewer than 7, we append/trim to keep exactly 7.
-            if (announcementSlides.length > 0) {
-              const filled = [...announcementSlides];
-              while (filled.length < defaultSlides.length) filled.push(defaultSlides[filled.length]);
-              setSlides(filled.slice(0, defaultSlides.length));
-            }
+        if (!res.ok) return;
+
+        const data: Announcement[] = await res.json();
+        const active = (data || [])
+          .filter((a: Announcement) => a.isActive)
+          .sort((a: Announcement, b: Announcement) => a.order - b.order);
+
+        if (active.length === 0) return;
+
+        // IMPORTANT: always keep the 7 local slider images.
+        // API can only override titles/descriptions/links by index.
+        setSlides((prev) => {
+          const next = [...defaultSlides];
+          for (let i = 0; i < next.length; i++) {
+            const a = active[i];
+            if (!a) break;
+            next[i] = {
+              ...next[i],
+              title: (a as any).title || next[i].title,
+              description: (a as any).description || next[i].description,
+              link: a.buttonLink || next[i].link,
+            };
           }
-        }
+          return next;
+        });
       } catch (error) {
         console.error('Error fetching announcements:', error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
-    
+
     fetchAnnouncements();
   }, []);
 
