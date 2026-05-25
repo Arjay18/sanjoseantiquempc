@@ -15,7 +15,7 @@ export default function AboutUs() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-stretch">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-stretch lg:items-center">
 
 
 
