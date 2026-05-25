@@ -47,10 +47,9 @@ export default function NewsSlider() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    // Per UI requirement: do not let API slide count reduce the slider.
-    // Keep the default 7 slides (from /public/slider) and only update
-    // titles/descriptions/link if desired in the future.
-    // For now, we just mark as loaded.
+    // Keep the default 7 slides (from /public/slider).
+    // Do not replace them with the API results, because your API may
+    // return fewer items than the slider design expects.
     setLoading(false);
   }, []);
 

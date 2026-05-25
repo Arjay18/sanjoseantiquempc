@@ -52,35 +52,9 @@ export default function HomeSlider() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    async function fetchAnnouncements() {
-      try {
-        const res = await fetch('/api/announcements');
-        if (res.ok) {
-          const data: Announcement[] = await res.json();
-          
-          if (data && data.length > 0) {
-            const announcementSlides: Slide[] = data
-              .filter((a: Announcement) => a.isActive)
-              .sort((a: Announcement, b: Announcement) => a.order - b.order)
-              .map((a: Announcement) => ({
-                image: a.image || '/slider/slide1.jpg',
-                link: a.buttonLink || null,
-                title: (a as any).title || undefined,
-                description: (a as any).description || undefined,
-              }));
-            
-            if (announcementSlides.length > 0) {
-              setSlides(announcementSlides);
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching announcements:', error);
-      }
-      setLoading(false);
-    }
-    
-    fetchAnnouncements();
+    // Keep the 7 default slides always.
+    // This prevents /api/announcements from reducing the slider to fewer images.
+    setLoading(false);
   }, []);
 
   useEffect(() => {
