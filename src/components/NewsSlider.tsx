@@ -47,10 +47,33 @@ export default function NewsSlider() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    // Keep the default 7 slides (from /public/slider).
-    // Do not replace them with the API results, because your API may
-    // return fewer items than the slider design expects.
-    setLoading(false);
+    async function fetchAnnouncements() {
+      try {
+        const res = await fetch('/api/announcements');
+        if (res.ok) {
+          const data: Announcement[] = await res.json();
+          if (data?.length) {
+            const announcementSlides: Slide[] = data
+              .filter((a: Announcement) => a.isActive)
+              .sort((a: Announcement, b: Announcement) => a.order - b.order)
+              .map((a: Announcement) => ({
+                image: a.image || '/slider/slide1.jpg',
+                link: a.buttonLink || null,
+                title: (a as any).title || undefined,
+                description: (a as any).description || undefined,
+              }));
+
+            if (announcementSlides.length > 0) setSlides(announcementSlides);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching announcements:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchAnnouncements();
   }, []);
 
   useEffect(() => {
