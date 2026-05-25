@@ -15,11 +15,14 @@ export default function AboutUs() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-stretch">
+
+
 
             {/* Left Content */}
             <FadeIn direction="left" delay={0.15}>
-              <div className="lg:col-span-5 flex flex-col justify-center">
+              <div className="lg:col-span-5 h-full flex flex-col justify-center">
+
 
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold mb-6 w-fit">
                   <CheckCircle className="w-4 h-4 mr-2" />
@@ -76,8 +79,9 @@ export default function AboutUs() {
 
             {/* Right Image Card */}
             <FadeIn direction="right" delay={0.3}>
-              <div className="lg:col-span-7">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/60 bg-white">
+              <div className="lg:col-span-7 h-full flex">
+                <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-white/60 bg-white">
+
                   <div className="absolute -inset-[2px] bg-gradient-to-b from-blue-600/20 to-yellow-500/10" />
                   <div className="relative">
                     <Image
