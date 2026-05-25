@@ -134,13 +134,20 @@ export default function HomeSlider() {
   }
 
   return (
-    <div className="w-full bg-white py-4">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+    <div className="w-full bg-white">
+      <div className="w-full">
+        <div className="relative w-full bg-white overflow-hidden">
+          <style jsx>{`
+            /* Make the slider full-width like News hero */
+            .home-slider-full-width img,
+            .home-slider-full-width svg {
+              width: 100%;
+            }
+          `}</style>
           
           {/* Main Slider Container */}
           <div 
-            className="relative h-[350px] md:h-[450px] lg:h-[550px]"
+            className="relative w-full h-[350px] md:h-[450px] lg:h-[550px]"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
