@@ -6,13 +6,12 @@ import { Users, Globe, Heart, Award, ArrowRight, CheckCircle, TrendingUp, Shield
 export default function AboutUs() {
   return (
     <>
-      <section className="relative py-24 bg-white overflow-hidden">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-full h-full" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, #2563eb 1px, transparent 0)',
-            backgroundSize: '48px 48px'
-          }}></div>
+      <section className="relative py-24 bg-gradient-to-b from-white via-blue-50/30 to-white overflow-hidden">
+        {/* Ambient background accents */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-32 left-1/2 w-[36rem] h-[36rem] -translate-x-1/2 bg-blue-600/10 blur-3xl" />
+          <div className="absolute -bottom-40 left-[-10rem] w-[30rem] h-[30rem] bg-yellow-400/10 blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,rgba(37,99,235,0.10),transparent_35%),radial-gradient(circle_at_90%_20%,rgba(250,204,21,0.10),transparent_35%)]" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
