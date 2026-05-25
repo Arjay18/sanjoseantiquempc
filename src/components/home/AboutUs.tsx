@@ -19,8 +19,13 @@ export default function AboutUs() {
 
 
 
-            {/* Left Content */}
+            {/* Left Content (new design) */}
             <div className="lg:col-span-5 flex flex-col justify-center">
+
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-600/10 to-yellow-500/10 text-blue-700 text-sm font-semibold mb-6 w-fit border border-blue-200">
+                <CheckCircle className="w-4 h-4 mr-2 text-blue-600" />
+                Who we are
+              </div>
 
 
 
