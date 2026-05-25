@@ -90,7 +90,7 @@ export default function AboutUs() {
                       alt="SJMPC Annual General Assembly"
                       width={1200}
                       height={700}
-                      className="w-full h-[360px] md:h-[420px] object-cover"
+                      className="w-full h-[360px] md:h-[420px] object-contain bg-white"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
 
