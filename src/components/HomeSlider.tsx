@@ -198,7 +198,7 @@ export default function HomeSlider() {
                         src={slide.image}
                         alt={slide.title || `Slide ${index + 1}`}
                         fill
-                        className="object-cover cursor-pointer"
+                        className="object-contain cursor-pointer"
                         priority={index === 0}
                         onClick={handleSlideClick}
                         onError={(e) => {
