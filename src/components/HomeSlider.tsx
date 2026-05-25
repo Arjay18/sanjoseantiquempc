@@ -153,31 +153,7 @@ export default function HomeSlider() {
           >
             {/* Main Content Area */}
             <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-green-800 to-green-900 rounded-xl">
-              {/* Side icon decorations (keep for Our Latest Announcement slider only) */}
-              <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 bg-gradient-to-r from-green-50 to-white/0 z-20 flex flex-col justify-center items-center gap-6 border-r border-gray-100">
 
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <Shield className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
-                </div>
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
-                </div>
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Clock className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
-                </div>
-              </div>
-
-              <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 bg-gradient-to-l from-green-50 to-white/0 z-20 flex flex-col justify-center items-center gap-6 border-l border-gray-100">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
-                </div>
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <Shield className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
-                </div>
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                  <Clock className="w-5 h-5 md:w-6 md:h-6 text-orange-600" />
-                </div>
-              </div>
               {/* Slides */}
               {slides.map((slide, index) => (
                 <div
