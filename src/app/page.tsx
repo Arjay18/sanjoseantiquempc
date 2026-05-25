@@ -6,7 +6,6 @@ import Testimonials from "@/components/home/Testimonials";
 import PMESSchedule from "@/components/home/PMESSchedule";
 import HowToBecomeMember from "@/components/home/HowToBecomeMember";
 import ServicesShowcase from "@/components/home/ServicesShowcase";
-import HomeSlider from "@/components/HomeSlider";
 
 import { FadeIn } from "@/components/animations/FadeIn";
 
