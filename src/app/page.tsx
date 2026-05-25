@@ -1,4 +1,6 @@
 import HomeSlider from "@/components/HomeSlider";
+import NewsSlider from "@/components/NewsSlider";
+
 import ContactForm from "@/components/ContactForm";
 import AboutUs from "@/components/home/AboutUs";
 import LatestProjects from "@/components/home/LatestProjects";
@@ -17,8 +19,8 @@ export default function Home() {
           <HomeSlider />
         </FadeIn>
 
-
         <FadeIn direction="up" delay={0.1}>
+
           <div className="py-16 bg-gradient-to-br from-gray-50 via-white to-gray-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <FadeIn direction="up" delay={0.1}>
