@@ -11,6 +11,8 @@ export async function GET() {
     const evaluations = await prisma.evaluation.findMany({
       orderBy: { createdAt: 'desc' },
     });
+
+
     return NextResponse.json(evaluations);
   } catch (error) {
     console.error('Error fetching evaluations:', error);
