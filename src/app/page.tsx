@@ -46,7 +46,7 @@ export default function Home() {
         </FadeIn>
 
         <FadeIn direction="up" delay={0.2}>
-          <HomeSlider />
+          <NewsSlider />
         </FadeIn>
 
         <FadeIn direction="up" delay={0.4}>
