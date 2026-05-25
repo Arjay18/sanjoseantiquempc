@@ -6,7 +6,8 @@ import Testimonials from "@/components/home/Testimonials";
 import PMESSchedule from "@/components/home/PMESSchedule";
 import HowToBecomeMember from "@/components/home/HowToBecomeMember";
 import ServicesShowcase from "@/components/home/ServicesShowcase";
-import Hero from "@/components/home/Hero";
+import HomeSlider from "@/components/HomeSlider";
+
 import { FadeIn } from "@/components/animations/FadeIn";
 
 export default function Home() {
@@ -14,8 +15,9 @@ export default function Home() {
     <>
       <div className="flex min-h-screen flex-col">
         <FadeIn direction="up" delay={0}>
-          <Hero />
+          <HomeSlider />
         </FadeIn>
+
 
         <FadeIn direction="up" delay={0.1}>
           <div className="py-16 bg-gradient-to-br from-gray-50 via-white to-gray-50">
