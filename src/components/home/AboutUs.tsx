@@ -20,8 +20,8 @@ export default function AboutUs() {
 
 
             {/* Left Content */}
-            <FadeIn direction="left" delay={0.15}>
-              <div className="lg:col-span-5 flex flex-col justify-center">
+            <div className="lg:col-span-5 flex flex-col justify-center">
+
 
 
 
@@ -76,9 +76,9 @@ export default function AboutUs() {
                   </Link>
                 </div>
               </div>
-            </FadeIn>
-
+            
             {/* Right Image Card */}
+
             <FadeIn direction="right" delay={0.3}>
               <div className="lg:col-span-7 h-full flex">
                 <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-white/60 bg-white">
