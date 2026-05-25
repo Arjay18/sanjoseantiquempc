@@ -69,8 +69,12 @@ export default function HomeSlider() {
                 description: (a as any).description || undefined,
               }));
             
+            // Keep the slider at 7 images for layout consistency.
+            // If API returns fewer than 7, we append/trim to keep exactly 7.
             if (announcementSlides.length > 0) {
-              setSlides(announcementSlides);
+              const filled = [...announcementSlides];
+              while (filled.length < defaultSlides.length) filled.push(defaultSlides[filled.length]);
+              setSlides(filled.slice(0, defaultSlides.length));
             }
           }
         }
