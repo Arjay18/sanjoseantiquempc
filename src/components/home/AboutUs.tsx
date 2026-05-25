@@ -21,7 +21,8 @@ export default function AboutUs() {
 
             {/* Left Content */}
             <FadeIn direction="left" delay={0.15}>
-              <div className="lg:col-span-5 h-full flex flex-col justify-center">
+              <div className="lg:col-span-5 flex flex-col justify-center">
+
 
 
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold mb-6 w-fit">
