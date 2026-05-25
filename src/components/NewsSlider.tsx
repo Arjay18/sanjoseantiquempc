@@ -47,33 +47,11 @@ export default function NewsSlider() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    async function fetchAnnouncements() {
-      try {
-        const res = await fetch('/api/announcements');
-        if (res.ok) {
-          const data: Announcement[] = await res.json();
-          if (data?.length) {
-            const announcementSlides: Slide[] = data
-              .filter((a: Announcement) => a.isActive)
-              .sort((a: Announcement, b: Announcement) => a.order - b.order)
-              .map((a: Announcement) => ({
-                image: a.image || '/slider/slide1.jpg',
-                link: a.buttonLink || null,
-                title: (a as any).title || undefined,
-                description: (a as any).description || undefined,
-              }));
-
-            if (announcementSlides.length > 0) setSlides(announcementSlides);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching announcements:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchAnnouncements();
+    // Per UI requirement: do not let API slide count reduce the slider.
+    // Keep the default 7 slides (from /public/slider) and only update
+    // titles/descriptions/link if desired in the future.
+    // For now, we just mark as loaded.
+    setLoading(false);
   }, []);
 
   useEffect(() => {
