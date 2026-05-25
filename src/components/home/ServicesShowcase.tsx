@@ -14,49 +14,30 @@ const services = [
     title: "Loan Services",
     subtitle: "Flexible Financing Solutions",
     description: "Comprehensive loan solutions including business loans, housing loans, and agricultural financing to support your financial goals and dreams.",
-    image: "/images/433653723_8032419583452138_6238720083292977796_n.jpg",
-    icon: (
-
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
+    image: "/images/540980295_10235369655438843_7551540348210928825_n.jpg",
     link: "/loan-packages",
     color: "blue",
     features: ["Business Loans", "Housing Loans", "Agricultural Loans", "Quick Approval"],
     popular: true,
-    
   },
   {
     id: 2,
     title: "Savings Products",
     subtitle: "Secure Your Future",
     description: "Build wealth and achieve financial stability with our diverse savings products designed to grow your money safely and steadily.",
-    image: "/images/540980295_10235369655438843_7551540348210928825_n.jpg",
-    icon: (
-
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
+    image: "/images/583336515_1358093772463317_512346541910271086_n.jpg",
     link: "/savings-product",
     color: "yellow",
     features: ["Regular Savings", "Time Deposits", "Special Savings", "High Interest Rates"],
     popular: false,
-   
   },
   {
     id: 3,
     title: "Insurance Services",
     subtitle: "Protection & Security",
     description: "Comprehensive insurance coverage tailored for cooperative members, protecting your family, assets, and business interests.",
-    image: "/images/583336515_1358093772463317_512346541910271086_n.jpg",
-    icon: (
+    image: "/images/584711177_10236308089939119_4315614434674993906_n.jpg",
 
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
     link: "/services",
     color: "purple",
     features: ["Life Insurance", "Property Insurance", "Health Coverage", "Business Insurance"],
@@ -68,13 +49,8 @@ const services = [
     title: "PMES Program",
     subtitle: "Empower Your Business",
     description: "Transform your micro-enterprise with our PMES program designed to boost growth, sustainability, and profitability.",
-    image: "/images/584711177_10236308089939119_4315614434674993906_n.jpg",
-    icon: (
+    image: "/images/597403592_1403798674673184_7189129226940101753_n.jpg",
 
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-      </svg>
-    ),
     link: "/online-pmes",
     color: "orange",
     features: ["Business Training", "Financial Education", "Market Linkages", "Technical Support"],
@@ -87,14 +63,9 @@ const services = [
     subtitle: "Dedicated Support",
     description: "Comprehensive support services for our valued members including account management, financial counseling, and community programs.",
     image: "/images/597403592_1403798674673184_7189129226940101753_n.jpg",
-    icon: (
-
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
     link: "/contact",
     color: "blue",
+
     features: ["24/7 Support", "Financial Counseling", "Community Programs", "Member Benefits"],
     popular: false,
     
@@ -244,18 +215,11 @@ export default function ServicesShowcase() {
                       {/* Header */}
                       <div className="p-8 pb-6">
 
-                        <div className="flex items-start justify-between mb-6">
-                          <div className={`flex items-center justify-center w-16 h-16 ${colorClasses.iconBg} rounded-2xl group-hover:scale-110 transition-transform duration-300`}>
-                            <div className={colorClasses.icon}>
-                              {service.icon}
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <span className="text-2xl font-bold text-gray-400">
-                              {String(service.id).padStart(2, '0')}
-                            </span>
-                          </div>
+                      <div className="flex items-start justify-between mb-6">
+                        <div className="text-right w-full" aria-hidden="true">
+                          
                         </div>
+                      </div>
 
                         <div className="mb-4">
                           <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
@@ -279,9 +243,7 @@ export default function ServicesShowcase() {
                         <div className="space-y-3">
                           {service.features.map((feature, idx) => (
                             <div key={idx} className="flex items-center text-sm text-gray-700">
-                              <svg className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                              </svg>
+                              <span className="mr-3">•</span>
                               {feature}
                             </div>
                           ))}
