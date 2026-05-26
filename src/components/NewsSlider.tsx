@@ -179,6 +179,20 @@ export default function NewsSlider() {
                         Our Latest Announcement
                       </div>
 
+                      {/* Stay Informed (top section) */}
+                      <div className="mb-2">
+                        <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-xs font-semibold">Stay Informed</div>
+                        <div className="mt-2 text-sm font-semibold text-white/90">Our Latest Announcement</div>
+                        <div className="text-3xl md:text-4xl font-bold text-white drop-shadow">
+                          Latest Updates & News
+                          <span className="block text-blue-200/95">From SJMPC</span>
+                        </div>
+                        <p className="mt-3 text-base text-white/90 max-w-2xl">
+                          Stay updated with the latest announcements, news, and updates from San Jose Multi-Purpose Cooperative.
+                        </p>
+                      </div>
+
+
                       {slide.title && (
                         <h2 className="mt-4 text-3xl md:text-4xl font-extrabold text-white drop-shadow">
                           {slide.title}
