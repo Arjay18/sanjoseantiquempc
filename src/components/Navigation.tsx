@@ -122,7 +122,7 @@ export default function Navigation() {
                 height={40}
                 className="rounded-lg"
               />
-              <span className="text-[15px] sm:text-[16px] font-bold text-gray-900 hover:text-green-600 transition-colors whitespace-nowrap">
+              <span className="text-[14px] sm:text-[15px] font-bold text-gray-900 hover:text-green-600 transition-colors leading-tight whitespace-nowrap">
                 San Jose Multi-Purpose Cooperative
               </span>
             </Link>
