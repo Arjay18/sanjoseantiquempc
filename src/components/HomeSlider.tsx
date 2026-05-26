@@ -208,7 +208,7 @@ export default function HomeSlider() {
                   {/* Content Overlay */}
                   <div className="absolute inset-0 flex items-center justify-end z-10 pr-6 md:pr-10 lg:pr-14 px-4">
                     <div className={`text-left text-white max-w-4xl px-4 transition-all duration-500 transform ${
-                      index === currentSlide ? 'translate-y-0 opacity-100 -translate-x-0' : 'translate-y-10 opacity-0 -translate-x-0'
+                      index === currentSlide ? 'translate-y-0 opacity-100 -translate-x-2' : 'translate-y-10 opacity-0 -translate-x-2'
                     }`}
                     >
 
