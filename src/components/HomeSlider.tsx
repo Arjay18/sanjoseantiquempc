@@ -161,6 +161,7 @@ export default function HomeSlider() {
             {/* Main Content Area */}
             <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-green-800 to-green-900 rounded-xl">
 
+
               {/* Slides */}
               {slides.map((slide, index) => (
                 <div
@@ -175,7 +176,7 @@ export default function HomeSlider() {
                       <img
                         src={slide.image}
                         alt={slide.title || `Slide ${index + 1}`}
-                        className="w-full h-full object-contain cursor-pointer bg-green-900/50"
+                        className="w-full h-full object-cover cursor-pointer bg-green-900/50"
                         onClick={handleSlideClick}
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
@@ -187,7 +188,7 @@ export default function HomeSlider() {
                         src={slide.image}
                         alt={slide.title || `Slide ${index + 1}`}
                         fill
-                        className="object-contain cursor-pointer"
+                        className="object-cover cursor-pointer"
                         priority={index === 0}
                         onClick={handleSlideClick}
                         onError={(e) => {
@@ -202,10 +203,12 @@ export default function HomeSlider() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   
                   {/* Content Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <div className={`text-center text-white max-w-4xl px-4 transition-all duration-500 transform ${
+                  <div className="absolute inset-0 flex items-center justify-end z-10 pr-4 md:pr-10 lg:pr-14">
+                    <div className={`text-right text-white max-w-4xl px-4 transition-all duration-500 transform ${
                       index === currentSlide ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                    }`}>
+                    }`}
+                    >
+
                       {slide.title && (
                         <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg tracking-tight">
                           {slide.title}
