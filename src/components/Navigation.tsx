@@ -111,7 +111,7 @@ export default function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center space-x-3">
@@ -122,7 +122,7 @@ export default function Navigation() {
                 height={40}
                 className="rounded-lg"
               />
-              <span className="text-[14px] sm:text-[15px] font-bold text-gray-900 hover:text-green-600 transition-colors leading-tight whitespace-nowrap">
+              <span className="text-[13px] sm:text-[14px] font-bold text-gray-900 hover:text-green-600 transition-colors leading-tight whitespace-nowrap">
                 San Jose Multi-Purpose Cooperative
               </span>
             </Link>
