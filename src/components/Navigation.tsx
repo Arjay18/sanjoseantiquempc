@@ -122,9 +122,14 @@ export default function Navigation() {
                 height={40}
                 className="rounded-lg"
               />
-              <span className="text-[13px] sm:text-[14px] font-bold text-gray-900 hover:text-green-600 transition-colors leading-tight whitespace-nowrap">
-                San Jose Multi-Purpose Cooperative
-              </span>
+              <div className="flex flex-col leading-tight">
+                <span className="text-[13px] sm:text-[14px] font-bold text-gray-900 hover:text-green-600 transition-colors whitespace-nowrap">
+                  San Jose Multi-Purpose Cooperative
+                </span>
+                <span className="font-cursive text-[12px] sm:text-[13px] text-green-700 italic mt-0.5">
+                  I BELONG
+                </span>
+              </div>
             </Link>
           </div>
 
