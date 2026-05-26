@@ -123,7 +123,7 @@ export default function Navigation() {
                 className="rounded-lg"
               />
               <div className="flex flex-col leading-tight">
-                <span className="text-[20px] sm:text-[20px] font-bold text-gray-900 hover:text-green-600 transition-colors whitespace-nowrap">
+                <span className="text-[19px] sm:text-[19px] font-bold text-gray-900 hover:text-green-600 transition-colors whitespace-nowrap">
                   San Jose Multi-Purpose Cooperative
                 </span>
                 <span className="font-cursive text-[12px] sm:text-[13px] text-green-700 italic mt-0.5">
