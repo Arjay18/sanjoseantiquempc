@@ -123,7 +123,7 @@ export default function Navigation() {
                 className="rounded-lg"
               />
               <span className="text-2xl font-bold text-gray-900 hover:text-green-600 transition-colors">
-                SJMPC
+                San Jose Multi-Purpose Cooperative
               </span>
             </Link>
           </div>
