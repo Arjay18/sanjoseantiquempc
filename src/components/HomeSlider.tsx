@@ -206,7 +206,7 @@ export default function HomeSlider() {
                   <div className="absolute inset-0 bg-gradient-to-l from-black/95 via-black/55 to-transparent" />
                   
                   {/* Content Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-end z-10 pr-3 md:pr-6 lg:pr-8">
+                  <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
                     <div className={`text-right text-white max-w-4xl px-4 transition-all duration-500 transform ${
                       index === currentSlide ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
                     }`}
