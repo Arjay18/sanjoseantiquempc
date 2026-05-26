@@ -46,14 +46,17 @@ export default function Home() {
         </FadeIn>
 
         <FadeIn direction="up" delay={0.2}>
-          <NewsSlider />
+          {/* News moved below ServicesShowcase */}
         </FadeIn>
-
-
 
         <FadeIn direction="up" delay={0.8}>
           <ServicesShowcase />
         </FadeIn>
+
+        <FadeIn direction="up" delay={0.9}>
+          <NewsSlider />
+        </FadeIn>
+
 
         <FadeIn direction="up" delay={1.0}>
           <HowToBecomeMember />
