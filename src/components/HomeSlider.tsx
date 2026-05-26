@@ -203,7 +203,7 @@ export default function HomeSlider() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
                   {/* Right-side dark gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-l from-black/70 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-l from-black/95 via-black/55 to-transparent" />
                   
                   {/* Content Overlay */}
                   <div className="absolute inset-0 flex items-center justify-end z-10 pr-4 md:pr-10 lg:pr-14">
