@@ -199,8 +199,8 @@ export default function HomeSlider() {
                     )}
                   </div>
 
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+                  {/* Gradient Overlay (lighter on left) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/5 to-transparent" />
 
                   {/* Right-side dark gradient */}
                   <div className="absolute inset-0 bg-gradient-to-l from-black/95 via-black/55 to-transparent" />
