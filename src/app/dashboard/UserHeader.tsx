@@ -204,7 +204,7 @@ export default function UserHeader() {
                         Dashboard
                       </Link>
                       <Link
-                        href="/profile"
+                        href="/dashboard/profile"
                         className="flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                         onClick={() => setMenuOpen(false)}
                       >
