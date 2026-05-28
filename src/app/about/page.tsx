@@ -724,8 +724,11 @@ export default function AboutPage() {
         </FadeIn>
       </section>
 
+
+
       <Stats />
     </>
   );
 }
+
 
