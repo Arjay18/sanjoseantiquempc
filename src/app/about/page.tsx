@@ -377,56 +377,113 @@ export default function AboutPage() {
       </section>
 
 
-      {/* Mission & Vision Section */}
+      {/* Mission & Vision Section (Improved) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <FadeIn direction="up" delay={0.8}>
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500/10 to-teal-500/10 rounded-full mb-4 border border-orange-200/60 dark:border-orange-700/40">
+              <Target className="w-4 h-4 text-orange-600 dark:text-orange-300 mr-2" />
+              <span className="text-sm font-semibold text-orange-700 dark:text-orange-300">MISSION & VISION</span>
+            </div>
+            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-3">Guiding Principles</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              Clear purpose today—strong direction tomorrow—so every member benefits from cooperative excellence.
+            </p>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-8">
-            <div className="bg-gradient-to-br from-orange-100 to-amber-100 dark:from-orange-900/30 dark:to-amber-900/30 rounded-3xl p-10 shadow-xl border-2 border-orange-300 dark:border-orange-700">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
-                  <Target className="w-8 h-8 text-white" />
+            {/* Mission */}
+            <div className="relative overflow-hidden rounded-3xl border border-orange-200/70 dark:border-orange-900/40 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/10 p-10 shadow-lg">
+              <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-orange-500/10 blur-3xl" />
+
+              <div className="relative">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
+                    <Target className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-3xl font-black text-orange-900 dark:text-orange-200">Our Mission</h3>
+                    <p className="text-sm text-orange-800 dark:text-orange-300">What we do, and why it matters</p>
+                  </div>
                 </div>
-                <h3 className="text-3xl font-black text-orange-900 dark:text-orange-200 ml-4">Our Mission</h3>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-bold text-orange-800 dark:text-orange-300 mb-2 flex items-center">
-                    <span className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center mr-2 text-sm">1</span>
-                    Financial Intermediary
-                  </h4>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm ml-10">Provide friendly, affordable and accessible financial services towards building financially disciplined and empowered members.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-orange-800 dark:text-orange-300 mb-2 flex items-center">
-                    <span className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center mr-2 text-sm">2</span>
-                    People's Movement
-                  </h4>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm ml-10">Raise the level of social and political consciousness through participative governance.</p>
-                </div>
-                <div>
-                  <h4 className="font-bold text-orange-800 dark:text-orange-300 mb-2 flex items-center">
-                    <span className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center mr-2 text-sm">3</span>
-                    Social Development
-                  </h4>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm ml-10">Instill values of honesty, openness, and care for others among members and community.</p>
+
+                <div className="space-y-4">
+                  <div className="group flex gap-4 rounded-2xl p-4 bg-white/60 dark:bg-white/[0.03] border border-orange-100/60 dark:border-orange-900/20 hover:shadow-md transition-all">
+                    <div className="w-9 h-9 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-sm">1</div>
+                    <div>
+                      <h4 className="font-bold text-orange-900 dark:text-orange-200">Financial Intermediary</h4>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                        Provide friendly, affordable, and accessible financial services that build disciplined and empowered members.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="group flex gap-4 rounded-2xl p-4 bg-white/60 dark:bg-white/[0.03] border border-orange-100/60 dark:border-orange-900/20 hover:shadow-md transition-all">
+                    <div className="w-9 h-9 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-sm">2</div>
+                    <div>
+                      <h4 className="font-bold text-orange-900 dark:text-orange-200">People's Movement</h4>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                        Raise social and political consciousness through participative governance and shared decision-making.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="group flex gap-4 rounded-2xl p-4 bg-white/60 dark:bg-white/[0.03] border border-orange-100/60 dark:border-orange-900/20 hover:shadow-md transition-all">
+                    <div className="w-9 h-9 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-sm">3</div>
+                    <div>
+                      <h4 className="font-bold text-orange-900 dark:text-orange-200">Social Development</h4>
+                      <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                        Instill values of honesty, openness, and care for others among members and the wider community.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-teal-100 to-green-100 dark:from-teal-900/30 dark:to-green-900/30 rounded-3xl p-10 shadow-xl border-2 border-teal-300 dark:border-teal-700">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center shadow-lg">
-                  <Eye className="w-8 h-8 text-white" />
+            {/* Vision */}
+            <div className="relative overflow-hidden rounded-3xl border border-teal-200/70 dark:border-teal-900/40 bg-gradient-to-br from-teal-50 to-green-50 dark:from-teal-900/20 dark:to-green-900/10 p-10 shadow-lg">
+              <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-teal-500/10 blur-3xl" />
+
+              <div className="relative">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-lg">
+                    <Eye className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-3xl font-black text-teal-900 dark:text-teal-200">Our Vision</h3>
+                    <p className="text-sm text-teal-800 dark:text-teal-300">The future we’re building</p>
+                  </div>
                 </div>
-                <h3 className="text-3xl font-black text-teal-900 dark:text-teal-200 ml-4">Our Vision</h3>
+
+                <div className="rounded-2xl p-6 bg-white/60 dark:bg-white/[0.03] border border-teal-100/60 dark:border-teal-900/20">
+                  <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                    Responsive, dynamic, self-reliant, and transparent—an environment-friendly cooperative delivering quality service to members and the community.
+                  </p>
+
+                  <div className="mt-6 grid sm:grid-cols-2 gap-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-2.5 h-2.5 rounded-full bg-teal-500 mt-2" />
+                      <div>
+                        <div className="font-semibold text-gray-900 dark:text-gray-100">Service Excellence</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300">Quality at every touchpoint</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-2.5 h-2.5 rounded-full bg-orange-500 mt-2" />
+                      <div>
+                        <div className="font-semibold text-gray-900 dark:text-gray-100">Member Empowerment</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300">Growth through cooperative values</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-                Responsive, dynamic, self-reliant and transparent, environment-friendly cooperative providing quality service to members and community.
-              </p>
             </div>
           </div>
         </FadeIn>
       </section>
+
 
       {/* Core Values Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-gradient-to-b from-amber-50/50 to-transparent dark:from-amber-900/10">
