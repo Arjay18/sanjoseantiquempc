@@ -485,77 +485,112 @@ export default function AboutPage() {
       </section>
 
 
-      {/* Core Values Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-gradient-to-b from-amber-50/50 to-transparent dark:from-amber-900/10">
+      {/* Core Values Section (Improved) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <FadeIn direction="up" delay={1.0}>
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-full mb-4">
-              <Star className="w-5 h-5 text-amber-600 mr-2" />
-              <span className="text-sm font-semibold text-amber-700 dark:text-amber-400">COOPERATIVE VALUES</span>
-            </div>
-            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Our Core Values</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">I-BELONG - The values that unite and guide us</p>
-          </div>
+          <div className="relative">
+            <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-b from-amber-50/60 via-transparent to-transparent dark:from-amber-900/20" />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-gradient-to-br from-orange-100 to-orange-50 dark:from-orange-900/30 dark:to-orange-800/20 rounded-2xl p-6 shadow-lg text-center border-2 border-orange-200 dark:border-orange-700 hover:shadow-xl transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
-                <CheckCircle className="w-7 h-7 text-white" />
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center px-4 py-2 bg-white/70 dark:bg-white/[0.04] backdrop-blur border border-amber-200/70 dark:border-amber-900/40 rounded-full mb-4 shadow-sm">
+                <Star className="w-5 h-5 text-amber-600 mr-2" />
+                <span className="text-sm font-semibold text-amber-800 dark:text-amber-300">I-BELONG VALUES</span>
               </div>
-              <h3 className="font-black text-orange-800 dark:text-orange-300 mb-2 text-lg">INTEGRITY</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Honesty and ethical standards</p>
+              <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Built on Trust. Driven by People.</h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                I-BELONG is the shared set of principles that guide how we serve, govern, and grow together.
+              </p>
             </div>
 
-            <div className="bg-gradient-to-br from-teal-100 to-teal-50 dark:from-teal-900/30 dark:to-teal-800/20 rounded-2xl p-6 shadow-lg text-center border-2 border-teal-200 dark:border-teal-700 hover:shadow-xl transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
-                <Heart className="w-7 h-7 text-white" />
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Integrity */}
+              <div className="group relative overflow-hidden rounded-2xl border border-orange-200/80 dark:border-orange-900/40 bg-gradient-to-b from-orange-50/80 to-white/70 dark:from-orange-900/10 dark:to-white/[0.03] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-orange-500/10 blur-xl" />
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center mb-4 shadow-md">
+                    <CheckCircle className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-black text-orange-800 dark:text-orange-300 text-lg">INTEGRITY</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Honesty, fairness, and ethical conduct.</p>
+                </div>
               </div>
-              <h3 className="font-black text-teal-800 dark:text-teal-300 mb-2 text-lg">BELONGINGNESS</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Community and unity</p>
-            </div>
 
-            <div className="bg-gradient-to-br from-amber-100 to-amber-50 dark:from-amber-900/30 dark:to-amber-800/20 rounded-2xl p-6 shadow-lg text-center border-2 border-amber-200 dark:border-amber-700 hover:shadow-xl transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
-                <Star className="w-7 h-7 text-white" />
+              {/* Belongingness */}
+              <div className="group relative overflow-hidden rounded-2xl border border-teal-200/80 dark:border-teal-900/40 bg-gradient-to-b from-teal-50/80 to-white/70 dark:from-teal-900/10 dark:to-white/[0.03] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-teal-500/10 blur-xl" />
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-4 shadow-md">
+                    <Heart className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-black text-teal-800 dark:text-teal-300 text-lg">BELONGINGNESS</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Community, unity, and shared purpose.</p>
+                </div>
               </div>
-              <h3 className="font-black text-amber-800 dark:text-amber-300 mb-2 text-lg">EQUITY</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Fair treatment for all</p>
-            </div>
 
-            <div className="bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/30 dark:to-green-800/20 rounded-2xl p-6 shadow-lg text-center border-2 border-green-200 dark:border-green-700 hover:shadow-xl transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
-                <Award className="w-7 h-7 text-white" />
+              {/* Equity */}
+              <div className="group relative overflow-hidden rounded-2xl border border-amber-200/80 dark:border-amber-900/40 bg-gradient-to-b from-amber-50/80 to-white/70 dark:from-amber-900/10 dark:to-white/[0.03] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-amber-500/10 blur-xl" />
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center mb-4 shadow-md">
+                    <Star className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-black text-amber-800 dark:text-amber-300 text-lg">EQUITY</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Equal voice and fair treatment for all.</p>
+                </div>
               </div>
-              <h3 className="font-black text-green-800 dark:text-green-300 mb-2 text-lg">LOYALTY</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Unwavering commitment</p>
-            </div>
 
-            <div className="bg-gradient-to-br from-teal-100 to-teal-50 dark:from-teal-900/30 dark:to-teal-800/20 rounded-2xl p-6 shadow-lg text-center border-2 border-teal-200 dark:border-teal-700 hover:shadow-xl transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
-                <Globe className="w-7 h-7 text-white" />
+              {/* Loyalty */}
+              <div className="group relative overflow-hidden rounded-2xl border border-green-200/80 dark:border-green-900/40 bg-gradient-to-b from-green-50/80 to-white/70 dark:from-green-900/10 dark:to-white/[0.03] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-green-500/10 blur-xl" />
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mb-4 shadow-md">
+                    <Award className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-black text-green-800 dark:text-green-300 text-lg">LOYALTY</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Commitment that stands through time.</p>
+                </div>
               </div>
-              <h3 className="font-black text-teal-800 dark:text-teal-300 mb-2 text-lg">OPENNESS</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Transparent communication</p>
-            </div>
 
-            <div className="bg-gradient-to-br from-amber-100 to-amber-50 dark:from-amber-900/30 dark:to-amber-800/20 rounded-2xl p-6 shadow-lg text-center border-2 border-amber-200 dark:border-amber-700 hover:shadow-xl transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
-                <Users className="w-7 h-7 text-white" />
+              {/* Openness */}
+              <div className="group relative overflow-hidden rounded-2xl border border-teal-200/80 dark:border-teal-900/40 bg-gradient-to-b from-teal-50/80 to-white/70 dark:from-teal-900/10 dark:to-white/[0.03] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-teal-500/10 blur-xl" />
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-4 shadow-md">
+                    <Globe className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-black text-teal-800 dark:text-teal-300 text-lg">OPENNESS</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Transparent communication and accountability.</p>
+                </div>
               </div>
-              <h3 className="font-black text-amber-800 dark:text-amber-300 mb-2 text-lg">NOBLENESS</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Dignity and moral excellence</p>
-            </div>
 
-            <div className="bg-gradient-to-br from-orange-100 to-orange-50 dark:from-orange-900/30 dark:to-orange-800/20 rounded-2xl p-6 shadow-lg text-center border-2 border-orange-200 dark:border-orange-700 hover:shadow-xl transition-all">
-              <div className="w-14 h-14 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md">
-                <Heart className="w-7 h-7 text-white" />
+              {/* Nobleness */}
+              <div className="group relative overflow-hidden rounded-2xl border border-amber-200/80 dark:border-amber-900/40 bg-gradient-to-b from-amber-50/80 to-white/70 dark:from-amber-900/10 dark:to-white/[0.03] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-amber-500/10 blur-xl" />
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center mb-4 shadow-md">
+                    <Users className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-black text-amber-800 dark:text-amber-300 text-lg">NOBLENESS</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Dignity, discipline, and moral excellence.</p>
+                </div>
               </div>
-              <h3 className="font-black text-orange-800 dark:text-orange-300 mb-2 text-lg">GENEROSITY</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Freely giving to community</p>
+
+              {/* Generosity */}
+              <div className="group relative overflow-hidden rounded-2xl border border-orange-200/80 dark:border-orange-900/40 bg-gradient-to-b from-orange-50/80 to-white/70 dark:from-orange-900/10 dark:to-white/[0.03] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-orange-500/10 blur-xl" />
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center mb-4 shadow-md">
+                    <Heart className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-black text-orange-800 dark:text-orange-300 text-lg">GENEROSITY</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Freely giving back to the community.</p>
+                </div>
+              </div>
             </div>
           </div>
         </FadeIn>
       </section>
+
 
       {/* Photo Gallery */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
