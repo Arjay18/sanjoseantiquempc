@@ -158,7 +158,7 @@ export default function Navigation() {
                       setAboutDropdownOpen(false);
                       setOnlineDropdownOpen(false);
                       setNewsDropdownOpen(false);
-                    } else if (item.name === 'Online Application') {
+                    } else if (item.name === 'Online PMES') {
                       setOnlineDropdownOpen(true);
                       setAboutDropdownOpen(false);
                       setDropdownOpen(false);
@@ -295,7 +295,7 @@ export default function Navigation() {
               } else if (item.name === 'News') {
                 isOpen = mobileNewsOpen;
                 toggleOpen = () => setMobileNewsOpen(!mobileNewsOpen);
-              } else if (item.name === 'Online Application') {
+              } else if (item.name === 'Online PMES') {
                 isOpen = mobileOnlineOpen;
                 toggleOpen = () => setMobileOnlineOpen(!mobileOnlineOpen);
               }
