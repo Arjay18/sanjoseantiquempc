@@ -95,15 +95,14 @@ export default function Navigation() {
       ]
     },
     {
-      name: 'Online Application',
-      href: '/online-application',
-      dropdown: [
-        { name: 'Online PMES', href: '/online-pmes' },
-      ]
+      name: 'Online PMES',
+      href: '/online-pmes',
     },
+
     { name: 'Contact', href: '/contact' },
     {
       name: 'Coop Login',
+
       href: '/login',
     },
   ];
@@ -175,8 +174,8 @@ export default function Navigation() {
                       setAboutDropdownOpen(false);
                       setBranchesDropdownOpen(false);
                     } else if (item.name === 'Product and Services') setDropdownOpen(false);
-                    else if (item.name === 'Online Application') setOnlineDropdownOpen(false);
                     else if (item.name === 'News') setNewsDropdownOpen(false);
+
                   }}
                 >
                   <Link
@@ -188,8 +187,8 @@ export default function Navigation() {
                   </Link>
                   {((item.name === 'About Us' && aboutDropdownOpen) ||
                     (item.name === 'Product and Services' && dropdownOpen) ||
-                    (item.name === 'Online Application' && onlineDropdownOpen) ||
                     (item.name === 'News' && newsDropdownOpen)) && (
+
                     <div className="absolute left-0 -mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
                       <div className="py-2">
                         {item.dropdown.map((subItem) => (
