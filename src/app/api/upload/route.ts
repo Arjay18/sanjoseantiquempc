@@ -67,6 +67,9 @@ export async function POST(request: Request) {
     console.log('Uploading to Vercel Blob Storage...');
     
     // Upload to Vercel Blob Storage
+    // NOTE: @vercel/blob SDK only supports `access: 'public'`.
+    // To protect member documents, avoid storing them in public blob URLs.
+    // This route should be refactored to store securely or serve via an auth-checked endpoint.
     const blob = await put(file.name, buffer, {
       access: 'public',
       contentType: file.type,
