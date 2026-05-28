@@ -204,84 +204,178 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Story Section */}
+      {/* Our Story Section (Improved) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <FadeIn direction="up" delay={0.6}>
           <div className="text-center mb-12">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500/10 to-teal-500/10 rounded-full mb-4">
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500/10 to-teal-500/10 rounded-full mb-4 border border-orange-200/60 dark:border-orange-700/40">
               <Award className="w-5 h-5 text-orange-600 mr-2" />
               <span className="text-sm font-semibold text-orange-700 dark:text-orange-400">OUR COOPERATIVE JOURNEY</span>
             </div>
-            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">Our Story</h2>
+            <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-4">
+              Our Story, <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-yellow-500 bg-clip-text text-transparent">In Motion</span>
+            </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              A journey of growth, resilience, and community service spanning over six decades
+              From a small circle of founders to a multi-branch cooperative—built on service, resilience, and member empowerment.
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-12">
-              <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-2xl p-8 shadow-lg border-l-4 border-orange-500">
-                <div className="flex items-center mb-4">
-                  <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-full font-bold text-lg shadow-md">1964</div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">The Beginning</h3>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  Father Antony Oomen gathered twenty-eight people to form a Cooperative on 23 February 1964. On 22 September 1964, San Jose Credit Union was born and formally registered with 151 members, total assets of ₱4,392.47, and share capital of ₱4,288.00.
-                </p>
-                <p className="text-gray-600 dark:text-gray-300">
-                  The Roman Catholic Diocese of San Jose de Antique, under Bishop Cornelio De Wit, conducted a province-wide campaign, establishing cooperatives in every parish.
-                </p>
-              </div>
+          <div className="max-w-5xl mx-auto">
+            {/* Timeline */}
+            <div className="relative">
+              {/* center line */}
+              <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-orange-400/60 via-teal-400/40 to-transparent" />
 
-              <div className="bg-gradient-to-br from-teal-50 to-green-50 dark:from-teal-900/20 dark:to-green-900/20 rounded-2xl p-8 shadow-lg border-l-4 border-teal-500">
-                <div className="flex items-center mb-4">
-                  <div className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-4 py-2 rounded-full font-bold text-lg shadow-md">1975</div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">Re-registration & Growth</h3>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300">
-                  On 5 May 1975, the San Jose Credit Union was re-registered as San Jose Credit Cooperative, Inc. (SJCCI). The old bowling alley near the San Jose Parish Convento was converted into an office building, which the Cooperative occupied for 19 years.
-                </p>
-              </div>
+              <div className="space-y-8 md:space-y-10">
+                {/* 1964 */}
+                <div className="relative grid md:grid-cols-12 gap-6 items-start">
+                  <div className="md:col-span-5 md:text-right">
+                    <div className="inline-flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-md">
+                        <span className="text-white font-black">64</span>
+                      </div>
+                      <div className="text-left">
+                        <div className="text-sm font-semibold text-orange-700 dark:text-orange-300">1964</div>
+                        <div className="text-xl font-bold text-gray-900 dark:text-gray-100">The Beginning</div>
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 rounded-2xl p-8 shadow-lg border-l-4 border-amber-500">
-                <div className="flex items-center mb-4">
-                  <div className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-full font-bold text-lg shadow-md">1995</div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">Multi-Purpose Era</h3>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300">
-                  SJCCI was renamed and registered with the Cooperative Development Authority (CDA) as San Jose Multi-Purpose Cooperative (SJMPC), opening its multi-purpose program for growing members and relocating to the Municipal Building.
-                </p>
-              </div>
+                  <div className="md:col-span-2">
+                    <div className="absolute left-1/2 -translate-x-1/2 top-6 w-3.5 h-3.5 rounded-full bg-orange-500 shadow-[0_0_0_6px_rgba(249,115,22,0.15)]" />
+                  </div>
 
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-8 shadow-lg border-l-4 border-green-500">
-                <div className="flex items-center mb-4">
-                  <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full font-bold text-lg shadow-md">2000</div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">Community Programs & Housing</h3>
+                  <div className="md:col-span-5">
+                    <div className="rounded-2xl p-7 border border-orange-200/70 dark:border-orange-900/40 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/10 shadow-sm">
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                        Father Antony Oomen gathered twenty-eight people to form a Cooperative on 23 February 1964.
+                        On 22 September 1964, San Jose Credit Union was born and formally registered with 151 members,
+                        total assets of <span className="font-semibold">₱4,392.47</span>, and share capital of <span className="font-semibold">₱4,288.00</span>.
+                      </p>
+                      <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
+                        The Roman Catholic Diocese of San Jose de Antique, under Bishop Cornelio De Wit, conducted a province-wide campaign,
+                        establishing cooperatives in every parish.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  SJMPC initiated the Coop Bulig Eskwela Scholars program, starting with 7 beneficiaries to provide financial assistance for education.
-                </p>
-                <p className="text-gray-600 dark:text-gray-300">
-                  In its Ruby Jubilee Year, the Cooperative acquired 9,368 sq.m in Barangay San Fernando for the Coop Ruby Jubilee Village, providing housing to 62 members.
-                </p>
-              </div>
 
-              <div className="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-2xl p-8 shadow-lg border-l-4 border-orange-600">
-                <div className="flex items-center mb-4">
-                  <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-4 py-2 rounded-full font-bold text-lg shadow-md">2007</div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white ml-4">Permanent Home & Expansion</h3>
+                {/* 1975 */}
+                <div className="relative grid md:grid-cols-12 gap-6 items-start">
+                  <div className="md:col-span-5 md:text-right">
+                    <div className="inline-flex items-center gap-3 md:justify-end">
+                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-md">
+                        <span className="text-white font-black">75</span>
+                      </div>
+                      <div className="text-left">
+                        <div className="text-sm font-semibold text-teal-700 dark:text-teal-300">1975</div>
+                        <div className="text-xl font-bold text-gray-900 dark:text-gray-100">Re-registration & Growth</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="md:col-span-2">
+                    <div className="absolute left-1/2 -translate-x-1/2 top-6 w-3.5 h-3.5 rounded-full bg-teal-500 shadow-[0_0_0_6px_rgba(20,184,166,0.15)]" />
+                  </div>
+                  <div className="md:col-span-5">
+                    <div className="rounded-2xl p-7 border border-teal-200/70 dark:border-teal-900/40 bg-gradient-to-br from-teal-50 to-green-50 dark:from-teal-900/20 dark:to-green-900/10 shadow-sm">
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                        On 5 May 1975, the San Jose Credit Union was re-registered as San Jose Credit Cooperative, Inc. (SJCCI).
+                        The old bowling alley near the San Jose Parish Convento was converted into an office building,
+                        which the Cooperative occupied for 19 years.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  In September 2007, the Cooperative established its permanent home at Trade Town, Dalipe, San Jose de Buenavista through a Usufruct Agreement.
-                </p>
-                <p className="text-gray-600 dark:text-gray-300">
-                  From 151 members in 1964, SJMPC's membership reached over 15,000 members with satellite offices in Miag-ao, Oton, and Guimaras.
-                </p>
+
+                {/* 1995 */}
+                <div className="relative grid md:grid-cols-12 gap-6 items-start">
+                  <div className="md:col-span-5 md:text-right">
+                    <div className="inline-flex items-center gap-3 md:justify-end">
+                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-md">
+                        <span className="text-white font-black">95</span>
+                      </div>
+                      <div className="text-left">
+                        <div className="text-sm font-semibold text-amber-700 dark:text-amber-300">1995</div>
+                        <div className="text-xl font-bold text-gray-900 dark:text-gray-100">Multi-Purpose Era</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="md:col-span-2">
+                    <div className="absolute left-1/2 -translate-x-1/2 top-6 w-3.5 h-3.5 rounded-full bg-amber-500 shadow-[0_0_0_6px_rgba(245,158,11,0.15)]" />
+                  </div>
+                  <div className="md:col-span-5">
+                    <div className="rounded-2xl p-7 border border-amber-200/70 dark:border-amber-900/40 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/10 shadow-sm">
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                        SJCCI was renamed and registered with the Cooperative Development Authority (CDA) as San Jose Multi-Purpose Cooperative (SJMPC),
+                        opening its multi-purpose program for growing members and relocating to the Municipal Building.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2000 */}
+                <div className="relative grid md:grid-cols-12 gap-6 items-start">
+                  <div className="md:col-span-5 md:text-right">
+                    <div className="inline-flex items-center gap-3 md:justify-end">
+                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-md">
+                        <span className="text-white font-black">00</span>
+                      </div>
+                      <div className="text-left">
+                        <div className="text-sm font-semibold text-green-700 dark:text-green-300">2000</div>
+                        <div className="text-xl font-bold text-gray-900 dark:text-gray-100">Community Programs & Housing</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="md:col-span-2">
+                    <div className="absolute left-1/2 -translate-x-1/2 top-6 w-3.5 h-3.5 rounded-full bg-green-500 shadow-[0_0_0_6px_rgba(34,197,94,0.15)]" />
+                  </div>
+                  <div className="md:col-span-5">
+                    <div className="rounded-2xl p-7 border border-green-200/70 dark:border-green-900/40 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/10 shadow-sm">
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                        SJMPC initiated the Coop Bulig Eskwela Scholars program, starting with 7 beneficiaries to provide financial assistance for education.
+                      </p>
+                      <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
+                        In its Ruby Jubilee Year, the Cooperative acquired 9,368 sq.m in Barangay San Fernando for the Coop Ruby Jubilee Village,
+                        providing housing to 62 members.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2007 */}
+                <div className="relative grid md:grid-cols-12 gap-6 items-start">
+                  <div className="md:col-span-5 md:text-right">
+                    <div className="inline-flex items-center gap-3 md:justify-end">
+                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center shadow-md">
+                        <span className="text-white font-black">07</span>
+                      </div>
+                      <div className="text-left">
+                        <div className="text-sm font-semibold text-orange-700 dark:text-orange-300">2007</div>
+                        <div className="text-xl font-bold text-gray-900 dark:text-gray-100">Permanent Home & Expansion</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="md:col-span-2">
+                    <div className="absolute left-1/2 -translate-x-1/2 top-6 w-3.5 h-3.5 rounded-full bg-orange-600 shadow-[0_0_0_6px_rgba(234,88,12,0.15)]" />
+                  </div>
+                  <div className="md:col-span-5">
+                    <div className="rounded-2xl p-7 border border-orange-200/70 dark:border-orange-900/40 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/10 shadow-sm">
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                        In September 2007, the Cooperative established its permanent home at Trade Town, Dalipe,
+                        San Jose de Buenavista through a Usufruct Agreement.
+                      </p>
+                      <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
+                        From 151 members in 1964, SJMPC's membership reached over 15,000 members with satellite offices in Miag-ao, Oton, and Guimaras.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </FadeIn>
       </section>
+
 
       {/* Mission & Vision Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
