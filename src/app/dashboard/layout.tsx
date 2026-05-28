@@ -3,6 +3,7 @@
 import "../globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import UserHeader from "./UserHeader";
+import MemberPortalLayout from "@/components/members/MemberPortalLayout";
 
 export default function DashboardLayout({
   children,
@@ -18,9 +19,7 @@ export default function DashboardLayout({
           <div className="flex min-h-screen flex-col">
             <UserHeader />
             <main className="flex-grow pt-0 bg-gray-50">
-              <div className="w-full px-0">
-                {children}
-              </div>
+              <MemberPortalLayout>{children}</MemberPortalLayout>
             </main>
           </div>
         </AuthProvider>
@@ -28,3 +27,4 @@ export default function DashboardLayout({
     </html>
   );
 }
+
