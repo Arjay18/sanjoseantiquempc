@@ -9,10 +9,13 @@ export default function OnlineApplicationPage() {
         <h1 className="text-3xl sm:text-4xl font-extrabold text-blue-900 uppercase tracking-tight">
           Online Loan Application
         </h1>
+
         <p className="mt-3 text-lg text-gray-500">
-          The online application form is currently unavailable.
+          Online PMES is currently unavailable. Please use the Online Application form instead.
         </p>
+
       </div>
+
 
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden p-8">
         <div className="text-gray-700 text-base leading-relaxed">
