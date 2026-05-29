@@ -46,10 +46,11 @@ export default function EvaluationForm() {
               onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
             >
               <option value="">-- Select --</option>
-              <option value="San Jose">San Jose</option>
-              <option value="Miagao">Miagao</option>
-              <option value="Oton">Oton</option>
-              <option value="Guimaras">Guimaras</option>
+              <option value="Admin">Admin</option>
+              <option value="Accounting">Accounting</option>
+              <option value="Cash">Cash</option>
+              <option value="Loan">Loan</option>
+              <option value="Marketing">Marketing</option>
             </select>
           </div>
 
