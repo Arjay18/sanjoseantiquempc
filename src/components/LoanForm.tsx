@@ -29,6 +29,8 @@ export default function LoanForm() {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const [formData, setFormData] = useState<LoanFormData>({
     name: "",
     email: "",
@@ -85,14 +87,24 @@ export default function LoanForm() {
       };
 
       // Backend expects { formData: {...} }
+      setErrorMessage(null);
       const res = await fetch("/api/loan-applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ formData: payload }),
       });
 
-      if (!res.ok) throw new Error("Failed to submit");
-      
+      if (!res.ok) {
+        let data: any = null;
+        try {
+          data = await res.json();
+        } catch {
+          // ignore
+        }
+        setErrorMessage(data?.details || data?.error || `Request failed (${res.status})`);
+        throw new Error("Failed to submit");
+      }
+
       setSubmitted(true);
     } catch (error) {
       console.error("Submission failed", error);
