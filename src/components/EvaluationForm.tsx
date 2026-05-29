@@ -47,7 +47,6 @@ export default function EvaluationForm() {
               onChange={(e) => setFormData({ ...formData, officeSection: e.target.value })}
             />
           </div>
-          </div>
 
           <div className="flex flex-col">
             <label className="font-medium mb-1">DATE</label>
