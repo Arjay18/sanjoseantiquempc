@@ -84,10 +84,11 @@ export default function LoanForm() {
         memberIncome: parseFloat(formData.memberIncome) || 0,
       };
 
+      // Backend expects { formData: {...} }
       const res = await fetch("/api/loan-applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ formData: payload }),
       });
 
       if (!res.ok) throw new Error("Failed to submit");
