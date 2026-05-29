@@ -1,42 +1,30 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
-const questions = [
-  { id: 'q1', text: '1. Klaro ang katuyuan' },
-  { id: 'q2', text: '2. Nalambot ang tinutuyo' },
-  { id: 'q3', text: '3. May sistema sa pagtugro kang aktibidades' },
-  { id: 'q4', text: '4. Pagkaun/pamahaw' },
-  { id: 'q5', text: '5. Kaduruhon kang nagtambong' },
-  { id: 'q6', text: '6. Partisipasyon kang nagtambong' },
-  { id: 'q7', text: '7. Mga speakers' },
-  { id: 'q8', text: '8. Venue ukon lugar' },
-  { id: 'q9', text: '9. Ang imo baratyagun sa amo dya nga hirikuton' },
-];
-
-const options = [
-  { label: 'Very satisfied', value: 5 },
-  { label: 'Satisfied', value: 4 },
-  { label: 'Neutral', value: 3 },
-  { label: 'Unsatisfied', value: 2 },
-  { label: 'Very unsatisfied', value: 1 },
+const ratingOptions = [
+  { value: 1, label: 'Dissastified' },
+  { value: 2, label: 'Somewhat Satisfied' },
+  { value: 3, label: 'Satisfied' },
+  { value: 4, label: 'Very Satisfied' },
 ];
 
 export default function EvaluationForm() {
+
+
   const [formData, setFormData] = useState({
-    name: '', gender: '', activity: '', venue: '', date: '', time: '',
-    ratings: {} as Record<string, number>,
-    comments: ''
+    branch: '',
+    officeSection: '',
+    date: '',
+    name: '',
+    rating: 0,
+    remarks: ''
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch('/api/evaluation', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-    if (response.ok) alert('Salamat sa pagpartisipar!');
+    // Endpoint not implemented yet; keep UI functional.
+    alert('Salamat sa pagpartisipar!');
   };
 
   return (
@@ -50,83 +38,90 @@ export default function EvaluationForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Top Info Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex items-center space-x-2">
-            <label className="whitespace-nowrap font-medium">Name (optional):</label>
-            <input type="text" className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green" 
-              onChange={e => setFormData({...formData, name: e.target.value})} />
+          <div className="flex flex-col">
+            <label className="font-medium mb-1">Select a Branch</label>
+            <input
+              type="text"
+              className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green"
+              value={formData.branch}
+              onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
+            />
           </div>
-          <div className="flex items-center space-x-2">
-            <label className="font-medium">Gender:</label>
-            <input type="text" className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green" 
-              onChange={e => setFormData({...formData, gender: e.target.value})} />
+
+          <div className="flex flex-col">
+            <label className="font-medium mb-1">OFFICE/SECTION</label>
+            <input
+              type="text"
+              className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green"
+              value={formData.officeSection}
+              onChange={(e) => setFormData({ ...formData, officeSection: e.target.value })}
+            />
           </div>
-          <div className="flex items-center space-x-2">
-            <label className="font-medium">Activity:</label>
-            <input type="text" required className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green" 
-              onChange={e => setFormData({...formData, activity: e.target.value})} />
+
+          <div className="flex flex-col">
+            <label className="font-medium mb-1">DATE</label>
+            <input
+              type="date"
+              className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green"
+              value={formData.date}
+              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+            />
           </div>
-          <div className="flex items-center space-x-2">
-            <label className="font-medium">Lugar/Venue:</label>
-            <input type="text" required className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green" 
-              onChange={e => setFormData({...formData, venue: e.target.value})} />
-          </div>
-          <div className="flex items-center space-x-2">
-            <label className="font-medium">Date:</label>
-            <input type="date" className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green" 
-              onChange={e => setFormData({...formData, date: e.target.value})} />
-          </div>
-          <div className="flex items-center space-x-2">
-            <label className="font-medium">Time:</label>
-            <input type="time" className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green" 
-              onChange={e => setFormData({...formData, time: e.target.value})} />
+
+          <div className="flex flex-col">
+            <label className="font-medium mb-1">Name (Optional)</label>
+            <input
+              type="text"
+              className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            />
           </div>
         </div>
 
-        <p className="italic text-sm text-gray-700 mt-6">
-          Instruction: Butangan kang tsek ( √ ) ang hitsura nga nagasanto sa imo nakita o nabatyagan.
-        </p>
+        {/* Ratings */}
+        <div className="mt-6">
+          <p className="font-bold">Kindly rate your experience with the services availed. Please rate your experience with the services availed</p>
 
-        {/* Ratings Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="p-2 border font-semibold">Aspects</th>
-                {options.map(opt => (
-                  <th key={opt.value} className="p-2 border text-center text-xs font-semibold">{opt.label}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {questions.map((q) => (
-                <tr key={q.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="p-3 border text-sm">{q.text}</td>
-                  {options.map(opt => (
+
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-50">
+                  <th className="p-2 border font-semibold">(check the box)</th>
+                  <th className="p-2 border text-center text-xs font-semibold">1 Dissastified</th>
+                  <th className="p-2 border text-center text-xs font-semibold">2 Somewhat Satisfied</th>
+                  <th className="p-2 border text-center text-xs font-semibold">3 Satisfied</th>
+                  <th className="p-2 border text-center text-xs font-semibold">4 Very Satisfied</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="p-3 border text-sm font-medium"> </td>
+                  {ratingOptions.map((opt) => (
                     <td key={opt.value} className="p-3 border text-center">
-                      <input 
-                        type="radio" 
-                        name={q.id} 
-                        required
+                      <input
+                        type="checkbox"
                         className="w-5 h-5 accent-brand-green cursor-pointer"
-                        onChange={() => setFormData({
-                          ...formData, 
-                          ratings: { ...formData.ratings, [q.id]: opt.value }
-                        })}
+                        checked={formData.rating === opt.value}
+                        onChange={() => setFormData({ ...formData, rating: opt.value })}
                       />
+                      <div className="text-[10px] text-gray-500 mt-1">{opt.label}</div>
                     </td>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        {/* Comments Section */}
+        {/* Remarks */}
         <div className="mt-6">
-          <label className="block font-bold mb-2">Komento/ Suhestyon</label>
-          <textarea 
+          <label className="block font-bold mb-2">REMARKS/COMMENTS/SUGGESTIONS</label>
+          <textarea
             className="w-full border-2 border-gray-200 p-3 rounded-md focus:border-brand-green focus:outline-none h-32"
-            onChange={e => setFormData({...formData, comments: e.target.value})}
+            value={formData.remarks}
+            onChange={(e) => setFormData({ ...formData, remarks: e.target.value })}
           />
         </div>
 
@@ -134,7 +129,7 @@ export default function EvaluationForm() {
           <p className="text-xs text-gray-500 italic max-w-xs">
             Reminder: Ang kaundan kang dya nga formas para lang sa SJMPC kag ginasiguro nga confidential.
           </p>
-          <button 
+          <button
             type="submit"
             className="bg-brand-green text-brand-white px-8 py-3 rounded-full font-bold hover:bg-opacity-90 transition-all shadow-md active:scale-95"
           >
