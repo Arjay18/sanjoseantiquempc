@@ -40,12 +40,17 @@ export default function EvaluationForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col">
             <label className="font-medium mb-1">Select a Branch</label>
-            <input
-              type="text"
-              className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green"
+            <select
+              className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green bg-transparent"
               value={formData.branch}
               onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
-            />
+            >
+              <option value="">-- Select --</option>
+              <option value="San Jose">San Jose</option>
+              <option value="Miagao">Miagao</option>
+              <option value="Oton">Oton</option>
+              <option value="Guimaras">Guimaras</option>
+            </select>
           </div>
 
           <div className="flex flex-col">
