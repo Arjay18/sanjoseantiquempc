@@ -56,12 +56,18 @@ export default function EvaluationForm() {
 
           <div className="flex flex-col">
             <label className="font-medium mb-1">OFFICE/SECTION</label>
-            <input
-              type="text"
-              className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green"
+            <select
+              className="border-b border-gray-400 w-full focus:outline-none focus:border-brand-green bg-transparent"
               value={formData.officeSection}
               onChange={(e) => setFormData({ ...formData, officeSection: e.target.value })}
-            />
+            >
+              <option value="">-- Select --</option>
+              <option value="Admin">Admin</option>
+              <option value="Accounting">Accounting</option>
+              <option value="Cash">Cash</option>
+              <option value="Loan">Loan</option>
+              <option value="Marketing">Marketing</option>
+            </select>
           </div>
 
           <div className="flex flex-col">
