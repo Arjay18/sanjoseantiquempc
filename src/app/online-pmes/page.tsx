@@ -173,18 +173,7 @@ export default function OnlinePMES() {
           </p>
         </div>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          {stats.map((stat, index) => (
-            <div key={index} className="bg-white/60 backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-white/30 hover:bg-white/70 transition-all duration-300 group">
-              <div className={`w-12 h-12 bg-gradient-to-r ${stat.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <stat.icon className="w-6 h-6 text-white" />
-              </div>
-              <div className="text-3xl font-black text-gray-900 mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+
 
         {/* Navigation Tabs */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
