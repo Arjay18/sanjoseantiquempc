@@ -102,7 +102,7 @@ export default function Navigation() {
     { name: 'Contact', href: '/contact' },
     {
       name: 'Coop Login',
-      href: pathname === '/not-found' ? '/not-found' : '/login',
+      href: '/not-found',
     },
   ];
 
