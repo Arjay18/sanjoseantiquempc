@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FadeIn, StaggerContainer, StaggerItem } from '@/components/animations/FadeIn';
+import { FadeIn } from '@/components/animations/FadeIn';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -15,7 +15,6 @@ const services = [
     title: "Loan Services",
     subtitle: "Flexible Financing Solutions",
     description: "Comprehensive loan solutions including business loans, housing loans, and agricultural financing to support your financial goals and dreams.",
-    image: "/images/540980295_10235369655438843_7551540348210928825_n.jpg",
     link: "/loan-packages",
     color: "blue",
     features: ["Business Loans", "Housing Loans", "Agricultural Loans", "Quick Approval"],
@@ -26,7 +25,6 @@ const services = [
     title: "Savings Products",
     subtitle: "Secure Your Future",
     description: "Build wealth and achieve financial stability with our diverse savings products designed to grow your money safely and steadily.",
-    image: "/images/583336515_1358093772463317_512346541910271086_n.jpg",
     link: "/savings-product",
     color: "yellow",
     features: ["Regular Savings", "Time Deposits", "Special Savings", "High Interest Rates"],
@@ -37,7 +35,7 @@ const services = [
     title: "Insurance Services",
     subtitle: "Protection & Security",
     description: "Comprehensive insurance coverage tailored for cooperative members, protecting your family, assets, and business interests.",
-    image: "/images/584711177_10236308089939119_4315614434674993906_n.jpg",
+
 
     link: "/services",
     color: "purple",
@@ -203,24 +201,33 @@ export default function ServicesShowcase() {
                         </div>
                       )}
 
-                      {/* Image */}
+                      {/* Image removed - keep layout with gradient block */}
                       <div className="relative h-52 md:h-56 w-full overflow-hidden">
-                        <img
-                          src={service.image}
-                          alt={service.title}
-                          className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-black/5 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-transparent" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <svg
+                            className="w-12 h-12 text-white/80"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M21 15a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+                            <path d="M8 7h8" />
+                            <path d="M8 11h5" />
+                          </svg>
+                        </div>
                       </div>
+
 
                       {/* Header */}
                       <div className="p-8 pb-6">
-
-                      <div className="flex items-start justify-between mb-6">
-                        <div className="text-right w-full" aria-hidden="true">
-                          
+                        <div className="flex items-start justify-between mb-6">
+                          <div className="text-right w-full" aria-hidden="true" />
                         </div>
-                      </div>
 
                         <div className="mb-4">
                           <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
