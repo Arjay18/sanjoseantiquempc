@@ -43,7 +43,7 @@ export default function AssistanceProcess() {
         <div className="grid lg:grid-cols-2 gap-10 items-start">
           <FadeIn direction="up" delay={0.4}>
             <div className="relative rounded-3xl overflow-hidden shadow-xl border border-blue-100 bg-white">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-blue-500/10" />
+              <div className="absolute inset-0 bg-transparent" />
               <div className="relative p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center">
