@@ -109,7 +109,11 @@ export default function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm border-b border-gray-100">
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10">
-        <div className="flex justify-between items-center h-16">
+      <div className="flex justify-between items-center h-16">
+          {/* Ensure Coop Login cannot navigate away from 404 */}
+          {pathname === '/not-found' && (
+            <style>{`a[href="/login"], a[href="/login?from=not-found"], a[href="/login?from=not-found"]{pointer-events:none !important;}`}</style>
+          )}
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center space-x-3">
