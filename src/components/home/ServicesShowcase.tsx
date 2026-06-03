@@ -178,26 +178,16 @@ export default function ServicesShowcase() {
                         </div>
                       )}
 
-                      {/* Image removed - keep layout with gradient block */}
+                      {/* Image */}
                       <div className="relative h-52 md:h-56 w-full overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-black/5 to-transparent" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/0 to-transparent" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <svg
-                            className="w-12 h-12 text-white/80"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M21 15a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
-                            <path d="M8 7h8" />
-                            <path d="M8 11h5" />
-                          </svg>
-                        </div>
+                        <img
+                          src={service.image}
+                          alt={service.title}
+                          className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
                       </div>
+
 
 
                       {/* Header */}
