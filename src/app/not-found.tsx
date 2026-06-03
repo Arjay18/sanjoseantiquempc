@@ -29,7 +29,8 @@ export default function NotFound() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            href="/login"
+            href="/not-found"
+
             className="inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300"
           >
             Coop Login
