@@ -8,8 +8,10 @@ import Testimonials from "@/components/home/Testimonials";
 import PMESSchedule from "@/components/home/PMESSchedule";
 import HowToBecomeMember from "@/components/home/HowToBecomeMember";
 import ServicesShowcase from "@/components/home/ServicesShowcase";
+import AssistanceProcess from "@/components/home/AssistanceProcess";
 
 import { FadeIn } from "@/components/animations/FadeIn";
+
 
 export default function Home() {
   return (
@@ -43,10 +45,14 @@ export default function Home() {
         </FadeIn>
 
         <FadeIn direction="up" delay={1.6}>
-          <PMESSchedule />
+          <AssistanceProcess />
         </FadeIn>
 
         <FadeIn direction="up" delay={1.8}>
+          <PMESSchedule />
+        </FadeIn>
+
+        <FadeIn direction="up" delay={2.0}>
           <ContactForm />
         </FadeIn>
       </div>
