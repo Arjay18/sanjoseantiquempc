@@ -49,25 +49,20 @@ export default function NotFound() {
             The Members Portal is currently under preparation.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/login?from=not-found"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg shadow-blue-600/20"
-            >
-              Coop Login
-              <svg className="w-5 h-5 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14" />
-                <path d="M13 5l7 7-7 7" />
-              </svg>
-            </Link>
 
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/"
               className="inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-all duration-300 border border-slate-200"
             >
               Back to Home
             </Link>
+
+            <div className="flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-slate-500 bg-white/60 border border-slate-200/70">
+              <span className="animate-pulse">Coming soon</span>
+            </div>
           </div>
+
 
           <div className="mt-8 text-xs text-slate-500">
             If you need assistance, please contact our office.
