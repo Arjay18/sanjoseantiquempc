@@ -135,10 +135,11 @@ export default function HomeSlider() {
               >
                 <div className="absolute inset-0">
                   {slide.image.startsWith('http') ? (
-                    <img
+                      <img
                       src={slide.image}
                       alt={`Slide ${index + 1}`}
-                      className="w-full h-full object-cover cursor-pointer"
+                      className="w-full h-full object-contain cursor-pointer bg-white"
+
                       onClick={handleSlideClick}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
