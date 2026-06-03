@@ -2,8 +2,10 @@
 
 import { Crown, Shield, Users, BookOpen, Award, Heart, FileText, Settings, Target, UserCheck, Briefcase, Calculator, DollarSign, TrendingUp, Megaphone } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HeadOfficeManagementStaffPage() {
+
 
   const staffData = {
     mainOffice: [
