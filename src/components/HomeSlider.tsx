@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { ChevronLeft, ChevronRight, Play, Pause, ArrowRight, CheckCircle, Shield, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 
 interface Announcement {
   id: string;
@@ -18,30 +17,16 @@ interface Announcement {
 interface Slide {
   image: string;
   link: string | null;
-  title?: string;
-  description?: string;
 }
 
 const defaultSlides: Slide[] = [
-  { image: '/slider/slide1.jpg', link: '/online-application', title: 'Apply for a Loan', description: 'Get the financial support you need' },
-  { image: '/slider/slide2.jpg', link: '/loan-packages', title: 'Loan Packages', description: 'Choose the best loan for you' },
-  { image: '/slider/slide3.jpg', link: '/savings-product', title: 'Savings Products', description: 'Grow your savings with us' },
-  { image: '/slider/slide4.jpg', link: '/about', title: 'About Us', description: 'Learn more about SJMPC' },
-  { image: '/slider/slide5.jpg', link: '/news', title: 'Latest News', description: 'Stay updated with our news' },
-  { image: '/slider/slide6.jpg', link: '/services', title: 'Our Services', description: 'Discover what we offer' },
-  { image: '/slider/slide7.jpg', link: '/about', title: 'Join Our Cooperative', description: 'Become a member today' },
-];
-
-const leftFeatures = [
-  { icon: Shield, text: 'Secure & Reliable' },
-  { icon: CheckCircle, text: 'Trusted Service' },
-  { icon: Clock, text: '24/7 Support' },
-];
-
-const rightFeatures = [
-  { icon: CheckCircle, text: 'Fast Approval' },
-  { icon: Shield, text: 'Low Interest Rates' },
-  { icon: Clock, text: 'Flexible Terms' },
+  { image: '/slider/1.jpg', link: '/online-application' },
+  { image: '/slider/2.jpg', link: '/loan-packages' },
+  { image: '/slider/1.jpg', link: '/savings-product' },
+  { image: '/slider/2.jpg', link: '/about' },
+  { image: '/slider/1.jpg', link: '/news' },
+  { image: '/slider/2.jpg', link: '/services' },
+  { image: '/slider/1.jpg', link: '/about' },
 ];
 
 export default function HomeSlider() {
@@ -51,6 +36,7 @@ export default function HomeSlider() {
   const [loading, setLoading] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
+  // Fetch announcements and only override slide links/images by index.
   useEffect(() => {
     async function fetchAnnouncements() {
       try {
@@ -64,17 +50,14 @@ export default function HomeSlider() {
 
         if (active.length === 0) return;
 
-        // IMPORTANT: always keep the 7 local slider images.
-        // API can only override titles/descriptions/links by index.
         setSlides((prev) => {
-          const next = [...defaultSlides];
+          const next = [...prev];
           for (let i = 0; i < next.length; i++) {
             const a = active[i];
             if (!a) break;
             next[i] = {
               ...next[i],
-              title: (a as any).title || next[i].title,
-              description: (a as any).description || next[i].description,
+              image: a.image || next[i].image,
               link: a.buttonLink || next[i].link,
             };
           }
@@ -92,7 +75,7 @@ export default function HomeSlider() {
 
   useEffect(() => {
     if (!isAutoPlaying || loading) return;
-    
+
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 6000);
@@ -116,14 +99,12 @@ export default function HomeSlider() {
   };
 
   const toggleAutoPlay = () => {
-    setIsAutoPlaying(!isAutoPlaying);
+    setIsAutoPlaying((v) => !v);
   };
 
   const handleSlideClick = () => {
     const currentLink = slides[currentSlide]?.link;
-    if (currentLink) {
-      window.location.href = currentLink;
-    }
+    if (currentLink) window.location.href = currentLink;
   };
 
   if (loading) {
@@ -132,7 +113,7 @@ export default function HomeSlider() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="relative h-[400px] md:h-[500px] lg:h-[600px] bg-gradient-to-br from-green-900 via-green-800 to-green-900 rounded-2xl overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white" />
             </div>
           </div>
         </div>
@@ -143,156 +124,114 @@ export default function HomeSlider() {
   return (
     <div className="w-full bg-white">
       <div className="w-full">
-        <div className="relative w-full bg-white overflow-hidden">
-          <style jsx>{`
-            /* Make the slider full-width like News hero */
-            .home-slider-full-width img,
-            .home-slider-full-width svg {
-              width: 100%;
-            }
-          `}</style>
-          
-          {/* Main Slider Container */}
-          <div 
+        <div className="relative w-full bg-white overflow-hidden rounded-2xl">
+          <div
             className="relative w-full h-[350px] md:h-[450px] lg:h-[550px]"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {/* Main Content Area */}
-            <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-green-800 to-green-900 rounded-xl">
-
-
-              {/* Slides */}
-              {slides.map((slide, index) => (
-                <div
-                  key={index}
-                  className={`absolute inset-0 transition-all duration-700 ${
-                    index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                  }`}
-                >
-                  {/* Background Image */}
-                  <div className="absolute inset-0">
-                    {slide.image.startsWith('http') ? (
-                      <img
-                        src={slide.image}
-                        alt={slide.title || `Slide ${index + 1}`}
-                        className="w-full h-full object-cover cursor-pointer bg-green-900/50"
-                        onClick={handleSlideClick}
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/slider/slide1.jpg';
-                        }}
-                      />
-                    ) : (
-                      <Image
-                        src={slide.image}
-                        alt={slide.title || `Slide ${index + 1}`}
-                        fill
-                        className="object-cover cursor-pointer"
-                        priority={index === 0}
-                        onClick={handleSlideClick}
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/slider/slide1.jpg';
-                        }}
-                      />
-                    )}
-                  </div>
-
-                  {/* Gradient Overlay (lighter on left) */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/5 to-transparent" />
-
-                  {/* Right-side dark gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-l from-black/95 via-black/55 to-transparent" />
-                  
-                  {/* Content Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-end z-10 pr-6 md:pr-10 lg:pr-14 px-4">
-                    <div className={`text-left text-white max-w-4xl px-4 transition-all duration-500 transform ${
-                      index === currentSlide ? 'translate-y-0 opacity-100 -translate-x-2' : 'translate-y-10 opacity-0 -translate-x-2'
-                    }`}
-                    >
-
-                      {slide.title && (
-                        <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg tracking-tight">
-                          {slide.title}
-                        </h2>
-                      )}
-                      {slide.description && (
-                        <p className="text-md md:text-lg lg:text-xl mb-6 drop-shadow-md opacity-90">
-                          {slide.description}
-                        </p>
-                      )}
-                      {slide.link && (
-                        <Link
-                          href={slide.link}
-                          className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-green-900 transition-all duration-300 transform hover:scale-105"
-                        >
-                          Learn More
-                          <ArrowRight className="ml-2 w-4 h-4" />
-                        </Link>
-                      )}
-                    </div>
-                  </div>
+            {/* Slides (images only; no caption, no gradient overlay) */}
+            {slides.map((slide, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-all duration-700 ${
+                  index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              >
+                <div className="absolute inset-0">
+                  {slide.image.startsWith('http') ? (
+                    <img
+                      src={slide.image}
+                      alt={`Slide ${index + 1}`}
+                      className="w-full h-full object-cover cursor-pointer"
+                      onClick={handleSlideClick}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/slider/1.jpg';
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      src={slide.image}
+                      alt={`Slide ${index + 1}`}
+                      fill
+                      className="object-cover cursor-pointer"
+                      priority={index === 0}
+                      onClick={handleSlideClick}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/slider/1.jpg';
+                      }}
+                    />
+                  )}
                 </div>
-              ))}
+              </div>
+            ))}
 
-              {/* Navigation Arrows */}
-              {slides.length > 1 && (
-                <>
-                  <button
-                    onClick={prevSlide}
-                    className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/40 hover:scale-110 transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                    aria-label="Previous slide"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={nextSlide}
-                    className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/40 hover:scale-110 transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                    aria-label="Next slide"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </>
-              )}
+            {/* Navigation Arrows */}
+            {slides.length > 1 && (
+              <>
+                <button
+                  onClick={prevSlide}
+                  className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/40 hover:scale-110 transition-all duration-300 ${
+                    isHovered ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  aria-label="Previous slide"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/40 hover:scale-110 transition-all duration-300 ${
+                    isHovered ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  aria-label="Next slide"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
 
-              {/* Dots Navigation */}
-              {slides.length > 1 && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
-                  <div className="flex gap-2">
-                    {slides.map((slide, index) => (
-                      <button
-                        key={index}
-                        onClick={() => goToSlide(index)}
-                        className="relative group"
-                        aria-label={`Go to slide ${index + 1}`}
-                      >
-                        <div className={`h-2 rounded-full transition-all duration-300 ${
+            {/* Dots Navigation */}
+            {slides.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
+                <div className="flex gap-2">
+                  {slides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className="relative group"
+                      aria-label={`Go to slide ${index + 1}`}
+                    >
+                      <div
+                        className={`h-2 rounded-full transition-all duration-300 ${
                           index === currentSlide
                             ? 'w-8 bg-white'
                             : 'w-2 bg-white/50 hover:bg-white/80'
-                        }`} />
-                      </button>
-                    ))}
-                  </div>
+                        }`}
+                      />
+                    </button>
+                  ))}
                 </div>
-              )}
-
-              {/* Play/Pause Button */}
-              {slides.length > 1 && (
-                <button
-                  onClick={toggleAutoPlay}
-                  className={`absolute bottom-4 right-4 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/40 transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                  aria-label={isAutoPlaying ? 'Pause slideshow' : 'Play slideshow'}
-                >
-                  {isAutoPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-                </button>
-              )}
-
-              {/* Slide Counter */}
-              <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-black/30 backdrop-blur-md rounded-full text-white text-xs font-medium">
-                {currentSlide + 1} / {slides.length}
               </div>
+            )}
+
+            {/* Play/Pause Button */}
+            {slides.length > 1 && (
+              <button
+                onClick={toggleAutoPlay}
+                className={`absolute bottom-4 right-4 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/40 transition-all duration-300 ${
+                  isHovered ? 'opacity-100' : 'opacity-0'
+                }`}
+                aria-label={isAutoPlaying ? 'Pause slideshow' : 'Play slideshow'}
+              >
+                {isAutoPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+              </button>
+            )}
+
+            {/* Slide Counter */}
+            <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-black/30 backdrop-blur-md rounded-full text-white text-xs font-medium">
+              {currentSlide + 1} / {slides.length}
             </div>
           </div>
         </div>
@@ -300,3 +239,4 @@ export default function HomeSlider() {
     </div>
   );
 }
+
