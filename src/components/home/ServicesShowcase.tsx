@@ -30,32 +30,7 @@ const services = [
     features: ["Regular Savings", "Time Deposits", "Special Savings", "High Interest Rates"],
     popular: false,
   },
-  {
-    id: 3,
-    title: "Insurance Services",
-    subtitle: "Protection & Security",
-    description: "Comprehensive insurance coverage tailored for cooperative members, protecting your family, assets, and business interests.",
 
-
-    link: "/services",
-    color: "purple",
-    features: ["Life Insurance", "Property Insurance", "Health Coverage", "Business Insurance"],
-    popular: false,
-    
-  },
-  {
-    id: 4,
-    title: "PMES Program",
-    subtitle: "Empower Your Business",
-    description: "Transform your micro-enterprise with our PMES program designed to boost growth, sustainability, and profitability.",
-    image: "/images/597403592_1403798674673184_7189129226940101753_n.jpg",
-
-    link: "/online-pmes",
-    color: "orange",
-    features: ["Business Training", "Financial Education", "Market Linkages", "Technical Support"],
-    popular: false,
-    
-  },
   {
     id: 5,
     title: "Member Services",
