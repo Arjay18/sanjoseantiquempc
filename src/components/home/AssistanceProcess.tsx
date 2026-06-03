@@ -57,7 +57,7 @@ export default function AssistanceProcess() {
                   </div>
                 </div>
 
-                <div className="relative w-full h-[420px] rounded-2xl overflow-hidden">
+                <div className="relative w-full h-[520px] rounded-2xl overflow-hidden">
                   <Image
                     src="/Assistances/Member Assistances.jpg"
                     alt="Member assistance"
