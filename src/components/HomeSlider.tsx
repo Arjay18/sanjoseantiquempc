@@ -22,11 +22,6 @@ interface Slide {
 const defaultSlides: Slide[] = [
   { image: '/slider/1.jpg', link: '/online-application' },
   { image: '/slider/2.jpg', link: '/loan-packages' },
-  { image: '/slider/1.jpg', link: '/savings-product' },
-  { image: '/slider/2.jpg', link: '/about' },
-  { image: '/slider/1.jpg', link: '/news' },
-  { image: '/slider/2.jpg', link: '/services' },
-  { image: '/slider/1.jpg', link: '/about' },
 ];
 
 export default function HomeSlider() {
