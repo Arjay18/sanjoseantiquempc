@@ -142,6 +142,12 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
+                  onClick={(e) => {
+                    if (pathname === '/not-found') {
+                      e.preventDefault();
+                      window.location.href = '/not-found';
+                    }
+                  }}
                   className="px-4 py-2 text-sm font-bold text-white bg-green-600 rounded-md shadow hover:bg-green-700 transition-colors flex items-center focus:outline-none"
                   style={{ marginLeft: '8px' }}
                 >
@@ -309,7 +315,14 @@ export default function Navigation() {
                     href={item.href}
                     className="block px-6 py-4 text-base font-bold text-white bg-green-600 rounded-md shadow hover:bg-green-700 transition-colors border-b border-gray-100 last:border-b-0"
                     style={{ marginLeft: '8px' }}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => {
+                      if (pathname === '/not-found') {
+                        e.preventDefault();
+                        window.location.href = '/not-found';
+                        return;
+                      }
+                      setIsMenuOpen(false);
+                    }}
                   >
                     {item.name}
                   </Link>
