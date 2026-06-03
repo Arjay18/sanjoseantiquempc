@@ -92,39 +92,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Impact Statistics */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 mb-20">
-        <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-yellow-500 rounded-3xl p-1 shadow-2xl">
-          <div className="bg-white rounded-[22px] p-8 md:p-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
-                  15K+
-                </div>
-                <div className="text-sm font-medium text-gray-600">Active Members</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-blue-700 to-yellow-500 bg-clip-text text-transparent mb-2">
-                  ₱500M+
-                </div>
-                <div className="text-sm font-medium text-gray-600">Loans Disbursed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent mb-2">
-                  ₱1.2B+
-                </div>
-                <div className="text-sm font-medium text-gray-600">Total Savings</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent mb-2">
-                  61+
-                </div>
-                <div className="text-sm font-medium text-gray-600">Years of Service</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Services Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
