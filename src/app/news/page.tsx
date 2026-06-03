@@ -107,64 +107,123 @@ export default function NewsPage() {
   if (error) return <div className="min-h-screen flex justify-center items-center text-red-600">{error}</div>;
 
   return (
-    <div className="min-h-screen bg-white py-16 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Latest News</h1>
-          <p className="text-gray-600">Stay updated with our latest announcements and insights</p>
-        </div>
+        {/* Hero */}
+        <div className="relative text-center mb-10">
+          <div className="absolute inset-0 -z-10">
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+            <div className="absolute -bottom-24 left-1/4 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
+          </div>
 
-        {/* Search */}
-        <div className="flex justify-center mb-4">
-          <input
-            type="text"
-            placeholder="Search news..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            className="w-full max-w-md px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Category Filter */}
-        <div className="flex justify-center flex-wrap gap-2 mb-8">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                selectedCategory === cat
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {filteredItems.length === 0 ? (
-          <p className="text-center text-gray-500">
-            {searchQuery || selectedCategory !== 'All' ? 'No posts match your criteria.' : 'No news posts available.'}
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-3">
+            News & Updates
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Stay informed with the latest announcements, financial updates, community events, and insights.
           </p>
+        </div>
+
+        {/* Controls */}
+        <div className="grid md:grid-cols-3 gap-4 items-start mb-8">
+          <div className="md:col-span-1">
+            <label className="sr-only" htmlFor="news-search">Search</label>
+            <div className="relative">
+              <input
+                id="news-search"
+                type="text"
+                placeholder="Search news..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+
+          <div className="md:col-span-2">
+            <div className="flex justify-center md:justify-start flex-wrap gap-2">
+              {categories.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${
+                    selectedCategory === cat
+                      ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                      : 'bg-white/70 text-slate-700 border-slate-200 hover:bg-white hover:shadow-sm'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Results */}
+        {filteredItems.length === 0 ? (
+          <div className="text-center py-14">
+            <p className="text-gray-500 text-lg">
+              {searchQuery || selectedCategory !== 'All'
+                ? 'No posts match your criteria.'
+                : 'No news posts available.'}
+            </p>
+          </div>
         ) : (
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredItems.map(item => (
-              <article key={item.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform">
-                {item.imageUrl && (
-                  <div className="h-48 overflow-hidden">
-                    <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+              <article
+                key={item.id}
+                className="group bg-white/70 backdrop-blur-sm border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                {item.imageUrl ? (
+                  <div className="relative h-52 overflow-hidden">
+                    <img
+                      src={item.imageUrl}
+                      alt={item.title}
+                      className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-transparent" />
+                  </div>
+                ) : (
+                  <div className="relative h-52 bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
+                    <div className="text-slate-500 font-semibold">No image</div>
                   </div>
                 )}
+
                 <div className="p-6">
-                  <div className="flex items-center justify-between mb-2 text-sm text-gray-500">
-                    <span className="font-medium text-blue-600">{item.category || 'General'}</span>
-                    {item.author && <span>• {item.author}</span>}
+                  <div className="flex items-center justify-between gap-3 mb-3 text-sm">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-semibold border border-blue-100">
+                      {item.category || 'General'}
+                    </span>
+                    {item.author ? (
+                      <span className="text-slate-500">• {item.author}</span>
+                    ) : (
+                      <span />
+                    )}
                   </div>
-                  <h2 className="text-lg font-semibold mb-2 text-gray-900">{item.title}</h2>
-                  {item.caption && <p className="text-gray-600 italic mb-2">{item.caption}</p>}
-                  <p className="text-gray-600 mb-4">{getExcerpt(item.content)}</p>
-                  <Link href={`/news/${item.slug}`} className="text-blue-600 hover:text-blue-500 font-medium">
-                    Read more →
+
+                  <h2 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    {item.title}
+                  </h2>
+
+                  {item.caption && (
+                    <p className="text-gray-600 italic mb-3 line-clamp-2">
+                      {item.caption}
+                    </p>
+                  )}
+
+                  <p className="text-gray-600 mb-5 line-clamp-3">
+                    {getExcerpt(item.content)}
+                  </p>
+
+                  <Link
+                    href={`/news/${item.slug}`}
+                    className="inline-flex items-center gap-2 font-semibold text-blue-700 hover:text-blue-600"
+                  >
+                    Read more
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 border border-blue-100">
+                      <span aria-hidden="true">→</span>
+                    </span>
                   </Link>
                 </div>
               </article>
