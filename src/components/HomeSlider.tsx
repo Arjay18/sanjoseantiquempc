@@ -138,7 +138,7 @@ export default function HomeSlider() {
       <div className="w-full">
         <div className="relative w-full bg-white overflow-hidden rounded-2xl">
           <div
-            className="relative w-full h-[350px] md:h-[450px] lg:h-[550px]"
+            className="relative h-[350px] md:h-[450px] lg:h-[550px] w-[110%] left-[-5%]"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
