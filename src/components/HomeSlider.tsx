@@ -48,12 +48,24 @@ export default function HomeSlider() {
 
         setSlides((prev) => {
           const next = [...prev];
+
+          const normalizeLocalImagePath = (value: string) => {
+            if (!value) return value;
+            // Support both: "slider/Slider1.jpg" and "/slider/Slider1.jpg"
+            if (value.startsWith('http')) return value;
+            return value.startsWith('/') ? value : `/${value}`;
+          };
+
           for (let i = 0; i < next.length; i++) {
             const a = active[i];
             if (!a) break;
+
+            const candidateImage = a.image ? normalizeLocalImagePath(a.image) : null;
+            const nextImage = candidateImage || next[i].image;
+
             next[i] = {
               ...next[i],
-              image: a.image || next[i].image,
+              image: nextImage,
               link: a.buttonLink || next[i].link,
             };
           }
