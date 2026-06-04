@@ -142,8 +142,9 @@ export default function HomeSlider() {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {/* Side background design to avoid empty-looking edges */}
-            <div className="absolute inset-0 bg-gradient-to-r from-green-900/10 via-white to-green-900/10 pointer-events-none" />
+            {/* Side design to avoid empty-looking edges */}
+            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-green-900/25 via-green-900/10 to-transparent pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-green-900/25 via-green-900/10 to-transparent pointer-events-none" />
             {/* Slides (images only; no caption, no gradient overlay) */}
             {slides.map((slide, index) => (
               <div
