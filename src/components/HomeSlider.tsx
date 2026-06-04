@@ -143,7 +143,7 @@ export default function HomeSlider() {
             onMouseLeave={() => setIsHovered(false)}
           >
             {/* Side design (border + abstract corner accents) to avoid empty-looking edges */}
-            <div className="absolute inset-y-0 left-0 w-24 pointer-events-none">
+            <div className="absolute inset-y-0 left-0 w-32 pointer-events-none">
               <div className="absolute inset-y-0 left-0 w-px bg-white/30" />
               <div className="absolute top-8 left-3 w-12 h-px bg-white/20" />
               <div className="absolute bottom-8 left-3 w-12 h-px bg-white/20" />
