@@ -156,6 +156,7 @@ export default function HomeSlider() {
                       src={slide.image}
                       alt={`Slide ${index + 1}`}
                       className="w-full h-full object-contain cursor-pointer bg-white"
+                      sizes="100vw"
 
                       onClick={handleSlideClick}
                       onError={(e) => {
@@ -168,7 +169,7 @@ export default function HomeSlider() {
                       src={slide.image}
                       alt={`Slide ${index + 1}`}
                       fill
-                      className="object-cover cursor-pointer"
+                      className="object-contain cursor-pointer"
                       priority={index === 0}
                       onClick={handleSlideClick}
                       onError={(e) => {
