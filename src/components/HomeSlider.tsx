@@ -46,12 +46,12 @@ export default function HomeSlider() {
 
         if (active.length === 0) return;
 
+        // Only override links (and optionally swap images only if they are clearly local `/slider/...` images).
         setSlides((prev) => {
           const next = [...prev];
 
           const normalizeLocalImagePath = (value: string) => {
             if (!value) return value;
-            // Support both: "slider/Slider1.jpg" and "/slider/Slider1.jpg"
             if (value.startsWith('http')) return value;
             return value.startsWith('/') ? value : `/${value}`;
           };
@@ -60,12 +60,16 @@ export default function HomeSlider() {
             const a = active[i];
             if (!a) break;
 
-            const candidateImage = a.image ? normalizeLocalImagePath(a.image) : null;
-            const nextImage = candidateImage || next[i].image;
+            const normalized = a.image ? normalizeLocalImagePath(a.image) : null;
+            const allowSwapImage =
+              normalized &&
+              (normalized.startsWith('/slider/') || normalized.startsWith('/public/slider/'));
 
             next[i] = {
               ...next[i],
-              image: nextImage,
+              image: allowSwapImage
+                ? normalized!.replace('/public/', '')
+                : next[i].image,
               link: a.buttonLink || next[i].link,
             };
           }
