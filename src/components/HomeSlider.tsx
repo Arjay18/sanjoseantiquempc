@@ -20,9 +20,10 @@ interface Slide {
 }
 
 const defaultSlides: Slide[] = [
-  { image: '/slider/1.jpg', link: '/online-application' },
-  { image: '/slider/2.jpg', link: '/loan-packages' },
+  { image: '/slider/Slider1.jpg', link: '/online-application' },
+  { image: '/slider/Slider2.jpg', link: '/loan-packages' },
 ];
+
 
 export default function HomeSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -143,7 +144,7 @@ export default function HomeSlider() {
                       onClick={handleSlideClick}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = '/slider/1.jpg';
+                        target.src = '/slider/Slider1.jpg';
                       }}
                     />
                   ) : (
@@ -156,7 +157,7 @@ export default function HomeSlider() {
                       onClick={handleSlideClick}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = '/slider/1.jpg';
+                        target.src = '/slider/Slider1.jpg';
                       }}
                     />
                   )}
