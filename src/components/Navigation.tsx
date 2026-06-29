@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+
 import { usePathname } from 'next/navigation';
 import { Bars3Icon, XMarkIcon, ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
@@ -80,8 +81,8 @@ export default function Navigation() {
       name: 'Product and Services',
       href: '/services',
       dropdown: [
-        { name: 'Loan Packages', href: '/loan-packages' },
-        { name: 'Savings Product', href: '/savings-product' },
+        { name: 'Loan Packages', href: '/loan-products' },
+        { name: 'Savings Product', href: '/savings-products' },
         { name: 'Brochures', href: '/brochures' },
         { name: 'Downloadable Forms', href: '/downloadable-forms' },
       ]
@@ -107,7 +108,7 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm border-b border-gray-100">
+<nav className="fixed top-[44px] left-0 right-0 bg-white z-40 shadow-sm border-b border-gray-100">
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10">
       <div className="flex justify-between items-center h-16">
           {/* Ensure Coop Login cannot navigate away from 404 */}
@@ -178,13 +179,27 @@ export default function Navigation() {
                       setOnlineDropdownOpen(false);
                     }
                   }}
-                  onMouseLeave={() => {
-                    if (item.name === 'About Us') {
-                      setAboutDropdownOpen(false);
-                      setBranchesDropdownOpen(false);
-                    } else if (item.name === 'Product and Services') setDropdownOpen(false);
-                    else if (item.name === 'News') setNewsDropdownOpen(false);
+onMouseLeave={() => {
+                    // Keep dropdown open long enough for cursor to move into the panel
+                    // and also do not close if user is hovering anywhere inside the dropdown area.
+                    window.clearTimeout((window as any).__sjmpcTopLeaveTimer);
+                    (window as any).__sjmpcTopLeaveTimer = window.setTimeout(() => {
+                      const related = document.querySelector('[data-nav-dropdown="open"]');
+                      if (related) {
+                        // If pointer is currently over any dropdown panel, don't close.
+                        const isOver = related.matches(':hover');
+                        if (isOver) return;
+                      }
 
+                      if (item.name === 'About Us') {
+                        setAboutDropdownOpen(false);
+                        setBranchesDropdownOpen(false);
+                      } else if (item.name === 'Product and Services') {
+                        setDropdownOpen(false);
+                      } else if (item.name === 'News') {
+                        setNewsDropdownOpen(false);
+                      }
+                    }, 250);
                   }}
                 >
                   <Link
@@ -198,38 +213,48 @@ export default function Navigation() {
                     (item.name === 'Product and Services' && dropdownOpen) ||
                     (item.name === 'News' && newsDropdownOpen)) && (
 
-                    <div className="absolute left-0 -mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
+<div data-nav-dropdown="open" className="absolute left-0 -mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
                       <div className="py-2">
                         {item.dropdown.map((subItem) => (
                           subItem.dropdown ? (
-                            <div key={subItem.name} className="relative">
-                              <button
+                <div key={subItem.name} className="relative">
+                  <button
                                 onMouseEnter={() => setBranchesDropdownOpen(true)}
-                                onMouseLeave={() => setBranchesDropdownOpen(false)}
+                                onMouseLeave={() => {
+                                  // Delay + cancel avoids auto-close when moving cursor down into submenu items
+                                  window.clearTimeout((window as any).__sjmpcBranchesLeaveTimer);
+                                  (window as any).__sjmpcBranchesLeaveTimer = window.setTimeout(() => {
+                                    setBranchesDropdownOpen(false);
+                                  }, 350);
+                                }}
                                 className="flex items-center justify-between w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-green-600 transition-colors"
                               >
                                 {subItem.name}
                                 <ChevronRightIcon className="ml-1 h-4 w-4" />
                               </button>
-                              {branchesDropdownOpen && (
-                                <div
-                                  className="absolute left-full top-0 mt-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 z-50"
-                                  onMouseEnter={() => setBranchesDropdownOpen(true)}
-                                  onMouseLeave={() => setBranchesDropdownOpen(false)}
-                                >
-                                  <div className="py-2">
-                                    {subItem.dropdown.map((branchItem) => (
-                                      <Link
-                                        key={branchItem.name}
-                                        href={branchItem.href}
-                                      className="block px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors"
-                                      >
-                                        {branchItem.name}
-                                      </Link>
-                                    ))}
+
+                              {/* Prevent closing when moving mouse into submenu */}
+                              <div
+                                className="absolute left-full top-0"
+                                onMouseEnter={() => setBranchesDropdownOpen(true)}
+                                onMouseLeave={() => setBranchesDropdownOpen(false)}
+                              >
+                                {branchesDropdownOpen && (
+                                  <div className="w-56 bg-white rounded-xl shadow-xl border border-gray-100 z-50">
+                                    <div className="py-2">
+                                      {subItem.dropdown.map((branchItem) => (
+                                        <Link
+                                          key={branchItem.name}
+                                          href={branchItem.href}
+                                          className="block px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors"
+                                        >
+                                          {branchItem.name}
+                                        </Link>
+                                      ))}
+                                    </div>
                                   </div>
-                                </div>
-                              )}
+                                )}
+                              </div>
                             </div>
                           ) : (
                             <Link

@@ -1,61 +1,27 @@
-import HomeSlider from "@/components/HomeSlider";
-import NewsSlider from "@/components/NewsSlider";
+import TopInformationBar from "@/components/home/sjmpc-home/TopInformationBar";
+import HeroSection from "@/components/home/sjmpc-home/HeroSection";
+import ModernHomeSlider from "@/components/home/ModernHomeSlider";
 
-import ContactForm from "@/components/ContactForm";
-
-import LatestProjects from "@/components/home/LatestProjects";
-import Testimonials from "@/components/home/Testimonials";
-import PMESSchedule from "@/components/home/PMESSchedule";
-import HowToBecomeMember from "@/components/home/HowToBecomeMember";
-import ServicesShowcase from "@/components/home/ServicesShowcase";
-import AssistanceProcess from "@/components/home/AssistanceProcess";
-
-import { FadeIn } from "@/components/animations/FadeIn";
-
+import QuickServicesSection from "@/components/home/sjmpc-home/QuickServicesSection";
+import StatisticsSection from "@/components/home/sjmpc-home/StatisticsSection";
+import SavingsProductsSection from "@/components/home/sjmpc-home/SavingsProductsSection";
+import LoanApplicationProcessSection from "@/components/home/sjmpc-home/LoanApplicationProcessSection";
+import NewsAndBranchSection from "@/components/home/sjmpc-home/NewsAndBranchSection";
+import FinalCallToActionSection from "@/components/home/sjmpc-home/FinalCallToActionSection";
 
 export default function Home() {
   return (
-    <>
-      <div className="flex min-h-screen flex-col">
-        <FadeIn direction="up" delay={0}>
-          <HomeSlider />
-        </FadeIn>
-        {/* spacer removed */}
-
-
-        <FadeIn direction="up" delay={0.8}>
-          <ServicesShowcase />
-        </FadeIn>
-
-        <FadeIn direction="up" delay={0.9}>
-          <NewsSlider />
-        </FadeIn>
-
-
-        <FadeIn direction="up" delay={1.0}>
-          <HowToBecomeMember />
-        </FadeIn>
-
-        <FadeIn direction="up" delay={1.2}>
-          <Testimonials />
-        </FadeIn>
-
-        <FadeIn direction="up" delay={1.4}>
-          <LatestProjects />
-        </FadeIn>
-
-        <FadeIn direction="up" delay={1.6}>
-          <AssistanceProcess />
-        </FadeIn>
-
-        <FadeIn direction="up" delay={1.8}>
-          <PMESSchedule />
-        </FadeIn>
-
-        <FadeIn direction="up" delay={2.0}>
-          <ContactForm />
-        </FadeIn>
+    <main className="min-h-screen bg-white">
+      <TopInformationBar />
+      <div className="pt-11">
+        <HeroSection />
+        <QuickServicesSection />
+        <StatisticsSection />
+        <SavingsProductsSection />
+        <LoanApplicationProcessSection />
+        <NewsAndBranchSection />
+        <FinalCallToActionSection />
       </div>
-    </>
+    </main>
   );
 }
