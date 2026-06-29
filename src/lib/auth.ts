@@ -96,6 +96,8 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }: any) {
       if (token) {
+        // NextAuth typing/runtime safety: session.user can be undefined
+        session.user = session.user ?? { name: session.user?.name ?? null, email: session.user?.email ?? null };
         session.user.role = token.role;
         if (token.role === 'branch') {
           session.user.branch = token.branch;
