@@ -4,8 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-
-import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 import { HeroSlide as HeroSlideType } from '@/data/heroSlides';
 
 export type HeroSlideProps = {
@@ -13,93 +12,115 @@ export type HeroSlideProps = {
   isActive: boolean;
 };
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.13, delayChildren: 0.05 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export default function HeroSlide({ slide, isActive }: HeroSlideProps) {
   return (
-    <div className="min-h-[85vh] bg-[var(--sjmpc-light-gray)]">
-      <div className="mx-auto flex h-full max-w-7xl flex-col justify-center px-4 py-8 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:py-14">
-        {/* LEFT */}
-        <div className="w-full lg:w-[45%]">
-          <motion.div
-            initial={false}
-            animate={{ y: isActive ? 0 : 10, opacity: isActive ? 1 : 0.001 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left"
-          >
-            <motion.p
-              initial={false}
-              animate={{ y: isActive ? 0 : 10, opacity: isActive ? 1 : 0 }}
-              transition={{ duration: 0.55, delay: 0.02 }}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[color:rgba(0,107,63,0.08)] px-4 py-2 text-sm font-semibold text-[var(--sjmpc-dark-green)]"
-            >
-              {slide.eyebrow}
-            </motion.p>
+    <div className="relative min-h-[700px] lg:min-h-[88vh] w-full">
+      {/* ── Background Image ── */}
+      <Image
+        src={slide.image.src}
+        alt={slide.image.alt}
+        fill
+        className="object-cover"
+        sizes="100vw"
+        priority={isActive}
+      />
 
+      {/* ── Cinematic gradient layers ── */}
+      {/* Left-to-right dark green wash for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#003d22]/92 via-[#004D2D]/72 to-[#006B3F]/20" />
+      {/* Top and bottom vignette */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/25" />
+      {/* Subtle noise texture feel via inner glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_60%,rgba(0,107,63,0.18),transparent_65%)]" />
+
+      {/* ── Slide Content ── */}
+      <div className="relative z-10 flex items-center h-full min-h-[700px] lg:min-h-[88vh]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-14 w-full">
+          <motion.div
+            key={slide.id}
+            variants={containerVariants}
+            initial="hidden"
+            animate={isActive ? 'visible' : 'hidden'}
+            className="max-w-2xl xl:max-w-3xl"
+          >
+            {/* Eyebrow label */}
+            <motion.div
+              variants={itemVariants}
+              className="flex items-center gap-3 mb-6"
+            >
+              <span className="h-0.5 w-10 bg-[#D4AF37] rounded-full" />
+              <span className="text-[#D4AF37] font-bold tracking-widest uppercase text-xs sm:text-sm">
+                {slide.eyebrow}
+              </span>
+            </motion.div>
+
+            {/* Headline */}
             <motion.h1
-              initial={false}
-              animate={{ y: isActive ? 0 : 10, opacity: isActive ? 1 : 0 }}
-              transition={{ duration: 0.55, delay: 0.06 }}
-              className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-[var(--sjmpc-dark-green)] sm:text-4xl lg:text-5xl"
+              variants={itemVariants}
+              className="text-4xl sm:text-5xl lg:text-[3.4rem] xl:text-6xl font-black text-white leading-[1.1] tracking-tight"
             >
               {slide.headline}
             </motion.h1>
 
+            {/* Gold accent divider */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-5 flex items-center gap-2"
+            >
+              <div className="h-[2px] w-12 bg-[#D4AF37] rounded-full" />
+              <div className="h-[2px] w-4 bg-white/20 rounded-full" />
+            </motion.div>
+
+            {/* Description */}
             <motion.p
-              initial={false}
-              animate={{ y: isActive ? 0 : 10, opacity: isActive ? 1 : 0 }}
-              transition={{ duration: 0.55, delay: 0.1 }}
-              className="mt-5 text-base leading-relaxed text-[#2b2b2b] sm:text-lg"
+              variants={itemVariants}
+              className="mt-5 text-base sm:text-lg text-white/80 leading-relaxed max-w-xl"
             >
               {slide.description}
             </motion.p>
 
+            {/* CTA Buttons */}
             <motion.div
-              initial={false}
-              animate={{ y: isActive ? 0 : 10, opacity: isActive ? 1 : 0 }}
-              transition={{ duration: 0.55, delay: 0.14 }}
-              className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start"
+              variants={itemVariants}
+              className="mt-9 flex flex-col sm:flex-row items-start gap-4"
             >
-              <Button variant="primary" asChild>
-                <Link href={slide.ctas.primary.href}>{slide.ctas.primary.label}</Link>
-              </Button>
-
-              {/* Force dark-green outline look so it stays visible on images */}
-              <Button
-                variant="outline"
-                asChild
-                className="bg-transparent text-[var(--sjmpc-green)] hover:bg-[color:rgba(0,107,63,0.06)] hover:text-[var(--sjmpc-green)]"
+              {/* Primary — gold solid */}
+              <Link
+                href={slide.ctas.primary.href}
+                className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-[#D4AF37] text-[#003d22] font-extrabold text-sm sm:text-base hover:bg-[#c9a130] active:scale-95 shadow-[0_8px_30px_rgba(212,175,55,0.35)] transition-all duration-200"
               >
-                <Link href={slide.ctas.secondary.href}>{slide.ctas.secondary.label}</Link>
-              </Button>
+                {slide.ctas.primary.label}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </Link>
+
+              {/* Secondary — glass */}
+              <Link
+                href={slide.ctas.secondary.href}
+                className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-white/10 border border-white/25 text-white font-bold text-sm sm:text-base backdrop-blur-sm hover:bg-white/20 hover:border-white/40 active:scale-95 transition-all duration-200"
+              >
+                {slide.ctas.secondary.label}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </Link>
             </motion.div>
-          </motion.div>
-        </div>
-
-        {/* RIGHT */}
-        <div className="relative mt-8 w-full lg:mt-0 lg:w-[55%]">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute -right-10 top-10 h-72 w-72 rounded-full bg-[rgba(0,107,63,0.12)] blur-2xl" />
-            <div className="absolute -left-10 bottom-6 h-72 w-72 rounded-full bg-[rgba(212,175,55,0.10)] blur-2xl" />
-          </div>
-
-          <motion.div
-            initial={false}
-            animate={{ y: isActive ? [0, -8, 0] : 0 }}
-            transition={{ duration: 2.8, repeat: isActive ? Infinity : 0, ease: 'easeInOut' }}
-className="relative h-[320px] w-full rounded-[24px] shadow-[0_20px_60px_-25px_rgba(0,0,0,0.35)]"
-          >
-            <Image
-              src={slide.image.src}
-              alt={slide.image.alt}
-              fill
-              className="rounded-[24px] object-cover"
-              sizes="(min-width: 1024px) 55vw, 100vw"
-              priority={isActive}
-            />
-            <div className="absolute inset-0 rounded-[24px] bg-gradient-to-t from-black/25 via-black/10 to-transparent" />
           </motion.div>
         </div>
       </div>
     </div>
   );
 }
-

@@ -37,7 +37,7 @@ export default function LoanApplicationProcessSection() {
           >
             <p className="text-[#006B3F] font-bold tracking-widest uppercase text-sm">Loan Application Process</p>
             <h2 className="mt-4 text-3xl sm:text-4xl font-black text-[#004D2D] leading-tight">
-              Apply for your loan in 3 <span className="text-orange-500">simple steps</span>
+              Apply for your loan in 3 <span className="text-[#D4AF37]">simple steps</span>
             </h2>
             <p className="mt-4 text-gray-600 max-w-lg leading-relaxed">
               We've streamlined our process to ensure you get the financial assistance you need as quickly as possible.
@@ -88,7 +88,7 @@ export default function LoanApplicationProcessSection() {
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <div className="flex items-center gap-2 text-[#004D2D] font-bold italic">
-                <span className="w-8 h-0.5 bg-orange-500" />
+                <span className="w-8 h-0.5 bg-[#D4AF37]" />
                 Fast. Easy. Reliable.
               </div>
             </div>
@@ -102,7 +102,7 @@ export default function LoanApplicationProcessSection() {
             className="relative"
           >
             {/* Decorative background elements */}
-            <div className="absolute -top-10 -right-10 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl" />
+            <div className="absolute -top-10 -right-10 w-64 h-64 bg-[#D4AF37]/12 rounded-full blur-3xl" />
             <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#006B3F]/10 rounded-full blur-3xl" />
 
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
@@ -120,8 +120,8 @@ export default function LoanApplicationProcessSection() {
                 {/* Floating Info Badge */}
                 <div className="absolute bottom-6 left-6 right-6 p-6 bg-white/90 backdrop-blur rounded-2xl shadow-xl border border-white/20">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-orange-500 flex items-center justify-center text-white">
-                      <GanttChart className="w-6 h-6" />
+                    <div className="w-12 h-12 rounded-xl bg-[#D4AF37] flex items-center justify-center text-white shadow-md">
+                      <GanttChart className="w-6 h-6 text-[#004D2D]" />
                     </div>
                     <div>
                       <div className="text-sm font-bold text-[#004D2D] uppercase tracking-wider">Quick Processing</div>
