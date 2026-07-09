@@ -87,7 +87,6 @@ export default function HeroSlider() {
                 count={count}
                 activeIndex={activeIndex}
                 onSelect={scrollTo}
-                autoplayDelay={AUTOPLAY_DELAY}
               />
             </div>
 
