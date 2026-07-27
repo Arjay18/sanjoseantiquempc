@@ -34,7 +34,7 @@ const services = [
 
 export default function QuickServicesSection() {
   return (
-    <section className="relative py-14 bg-gray-50/50">
+    <section className="relative py-14 sm:py-16 bg-gray-50/50">
       {/* Subtle top divider line */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#006B3F]/15 to-transparent" />
       
@@ -48,7 +48,7 @@ export default function QuickServicesSection() {
                 key={s.title}
                 whileHover={{ y: -8 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group relative bg-white rounded-2xl border border-gray-100 p-6 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:border-[#006B3F]/20 transition-all duration-300"
+                className="group relative bg-white rounded-2xl border border-gray-100 p-6 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:border-[#006B3F]/20 transition-all duration-300 min-h-[260px]"
               >
                 {/* Modern subtle card hover background glow */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#006B3F]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

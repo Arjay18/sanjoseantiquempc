@@ -1,5 +1,9 @@
 'use client';
 
-export { default } from '../online-pmes/page';
+import OnlinePMESPage from '../online-pmes/page';
+
+export default function OnlineApplicationPage() {
+  return <OnlinePMESPage />;
+}
 
 

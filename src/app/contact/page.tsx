@@ -1,150 +1,339 @@
+'use client';
+
+import { useState } from 'react';
 import ContactForm from '@/components/ContactForm';
-import { PhoneIcon, EnvelopeIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  MapPin, 
+  Phone, 
+  Mail, 
+  Clock, 
+  ChevronDown, 
+  HelpCircle, 
+  ExternalLink,
+  MessageSquare,
+  Building,
+  ArrowRight,
+  Info
+} from 'lucide-react';
+
+interface Branch {
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  hours: string;
+  mapQuery: string;
+  tel: string;
+}
+
+const branches: Branch[] = [
+  {
+    name: 'San Jose Main Office',
+    address: 'Tradetown Funda-Dalipe, San Jose, Antique',
+    phone: '(036) 540-8209',
+    email: 'sanjosempc@yahoo.com',
+    hours: 'Mon-Fri: 8:00 AM - 4:00 PM, Sat: 9:00 AM - 12:00 PM',
+    mapQuery: 'San Jose Multi-Purpose Cooperative, San Jose, Antique',
+    tel: 'tel:+63365408209'
+  },
+  {
+    name: 'Miagao Branch',
+    address: 'Peñaranda St. Brgy, Baybay Norte, Miagao, Iloilo',
+    phone: '(033) 513-8925',
+    email: 'sanjosempc@yahoo.com',
+    hours: 'Mon: 1:00 PM, Sat: 9:00 AM',
+    mapQuery: 'San Jose Multi-Purpose Cooperative, Miagao, Iloilo',
+    tel: 'tel:+63335138925'
+  },
+  {
+    name: 'Oton Branch',
+    address: 'M.H Del Pilar St. Pob South, Oton, Iloilo',
+    phone: '(033) 510-8564',
+    email: 'sanjosempc@yahoo.com',
+    hours: 'Mon, Wed, Fri: 1:30 PM, Sat: 9:30 AM',
+    mapQuery: 'San Jose Multi-Purpose Cooperative, Oton, Iloilo',
+    tel: 'tel:+63335108564'
+  },
+  {
+    name: 'Guimaras Branch',
+    address: 'Alejandro Heights, San Miguel Jordan, Guimaras',
+    phone: '(033) 322-5149',
+    email: 'sanjosempc@yahoo.com',
+    hours: 'Sat: 9:00 AM',
+    mapQuery: 'San Jose Multi-Purpose Cooperative, Jordan, Guimaras',
+    tel: 'tel:+63333225149'
+  }
+];
+
+const faqs = [
+  {
+    question: "How do I become a member of SJMPC?",
+    answer: "To become a member, you need to attend our Pre-Membership Education Seminar (PMES) – which you can take online via our website – submit required identification documents, and pay the initial membership fee and deposit at any branch."
+  },
+  {
+    question: "What are the requirements to apply for a loan?",
+    answer: "Basic requirements include a fully completed loan application form, proof of steady income (e.g., payslips, tax certificates, or business permits), valid government-issued photo IDs, and being a member in good standing."
+  },
+  {
+    question: "Can I manage my savings account online?",
+    answer: "You can apply for savings products and monitor your inquiries online. Full online transaction capability is being rolled out; currently, deposit and withdrawal transactions are completed securely at our physical branches."
+  },
+  {
+    question: "How long is the loan processing period?",
+    answer: "Our standard processing time is 3 to 5 business days after you submit all completed documents. This varies slightly depending on the specific loan package, collateral evaluation, and approval levels."
+  },
+  {
+    question: "Who can I contact for support outside business hours?",
+    answer: "You can email us at sanjosempc@yahoo.com or submit a message through the contact form on this page. Our team reviews submissions daily and will get back to you promptly on the next business day."
+  }
+];
 
 export default function ContactPage() {
-  const branches = [
-    {
-      name: 'San Jose Main Office',
-      address: 'Tradetown Funda-Dalipe, San Jose, Antique',
-      phone: '(036) 540-8209',
-      email: 'sanjosempc@yahoo.com',
-      hours: 'Mon-Fri: 8AM-4PM, Sat: 9AM-12PM'
-    },
-    {
-      name: 'Miagao Branch',
-      address: 'Peñaranda St. Brgy, Baybay Norte, Miagao, Iloilo',
-      phone: '(033) 513-8925',
-      email: 'sanjosempc@yahoo.com',
-      hours: 'Mon: 1PM, Sat: 9AM'
-    },
-    {
-      name: 'Oton Branch',
-      address: 'M.H Del Pilar St. Pob South, Oton, Iloilo',
-      phone: '(033) 510-8564',
-      email: 'sanjosempc@yahoo.com',
-      hours: 'Mon, Wed, Fri: 1:30PM, Sat: 9:30AM'
-    },
-    {
-      name: 'Guimaras Branch',
-      address: 'Alejandro Heights, San Miguel Jordan, Guimaras',
-      phone: '(033) 322-5149',
-      email: 'sanjosempc@yahoo.com',
-      hours: 'Sat: 9AM'
+  const [activeBranchIdx, setActiveBranchIdx] = useState(0);
+  const [activeFaqIdx, setActiveFaqIdx] = useState<number | null>(null);
+
+  // Sync form branch selection updates back to explorer tabs
+  const handleFormBranchChange = (branchName: string) => {
+    const idx = branches.findIndex(b => b.name === branchName);
+    if (idx !== -1) {
+      setActiveBranchIdx(idx);
     }
-  ];
-   
+  };
+
+  const currentBranch = branches[activeBranchIdx];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 overflow-hidden relative">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-200/20 to-yellow-200/20 rounded-full blur-3xl"></div>
+    <div className="min-h-screen bg-slate-50 overflow-hidden relative font-sans text-gray-900 pb-20">
+      {/* Premium background decorations */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#006B3F]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-3xl" />
+        <div className="absolute top-[40%] left-[20%] w-[350px] h-[350px] bg-blue-500/5 rounded-full blur-3xl" />
       </div>
-      <div className="relative z-10 py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          {/* Header Section */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-yellow-100 text-blue-800 text-sm font-semibold mb-8 shadow-lg">
-              <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              Get In Touch
+
+      {/* Hero Section */}
+      <section className="relative z-10 pt-16 pb-12 sm:pt-24 sm:pb-16 text-center max-w-5xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#006B3F]/10 text-[#006B3F] text-xs sm:text-sm font-extrabold tracking-wide uppercase mb-6"
+        >
+          <Building className="w-4 h-4" />
+          Get In Touch
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-4xl sm:text-6xl font-black tracking-tight text-gray-950 mb-6 leading-[1.15]"
+        >
+          Contact SJMPC
+          <span className="block mt-2 bg-gradient-to-r from-[#006B3F] via-[#004D2D] to-[#D4AF37] bg-clip-text text-transparent">
+            We're Here to Help You Grow
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-normal"
+        >
+          Reach out to any of our local offices across Antique, Iloilo, and Guimaras, 
+          or drop us a line below. Our dedicated support team is ready to assist you.
+        </motion.p>
+      </section>
+
+      {/* Main Content Grid */}
+      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          
+          {/* Left Column: Interactive Branch Explorer Hub */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-white rounded-3xl border border-gray-100 shadow-xl p-6 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-extrabold text-[#004D2D] mb-5 flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-[#006B3F]" />
+                Branch Locations
+              </h3>
+
+              {/* Branch Selector Tabs */}
+              <div className="grid grid-cols-2 gap-2 mb-6">
+                {branches.map((b, idx) => {
+                  const isSelected = activeBranchIdx === idx;
+                  return (
+                    <button
+                      key={b.name}
+                      onClick={() => setActiveBranchIdx(idx)}
+                      className="relative px-3 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 text-center flex flex-col items-center justify-center min-h-[50px] cursor-pointer outline-none select-none border border-transparent overflow-hidden"
+                    >
+                      {/* Active indicator background */}
+                      {isSelected ? (
+                        <motion.div
+                          layoutId="activeBranchTab"
+                          className="absolute inset-0 bg-gradient-to-r from-[#006B3F] to-[#004D2D]"
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        />
+                      ) : null}
+
+                      <span className={`relative z-10 transition-colors duration-200 ${
+                        isSelected ? 'text-white' : 'text-gray-600 hover:text-gray-900 bg-gray-50 border border-gray-100 w-full h-full rounded-xl flex items-center justify-center hover:bg-gray-100/80'
+                      }`}>
+                        {b.name.replace(' Branch', '').replace(' Office', '')}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Selected Branch Detail Info Panel */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentBranch.name}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 10 }}
+                  transition={{ duration: 0.25 }}
+                  className="space-y-4"
+                >
+                  <h4 className="text-lg font-bold text-gray-950 border-b border-gray-50 pb-2">
+                    {currentBranch.name}
+                  </h4>
+
+                  <div className="space-y-3.5 text-sm text-gray-700">
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-5 h-5 text-[#006B3F] mt-0.5 flex-shrink-0" />
+                      <p className="leading-relaxed">{currentBranch.address}</p>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <Phone className="w-5 h-5 text-[#006B3F] flex-shrink-0" />
+                      <a href={currentBranch.tel} className="hover:text-[#006B3F] font-semibold transition-colors">
+                        {currentBranch.phone}
+                      </a>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <Mail className="w-5 h-5 text-[#006B3F] flex-shrink-0" />
+                      <a href={`mailto:${currentBranch.email}`} className="hover:text-[#006B3F] font-semibold transition-colors">
+                        {currentBranch.email}
+                      </a>
+                    </div>
+
+                    <div className="flex items-start gap-3 pt-2 border-t border-gray-50">
+                      <Clock className="w-5 h-5 text-[#006B3F] mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-gray-900">Operating Hours</p>
+                        <p className="text-xs text-gray-600 mt-0.5">{currentBranch.hours}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Branch Action Buttons */}
+                  <div className="grid grid-cols-2 gap-3 pt-4 border-t border-gray-50">
+                    <a
+                      href={currentBranch.tel}
+                      className="inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl border border-gray-200 text-xs font-bold text-gray-700 bg-white hover:bg-gray-50 transition-colors shadow-sm text-center"
+                    >
+                      <Phone className="w-4 h-4 text-[#006B3F]" />
+                      Call Branch
+                    </a>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(currentBranch.mapQuery)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-gray-900 hover:bg-gray-850 text-xs font-bold text-white transition-colors shadow-md text-center"
+                    >
+                      Directions
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 leading-tight">
-              Contact SJMPC
-              <span className="block bg-gradient-to-r from-blue-600 via-blue-700 to-yellow-500 bg-clip-text text-transparent">
-                Reach Out to Us
-              </span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light mb-12">
-              We're here to help you with all your cooperative banking needs.
-              Reach out to us through any of our branches or send us a message.
-            </p>
+            {/* Embedded Google Maps Container */}
+            <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden p-2">
+              <div className="relative h-64 sm:h-72 w-full rounded-2xl overflow-hidden">
+                <iframe
+                  title={`Map location of ${currentBranch.name}`}
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(currentBranch.mapQuery)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                  className="absolute inset-0 w-full h-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Branches Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Branches</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Visit any of our branches across Antique, Iloilo, and Guimaras for personalized service.
+          {/* Right Column: Contact Inquiry Form */}
+          <div className="lg:col-span-7">
+            <ContactForm 
+              selectedBranch={currentBranch.name} 
+              onBranchChange={handleFormBranchChange} 
+            />
+          </div>
+
+        </div>
+      </section>
+
+      {/* Frequently Asked Questions Section */}
+      <section className="relative z-10 max-w-4xl mx-auto px-4 mt-24">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-black text-gray-950 flex items-center justify-center gap-2 mb-3">
+            <HelpCircle className="w-8 h-8 text-[#006B3F]" />
+            Frequently Asked Questions
+          </h2>
+          <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
+            Got queries? Save time by scanning these common questions and answers about our cooperative services.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {branches.map((branch, index) => (
-            <div key={index} className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100 hover:shadow-2xl transition-all duration-300">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-green-500 rounded-xl flex items-center justify-center">
-                  <MapPinIcon className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900">{branch.name}</h3>
+        <div className="space-y-4">
+          {faqs.map((faq, idx) => {
+            const isOpen = activeFaqIdx === idx;
+            return (
+              <div 
+                key={idx} 
+                className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md"
+              >
+                <button
+                  onClick={() => setActiveFaqIdx(isOpen ? null : idx)}
+                  className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 font-bold text-gray-900 cursor-pointer outline-none select-none"
+                >
+                  <span className="text-sm sm:text-base hover:text-[#006B3F] transition-colors">
+                    {faq.question}
+                  </span>
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex-shrink-0"
+                  >
+                    <ChevronDown className="w-5 h-5 text-gray-500" />
+                  </motion.div>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    >
+                      <div className="px-6 pb-6 pt-1 text-sm text-gray-600 leading-relaxed border-t border-gray-50">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-
-              <div className="space-y-3 text-sm">
-                <p className="text-gray-600 leading-relaxed">{branch.address}</p>
-
-                <div className="flex items-center space-x-2">
-                  <PhoneIcon className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                  <span className="text-gray-700">{branch.phone}</span>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <EnvelopeIcon className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                  <span className="text-gray-700">{branch.email}</span>
-                </div>
-
-                <div className="flex items-center space-x-2 pt-2 border-t border-gray-100">
-                  <ClockIcon className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                  <span className="text-gray-700 font-medium">{branch.hours}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
-
-        {/* Quick Actions */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-16 border border-gray-100">
-          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">Quick Actions</h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            <a
-              href="tel:+63365408209"
-              className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-xl hover:from-blue-600 hover:to-green-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <PhoneIcon className="w-6 h-6" />
-              <span className="font-semibold">Call Main Office</span>
-            </a>
-
-            <a
-              href="mailto:sanjosempc@yahoo.com"
-              className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-xl hover:from-blue-600 hover:to-green-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <EnvelopeIcon className="w-6 h-6" />
-              <span className="font-semibold">Send Email</span>
-            </a>
-
-            <a
-              href="/online-application"
-              className="flex items-center justify-center space-x-3 p-6 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-xl hover:from-blue-600 hover:to-green-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              <span className="font-semibold">Apply Online</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Contact Form */}
-    <ContactForm />
+      </section>
     </div>
   );
-  
 }

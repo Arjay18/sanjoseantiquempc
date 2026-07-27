@@ -12,7 +12,7 @@ const stats = [
 
 export default function StatisticsSection() {
   return (
-    <section className="bg-[#004D2D] text-white py-14">
+    <section className="bg-[#004D2D] text-white py-14 sm:py-16">
       <SectionContainer>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((s) => {
@@ -20,7 +20,7 @@ export default function StatisticsSection() {
             return (
               <div
                 key={s.label}
-                className="rounded-2xl border border-white/10 bg-[color:rgba(255,255,255,0.04)] p-6"
+                className="rounded-2xl border border-white/10 bg-[color:rgba(255,255,255,0.04)] p-6 shadow-[0_12px_30px_-18px_rgba(0,0,0,0.45)]"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">

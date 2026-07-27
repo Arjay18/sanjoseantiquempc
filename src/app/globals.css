@@ -3,6 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --sjmpc-green: #006B3F;
+  --sjmpc-dark-green: #004D2D;
+  --sjmpc-gold: #D4AF37;
+  --sjmpc-section-gray: #F9FAFB;
 }
 
 @theme inline {

@@ -4,6 +4,26 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { 
+  Newspaper, 
+  Sparkles, 
+  Users, 
+  Calendar, 
+  UserCheck, 
+  FileText, 
+  ArrowUpRight, 
+  TrendingUp, 
+  Plus, 
+  Clock, 
+  CheckCircle2, 
+  XCircle,
+  HelpCircle,
+  Activity,
+  ChevronRight,
+  ArrowRight,
+  Mail
+} from 'lucide-react';
 
 interface Stats {
   totalNews: number;
@@ -73,8 +93,11 @@ export default function AdminDashboard() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#006B3F] border-t-transparent"></div>
+          <p className="text-sm font-bold text-gray-500">Loading Dashboard Data...</p>
+        </div>
       </div>
     );
   }
@@ -87,76 +110,71 @@ export default function AdminDashboard() {
     return (
       <div className="space-y-8">
         {/* Welcome Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 text-white">
-          <div className="flex items-center justify-between">
+        <div className="bg-gradient-to-r from-red-600 to-rose-700 rounded-3xl shadow-xl p-6 sm:p-8 text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full blur-2xl pointer-events-none" />
+          <h1 className="text-2xl sm:text-3xl font-black">Connection Issue</h1>
+          <p className="text-red-100 mt-1.5 font-medium">We encountered a problem loading dashboard statistics.</p>
+        </div>
+
+        {/* Error Card */}
+        <div className="bg-white rounded-3xl border border-red-100 shadow-xl p-6 sm:p-8">
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-red-50 rounded-2xl text-red-600">
+              <XCircle className="w-8 h-8" />
+            </div>
             <div>
-              <h1 className="text-2xl font-bold">Welcome back, {session.user?.name || 'Administrator'}!</h1>
-              <p className="text-blue-100 mt-1">Dashboard Error</p>
+              <h3 className="text-lg font-bold text-gray-900">Database Connection Error</h3>
+              <p className="text-gray-600 mt-1.5 leading-relaxed">{error}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="mt-4 px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-sm transition-all shadow-md shadow-red-200"
+              >
+                Retry Loading
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Error Message */}
-        <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <svg className="h-8 w-8 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-              </svg>
-            </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold text-red-800">Database Connection Error</h3>
-              <p className="text-red-700 mt-1">{error}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Actions (still available) */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Quick Actions (Fallbacks) */}
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-xl p-6 sm:p-8">
+          <h2 className="text-xl font-extrabold text-gray-950 mb-5">Quick Actions</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <Link
               href="/administrator/announcements"
-              className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center p-4 border border-gray-100 rounded-2xl hover:bg-slate-50 transition-colors"
             >
-              <div className="flex-shrink-0">
-                <svg className="h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+              <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
+                <FileText className="w-6 h-6" />
               </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-900">Slider Announcements</p>
-                <p className="text-sm text-gray-500">Manage homepage slider</p>
+              <div className="ml-3.5">
+                <p className="text-sm font-bold text-gray-950">Slider Announcements</p>
+                <p className="text-xs text-gray-500 mt-0.5">Manage homepage slider</p>
               </div>
             </Link>
 
             <Link
               href="/administrator/news"
-              className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center p-4 border border-gray-100 rounded-2xl hover:bg-slate-50 transition-colors"
             >
-              <div className="flex-shrink-0">
-                <svg className="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
+              <div className="p-3 bg-blue-50 text-blue-600 rounded-xl">
+                <Newspaper className="w-6 h-6" />
               </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-900">Add News Article</p>
-                <p className="text-sm text-gray-500">Create new content</p>
+              <div className="ml-3.5">
+                <p className="text-sm font-bold text-gray-950">Add News Article</p>
+                <p className="text-xs text-gray-500 mt-0.5">Create news content</p>
               </div>
             </Link>
 
             <Link
               href="/administrator/loan-applications"
-              className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center p-4 border border-gray-100 rounded-2xl hover:bg-slate-50 transition-colors"
             >
-              <div className="flex-shrink-0">
-                <svg className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+              <div className="p-3 bg-orange-50 text-orange-600 rounded-xl">
+                <FileText className="w-6 h-6" />
               </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-900">Review Loan Applications</p>
-                <p className="text-sm text-gray-500">Manage loan requests</p>
+              <div className="ml-3.5">
+                <p className="text-sm font-bold text-gray-950">Review Loan Applications</p>
+                <p className="text-xs text-gray-500 mt-0.5">Manage loan requests</p>
               </div>
             </Link>
           </div>
@@ -165,294 +183,365 @@ export default function AdminDashboard() {
     );
   }
 
-  const statsCards = [
+  // Define metric cards
+  const metrics = [
     {
       name: 'Total News Articles',
       value: stats?.totalNews || 0,
-      icon: 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z',
+      icon: Newspaper,
       href: '/administrator/news',
-      color: 'bg-blue-500'
+      colorClass: 'text-blue-600 bg-blue-50 border-blue-100/50',
+      progressColor: 'bg-blue-600'
     },
     {
       name: 'Success Stories',
       value: stats?.totalSuccessStories || 0,
-      icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+      icon: Sparkles,
       href: '/administrator/success-stories',
-      color: 'bg-green-500'
+      colorClass: 'text-green-600 bg-green-50 border-green-100/50',
+      progressColor: 'bg-green-600'
     },
     {
       name: 'Total Members',
       value: stats?.totalMembers || 0,
-      icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z',
-      href: '#',
-      color: 'bg-purple-500'
+      icon: Users,
+      href: '/administrator/users',
+      colorClass: 'text-purple-600 bg-purple-50 border-purple-100/50',
+      progressColor: 'bg-purple-600'
     },
     {
-      name: 'PMES Sessions',
+      name: 'Active PMES Sessions',
       value: stats?.activePMESSessions || 0,
-      icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+      icon: Calendar,
       href: '/administrator/pmes',
-      color: 'bg-yellow-500'
+      colorClass: 'text-yellow-600 bg-yellow-50 border-yellow-100/50',
+      progressColor: 'bg-yellow-500'
     },
     {
       name: 'Member Registrations',
       value: stats?.totalRegistrations || 0,
-      icon: 'M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z',
-      href: '/administrator/registrations',
-      color: 'bg-indigo-500'
+      icon: UserCheck,
+      href: '/administrator/users',
+      colorClass: 'text-indigo-600 bg-indigo-50 border-indigo-100/50',
+      progressColor: 'bg-indigo-600'
+    },
+    {
+      name: 'Total Loan Applications',
+      value: stats?.totalLoanApplications || 0,
+      icon: FileText,
+      href: '/administrator/loan-applications',
+      colorClass: 'text-orange-600 bg-orange-50 border-orange-100/50',
+      progressColor: 'bg-orange-500'
     }
   ];
 
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
   return (
     <div className="space-y-8">
-      {/* Welcome Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 text-white">
-        <div className="flex items-center justify-between">
+      {/* Welcome Banner Card */}
+      <div className="bg-gradient-to-br from-[#004D2D] via-[#006B3F] to-[#004D2D] rounded-3xl shadow-xl p-6 sm:p-8 text-white relative overflow-hidden">
+        {/* Background glow graphics */}
+        <div className="absolute top-[-20%] right-[-10%] w-72 h-72 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute bottom-[-30%] left-[20%] w-56 h-56 bg-[#D4AF37]/20 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <h1 className="text-2xl font-bold">Welcome back, {session.user?.name || 'Administrator'}!</h1>
-            <p className="text-blue-100 mt-1">Here's what's happening with your SJMPC website today.</p>
+            <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#D4AF37] bg-white/10 px-3 py-1 rounded-full backdrop-blur-md">
+              System Administrator
+            </span>
+            <h1 className="text-3xl sm:text-4xl font-black mt-3">
+              Welcome back, {session.user?.name || 'Admin'}!
+            </h1>
+            <p className="text-emerald-100/90 text-sm sm:text-base mt-2 font-medium">
+              SJMPC portal overview for today, {currentDate}. Everything looks smooth!
+            </p>
           </div>
-          <div className="hidden md:block">
-            <svg className="h-16 w-16 text-blue-200" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
+
+          <div className="flex gap-4 sm:gap-6 bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-md max-w-xs md:max-w-none">
+            <div className="text-center px-4">
+              <p className="text-xs text-emerald-200 font-bold uppercase tracking-wider">Loan Approvals</p>
+              <p className="text-2xl font-black text-[#D4AF37] mt-1">
+                {stats?.successRate ? `${stats.successRate}%` : '100%'}
+              </p>
+            </div>
+            <div className="border-l border-white/10" />
+            <div className="text-center px-4">
+              <p className="text-xs text-emerald-200 font-bold uppercase tracking-wider">Pending Loans</p>
+              <p className="text-2xl font-black text-white mt-1">
+                {stats?.pendingLoanApplications || 0}
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {statsCards.map((stat) => (
-          <div key={stat.name} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center">
-              <div className={`p-3 rounded-lg ${stat.color}`}>
-                <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={stat.icon} />
-                </svg>
+      {/* Metrics Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {metrics.map((m, idx) => {
+          const Icon = m.icon;
+          return (
+            <motion.div
+              whileHover={{ y: -4 }}
+              key={m.name} 
+              className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 flex flex-col justify-between hover:shadow-md transition-all duration-350"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-xs font-extrabold text-gray-500 uppercase tracking-wider">{m.name}</p>
+                  <p className="text-3xl font-black text-gray-950 mt-2">{m.value.toLocaleString()}</p>
+                </div>
+                <div className={`p-3.5 rounded-2xl border ${m.colorClass} flex items-center justify-center`}>
+                  <Icon className="w-5 h-5 flex-shrink-0" />
+                </div>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">{stat.name}</p>
-                <p className="text-2xl font-bold text-gray-900">{stat.value.toLocaleString()}</p>
-              </div>
-            </div>
-            {stat.href !== '#' && (
-              <div className="mt-4">
+
+              <div className="mt-6 pt-4 border-t border-gray-50 flex items-center justify-between">
                 <Link
-                  href={stat.href}
-                  className="text-sm text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+                  href={m.href}
+                  className="text-xs font-extrabold text-[#006B3F] hover:text-[#004D2D] transition-colors flex items-center gap-1 cursor-pointer"
                 >
-                  View details
-                  <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                  </svg>
+                  Manage Data
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
+                <div className="w-20 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                  <div className={`h-full rounded-full ${m.progressColor}`} style={{ width: '65%' }} />
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Main Grid: Applications & Activity Logs */}
+      <div className="grid lg:grid-cols-12 gap-8 items-start">
+        
+        {/* Left 8-cols: Loan Applications Table Card */}
+        <div className="lg:col-span-8 bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="p-6 border-b border-gray-50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-extrabold text-gray-950">Loan Applications</h2>
+              <p className="text-xs font-semibold text-gray-500 mt-1">Review the latest 10 submissions across all branches</p>
+            </div>
+            <Link 
+              href="/administrator/loan-applications"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-slate-50 hover:bg-slate-100 border border-gray-100 rounded-xl text-xs font-bold text-gray-700 transition-colors cursor-pointer"
+            >
+              View All Applications
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="overflow-x-auto">
+            {allApplications.length === 0 ? (
+              <div className="p-10 text-center text-gray-500">
+                <FileText className="w-10 h-10 mx-auto text-gray-300 mb-3" />
+                <p className="text-sm font-bold">No Loan Applications Found</p>
+                <p className="text-xs text-gray-400 mt-1">New applications submitted by members will appear here.</p>
+              </div>
+            ) : (
+              <table className="min-w-full divide-y divide-gray-100">
+                <thead className="bg-gray-50/50">
+                  <tr>
+                    <th className="px-6 py-4 text-left text-[11px] font-extrabold text-gray-500 uppercase tracking-widest">Applicant</th>
+                    <th className="px-6 py-4 text-left text-[11px] font-extrabold text-gray-500 uppercase tracking-widest">Branch</th>
+                    <th className="px-6 py-4 text-left text-[11px] font-extrabold text-gray-500 uppercase tracking-widest">Type / Amount</th>
+                    <th className="px-6 py-4 text-left text-[11px] font-extrabold text-gray-500 uppercase tracking-widest">Status</th>
+                    <th className="px-6 py-4 text-right text-[11px] font-extrabold text-gray-500 uppercase tracking-widest">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-100">
+                  {allApplications.map(app => (
+                    <tr key={app.id} className="hover:bg-slate-50/50 transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-extrabold text-gray-900">{app.name}</div>
+                        <div className="text-xs text-gray-500 mt-0.5">PB: {app.pbNo}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-[#006B3F] border border-emerald-100/50">
+                          {app.branch}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-bold text-gray-900">{app.loanType}</div>
+                        <div className="text-xs font-extrabold text-[#006B3F] mt-0.5">₱{app.loanAmount?.toLocaleString()}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border ${
+                          app.status === 'pending' ? 'bg-amber-50 text-amber-700 border-amber-100' :
+                          app.status === 'approved' ? 'bg-green-50 text-green-700 border-green-100' :
+                          app.status === 'rejected' ? 'bg-red-50 text-red-700 border-red-100' : 'bg-gray-50 text-gray-700 border-gray-100'
+                        }`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${
+                            app.status === 'pending' ? 'bg-amber-500' :
+                            app.status === 'approved' ? 'bg-green-500' :
+                            app.status === 'rejected' ? 'bg-red-500' : 'bg-gray-400'
+                          }`} />
+                          {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right">
+                        <Link 
+                          href={`/administrator/loan-applications/${app.id}`}
+                          className="inline-flex items-center justify-center p-2 bg-slate-50 hover:bg-slate-100 text-[#006B3F] hover:text-[#004D2D] rounded-lg transition-colors border border-gray-100 cursor-pointer"
+                          title="Review Application"
+                        >
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+
+        {/* Right 4-cols: Activity Timeline Card */}
+        <div className="lg:col-span-4 bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full">
+          <div className="p-6 border-b border-gray-50">
+            <h2 className="text-xl font-extrabold text-gray-950 flex items-center gap-2">
+              <Activity className="w-5 h-5 text-[#006B3F]" />
+              Recent Activity
+            </h2>
+            <p className="text-xs font-semibold text-gray-500 mt-1">Audit logs of the latest site operations</p>
+          </div>
+
+          <div className="p-6 flex-grow">
+            {!stats?.recentActivity || stats.recentActivity.length === 0 ? (
+              <div className="py-12 text-center text-gray-500">
+                <Clock className="w-8 h-8 mx-auto text-gray-300 mb-2" />
+                <p className="text-xs font-bold">No Recent Activity Logs</p>
+              </div>
+            ) : (
+              <div className="flow-root relative">
+                {/* Vertical timeline line */}
+                <div className="absolute left-[15px] top-3 bottom-3 w-0.5 bg-slate-100 pointer-events-none" />
+
+                <div className="-mb-8">
+                  {stats.recentActivity.slice(0, 6).map((activity, idx) => {
+                    const isLast = idx === Math.min(stats.recentActivity.length, 6) - 1;
+                    return (
+                      <div key={activity.id} className="relative pb-8">
+                        <div className="relative flex items-start space-x-3">
+                          {/* Timeline dot with icon */}
+                          <div className={`relative flex items-center justify-center w-8 h-8 rounded-full border shadow-sm ${
+                            activity.type === 'news' ? 'bg-blue-50 border-blue-100 text-blue-600' :
+                            activity.type === 'story' ? 'bg-green-50 border-green-100 text-green-600' :
+                            activity.type === 'application' ? 'bg-orange-50 border-orange-100 text-orange-600' : 'bg-purple-50 border-purple-100 text-purple-600'
+                          }`}>
+                            {activity.type === 'news' && <Newspaper className="w-3.5 h-3.5" />}
+                            {activity.type === 'story' && <Sparkles className="w-3.5 h-3.5" />}
+                            {activity.type === 'application' && <FileText className="w-3.5 h-3.5" />}
+                            {activity.type === 'user' && <Users className="w-3.5 h-3.5" />}
+                          </div>
+
+                          {/* Content */}
+                          <div className="min-w-0 flex-1 pt-0.5">
+                            <p className="text-xs font-bold text-gray-900 leading-snug">
+                              {activity.action}{' '}
+                              <span className="font-normal text-gray-600">
+                                "{activity.title}"
+                              </span>
+                            </p>
+                            <span className="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium">
+                              <Clock className="w-3 h-3" />
+                              {activity.timestamp}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
-        ))}
-      </div>
 
-      {/* All Loan Applications Summary */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">All Loan Applications (Latest 10)</h2>
-        {allApplications.length === 0 ? (
-          <p className="text-gray-500">No loan applications found.</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applicant</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loan Type</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {allApplications.map(app => (
-                  <tr key={app.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{app.name}</div>
-                      <div className="text-sm text-gray-500">PB#: {app.pbNo}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                        {app.branch}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{app.loanType}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">₱{app.loanAmount?.toLocaleString()}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        app.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                        app.status === 'approved' ? 'bg-green-100 text-green-800' :
-                        app.status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {app.createdAt ? new Date(app.createdAt).toLocaleDateString() : ''}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="p-4 bg-slate-50/50 border-t border-gray-50 text-center">
+            <Link
+              href="/administrator/activity"
+              className="text-xs font-extrabold text-[#006B3F] hover:text-[#004D2D] transition-colors inline-flex items-center gap-1 cursor-pointer"
+            >
+              View Full Audit Log
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
-        )}
-        <div className="mt-4 text-right">
-          <Link href="/administrator/loan-applications" className="text-blue-600 hover:text-blue-800 font-medium">View all loan applications →</Link>
         </div>
+
       </div>
 
-      {/* Quick Actions */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Quick Actions Hub Grid */}
+      <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8">
+        <h2 className="text-xl font-extrabold text-gray-950 mb-5">Quick Actions Hub</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <Link
             href="/administrator/announcements"
-            className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex flex-col items-center justify-center p-5 border border-gray-100 rounded-2xl hover:border-[#006B3F]/30 hover:bg-[#006B3F]/5 transition-all text-center group"
           >
-            <div className="flex-shrink-0">
-              <svg className="h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl group-hover:scale-110 transition-transform">
+              <FileText className="w-5 h-5" />
             </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">Slider Announcements</p>
-              <p className="text-sm text-gray-500">Manage homepage slider</p>
-            </div>
+            <p className="text-xs font-bold text-gray-950 mt-3">Slider Banner</p>
           </Link>
 
           <Link
             href="/administrator/news"
-            className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex flex-col items-center justify-center p-5 border border-gray-100 rounded-2xl hover:border-[#006B3F]/30 hover:bg-[#006B3F]/5 transition-all text-center group"
           >
-            <div className="flex-shrink-0">
-              <svg className="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
+            <div className="p-3 bg-blue-50 text-blue-600 rounded-xl group-hover:scale-110 transition-transform">
+              <Newspaper className="w-5 h-5" />
             </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">Add News Article</p>
-              <p className="text-sm text-gray-500">Create new content</p>
-            </div>
+            <p className="text-xs font-bold text-gray-950 mt-3">Add News</p>
           </Link>
 
           <Link
             href="/administrator/success-stories"
-            className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex flex-col items-center justify-center p-5 border border-gray-100 rounded-2xl hover:border-[#006B3F]/30 hover:bg-[#006B3F]/5 transition-all text-center group"
           >
-            <div className="flex-shrink-0">
-              <svg className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
+            <div className="p-3 bg-green-50 text-green-600 rounded-xl group-hover:scale-110 transition-transform">
+              <Sparkles className="w-5 h-5" />
             </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">Add Success Story</p>
-              <p className="text-sm text-gray-500">Share member stories</p>
-            </div>
+            <p className="text-xs font-bold text-gray-950 mt-3">Success Story</p>
           </Link>
 
           <Link
             href="/administrator/pmes"
-            className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex flex-col items-center justify-center p-5 border border-gray-100 rounded-2xl hover:border-[#006B3F]/30 hover:bg-[#006B3F]/5 transition-all text-center group"
           >
-            <div className="flex-shrink-0">
-              <svg className="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+            <div className="p-3 bg-yellow-50 text-yellow-600 rounded-xl group-hover:scale-110 transition-transform">
+              <Calendar className="w-5 h-5" />
             </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">Manage PMES Sessions</p>
-              <p className="text-sm text-gray-500">Schedule seminars</p>
+            <p className="text-xs font-bold text-gray-950 mt-3">PMES Setup</p>
+          </Link>
+
+          <Link
+            href="/administrator/contact"
+            className="flex flex-col items-center justify-center p-5 border border-gray-100 rounded-2xl hover:border-[#006B3F]/30 hover:bg-[#006B3F]/5 transition-all text-center group"
+          >
+            <div className="p-3 bg-rose-50 text-rose-600 rounded-xl group-hover:scale-110 transition-transform">
+              <Mail className="w-5 h-5" />
             </div>
+            <p className="text-xs font-bold text-gray-950 mt-3">Inquiries</p>
           </Link>
 
           <Link
             href="/administrator/users"
-            className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex flex-col items-center justify-center p-5 border border-gray-100 rounded-2xl hover:border-[#006B3F]/30 hover:bg-[#006B3F]/5 transition-all text-center group"
           >
-            <div className="flex-shrink-0">
-              <svg className="h-8 w-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
+            <div className="p-3 bg-purple-50 text-purple-600 rounded-xl group-hover:scale-110 transition-transform">
+              <Users className="w-5 h-5" />
             </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">Manage Users</p>
-              <p className="text-sm text-gray-500">View and manage all users</p>
-            </div>
+            <p className="text-xs font-bold text-gray-950 mt-3">Manage Users</p>
           </Link>
         </div>
       </div>
 
-      {/* Recent Activity */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Activity</h2>
-          <p className="text-sm text-gray-600">Latest updates and changes to your content</p>
-        </div>
-        <div className="divide-y divide-gray-200">
-          {stats?.recentActivity?.map((activity) => (
-            <div key={activity.id} className="px-6 py-4 hover:bg-gray-50 transition-colors">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                    activity.type === 'news' ? 'bg-blue-100' :
-                    activity.type === 'story' ? 'bg-green-100' :
-                    activity.type === 'application' ? 'bg-orange-100' : 'bg-purple-100'
-                  }`}>
-                    <svg className={`h-4 w-4 ${
-                      activity.type === 'news' ? 'text-blue-600' :
-                      activity.type === 'story' ? 'text-green-600' :
-                      activity.type === 'application' ? 'text-orange-600' : 'text-purple-600'
-                    }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={
-                        activity.type === 'news' ? 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z' :
-                        activity.type === 'story' ? 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' :
-                        activity.type === 'application' ? 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' :
-                        'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
-                      } />
-                    </svg>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-900">
-                      {activity.action} <span className="font-normal">"{activity.title}"</span>
-                    </p>
-                    <p className="text-sm text-gray-500">{activity.timestamp}</p>
-                  </div>
-                </div>
-                <div className="flex-shrink-0">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                    activity.type === 'news' ? 'bg-blue-100 text-blue-800' :
-                    activity.type === 'story' ? 'bg-green-100 text-green-800' :
-                    activity.type === 'application' ? 'bg-orange-100 text-orange-800' :
-                    'bg-purple-100 text-purple-800'
-                  }`}>
-                    {activity.type === 'news' ? 'News' :
-                     activity.type === 'story' ? 'Story' :
-                     activity.type === 'application' ? 'Application' : 'User'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-          <Link
-            href="/administrator/activity"
-            className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-          >
-            View all activity →
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }

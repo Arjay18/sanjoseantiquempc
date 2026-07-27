@@ -1,11 +1,11 @@
 "use client";
 
-import HeroSlider from '@/components/home/HeroSlider';
+import ModernHomeSlider from '@/components/home/ModernHomeSlider';
 
 export default function HeroSection() {
   return (
     <div className="bg-white">
-      <HeroSlider />
+      <ModernHomeSlider />
     </div>
   );
 }

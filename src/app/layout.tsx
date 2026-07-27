@@ -8,10 +8,21 @@ import RootLayoutClient from "@/components/RootLayoutClient";
 export const metadata: Metadata = {
   metadataBase: new URL('https://sanjoseantiquempc.com'),
   title: {
-    default: "San Jose Antique MPC",
+    default: "San Jose Antique MPC | Cooperative Loans, Savings & Services",
     template: "%s | San Jose Antique MPC"
   },
-  description: "Official website of San Jose Antique MPC",
+  description: "San Jose Antique MPC offers savings products, loan packages, online application, and member services across Antique.",
+  keywords: ["San Jose Antique MPC", "cooperative", "loans", "savings", "Antique", "online application"],
+  alternates: {
+    canonical: "https://sanjoseantiquempc.com"
+  },
+  openGraph: {
+    title: "San Jose Antique MPC | Cooperative Loans, Savings & Services",
+    description: "Access affordable loans, secure savings, and member services from San Jose Antique MPC.",
+    url: "https://sanjoseantiquempc.com",
+    type: "website",
+    siteName: "San Jose Antique MPC"
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },

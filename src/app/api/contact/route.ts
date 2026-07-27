@@ -11,7 +11,8 @@ export async function POST(req: Request) {
       phone,
       subject,
       message,
-      inquiryType
+      inquiryType,
+      branch
     } = data;
 
     if (!process.env.RESEND_API_KEY) {
@@ -30,6 +31,7 @@ export async function POST(req: Request) {
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Target Branch:</strong> ${branch || 'Not Specified'}</p>
         <p><strong>Inquiry Type:</strong> ${inquiryType}</p>
         <p><strong>Subject:</strong> ${subject}</p>
         <p><strong>Message:</strong><br/> ${message.replace(/\n/g, "<br/>")}</p>

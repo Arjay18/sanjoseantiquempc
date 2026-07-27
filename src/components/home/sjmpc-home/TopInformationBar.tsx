@@ -11,7 +11,7 @@ export default function TopInformationBar() {
         <div className="h-11 flex items-center justify-between gap-4 text-sm">
           <div className="flex items-center gap-3 font-semibold tracking-wide">
             <span className="inline-flex w-2.5 h-2.5 rounded-full bg-[#D4AF37] shadow-[0_0_18px_rgba(212,175,55,0.45)]" aria-hidden="true" />
-            <span className="truncate">Serving Antiqueños since 1963</span>
+            <span className="truncate">Serving Antiqueños since 1964</span>
           </div>
 
           <div className="flex items-center gap-4 sm:gap-6">

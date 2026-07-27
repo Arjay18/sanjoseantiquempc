@@ -19,8 +19,8 @@ type Slide = {
 };
 
 const defaultSlides: Slide[] = [
-  { image: '/slider/Slider1.jpg', link: '/online-application' },
-  { image: '/slider/Slider2.jpg', link: '/loan-packages' },
+  { image: '/slider/Slider%2001.png', link: '/online-application' },
+  { image: '/slider/Slider%2002.png', link: '/loan-packages' },
 ];
 
 function normalizeLocalImagePath(value: string) {
@@ -126,8 +126,8 @@ export default function ModernHomeSlider() {
   if (loading) {
     return (
       <section className="w-full bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-          <div className="h-[260px] md:h-[290px] lg:h-[320px] rounded-2xl bg-gradient-to-br from-[#006B3F]/10 to-[#D4AF37]/10 border border-gray-100 animate-pulse" />
+        <div className="w-full">
+          <div className="h-[320px] sm:h-[420px] lg:h-[560px] bg-gradient-to-br from-[#006B3F]/10 to-[#D4AF37]/10 animate-pulse" />
         </div>
       </section>
     );
@@ -137,17 +137,17 @@ export default function ModernHomeSlider() {
 
   return (
     <section className="w-full bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <div className="w-full">
         <div
-          className="relative rounded-2xl overflow-hidden border border-gray-100 shadow-sm"
+          className="relative w-full overflow-hidden bg-white"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* Background sheen */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,107,63,0.18),transparent_55%)]" />
 
-          {/* Reduced height */}
-          <div className="relative h-[260px] md:h-[290px] lg:h-[320px]">
+          {/* Full-width hero height */}
+          <div className="relative h-[360px] sm:h-[460px] lg:h-[620px]">
             {slides.map((slide, idx) => {
               const isActive = idx === currentSlide;
               return (
@@ -171,7 +171,9 @@ export default function ModernHomeSlider() {
                           alt={`Slide ${idx + 1}`}
                           fill
                           priority={idx === 0}
-                          className="object-cover"
+                          sizes="100vw"
+                          quality={100}
+                          className="object-contain object-center bg-white"
                         />
                       </div>
                     </Link>
@@ -182,37 +184,13 @@ export default function ModernHomeSlider() {
                         alt={`Slide ${idx + 1}`}
                         fill
                         priority={idx === 0}
-                        className="object-cover"
+                        sizes="100vw"
+                        quality={100}
+                        className="object-contain object-center bg-white"
                       />
                     </div>
                   )}
 
-                  {/* Top gradient for modern readability */}
-                  <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/35 via-black/10 to-transparent" />
-
-                  {/* Bottom mini CTA overlay (generic modern style) */}
-                  {slide.link && (
-                    <div className="absolute left-0 right-0 bottom-0 p-5 flex items-center justify-between gap-4">
-                      <div className="min-w-0">
-                        <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3 py-1 text-[12px] font-semibold text-white border border-white/15">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_12px_rgba(212,175,55,0.6)]" />
-                          Featured
-                        </div>
-                        <div className="mt-2 text-white text-sm font-semibold truncate">
-                          {idx === currentSlide ? 'Explore our programs' : ''}
-                        </div>
-                      </div>
-
-                      <div
-                        className={
-                          'shrink-0 rounded-full bg-white/15 border border-white/20 px-4 py-2 text-sm font-bold text-white transition-transform ' +
-                          (isHovered ? 'scale-105' : 'scale-100')
-                        }
-                      >
-                        Learn more
-                      </div>
-                    </div>
-                  )}
                 </div>
               );
             })}

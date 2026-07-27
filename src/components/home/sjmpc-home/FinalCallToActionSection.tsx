@@ -29,7 +29,7 @@ export default function FinalCallToActionSection() {
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <Link
                 href="/registration"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-white text-[var(--sjmpc-green)] font-extrabold hover:bg-[color:rgba(255,255,255,0.92)] transition-all focus:outline-none focus:ring-2 focus:ring-[var(--sjmpc-gold)]"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-white text-[var(--sjmpc-green)] font-extrabold shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-[color:rgba(255,255,255,0.92)] transition-all focus:outline-none focus:ring-2 focus:ring-[var(--sjmpc-gold)]"
               >
                 <Calculator className="w-5 h-5" />
                 Become a Member
@@ -37,7 +37,7 @@ export default function FinalCallToActionSection() {
 
               <Link
                 href="/online-application"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-[var(--sjmpc-green)] text-white font-extrabold hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--sjmpc-gold)]"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-[var(--sjmpc-green)] text-white font-extrabold shadow-lg shadow-black/15 hover:-translate-y-0.5 hover:brightness-110 transition-all focus:outline-none focus:ring-2 focus:ring-[var(--sjmpc-gold)]"
               >
                 <PiggyBank className="w-5 h-5" />
                 Apply for Loan Online
