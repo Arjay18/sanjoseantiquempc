@@ -21,6 +21,7 @@ type Slide = {
 const defaultSlides: Slide[] = [
   { image: '/slider/Slider%2001.png', link: '/online-application' },
   { image: '/slider/Slider%2002.png', link: '/loan-packages' },
+  { image: '/slider/Slider%2003.png', link: null },
 ];
 
 function normalizeLocalImagePath(value: string) {
