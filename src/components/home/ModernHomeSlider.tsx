@@ -147,7 +147,7 @@ export default function ModernHomeSlider() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,107,63,0.18),transparent_55%)]" />
 
           {/* Full-width hero height */}
-          <div className="relative h-[360px] sm:h-[460px] lg:h-[620px]">
+          <div className="relative h-[420px] sm:h-[560px] lg:h-[750px]">
             {slides.map((slide, idx) => {
               const isActive = idx === currentSlide;
               return (
@@ -173,7 +173,7 @@ export default function ModernHomeSlider() {
                           priority={idx === 0}
                           sizes="100vw"
                           quality={100}
-                          className="object-contain object-center bg-white"
+                          className="object-fill object-center"
                         />
                       </div>
                     </Link>
@@ -186,7 +186,7 @@ export default function ModernHomeSlider() {
                         priority={idx === 0}
                         sizes="100vw"
                         quality={100}
-                        className="object-contain object-center bg-white"
+                        className="object-fill object-center"
                       />
                     </div>
                   )}
