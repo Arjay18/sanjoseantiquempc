@@ -138,7 +138,7 @@ export default function Navigation() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-8">
+          <div className="hidden md:flex md:items-center md:space-x-4 xl:space-x-8">
             {menuItems.map((item) => (
               item.name === 'Coop Login' ? (
                 <Link
@@ -288,7 +288,7 @@ onMouseLeave={() => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center lg:hidden">
+          <div className="flex items-center md:hidden">
             <button
               type="button"
               onClick={() => setIsMenuOpen(prev => !prev)}
@@ -308,11 +308,11 @@ onMouseLeave={() => {
 
       {/* Mobile menu overlay */}
       {isMenuOpen && (
-        <div className="fixed top-16 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={() => setIsMenuOpen(false)} />
+        <div className="fixed top-16 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-40 md:hidden" onClick={() => setIsMenuOpen(false)} />
       )}
 
       {/* Mobile menu */}
-      <div className={`lg:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-100 shadow-xl z-50 transform transition-all duration-300 ease-in-out ${
+      <div className={`md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-100 shadow-xl z-50 transform transition-all duration-300 ease-in-out ${
         isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
       }`}>
         <div className="max-h-[calc(100vh-4rem)] overflow-y-auto">

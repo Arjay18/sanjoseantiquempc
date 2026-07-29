@@ -29,7 +29,6 @@ export default function OfficersHero() {
   return (
     <header className="relative overflow-hidden bg-[linear-gradient(135deg,_#f5fbf7_0%,_#ffffff_50%,_#f0f8f3_100%)] pt-28 sm:pt-32">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,107,63,0.10),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(212,175,55,0.12),transparent_35%)]" />
-      <TopInformationBar />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">

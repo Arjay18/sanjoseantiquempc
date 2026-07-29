@@ -62,10 +62,8 @@ const impactPoints = [
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white text-gray-800">
-      <TopInformationBar />
-      <div className="pt-11">
-        <section className="relative overflow-hidden bg-[#003d22]">
+    <div className="min-h-screen bg-white text-gray-800">
+      <section className="relative overflow-hidden bg-[#003d22]">
           <Image
             src="/images/433653723_8032419583452138_6238720083292977796_n.jpg"
             alt="SJMPC Cooperative Building"
@@ -261,7 +259,6 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-      </div>
-    </main>
+    </div>
   );
 }
