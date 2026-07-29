@@ -20,13 +20,13 @@ export default function FinalCallToActionSection() {
 
       <SectionContainer>
         <div className="relative">
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur px-6 sm:px-10 py-10">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Start Your Financial Journey Today!</h2>
-            <p className="mt-3 text-white/90 max-w-2xl">
+            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur px-4 sm:px-10 py-8 sm:py-10">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Start Your Financial Journey Today!</h2>
+            <p className="mt-3 text-white/90 max-w-2xl text-sm sm:text-base">
               Join thousands of Antiqueños who trust SJMPC as their partner in building a better future.
             </p>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3">
               <Link
                 href="/registration"
                 className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-white text-[var(--sjmpc-green)] font-extrabold shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-[color:rgba(255,255,255,0.92)] transition-all focus:outline-none focus:ring-2 focus:ring-[var(--sjmpc-gold)]"

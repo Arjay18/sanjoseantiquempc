@@ -201,13 +201,14 @@ export default function SavingsProductsSection() {
             </button>
             <button
               onClick={() => setActiveTab('special')}
-              className={`relative rounded-full px-6 py-2.5 text-sm font-extrabold transition-all duration-300 cursor-pointer ${
+              className={`relative rounded-full px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-extrabold transition-all duration-300 cursor-pointer whitespace-nowrap ${
                 activeTab === 'special'
                   ? 'bg-[#006B3F] text-white shadow-md'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Celebration & Milestone Savings
+              <span className="hidden sm:inline">Celebration & Milestone Savings</span>
+              <span className="sm:hidden">Milestone Savings</span>
             </button>
           </div>
         </div>

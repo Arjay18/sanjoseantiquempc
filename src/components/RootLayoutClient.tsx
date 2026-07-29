@@ -20,7 +20,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
 
       <main
         className={
-          showNav ? "flex-grow pt-16" : "flex-grow"
+          showNav ? "flex-grow pt-[108px] sm:pt-[108px]" : "flex-grow"
         }
       >
         {children}

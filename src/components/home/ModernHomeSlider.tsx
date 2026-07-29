@@ -172,9 +172,9 @@ export default function ModernHomeSlider() {
                           alt={`Slide ${idx + 1}`}
                           fill
                           priority={idx === 0}
-                          sizes="100vw"
-                          quality={100}
-                          className="object-fill object-center"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+                          quality={85}
+                          className="object-cover object-center"
                         />
                       </div>
                     </Link>
@@ -185,9 +185,9 @@ export default function ModernHomeSlider() {
                         alt={`Slide ${idx + 1}`}
                         fill
                         priority={idx === 0}
-                        sizes="100vw"
-                        quality={100}
-                        className="object-fill object-center"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+                        quality={85}
+                        className="object-cover object-center"
                       />
                     </div>
                   )}

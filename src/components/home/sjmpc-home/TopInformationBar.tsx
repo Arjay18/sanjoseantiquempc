@@ -14,16 +14,16 @@ export default function TopInformationBar() {
             <span className="truncate">Serving Antiqueños since 1964</span>
           </div>
 
-          <div className="flex items-center gap-4 sm:gap-6">
+          <div className="flex items-center gap-2 sm:gap-6">
             <a
               href={`tel:${phone.replace(/\s+/g, "").replace(/\+/g, "")}`}
-              className="inline-flex items-center gap-2 hover:text-[#D4AF37] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-[#006B3F] rounded"
+              className="inline-flex items-center gap-1 sm:gap-2 hover:text-[#D4AF37] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-[#006B3F] rounded text-xs sm:text-sm"
             >
               {phone}
             </a>
             <a
               href={`mailto:${email}`}
-              className="text-white/90 hover:text-[#D4AF37] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-[#006B3F] rounded"
+              className="hidden sm:inline-flex text-white/90 hover:text-[#D4AF37] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-[#006B3F] rounded"
             >
               {email}
             </a>
@@ -33,7 +33,7 @@ export default function TopInformationBar() {
             href={socialUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-[#006B3F]"
+            className="hidden sm:inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-[#006B3F]"
             aria-label="Facebook"
           >
             <Facebook className="w-5 h-5" />
