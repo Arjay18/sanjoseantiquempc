@@ -21,7 +21,7 @@ const config: Config = {
         mono: ["var(--font-geist-mono)"],
       },
       screens: {
-        'xs': '475px',
+        'xs': '420px',
         '3xl': '1600px',
       },
       spacing: {

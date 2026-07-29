@@ -148,7 +148,7 @@ export default function ModernHomeSlider() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,107,63,0.18),transparent_55%)]" />
 
           {/* Full-width hero height */}
-          <div className="relative h-[420px] sm:h-[560px] lg:h-[750px]">
+          <div className="relative h-[280px] xs:h-[360px] sm:h-[560px] lg:h-[750px]">
             {slides.map((slide, idx) => {
               const isActive = idx === currentSlide;
               return (

@@ -116,20 +116,21 @@ export default function Navigation() {
             <style>{`a[href="/login"], a[href="/login?from=not-found"], a[href="/login?from=not-found"]{pointer-events:none !important;}`}</style>
           )}
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center space-x-3">
+          <div className="flex-shrink-0 flex items-center min-w-0 max-w-[55%] sm:max-w-none">
+            <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
               <Image
                 src="/logo.png"
                 alt="SJMPC Logo"
-                width={40}
-                height={40}
-                className="rounded-lg"
+                width={36}
+                height={36}
+                className="rounded-lg sm:w-10 sm:h-10 flex-shrink-0"
               />
-              <div className="flex flex-col leading-tight">
-                <span className="text-[19px] sm:text-[19px] font-bold text-gray-900 hover:text-green-600 transition-colors whitespace-nowrap">
-                  San Jose Multi-Purpose Cooperative
+              <div className="flex flex-col leading-tight min-w-0">
+                <span className="text-sm sm:text-[19px] font-bold text-gray-900 hover:text-green-600 transition-colors truncate">
+                  <span className="hidden xs:inline">San Jose Multi-Purpose Cooperative</span>
+                  <span className="xs:hidden">SJMPC</span>
                 </span>
-                <span className="font-cursive text-[12px] sm:text-[13px] text-green-700 italic mt-0.5">
+                <span className="font-cursive text-[10px] sm:text-[13px] text-green-700 italic mt-0.5">
                   I BELONG
                 </span>
               </div>
