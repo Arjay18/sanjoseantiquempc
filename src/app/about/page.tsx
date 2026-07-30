@@ -1,5 +1,9 @@
+"use client";
+
+import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { FadeIn } from '@/components/animations/FadeIn';
 import TopInformationBar from '@/components/home/sjmpc-home/TopInformationBar';
 
@@ -61,6 +65,15 @@ const impactPoints = [
 ];
 
 export default function AboutPage() {
+  const parallaxRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: parallaxRef,
+    offset: ['start end', 'end start'],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['-25%', '25%']);
+  const textY = useTransform(scrollYProgress, [0, 1], ['5%', '-5%']);
+  const textOpacity = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [0.6, 1, 0.6]);
+
   return (
     <div className="min-h-screen bg-white text-gray-800">
       <section className="relative overflow-hidden">
@@ -181,6 +194,56 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
+        </section>
+
+{/* Parallax Section: I BELONG */}
+        <section ref={parallaxRef} className="relative h-[500px] sm:h-[550px] lg:h-[600px] overflow-hidden bg-[#004D2D]">
+          {/* Background image with Framer Motion parallax */}
+          <motion.div
+            className="absolute inset-0 bg-cover bg-center will-change-transform"
+            style={{ backgroundImage: "url('/Supporting images/Paralax Background.png')", y: bgY }}
+          />
+          {/* Dark gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#003d22]/95 via-[#004D2D]/85 to-[#006B3F]/75" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.12),transparent_70%)]" />
+
+          {/* Decorative elements */}
+          <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-[#D4AF37]/10 blur-3xl" />
+          <div className="absolute bottom-10 right-10 w-48 h-48 rounded-full bg-white/5 blur-3xl" />
+
+          <motion.div
+            className="relative z-10 flex items-center justify-center h-full"
+            style={{ y: textY, opacity: textOpacity }}
+          >
+            <div className="text-center px-6 max-w-4xl mx-auto">
+              {/* Animated underline accent */}
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <span className="h-0.5 w-12 rounded-full bg-[#D4AF37]" />
+                <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#D4AF37]">
+                  Our Promise
+                </span>
+                <span className="h-0.5 w-12 rounded-full bg-[#D4AF37]" />
+              </div>
+
+              {/* Large "I BELONG" heading */}
+              <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tight leading-none">
+                I <span className="text-[#D4AF37]">BELONG</span>
+              </h2>
+
+              {/* Subheading */}
+              <p className="mt-6 text-lg sm:text-xl md:text-2xl text-white/90 font-light max-w-2xl mx-auto leading-relaxed">
+                To a cooperative that values my growth, supports my dreams, and builds a stronger future — together.
+              </p>
+
+              {/* Decorative divider */}
+              <div className="mt-8 flex items-center justify-center gap-4">
+                <div className="h-px w-16 bg-[#D4AF37]/50" />
+                <div className="w-2 h-2 rounded-full bg-[#D4AF37]" />
+                <div className="h-px w-16 bg-[#D4AF37]/50" />
+              </div>
+            </div>
+          </motion.div>
         </section>
 
         <section className="bg-white py-24">

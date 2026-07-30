@@ -108,8 +108,8 @@ export default function LoanApplicationProcessSection() {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
               <div className="relative h-[500px]">
                 <Image
-                  src="/images/433653723_8032419583452138_6238720083292977796_n.jpg"
-                  alt="Smiling member using a smartphone"
+                  src="/Supporting Images/Loan Application Process.png"
+                  alt="Loan Application Process"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"

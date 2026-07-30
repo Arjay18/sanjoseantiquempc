@@ -1,8 +1,9 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 function Breadcrumb() {
   return (
@@ -29,23 +30,48 @@ function Breadcrumb() {
 }
 
 export default function SavingsHero() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.4, 0.55]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0.8]);
+
   return (
-    <section className="relative overflow-hidden h-[500px] sm:h-[560px] lg:h-[620px]">
-      {/* Full background image */}
-      <Image
-        src="/Hero Section/Savings Hero Section.png"
-        alt="Savings Products"
-        fill
-        className="object-cover"
-        sizes="100vw"
-        priority
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden h-[500px] sm:h-[560px] lg:h-[620px]"
+    >
+      {/* Full background image with parallax */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{ y: imageY }}
+      >
+        <Image
+          src="/Hero Section/Savings Hero Section.png"
+          alt="Savings Products"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+      </motion.div>
+
+      {/* Dark overlay with subtle parallax */}
+      <motion.div
+        className="absolute inset-0 z-[1]"
+        style={{ backgroundColor: "rgba(0,0,0,0.4)", opacity: overlayOpacity }}
       />
 
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-black/40" />
-
-      {/* Content overlay */}
-      <div className="absolute inset-0 flex items-center">
+      {/* Content overlay with parallax */}
+      <motion.div
+        className="absolute inset-0 z-[2] flex items-center"
+        style={{ y: contentY, opacity: contentOpacity }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -69,7 +95,7 @@ export default function SavingsHero() {
             </a>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
