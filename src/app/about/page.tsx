@@ -63,9 +63,9 @@ const impactPoints = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white text-gray-800">
-      <section className="relative overflow-hidden bg-[#003d22]">
+      <section className="relative overflow-hidden">
           <Image
-            src="/images/433653723_8032419583452138_6238720083292977796_n.jpg"
+            src="/Hero Section/About us Hero Section.png"
             alt="SJMPC Cooperative Building"
             fill
             className="object-cover"

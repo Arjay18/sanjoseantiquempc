@@ -67,7 +67,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Protected, low-risk cooperative investment",
     ],
     href: "/online-application",
-    image: "/Services Showcase/Member Services.jpg",
+    image: "/Services Showcase/SAVINGS/Time Deposit.png",
     Icon: Clock,
   },
 
@@ -87,7 +87,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Ideal for home buying, business startup, or legacy funds",
     ],
     href: "/online-application",
-    image: "/images/597403592_1403798674673184_7189129226940101753_n.jpg",
+    image: "/Services Showcase/SAVINGS/Ultima Savings.png",
     Icon: Sparkles,
   },
 
@@ -107,7 +107,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Great for short-to-medium range personal milestones",
     ],
     href: "/online-application",
-    image: "/images/584711177_10236308089939119_4315614434674993906_n.jpg",
+    image: "/Services Showcase/SAVINGS/Alkansya Savings.png",
     Icon: Coins,
   },
 
@@ -127,7 +127,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Builds a reliable nest egg for post-career comfort",
     ],
     href: "/online-application",
-    image: "/images/433653723_8032419583452138_6238720083292977796_n.jpg",
+    image: "/Services Showcase/SAVINGS/Retirement Savings.png",
     Icon: Heart,
   },
 
@@ -147,7 +147,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Payout safely transferred at maturity",
     ],
     href: "/online-application",
-    image: "/images/5b1e1675-ac45-4e24-a35a-626860b03fe3.jpg",
+    image: "/Services Showcase/SAVINGS/Baptism Savings.png",
     Icon: Gift,
   },
 
@@ -167,7 +167,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Flexible contributions adjusted to household income",
     ],
     href: "/online-application",
-    image: "/images/540980295_10235369655438843_7551540348210928825_n.jpg",
+    image: "/Services Showcase/SAVINGS/Debut Savings.png",
     Icon: Gift,
   },
 
@@ -187,7 +187,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Interest earning power superior to standard accounts",
     ],
     href: "/online-application",
-    image: "/images/583336515_1358093772463317_512346541910271086_n.jpg",
+    image: "/Services Showcase/SAVINGS/Anniversary Savings.png",
     Icon: Calendar,
   },
 
@@ -207,7 +207,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Safe, transparent account tracking",
     ],
     href: "/online-application",
-    image: "/Services Showcase/LOAN and Savings/ChatGPT Image Jul 11, 2026, 10_05_20 AM.png",
+    image: "/Services Showcase/SAVINGS/Wedding Savings.png",
     Icon: Heart,
   },
 
@@ -227,7 +227,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Dedicated fund for food, decor, and family gatherings",
     ],
     href: "/online-application",
-    image: "/Services Showcase/LOAN and Savings/ChatGPT Image Jul 11, 2026, 10_05_43 AM.png",
+    image: "/Services Showcase/SAVINGS/Fiesta Savings.png",
     Icon: Award,
   },
 
@@ -247,7 +247,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Flexible deposit frequency",
     ],
     href: "/online-application",
-    image: "/Services Showcase/LOAN and Savings/ChatGPT Image Jul 11, 2026, 10_05_50 AM.png",
+    image: "/Services Showcase/SAVINGS/Travel Savings.png",
     Icon: Plane,
   },
 
@@ -267,7 +267,7 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Supports financial resilience against life surprises",
     ],
     href: "/online-application",
-    image: "/Services Showcase/LOAN and Savings/ChatGPT Image Jul 11, 2026, 10_05_56 AM.png",
+    image: "/Services Showcase/SAVINGS/Emergency Savings.png",
     Icon: ShieldCheck,
   },
 
@@ -287,9 +287,8 @@ export const SAVINGS_PRODUCTS: SavingsProduct[] = [
       "Backed by SJMPC community solidarity",
     ],
     href: "/online-application",
-    image: "/Services Showcase/LOAN and Savings/ChatGPT Image Jul 11, 2026, 10_06_01 AM.png",
+    image: "/Services Showcase/SAVINGS/Calamity Savings.png",
     Icon: AlertTriangle,
   },
 ];
-
 

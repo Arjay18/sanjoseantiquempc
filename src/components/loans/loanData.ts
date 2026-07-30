@@ -47,7 +47,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Available for all active cooperative members",
     ],
     href: "/loan-application",
-    image: "/Services Showcase/Loan Services.jpg",
+    image: "/Services Showcase/LOAN/Providential Loan.png",
     Icon: ShieldCheck,
   },
 
@@ -68,7 +68,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Helps parents secure quality education for children",
     ],
     href: "/loan-application",
-    image: "/images/583336515_1358093772463317_512346541910271086_n.jpg",
+    image: "/Services Showcase/LOAN/Providential Loan.png",
     Icon: GraduationCap,
   },
 
@@ -89,7 +89,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Ideal for land purchase, building, or major renovation",
     ],
     href: "/loan-application",
-    image: "/images/433653723_8032419583452138_6238720083292977796_n.jpg",
+    image: "/Services Showcase/LOAN/Providential Loan.png",
     Icon: Home,
   },
 
@@ -110,7 +110,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Honors senior members with dedicated service",
     ],
     href: "/loan-application",
-    image: "/images/540980295_10235369655438843_7551540348210928825_n.jpg",
+    image: "/Services Showcase/LOAN/Pension Loan.png",
     Icon: BriefcaseBusiness,
   },
 
@@ -131,7 +131,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Transparent cooperative terms without hidden charges",
     ],
     href: "/loan-application",
-    image: "/images/540980295_10235369655438843_7551540348210928825_n.jpg",
+    image: "/Services Showcase/LOAN/Salary Loan.png",
     Icon: Banknote,
   },
 
@@ -152,7 +152,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Supports household stability & long-term family investments",
     ],
     href: "/loan-application",
-    image: "/images/597403592_1403798674673184_7189129226940101753_n.jpg",
+    image: "/Services Showcase/LOAN/Ofw Loan.png",
     Icon: Phone,
   },
 
@@ -173,7 +173,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Guidance & support from cooperative financial advisors",
     ],
     href: "/loan-application",
-    image: "/images/597403592_1403798674673184_7189129226940101753_n.jpg",
+    image: "/Services Showcase/LOAN/Micro-Enterprise Loan.png",
     Icon: Building2,
   },
 
@@ -194,7 +194,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Reliable financial partner for local farmers",
     ],
     href: "/loan-application",
-    image: "/images/5b1e1675-ac45-4e24-a35a-626860b03fe3.jpg",
+    image: "/Services Showcase/LOAN/Agricultural Loan.png",
     Icon: Tractor,
   },
 
@@ -215,7 +215,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Perfect safety net for sudden cash requirements",
     ],
     href: "/loan-application",
-    image: "/images/597403592_1403798674673184_7189129226940101753_n.jpg",
+    image: "/Services Showcase/LOAN/Petty Cash Loan.png",
     Icon: Coins,
   },
 
@@ -236,7 +236,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Flexible terms supporting sustainable farming",
     ],
     href: "/loan-application",
-    image: "/images/5b1e1675-ac45-4e24-a35a-626860b03fe3.jpg",
+    image: "/Services Showcase/LOAN/Rice Loan.png",
     Icon: Tractor,
   },
 
@@ -257,7 +257,7 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Protects family health without financial distress",
     ],
     href: "/loan-application",
-    image: "/images/433653723_8032419583452138_6238720083292977796_n.jpg",
+    image: "/Services Showcase/LOAN/Medical Loan.png",
     Icon: Stethoscope,
   },
 
@@ -278,9 +278,8 @@ export const LOAN_PRODUCTS: LoanProduct[] = [
       "Backed by SJMPC community solidarity & support",
     ],
     href: "/loan-application",
-    image: "/images/597403592_1403798674673184_7189129226940101753_n.jpg",
+    image: "/Services Showcase/LOAN/Calamity Loan.png",
     Icon: AlertTriangle,
   },
 ];
-
 
