@@ -1,63 +1,46 @@
 "use client";
 
 import React from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export type StaffMemberProps = {
-  image: string;
   name: string;
   position: string;
-  /** Accessible alt override (defaults to `${name} portrait`) */
-  alt?: string;
 };
 
-export default function StaffMember({ image, name, position, alt }: StaffMemberProps) {
+function getInitials(name: string) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  const first = parts[0]?.[0] ?? '';
+  const second = parts[1]?.[0] ?? parts[0]?.[1] ?? '';
+  return `${first}${second}`.toUpperCase();
+}
+
+export default function StaffMember({ name, position }: StaffMemberProps) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-5% 0px' }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="group relative flex h-full min-h-[320px] w-full flex-col items-center justify-start overflow-hidden rounded-[1.5rem] border border-[#E8ECEA] bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="group relative flex h-full min-h-[138px] w-full flex-col justify-between overflow-hidden rounded-[1.05rem] border border-[#E8ECEA] bg-white/95 p-4 text-left shadow-[0_8px_24px_-16px_rgba(6,69,44,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-[#0B5D3B]/40 hover:shadow-[0_12px_30px_-16px_rgba(6,69,44,0.45)]"
     >
-      {/* Top brand-accent bar shown on card hover */}
-      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#0B5D3B] via-[#D4A017] to-[#0B5D3B] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
+      <div className="absolute inset-x-0 top-0 h-1 rounded-t-[1.05rem] bg-gradient-to-r from-[#0B5D3B] via-[#D4A017] to-[#0B5D3B] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-      {/* Avatar Container */}
-      <div className="relative mb-5 mt-2">
-        {/* Soft background glow on hover */}
-        <div className="absolute inset-0 scale-95 rounded-full bg-gradient-to-tr from-[#0B5D3B]/20 to-[#D4A017]/20 opacity-0 blur-md transition-all duration-500 group-hover:scale-105 group-hover:opacity-100" />
-
-        {/* Double-border Ring styling */}
-        <div className="relative rounded-full border-2 border-[#D4A017] bg-white p-1 shadow-sm transition-colors duration-300 group-hover:border-[#0B5D3B]">
-          <div className="flex h-[132px] w-[132px] items-center justify-center overflow-hidden rounded-full border border-gray-50 bg-gray-50 sm:h-[140px] sm:w-[140px]">
-            <Image
-              src={image}
-              alt={alt ?? `${name} portrait`}
-              width={132}
-              height={132}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          </div>
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#0B5D3B]/15 bg-[#EAF5EE] text-sm font-black uppercase tracking-[0.16em] text-[#0B5D3B]">
+          {getInitials(name)}
         </div>
-      </div>
-
-      {/* Profile Details Container */}
-      <div className="flex-grow flex flex-col justify-between w-full">
-        <div>
-          <h3 className="break-words text-xs font-extrabold uppercase leading-snug tracking-wide text-[#0B5D3B] transition-colors group-hover:text-[#06452C] sm:text-sm">
+        <div className="min-w-0">
+          <h3 className="break-words text-[12.5px] font-extrabold uppercase leading-snug tracking-[0.1em] text-[#0B5D3B] transition-colors group-hover:text-[#06452C]">
             {name}
           </h3>
-
-          {/* Animated line indicator */}
-          <div className="mx-auto my-3 h-0.5 w-6 bg-gray-100 transition-all duration-300 group-hover:w-10 group-hover:bg-[#D4A017]" />
-
-          <p className="text-xs font-semibold leading-snug text-gray-500 transition-colors group-hover:text-[#D4A017] sm:text-sm">
-            {position}
-          </p>
+          <div className="mt-2 h-0.5 w-8 rounded-full bg-[#E5E7EB] transition-all duration-300 group-hover:w-12 group-hover:bg-[#D4A017]" />
         </div>
       </div>
+
+      <p className="mt-3 text-xs font-semibold leading-snug text-gray-600 transition-colors group-hover:text-[#D4A017]">
+        {position}
+      </p>
     </motion.article>
   );
 }

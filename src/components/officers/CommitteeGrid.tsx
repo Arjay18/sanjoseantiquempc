@@ -16,7 +16,7 @@ export default function CommitteeGrid() {
           <div className="mx-auto mt-3 h-1.5 w-24 rounded bg-[#D4AF37]" aria-hidden="true" />
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 space-y-6">
           {committees.map((c, idx) => (
             <motion.div
               key={c.key}
@@ -24,6 +24,7 @@ export default function CommitteeGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: idx * 0.03, ease: 'easeOut' }}
+              className="w-full"
             >
               <CommitteeCard committee={c} />
             </motion.div>

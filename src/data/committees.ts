@@ -42,18 +42,18 @@ export const committees: Committee[] = [
     name: 'Audit Committee',
     chairperson: {
       name: 'BENJAMIN E. CANCAN',
-      position: 'CHAIRPERSON',
+      position: 'Chairperson',
       imageSrc: '/officers/AudCom/cancan.png',
     },
     secretary: {
-      name: 'ARLINE M. VICTORIANO',
-      position: 'SECRETARY',
+      name: 'ARLENE M. VICTORIANO',
+      position: 'Secretary',
       imageSrc: '/officers/AudCom/sarmiento.png',
     },
     members: [
       {
-        name: 'CHRISTINE MARIE G. TAMON',
-        position: 'VICE-CHAIRPERSON',
+        name: 'VICTORIA H. MADREDANO',
+        position: 'Vice-Chairperson',
         imageSrc: '/officers/AudCom/cristine tamon1.png',
       },
     ],
@@ -63,34 +63,29 @@ export const committees: Committee[] = [
     name: 'Assistant Audit Committee',
     members: [
       {
-        name: 'NILDO N. LOGRO, JR. (MIAGAO)',
+        name: 'ORPHA JOSEFIN M. GALERA',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST AUDCOM/LOGRO.png',
       },
       {
-        name: 'ROSALIE N. MOCON (MIAGAO)',
+        name: 'ARLYN B. BAÑARES',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST AUDCOM/mocon.png',
       },
       {
-        name: 'ARLENE VICTORIANO (OTON)',
+        name: 'ROSALIE N. MOCON',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST AUDCOM/victoriano.png',
       },
       {
-        name: 'RASEL MONTAÑO (OTON)',
+        name: 'MARYVIC S. CAÑETE',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST AUDCOM/montaño.png',
       },
       {
-        name: 'ROSENY C. GALIA (GUIMARAS)',
+        name: 'CONIE A. GENANDA',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST AUDCOM/galia.png',
-      },
-      {
-        name: 'HANNAH ROSE E. GAJARDO (GUIMARAS)',
-        position: 'Assistant Member',
-        imageSrc: '/officers/ASST AUDCOM/gajardo.png',
       },
     ],
   },
@@ -109,8 +104,8 @@ export const committees: Committee[] = [
     },
     members: [
       {
-        name: 'VICTORIANO H. MADREDANO',
-        position: 'vice-Chairperson',
+        name: 'CHRISTINE MARIE G. TAMON',
+        position: 'Vice-Chairperson',
         imageSrc: '/officers/EleCom/madredano.png',
       },
     ],
@@ -118,40 +113,35 @@ export const committees: Committee[] = [
   {
     key: 'education',
     name: 'Education Committee',
+    chairperson: {
+      name: 'CORAZON B. MONDRAGON',
+      position: 'Chairperson',
+      imageSrc: '/officers/Board of Directors/corazon mondragon1.png',
+    },
+    secretary: {
+      name: 'BASILIA M. ARANAS',
+      position: 'Secretary',
+      imageSrc: '/officers/EdCom/fernandez.png',
+    },
     members: [
       {
-        name: 'CORAZON B. MONDRAGON',
-        position: 'Chairperson',
-        imageSrc: '/officers/Board of Directors/corazon mondragon1.png',
-      },
-      {
         name: 'RAJIS F. MONTECLARO',
-        position: 'Secretary',
-        imageSrc: '/officers/EdCom/fernandez.png',
-      },
-      {
-        name: 'TEODOLFO N. SIESA (MAIN)',
         position: 'Member',
         imageSrc: '/officers/EdCom/ORDIZE.png',
       },
       {
-        name: 'LEAH L. BARANCO (OTON)',
+        name: 'LEAH L. BARANCO',
         position: 'Member',
         imageSrc: '/officers/EdCom/Ligaya Leonares.png',
       },
       {
-        name: 'STEPHEN N. INTAL (MIAGAO)',
-        position: 'Member',
-        imageSrc: '/officers/EdCom/intal.png',
-      },
-      {
-        name: 'NORIE MAY S. CABALING (GUIMARAS)',
+        name: 'NORIE MAY S. CABALING',
         position: 'Member',
         imageSrc: '/officers/EdCom/educ group.png',
       },
       {
         name: 'PHOEBE T. SASOTA',
-        position: 'Staff Representative',
+        position: 'Management Representative',
         imageSrc: '/officers/EdCom/phoebe sasota.png',
       },
     ],
@@ -159,20 +149,20 @@ export const committees: Committee[] = [
   {
     key: 'genderDevelopment',
     name: 'Gender and Development Committee',
+    chairperson: {
+      name: 'MERLINDA E. ALVIOR',
+      position: 'Chairperson',
+      imageSrc: '/officers/GAD/marilou llavan.png',
+    },
+    secretary: {
+      name: 'AMPARO PEACHY HARRIET M. SAYOMAC',
+      position: 'Secretary',
+      imageSrc: '/officers/GAD/peachy harriet.png',
+    },
     members: [
       {
-        name: 'MARILOU R. LLAVAN',
-        position: 'Chairperson',
-        imageSrc: '/officers/GAD/marilou llavan.png',
-      },
-      {
-        name: 'AMPARO PEACHY HARRIET M. SAYOMAC',
-        position: '',
-        imageSrc: '/officers/GAD/peachy harriet.png',
-      },
-      {
         name: 'ERIC B. CORTEJO',
-        position: 'Secretary',
+        position: 'Member',
         imageSrc: '/officers/GAD/cortejo.png',
       },
       {
@@ -195,35 +185,35 @@ export const committees: Committee[] = [
   {
     key: 'socialDevelopment',
     name: 'Social Services and Development Committee',
+    chairperson: {
+      name: 'ELISEO C. CANALIN',
+      position: 'Chairperson',
+      imageSrc: '/officers/Board of Directors/anna cecilia pefianco1.png',
+    },
+    secretary: {
+      name: 'MA. YLLIEZA A. MOLINING',
+      position: 'Secretary',
+      imageSrc: '/officers/SSDC/melocoton.png',
+    },
     members: [
       {
-        name: 'ANNA CECILIA R. PEFIANCO',
-        position: 'Chairperson',
-        imageSrc: '/officers/Board of Directors/anna cecilia pefianco1.png',
-      },
-      {
-        name: 'RIZALDY F. FERNANDEZ',
-        position: 'Secretary',
-        imageSrc: '/officers/SSDC/melocoton.png',
-      },
-      {
-        name: 'ROSEMARIE M. DELA CRUZ (OTON)',
+        name: 'ALFREDO R. YSULAT',
         position: 'Member',
         imageSrc: '/officers/SSDC/ordize.png',
       },
       {
-        name: 'MA. YLLIEZA A. MOLINING',
+        name: 'ROSEMARIE M. DELA CRUZ',
         position: 'Member',
         imageSrc: '/officers/SSDC/corazon mondragon1.png',
       },
       {
-        name: 'JENNIFER L. GAMARCHA (GUIMARAS)',
+        name: 'JENNIFER L. GAMARCHA',
         position: 'Member',
         imageSrc: '/officers/SSDC/corazon mondragon1.png',
       },
       {
         name: 'GLOREANNE P. MANA-AY',
-        position: 'MGT. STAFF REPRESENTATIVE',
+        position: 'Management Representative',
         imageSrc: '/officers/SSDC/corazon mondragon1.png',
       },
     ],
@@ -231,17 +221,17 @@ export const committees: Committee[] = [
   {
     key: 'ethics',
     name: 'Ethics Committee',
+    chairperson: {
+      name: 'FRENIE C. PEDROA',
+      position: 'Chairperson',
+      imageSrc: '/officers/Ethics/frenie pedroa.png',
+    },
+    secretary: {
+      name: 'GERLIE GRACE A. LOQUINARIO',
+      position: 'Secretary',
+      imageSrc: '/officers/Ethics/girlie grace loquinario.png',
+    },
     members: [
-      {
-        name: 'FRENIE C. PEDROA',
-        position: 'Chairperson',
-        imageSrc: '/officers/Ethics/frenie pedroa.png',
-      },
-      {
-        name: 'GERLIE GRACE A. LOQUINARIO',
-        position: 'Secretary',
-        imageSrc: '/officers/Ethics/girlie grace loquinario.png',
-      },
       {
         name: 'OFELIA B. MICIANO',
         position: 'Member',
@@ -253,24 +243,24 @@ export const committees: Committee[] = [
     key: 'bidsAwards',
     name: 'Bids and Awards Committee',
     chairperson: {
-      name: 'ALFREDO R. YSULAT',
+      name: 'GRACE A. AQUILLO',
       position: 'Chairperson',
       imageSrc: '/officers/Bids and Awards/alfredo ysulat.png',
     },
     secretary: {
-      name: 'ERIBERTO P. VARGAS',
+      name: 'JULITO A. PAMIROYAN',
       position: 'Secretary',
       imageSrc: '/officers/Bids and Awards/VARGAS.png',
     },
     members: [
       {
-        name: 'JULITO A. PAMIROYAN',
+        name: 'ERIBERTO P. VARGAS',
         position: 'Member',
         imageSrc: '/officers/Bids and Awards/PAMIROYAN.png',
       },
       {
         name: 'MERVIN A. JONELA',
-        position: 'Mgt. Staff Representative',
+        position: 'Management Representative',
         imageSrc: '/officers/Bids and Awards/mervin jonela.png',
       },
     ],
@@ -279,21 +269,28 @@ export const committees: Committee[] = [
     key: 'mediationConciliation',
     name: 'Mediation and Conciliation Committee',
     chairperson: {
-      name: 'LEILANI C. NOLASCO',
+      name: 'BETTY P. OTILANO',
       position: 'Chairperson',
       imageSrc: '/officers/MedCon/Nolasco.png',
     },
     secretary: {
-      name: 'BETTY P. OTILANO',
+      name: 'LEDA T. DE GRACIA',
       position: 'Secretary',
       imageSrc: '/officers/MedCon/otilano.png',
     },
+    members: [
+      {
+        name: 'LEILANI C. NOLASCO',
+        position: 'Member',
+        imageSrc: '/officers/MedCon/otilano.png',
+      },
+    ],
   },
   {
     key: 'credit',
     name: 'Credit Committee',
     chairperson: {
-      name: 'GRACE A. AQUILLO',
+      name: 'JOHN LESTER L. GONZALES',
       position: 'Chairperson',
       imageSrc: '/officers/CreCom/grace aquillo.png',
     },
@@ -304,7 +301,7 @@ export const committees: Committee[] = [
     },
     members: [
       {
-        name: 'LYNNIE L. SANTILLAN',
+        name: 'CHARLOTTE S. LEDESMA',
         position: 'Member',
         imageSrc: '/officers/CreCom/basilia aranas.png',
       },
@@ -315,32 +312,32 @@ export const committees: Committee[] = [
     name: 'Assistant Credit Committee',
     members: [
       {
-        name: 'NILDO N. LOGRO, JR. (MIAGAO)',
+        name: 'NILDO N. LOGRO, JR.',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST CRECOM/LOGRO.png',
       },
       {
-        name: 'ROWENA M. FAILAGUTAN (MIAGAO)',
+        name: 'SOCORRO N. NILMAO',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST CRECOM/failagutan.png',
       },
       {
-        name: 'EMEE T. GASCON (OTON)',
+        name: 'EMEE T. GASCON',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST CRECOM/Emee T. Gascon.png',
       },
       {
-        name: 'DAVE T. NONO (OTON)',
+        name: 'DAVE T. NONO',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST CRECOM/DAVE NONO.png',
       },
       {
-        name: 'ELLA GRACE G. TABINGO (GUIMARAS)',
+        name: 'ELLA GRACE G. TABINGO',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST CRECOM/TABINGO.png',
       },
       {
-        name: 'NORIE MAY S. CABALING (GUIMARAS)',
+        name: 'ARLENE M. GANANCIAL',
         position: 'Assistant Member',
         imageSrc: '/officers/ASST CRECOM/cabaling.png',
       },
@@ -349,30 +346,25 @@ export const committees: Committee[] = [
   {
     key: 'financeInvestment',
     name: 'Finance and Investment Committee',
+    chairperson: {
+      name: 'DELIA C. MONTERO',
+      position: 'Chairperson',
+      imageSrc: '/officers/FIC/delia montero.png',
+    },
+    secretary: {
+      name: 'CHARLENE A. ORBINO',
+      position: 'Secretary',
+      imageSrc: '/officers/FIC/orbino.png',
+    },
     members: [
       {
-        name: 'DELIA C. MONTERO',
-        position: 'Chairperson',
-        imageSrc: '/officers/FIC/delia montero.png',
-      },
-      {
         name: 'NOLI G. VALENZUELA',
-        position: 'Vice-Chairperson',
+        position: 'Member',
         imageSrc: '/officers/FIC/valenzuela.png',
       },
       {
-        name: 'CHARLENE A. ORBINO',
-        position: 'Secretary',
-        imageSrc: '/officers/FIC/orbino.png',
-      },
-      {
-        name: 'ORPHA JOSEFIN M. GALERA',
-        position: 'Member',
-        imageSrc: '/officers/FIC/eliseo canalin1.png',
-      },
-      {
-        name: 'EMELDA F. ELIZALDE',
-        position: 'Ex-Eficio',
+        name: 'ANNA CECILIA R. PEFIANCO',
+        position: 'Ex-Officio',
         imageSrc: '/officers/FIC/FIC.jpg',
       },
     ],
