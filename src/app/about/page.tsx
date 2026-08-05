@@ -381,13 +381,13 @@ export default function AboutPage() {
 
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <Link
-                href="/register"
+                href=""
                 className="rounded-full bg-white px-8 py-4 text-lg font-bold text-green-900 transition-transform hover:-translate-y-1 hover:shadow-lg"
               >
                 Become a Member
               </Link>
               <Link
-                href="/loans"
+                href=""
                 className="rounded-full border-2 border-white px-8 py-4 text-lg font-bold text-white transition-colors hover:bg-white/10"
               >
                 Apply for a Loan
