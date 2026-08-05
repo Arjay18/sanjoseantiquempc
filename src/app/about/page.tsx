@@ -48,7 +48,7 @@ const milestones = [
 const stats = [
   { value: '61+', label: 'Years of service' },
   { value: '15k+', label: 'Members served' },
-  { value: '20+', label: 'Branch locations' },
+  { value: '4', label: 'Branch locations' },
   { value: '100%', label: 'Member-focused' },
 ];
 
@@ -100,7 +100,7 @@ export default function AboutPage() {
                 </div>
 
                 <h1 className="text-4xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.4rem] xl:text-6xl">
-                  San Jose Antique Multi-Purpose Cooperative
+                  San Jose Multi-Purpose Cooperative
                 </h1>
 
                 <div className="mt-5 flex items-center gap-2">
