@@ -149,6 +149,27 @@ export default function AboutPage() {
                 families and entrepreneurs seeking financial support, practical opportunities, and a
                 stronger future together.
               </p>
+
+              <div className="mt-10 rounded-[2rem] border border-[#D4AF37]/30 bg-[#EBF7EE] p-8 shadow-[0_20px_60px_-25px_rgba(0,77,45,0.25)]">
+                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#065f46]">
+                  Our Vision
+                </span>
+                <h3 className="mt-4 text-3xl font-black text-[#004D2D] leading-tight">
+                  Responsive, dynamic, self-reliant, transparent, and environmentally friendly cooperative.
+                </h3>
+                <p className="mt-4 text-lg leading-relaxed text-[#065f46]/90">
+                  Providing quality service to members and community through trust, innovation, and sustainable growth.
+                </p>
+                <div className="mt-8">
+                  <Link
+                    href="/register"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#006B3F] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#004D2D]/20 transition hover:bg-[#00532f]"
+                  >
+                    Join our movement
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </div>
             </div>
 
             <div className="rounded-[2rem] border border-emerald-100 bg-white/80 p-8 shadow-[0_20px_60px_-25px_rgba(0,77,45,0.25)] backdrop-blur">
@@ -159,6 +180,58 @@ export default function AboutPage() {
                     <p className="mt-2 text-sm leading-relaxed text-gray-600">{pillar.description}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="mb-10">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600">
+                Our Mission
+              </p>
+              <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-4xl">
+                Mission-driven programs for member empowerment and community development.
+              </h2>
+              <p className="mt-4 max-w-2xl text-gray-600">
+                SJMPC is committed to building a cooperative that serves members through affordable finance,
+                participative governance, social development, and model organizational excellence.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+              <div className="rounded-[1.5rem] border border-emerald-100 bg-emerald-50/70 p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-green-900 mb-3">FINANCIAL INTERMEDIARY</h3>
+                <p className="text-sm leading-relaxed text-gray-700">
+                  To provide friendly, affordable, and accessible financial services towards building a financially disciplined
+                  and empowered membership.
+                </p>
+              </div>
+
+              <div className="rounded-[1.5rem] border border-emerald-100 bg-emerald-50/70 p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-green-900 mb-3">PEOPLE&apos;S MOVEMENT</h3>
+                <p className="text-sm leading-relaxed text-gray-700">
+                  To raise the level of social and political consciousness of members on participative governance through
+                  continuous information, education, and communication processes, geared towards a responsive and responsible community.
+                </p>
+              </div>
+
+              <div className="rounded-[1.5rem] border border-emerald-100 bg-emerald-50/70 p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-green-900 mb-3">SOCIAL DEVELOPMENT INSTITUTION</h3>
+                <p className="text-sm leading-relaxed text-gray-700">
+                  To instill the values of honesty, openness, industry, and care for others among members and the community,
+                  building a sense of dignity and belongingness.
+                </p>
+              </div>
+
+              <div className="rounded-[1.5rem] border border-emerald-100 bg-emerald-50/70 p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-green-900 mb-3">MODEL ORGANIZATION</h3>
+                <p className="text-sm leading-relaxed text-gray-700">
+                  To live and lead a cooperative anchored in an efficient, effective, and productive endeavor ensuring the growth
+                  of members through an open, liberating, and dedicated undertaking that strengthens cooperative systems, structures,
+                  and procedures to uplift the social, economic, and cultural life and environment of the community.
+                </p>
               </div>
             </div>
           </div>
