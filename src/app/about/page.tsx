@@ -375,7 +375,7 @@ export default function AboutPage() {
               Join our growing cooperative community
             </h2>
             <p className="mt-6 text-xl text-green-100">
-              Become part of a trusted institution serving Antique since 1963 and experience the
+              Become part of a trusted institution serving Antique since 1964 and experience the
               strength of a cooperative built for lasting impact.
             </p>
 
