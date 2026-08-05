@@ -21,19 +21,23 @@ const staffData: {
     }
   ],
   branchStaff: [
-    { name: "RHEA ANN MARIEL S. CONDESA", position: "Bookkeeper", image: "/staff/rhea-condesa.jpg" },
-    { name: "RAMAH H. EGIDA", position: "Clerk, Loan Processor", image: "/staff/ramah-egida.jpg" },
-    { name: "JERMIE M. GARCESA", position: "CIBI", image: "/staff/jermie-garcsea.jpg" },
-    { name: "ROMMEL JULINE N. AREVALO", position: "Driver, Maintenance Clerk", image: "/staff/rommel-arevalo.jpg" },
-    { name: "JOHANNA MAE G. CEÑIZA", position: "Clerk, Loan Monitoring", image: "/staff/johanna-ceniza.jpg" },
-    { name: "D'ARTAGNAN N. TAJONERA, JR.", position: "IT", image: "/staff/dartagnan-tajonea.jpg" },
-    { name: "ANJANETTE C. CAPITLE", position: "Teller", image: "/staff/anjanette-capitle.jpg" },
-    { name: "LESLEE RICHANN RENDON", position: "Clerk", image: "/staff/leslee-rendon.jpg" },
-    { name: "RJ JAN M. FABILLO", position: "Account Officer", image: "/staff/rj-fabillo.jpg" },
-    { name: "BABY ANGEL A. GAMOS", position: "Clerk", image: "/staff/baby-gamos.jpg" },
-    { name: "ALMA MARIE V. MESAYRA", position: "Marketing Assistant", image: "/staff/alma-mesayra.jpg" },
-    { name: "ALBERT M. MOLEJONA", position: "Account Officer (JO)", image: "/staff/albert-molejona.jpg" },
-    { name: "KLENT CONTEMPLACION", position: "Account Officer (JO)", image: "/staff/klent-contemplacion.jpg" }
+    { name: "RHEA ANN MARIEL S. CONDESA", position: "Bookkeeper - Accounting Section", image: "" },
+    { name: "RAMAH H. EGIDA", position: "Loan Processor", image: "" },
+    { name: "JOHANNA MAE G. CEÑIZA", position: "Collection and Recovery Assistant", image: "" },
+    { name: "ROMMEL JULINE N. AREVALO", position: "Driver/Maintenance Clerk", image: "" },
+    { name: "RJ JAN M. FABILLO", position: "Designate CI/BI", image: "" },
+    { name: "BABY ANGEL A. GAMOS", position: "Administrative Assistant", image: "" },
+    { name: "ANJANETTE C. CAPITLE", position: "Teller - Treasurcy & Cash Section", image: "" },
+    { name: "ALMA MARIE V. MESAYRA", position: "Marketing Assistant", image: "" },
+    { name: "ALBERT M. MOLEJONA", position: "Collection and Reovery Supervisor", image: "" },
+    { name: "LESLEE RICHANN P. RENDON", position: "Collection & Recovery Assistant", image: "" },
+    { name: "KLENT P. CONTEMPLACION", position: "Account Specialist", image: "" },
+    { name: "THEA MONICA J. GALLANO", position: "Accounting Assistant", image: "" },
+    { name: "ROWENA M. FAILAGUTAN", position: "Administrative Assistant", image: "" },
+    { name: "GLADELY ICEL S. SEDANTES", position: "Teller - Treasurcy & Cash Section", image: "" },
+    { name: "ANGELO F. FERANDO", position: "Account Specialist", image: "" },
+    { name: "IAN S. ABAO-AN", position: "Marketing and Membership Assistant", image: "" },
+    { name: "JOHN CHRISTIAN SARSUA", position: "Account Specialist", image: "" }
   ]
 };
 

@@ -15,18 +15,21 @@ const staffData: {
 } = {
   branchManager: [
     {
-      name: "JONNAH L. FORASTEROS",
-      position: "Branch Manager",
-      image: "/staff/jonnah-forasteros.jpg"
+      name: "ERYNE MAE T. MIQUELA",
+      position: "OIC- Branch Manager",
+      image: ""
     }
   ],
   branchStaff: [
-    { name: "REZEL G. CAPALLA", position: "Clerk, Admin", image: "/staff/rezel-capalla.jpg" },
-    { name: "APRIL JANE R. MACABINGUEL", position: "Teller", image: "/staff/april-macabinguel.jpg" },
-    { name: "DIETHER E. INFANTE", position: "Account Officer", image: "/staff/diether-infante.jpg" },
-    { name: "EDMAR JET H. TUAZON", position: "Account Officer", image: "/staff/edmar-tuazon.jpg" },
-    { name: "CLOIE JOY B. TANALEON", position: "Clerk, Loan Monitoring", image: "/staff/cloie-tanaleon.jpg" },
-    { name: "CONIE A. GENANDA", position: "Accounting Clerk (JO)", image: "/staff/conie-genanda.jpg" }
+    { name: "REZEL G. CAPALLA", position: "Administrative Assistant", image: "/staff/rezel-capalla.jpg" },
+    { name: "APRIL JANE M. ARSENAL", position: "Teller - Treasury & Cash Section", image: "" },
+    { name: "DIETHER E. INFANTE", position: "Account Specialist", image: "/staff/diether-infante.jpg" },
+    { name: "EDMAR JET H. TUAZON", position: "Account Specialist", image: "/staff/edmar-tuazon.jpg" },
+    { name: "CLOIE JOY B. TANALEON", position: "Loan Processor", image: "/staff/cloie-tanaleon.jpg" },
+    { name: "MARY GRACE S. DELA CRUZ", position: "Administrative Assistant", image: "" },
+    { name: "JERICO H. GARMAY", position: "Account Specialist", image: "" },
+    { name: "JOHN DALE FLORES", position: "Account Specialist", image: "" },
+    { name: "JOSEPH WILMAR NGAMUYO", position: "Marketing & Membership Assistant", image: "" }
   ]
 };
 

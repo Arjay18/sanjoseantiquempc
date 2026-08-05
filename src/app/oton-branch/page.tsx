@@ -21,18 +21,18 @@ const staffData: {
     }
   ],
   branchStaff: [
-    { name: "GRETA P. SERANDON", position: "Bookkeeper", image: "/staff/greta-serandon.jpg" },
-    { name: "JULIE G. SABAN", position: "Clerk, Admin", image: "/staff/julie-saban.jpg" },
-    { name: "KATHLINE ZYRA M. SANDUCAL", position: "Clerk, Loan Monitoring", image: "/staff/kathline-sanducal.jpg" },
-    { name: "MICHAEL GLENN L. MILITANTE", position: "Acting CIBI", image: "/staff/michael-militante.jpg" },
-    { name: "REX M. DE CASTRO", position: "Account Officer", image: "/staff/rex-decastro.jpg" },
-    { name: "DARYL D. BALADIANG", position: "Driver Maintenance Clerk", image: "/staff/daryl-baladiang.jpg" },
-    { name: "JESSA LILAH G. MANDE", position: "Teller", image: "/staff/jessa-mande.jpg" },
-    { name: "MARY ANN P. ALONSAGAY", position: "Account Officer", image: "/staff/mary-alonsagay.jpg" },
-    { name: "JOANNE A. NERECINA", position: "Clerk", image: "/staff/joanne-nerecina.jpg" },
-    { name: "ROLANDO ANGELO T. BARILLO II", position: "Marketing Assistant (JO)", image: "/staff/rolando-barillo.jpg" },
-    { name: "JANREY S. RECAPLAZA", position: "Marketing Assistant (JO)", image: "/staff/janrey-recaplaza.jpg" },
-    { name: "KEN JOHN H. UBALDO", position: "Account Officer (JO)", image: "/staff/ken-ubaldo.jpg" }
+    { name: "JESSA LILAH G. MANDE", position: "Bookkeeper - Accounting", image: "" },
+    { name: "JULIE G. SABAN", position: "Administrative Assistant", image: "/staff/julie-saban.jpg" },
+    { name: "JO-ANNE A. NERECINA", position: "Collection and Recovery Supervisor", image: "/staff/joanne-nerecina.jpg" },
+    { name: "MARY ANN P. ALONSAGAY", position: "Account Specialist", image: "/staff/mary-alonsagay.jpg" },
+    { name: "REX M. DE CASTRO", position: "Acting CI/BI", image: "/staff/rex-decastro.jpg" },
+    { name: "IRENEO C. PORTILLO JR.", position: "Account Specialist", image: "" },
+    { name: "DARYL D. BALADIANG", position: "Driver/Maintenance Clerk", image: "/staff/daryl-baladiang.jpg" },
+    { name: "KIM L. RODEROS", position: "Account Specialist", image: "" },
+    { name: "MA. HAZEL F. NAIG", position: "Loan Processor", image: "" },
+    { name: "CRISANEL MARIE B. DOMINGO", position: "Teller - Treasury & Cash Section", image: "" },
+    { name: "LYKA MARIE TE MACABEBE", position: "Collection and Recovery Assistant", image: "" },
+    { name: "GIZIEL VARIACION", position: "Teller - Treasury & Cash Section", image: "" }
   ]
 };
 
