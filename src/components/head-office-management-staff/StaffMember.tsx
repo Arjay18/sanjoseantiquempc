@@ -31,14 +31,14 @@ export default function StaffMember({ name, position }: StaffMemberProps) {
           {getInitials(name)}
         </div>
         <div className="min-w-0">
-          <h3 className="break-words text-[12.5px] font-extrabold uppercase leading-snug tracking-[0.1em] text-[#0B5D3B] transition-colors group-hover:text-[#06452C]">
+          <h3 className="break-words text-sm sm:text-base font-extrabold uppercase leading-snug tracking-[0.08em] text-[#0B5D3B] transition-colors group-hover:text-[#06452C]">
             {name}
           </h3>
           <div className="mt-2 h-0.5 w-8 rounded-full bg-[#E5E7EB] transition-all duration-300 group-hover:w-12 group-hover:bg-[#D4A017]" />
         </div>
       </div>
 
-      <p className="mt-3 text-xs font-semibold leading-snug text-gray-600 transition-colors group-hover:text-[#D4A017]">
+      <p className="mt-3 text-sm sm:text-base font-semibold leading-snug text-gray-600 transition-colors group-hover:text-[#D4A017]">
         {position}
       </p>
     </motion.article>

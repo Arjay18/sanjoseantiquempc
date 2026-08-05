@@ -136,6 +136,30 @@ export default function GuimarasBranchPage() {
       <GuimarasHeroSection />
 
       <div id="team" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-6">
+        <section className="mt-4 rounded-[2rem] border border-[#E5E7EB] bg-gradient-to-br from-white via-[#FCFDFD] to-[#F6FBF8] px-6 py-8 shadow-[0_18px_55px_-28px_rgba(6,69,44,0.35)] sm:px-8 sm:py-10">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.26em] text-[#0B5D3B]">Meet the Team</p>
+              <h2 className="mt-3 text-2xl sm:text-3xl font-extrabold text-[#06452C]">
+                Dedicated professionals behind every member service.
+              </h2>
+              <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#6B7280]">
+                Our branch team is committed to delivering responsive support, accurate service, and local cooperative care to every member.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              {['Member-focused', 'Service-driven', 'Community-first'].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-[#E5E7EB] bg-white px-3 py-2 text-sm font-semibold text-[#0B5D3B] shadow-sm"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <DepartmentSection title="Branch Management" members={staffData.branchManager} badgeIcon={Crown} />
         <DepartmentSection title="Branch Staff" members={staffData.branchStaff} badgeIcon={Users} />
       </div>
