@@ -12,7 +12,7 @@ const stats = [
 
 export default function StatisticsSection() {
   return (
-    <section className="bg-[#004D2D] text-white py-14 sm:py-16">
+    <section className="bg-brand-dark text-white py-14 sm:py-16">
       <SectionContainer>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((s) => {
@@ -24,7 +24,7 @@ export default function StatisticsSection() {
               >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-[#D4AF37]" />
+                    <Icon className="w-6 h-6 text-brand-gold" />
                   </div>
                   <div className="text-3xl font-extrabold">{s.value}</div>
                 </div>

@@ -7,6 +7,12 @@
   --sjmpc-dark-green: #004D2D;
   --sjmpc-gold: #D4AF37;
   --sjmpc-section-gray: #F9FAFB;
+  --brand-dark: #06452C;
+  --brand-medium: #0B5D3B;
+  --brand-gold: #D4A017;
+  --brand-coral: #E86D3B;
+  --brand-soft: #F8FAF6;
+  --brand-gray: #E5EBE6;
 }
 
 @theme inline {

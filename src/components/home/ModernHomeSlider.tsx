@@ -128,7 +128,7 @@ export default function ModernHomeSlider() {
     return (
       <section className="w-full bg-white">
         <div className="w-full">
-          <div className="h-[320px] sm:h-[420px] lg:h-[560px] bg-gradient-to-br from-[#006B3F]/10 to-[#D4AF37]/10 animate-pulse" />
+          <div className="h-[320px] sm:h-[420px] lg:h-[560px] bg-gradient-to-br from-brand-medium/10 to-brand-gold/10 animate-pulse" />
         </div>
       </section>
     );
@@ -145,7 +145,7 @@ export default function ModernHomeSlider() {
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* Background sheen */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,107,63,0.18),transparent_55%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(11,93,59,0.18),transparent_55%)]" />
 
           {/* Full-width hero height */}
           <div className="relative h-[280px] xs:h-[360px] sm:h-[560px] lg:h-[750px]">
@@ -263,7 +263,7 @@ export default function ModernHomeSlider() {
           </div>
 
           {/* Subtle bottom border */}
-          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#006B3F]/30 to-transparent" />
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-medium/30 to-transparent" />
         </div>
       </div>
     </section>

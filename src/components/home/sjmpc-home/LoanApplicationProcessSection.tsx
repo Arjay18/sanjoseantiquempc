@@ -26,7 +26,7 @@ const steps = [
 
 export default function LoanApplicationProcessSection() {
   return (
-    <section className="py-20 bg-[var(--sjmpc-section-gray)] overflow-hidden">
+    <section className="py-20 bg-brand-soft overflow-hidden">
       <SectionContainer>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <motion.div
@@ -35,9 +35,9 @@ export default function LoanApplicationProcessSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-[#006B3F] font-bold tracking-widest uppercase text-sm">Loan Application Process</p>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-black text-[#004D2D] leading-tight">
-              Apply for your loan in 3 <span className="text-[#D4AF37]">simple steps</span>
+            <p className="text-brand-medium font-bold tracking-widest uppercase text-sm">Loan Application Process</p>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-black text-brand-dark leading-tight">
+              Apply for your loan in 3 <span className="text-brand-gold">simple steps</span>
             </h2>
             <p className="mt-4 text-gray-600 max-w-lg leading-relaxed">
               We've streamlined our process to ensure you get the financial assistance you need as quickly as possible.
@@ -45,7 +45,7 @@ export default function LoanApplicationProcessSection() {
 
             <div className="mt-10 space-y-8 relative">
               {/* Vertical line connecting steps */}
-              <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#006B3F]/20 via-[#006B3F]/40 to-transparent hidden sm:block" />
+              <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-brand-medium/20 via-brand-medium/40 to-transparent hidden sm:block" />
 
               {steps.map((s, idx) => {
                 const Icon = s.icon;
@@ -59,15 +59,15 @@ export default function LoanApplicationProcessSection() {
                     className="flex gap-6 relative group"
                   >
                     <div className="flex-shrink-0 z-10">
-                      <div className="w-12 h-12 rounded-full bg-white border-2 border-[#006B3F] flex items-center justify-center shadow-md group-hover:bg-[#006B3F] group-hover:text-white transition-all duration-300">
-                        <Icon className="w-6 h-6 text-[#006B3F] group-hover:text-white" />
+                      <div className="w-12 h-12 rounded-full bg-white border-2 border-brand-medium flex items-center justify-center shadow-md group-hover:bg-brand-medium group-hover:text-white transition-all duration-300">
+                        <Icon className="w-6 h-6 text-brand-medium group-hover:text-white" />
                       </div>
-                      <div className="absolute -left-1 top-0 opacity-10 text-4xl font-black select-none pointer-events-none text-[#006B3F]">
+                      <div className="absolute -left-1 top-0 opacity-10 text-4xl font-black select-none pointer-events-none text-brand-medium">
                         0{idx + 1}
                       </div>
                     </div>
                     <div>
-                      <h3 className="text-xl font-extrabold text-[#004D2D]">
+                      <h3 className="text-xl font-extrabold text-brand-dark">
                         {s.title}
                       </h3>
                       <p className="mt-2 text-gray-600 leading-relaxed text-sm sm:text-base">
@@ -82,13 +82,13 @@ export default function LoanApplicationProcessSection() {
             <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <Link
                 href="/online-application"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#006B3F] text-white font-bold hover:bg-[#004D2D] transition-all shadow-lg shadow-green-900/10 active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-brand-medium text-white font-bold hover:bg-brand-dark transition-all shadow-lg shadow-brand-medium/20 active:scale-95"
               >
                 Start Application
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <div className="flex items-center gap-2 text-[#004D2D] font-bold italic">
-                <span className="w-8 h-0.5 bg-[#D4AF37]" />
+              <div className="flex items-center gap-2 text-brand-dark font-bold italic">
+                <span className="w-8 h-0.5 bg-brand-gold" />
                 Fast. Easy. Reliable.
               </div>
             </div>
@@ -102,8 +102,8 @@ export default function LoanApplicationProcessSection() {
             className="relative"
           >
             {/* Decorative background elements */}
-            <div className="absolute -top-10 -right-10 w-64 h-64 bg-[#D4AF37]/12 rounded-full blur-3xl" />
-            <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#006B3F]/10 rounded-full blur-3xl" />
+            <div className="absolute -top-10 -right-10 w-64 h-64 bg-brand-gold/12 rounded-full blur-3xl" />
+            <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-brand-medium/10 rounded-full blur-3xl" />
 
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
               <div className="relative h-[500px]">
@@ -120,11 +120,11 @@ export default function LoanApplicationProcessSection() {
                 {/* Floating Info Badge */}
                 <div className="absolute bottom-6 left-6 right-6 p-6 bg-white/90 backdrop-blur rounded-2xl shadow-xl border border-white/20">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#D4AF37] flex items-center justify-center text-white shadow-md">
-                      <GanttChart className="w-6 h-6 text-[#004D2D]" />
+                    <div className="w-12 h-12 rounded-xl bg-brand-gold flex items-center justify-center text-white shadow-md">
+                      <GanttChart className="w-6 h-6 text-brand-dark" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-[#004D2D] uppercase tracking-wider">Quick Processing</div>
+                      <div className="text-sm font-bold text-brand-dark uppercase tracking-wider">Quick Processing</div>
                       <div className="text-xs text-gray-600">Most applications are reviewed within 24-48 hours.</div>
                     </div>
                   </div>

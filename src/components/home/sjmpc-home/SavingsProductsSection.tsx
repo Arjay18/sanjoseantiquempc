@@ -144,8 +144,8 @@ export default function SavingsProductsSection() {
       <SectionContainer>
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <p className="text-[#006B3F] font-bold tracking-widest uppercase text-sm">Savings Products</p>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-black text-[#004D2D] leading-tight">
+            <p className="text-brand-medium font-bold tracking-widest uppercase text-sm">Savings Products</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-black text-brand-dark leading-tight">
               Our Savings Products
             </h2>
             <p className="mt-3 text-gray-600 max-w-xl leading-relaxed">
@@ -163,7 +163,7 @@ export default function SavingsProductsSection() {
                 aria-label="Previous slides"
                 className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-200 active:scale-95 shadow-sm cursor-pointer ${
                   prevBtnEnabled
-                    ? 'border-[#006B3F]/20 text-[#006B3F] bg-white hover:bg-[#006B3F] hover:text-white hover:border-transparent'
+                    ? 'border-brand-medium/20 text-brand-medium bg-white hover:bg-brand-medium hover:text-white hover:border-transparent'
                     : 'border-gray-200 text-gray-300 bg-gray-50 cursor-not-allowed'
                 }`}
               >
@@ -176,7 +176,7 @@ export default function SavingsProductsSection() {
                 aria-label="Next slides"
                 className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-200 active:scale-95 shadow-sm cursor-pointer ${
                   nextBtnEnabled
-                    ? 'border-[#006B3F]/20 text-[#006B3F] bg-white hover:bg-[#006B3F] hover:text-white hover:border-transparent'
+                    ? 'border-brand-medium/20 text-brand-medium bg-white hover:bg-brand-medium hover:text-white hover:border-transparent'
                     : 'border-gray-200 text-gray-300 bg-gray-50 cursor-not-allowed'
                 }`}
               >
@@ -193,7 +193,7 @@ export default function SavingsProductsSection() {
               onClick={() => setActiveTab('core')}
               className={`relative rounded-full px-6 py-2.5 text-sm font-extrabold transition-all duration-300 cursor-pointer ${
                 activeTab === 'core'
-                  ? 'bg-[#006B3F] text-white shadow-md'
+                  ? 'bg-brand-medium text-white shadow-md'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -203,7 +203,7 @@ export default function SavingsProductsSection() {
               onClick={() => setActiveTab('special')}
               className={`relative rounded-full px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-extrabold transition-all duration-300 cursor-pointer whitespace-nowrap ${
                 activeTab === 'special'
-                  ? 'bg-[#006B3F] text-white shadow-md'
+                  ? 'bg-brand-medium text-white shadow-md'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -228,7 +228,7 @@ export default function SavingsProductsSection() {
                 {coreProducts.map((p) => (
                   <div
                     key={p.title}
-                    className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-[#006B3F]/20 transition-all duration-300 flex flex-col h-full"
+                    className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-medium/20 transition-all duration-300 flex flex-col h-full"
                   >
                     <div className="relative h-44 overflow-hidden">
                       <Image
@@ -241,12 +241,12 @@ export default function SavingsProductsSection() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
-                      <h3 className="text-lg font-extrabold text-[#004D2D] group-hover:text-[#006B3F] transition-colors duration-200">{p.title}</h3>
+                      <h3 className="text-lg font-extrabold text-brand-dark group-hover:text-brand-medium transition-colors duration-200">{p.title}</h3>
                       <p className="mt-3 text-sm text-gray-600 leading-relaxed flex-grow">{p.description}</p>
                       <div className="mt-6 pt-4 border-t border-gray-50 mt-auto">
                         <Link
                           href={p.href}
-                          className="inline-flex items-center gap-2 text-[#006B3F] font-bold hover:text-[#004D2D] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] rounded-lg"
+                          className="inline-flex items-center gap-2 text-brand-medium font-bold hover:text-brand-dark transition-colors focus:outline-none focus:ring-2 focus:ring-brand-gold rounded-lg"
                         >
                           Learn More
                           <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
@@ -273,7 +273,7 @@ export default function SavingsProductsSection() {
                         className="pl-6 min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.33%] xl:flex-[0_0_25%] pb-4"
                       >
                         <div
-                          className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-[#006B3F]/20 transition-all duration-300 flex flex-col h-[380px]"
+                          className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-medium/20 transition-all duration-300 flex flex-col h-[380px]"
                         >
                           <div className="relative h-40 overflow-hidden">
                             <Image
@@ -286,12 +286,12 @@ export default function SavingsProductsSection() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
                           </div>
                           <div className="p-5 flex flex-col flex-grow">
-                            <h3 className="text-base font-extrabold text-[#004D2D] group-hover:text-[#006B3F] transition-colors duration-200 leading-snug">{p.title}</h3>
+                            <h3 className="text-base font-extrabold text-brand-dark group-hover:text-brand-medium transition-colors duration-200 leading-snug">{p.title}</h3>
                             <p className="mt-2 text-xs text-gray-600 leading-relaxed flex-grow">{p.description}</p>
                             <div className="mt-4 pt-3 border-t border-gray-50 mt-auto">
                               <Link
                                 href={p.href}
-                                className="inline-flex items-center gap-2 text-[#006B3F] font-bold hover:text-[#004D2D] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37] rounded-lg text-sm"
+                                className="inline-flex items-center gap-2 text-brand-medium font-bold hover:text-brand-dark transition-colors focus:outline-none focus:ring-2 focus:ring-brand-gold rounded-lg text-sm"
                               >
                                 Learn More
                                 <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
@@ -312,7 +312,7 @@ export default function SavingsProductsSection() {
         <div className="mt-12 flex justify-center">
           <Link
             href="/savings-products"
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-[#006B3F] text-[#006B3F] hover:bg-[#006B3F] hover:text-white font-bold transition-all shadow-sm active:scale-95 hover:shadow-md cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-brand-medium text-brand-medium hover:bg-brand-medium hover:text-white font-bold transition-all shadow-sm active:scale-95 hover:shadow-md cursor-pointer"
           >
             Explore All Savings Options
             <ArrowRight className="w-5 h-5" />

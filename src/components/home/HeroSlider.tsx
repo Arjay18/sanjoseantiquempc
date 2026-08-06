@@ -53,7 +53,7 @@ export default function HeroSlider() {
   const scrollTo   = useCallback((idx: number) => emblaApi?.scrollTo(idx), [emblaApi]);
 
   return (
-    <section className="relative bg-[#003d22] overflow-hidden">
+    <section className="relative bg-brand-dark overflow-hidden">
       {/* ── Embla viewport ── */}
       <div
         ref={emblaRef}
@@ -105,7 +105,7 @@ export default function HeroSlider() {
                   type="button"
                   onClick={scrollPrev}
                   aria-label="Previous slide"
-                  className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 border border-white/20 text-white backdrop-blur-sm hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#003d22] active:scale-95 transition-all duration-250 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+                  className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 border border-white/20 text-white backdrop-blur-sm hover:bg-brand-gold hover:border-brand-gold hover:text-brand-dark active:scale-95 transition-all duration-250 shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-gold"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
@@ -113,7 +113,7 @@ export default function HeroSlider() {
                   type="button"
                   onClick={scrollNext}
                   aria-label="Next slide"
-                  className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 border border-white/20 text-white backdrop-blur-sm hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#003d22] active:scale-95 transition-all duration-250 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+                  className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 border border-white/20 text-white backdrop-blur-sm hover:bg-brand-gold hover:border-brand-gold hover:text-brand-dark active:scale-95 transition-all duration-250 shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-gold"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>

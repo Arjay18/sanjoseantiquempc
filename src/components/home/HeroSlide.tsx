@@ -43,11 +43,11 @@ export default function HeroSlide({ slide, isActive }: HeroSlideProps) {
 
       {/* ── Cinematic gradient layers ── */}
       {/* Left-to-right dark green wash for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#003d22]/92 via-[#004D2D]/72 to-[#006B3F]/20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/92 via-brand-dark/72 to-brand-medium/20" />
       {/* Top and bottom vignette */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/25" />
       {/* Subtle noise texture feel via inner glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_60%,rgba(0,107,63,0.18),transparent_65%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_60%,rgba(11,93,59,0.18),transparent_65%)]" />
 
       {/* ── Slide Content ── */}
       <div className="relative z-10 flex items-center h-full min-h-[700px] lg:min-h-[88vh]">
@@ -64,8 +64,8 @@ export default function HeroSlide({ slide, isActive }: HeroSlideProps) {
               variants={itemVariants}
               className="flex items-center gap-3 mb-6"
             >
-              <span className="h-0.5 w-10 bg-[#D4AF37] rounded-full" />
-              <span className="text-[#D4AF37] font-bold tracking-widest uppercase text-xs sm:text-sm">
+              <span className="h-0.5 w-10 bg-brand-gold rounded-full" />
+              <span className="text-brand-gold font-bold tracking-widest uppercase text-xs sm:text-sm">
                 {slide.eyebrow}
               </span>
             </motion.div>
@@ -83,7 +83,7 @@ export default function HeroSlide({ slide, isActive }: HeroSlideProps) {
               variants={itemVariants}
               className="mt-5 flex items-center gap-2"
             >
-              <div className="h-[2px] w-12 bg-[#D4AF37] rounded-full" />
+              <div className="h-[2px] w-12 bg-brand-gold rounded-full" />
               <div className="h-[2px] w-4 bg-white/20 rounded-full" />
             </motion.div>
 
@@ -103,7 +103,7 @@ export default function HeroSlide({ slide, isActive }: HeroSlideProps) {
               {/* Primary — gold solid */}
               <Link
                 href={slide.ctas.primary.href}
-                className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-[#D4AF37] text-[#003d22] font-extrabold text-sm sm:text-base hover:bg-[#c9a130] active:scale-95 shadow-[0_8px_30px_rgba(212,175,55,0.35)] transition-all duration-200"
+                className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-brand-gold text-brand-dark font-extrabold text-sm sm:text-base hover:bg-brand-gold/90 active:scale-95 shadow-[0_8px_30px_rgba(212,175,55,0.35)] transition-all duration-200"
               >
                 {slide.ctas.primary.label}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />

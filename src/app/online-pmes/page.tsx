@@ -269,14 +269,14 @@ export default function OnlinePMES() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#F8F9FA] overflow-x-hidden">
+    <main className="min-h-screen bg-brand-soft overflow-x-hidden">
 
       {/* ═══════════════════════════════════════════════
           HERO SECTION
       ═══════════════════════════════════════════════ */}
-      <section className="relative min-h-[82vh] flex items-center overflow-hidden bg-gradient-to-br from-[#004D2D] via-[#006B3F] to-[#005533]">
+      <section className="relative min-h-[82vh] flex items-center overflow-hidden bg-gradient-to-br from-brand-dark via-brand-medium to-brand-dark">
         {/* Decorative blobs */}
-        <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-[#D4AF37]/10 blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full bg-white/5 blur-3xl pointer-events-none" />
         {/* Dot grid */}
         <div
@@ -306,9 +306,9 @@ export default function OnlinePMES() {
               </motion.nav>
 
               {/* Badge */}
-              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-[#D4AF37]/20 border border-[#D4AF37]/40 rounded-full px-4 py-1.5 mb-6">
-                <GraduationCap className="w-4 h-4 text-[#D4AF37]" />
-                <span className="text-xs font-bold tracking-[0.18em] text-[#D4AF37] uppercase">Pre-Membership Education Seminar</span>
+              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-brand-gold/20 border border-brand-gold/40 rounded-full px-4 py-1.5 mb-6">
+                <GraduationCap className="w-4 h-4 text-brand-gold" />
+                <span className="text-xs font-bold tracking-[0.18em] text-brand-gold uppercase">Pre-Membership Education Seminar</span>
               </motion.div>
 
               <motion.h1
@@ -331,7 +331,7 @@ export default function OnlinePMES() {
               <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
                 <a
                   href="#schedules"
-                  className="inline-flex items-center gap-2 bg-[#D4AF37] text-[#004D2D] px-7 py-4 rounded-xl font-bold text-sm hover:brightness-105 transition-all shadow-lg shadow-[#D4AF37]/25 hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 bg-brand-gold text-brand-dark px-7 py-4 rounded-xl font-bold text-sm hover:brightness-105 transition-all shadow-lg shadow-brand-gold/25 hover:-translate-y-0.5"
                 >
                   View Schedules
                   <ArrowRight className="w-4 h-4" />
@@ -349,7 +349,7 @@ export default function OnlinePMES() {
               <motion.div variants={fadeUp} className="flex flex-wrap gap-6 mt-12 pt-10 border-t border-white/10">
                 {stats.map((s, i) => (
                   <div key={i} className="flex flex-col">
-                    <span className="text-2xl font-black text-[#D4AF37]">{s.value}</span>
+                    <span className="text-2xl font-black text-brand-gold">{s.value}</span>
                     <span className="text-xs text-white/60 font-medium mt-0.5">{s.label}</span>
                   </div>
                 ))}
@@ -378,8 +378,8 @@ export default function OnlinePMES() {
                       className="bg-white/8 hover:bg-white/15 border border-white/10 rounded-2xl p-4 transition-all duration-300 group cursor-pointer"
                     >
                       <div className="flex items-start gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <MapPin className="w-4 h-4 text-[#D4AF37]" />
+                        <div className="w-9 h-9 rounded-xl bg-brand-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <MapPin className="w-4 h-4 text-brand-gold" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="font-bold text-white text-sm group-hover:text-[#D4AF37] transition-colors">{branch.office}</p>
