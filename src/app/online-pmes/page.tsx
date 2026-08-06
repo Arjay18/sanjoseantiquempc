@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   MapPin,
@@ -271,10 +272,23 @@ export default function OnlinePMES() {
   return (
     <main className="min-h-screen bg-brand-soft overflow-x-hidden">
 
-      {/* ═══════════════════════════════════════════════
+{/* ═══════════════════════════════════════════════
           HERO SECTION
       ═══════════════════════════════════════════════ */}
       <section className="relative min-h-[82vh] flex items-center overflow-hidden bg-gradient-to-br from-brand-dark via-brand-medium to-brand-dark">
+        {/* Background image with dark overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/Hero Section/About us Hero Section.png"
+            alt="Pre-Membership Education Seminar"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-dark/90 to-brand-medium/80" />
+        </div>
+
         {/* Decorative blobs */}
         <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-[380px] h-[380px] rounded-full bg-white/5 blur-3xl pointer-events-none" />
