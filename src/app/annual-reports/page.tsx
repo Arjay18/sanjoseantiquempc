@@ -1,6 +1,7 @@
 import { FadeIn } from '@/components/animations/FadeIn';
 import { SectionContainer } from '@/components/home/sjmpc-home/SectionContainer';
 import { ArrowRight, Download } from 'lucide-react';
+import PageHero from '@/components/PageHero';
 
 export default function AnnualReportsPage() {
   const reports = [
@@ -60,72 +61,22 @@ export default function AnnualReportsPage() {
     },
   ];
 
-  return (
-    <main className="min-h-screen bg-white">
-      <section className="py-14 md:py-20">
+return (
+    <main className="min-h-screen bg-[#F8FAF6]">
+      {/* Hero Section */}
+      <PageHero
+        image="/Hero Section/About us Hero Section.png"
+        imageAlt="Annual Reports"
+        title="ANNUAL REPORTS"
+        subtitle="Discover our annual reports that showcase transparency, growth, and community impact. Access detailed financial statements, achievements, and strategic initiatives year by year."
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Annual Reports" },
+        ]}
+      />
+
+<section className="py-14 md:py-20">
         <SectionContainer>
-          {/* Hero section */}
-          <div className="relative overflow-hidden rounded-[1.25rem] border border-gray-100 bg-white shadow-sm">
-            {/* brand accents */}
-            <div aria-hidden="true" className="absolute -top-24 left-1/2 -translate-x-1/2 w-[520px] h-[520px] rounded-full bg-[#006B3F]/5 blur-2xl" />
-            <div aria-hidden="true" className="absolute -bottom-28 right-0 w-[320px] h-[320px] rounded-full bg-[#D4AF37]/15 blur-2xl" />
-
-
-
-            <div className="relative p-8 sm:p-10 md:p-12">
-              <div className="text-center mb-10 md:mb-14">
-                <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#E8F5EF] text-[#006B3F] text-sm font-semibold border border-[#BFE7D5] shadow-sm">
-                  <span
-                    className="inline-block w-2.5 h-2.5 rounded-full bg-[#D4AF37] shadow-[0_0_18px_rgba(212,175,55,0.45)]"
-                    aria-hidden="true"
-                  />
-                  Transparency & Growth
-                </div>
-
-                <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 leading-tight">
-                  Annual Reports
-                  <span className="block text-[#006B3F]">Our Commitment to You</span>
-                </h1>
-
-                <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
-                  Discover our annual reports that showcase transparency, growth, and community impact.
-                  Access detailed financial statements, achievements, and strategic initiatives year by year.
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch">
-                <div className="flex-1 bg-white border border-gray-100 rounded-2xl p-5">
-                  <div className="text-sm font-bold text-[#006B3F]">What you’ll find</div>
-                  <ul className="mt-3 space-y-2 text-sm text-gray-700">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#006B3F]" aria-hidden="true" />
-                      General Assembly highlights
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#006B3F]" aria-hidden="true" />
-                      Financial updates & initiatives
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#006B3F]" aria-hidden="true" />
-                      Member-focused accomplishments
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="flex-1 bg-[#006B3F] text-white rounded-2xl p-5 border border-[#006B3F]">
-                  <div className="text-sm font-bold text-[#D4AF37]">Quick Tip</div>
-                  <div className="mt-3 text-sm leading-relaxed opacity-95">
-                    Download any report below. If you need older years, use the contact options in this page.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Reports header spacing */}
-          <div className="h-10 md:h-12" />
-
-
           {/* Reports Grid */}
           <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 xl:grid-cols-3">
             {reports.map((report, index) => (

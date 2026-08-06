@@ -10,8 +10,8 @@ export default function SavingsCTA() {
     <section className="py-10 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl shadow-2xl border border-white/20">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#006B3F] to-[#004D2D]" />
-          <div className="absolute -top-16 -left-16 w-72 h-72 rounded-full bg-[#D4AF37]/25 blur-3xl" />
+<div className="absolute inset-0 bg-gradient-to-r from-[#0B5D3B] to-[#06452C]" />
+          <div className="absolute -top-16 -left-16 w-72 h-72 rounded-full bg-[#D4A017]/25 blur-3xl" />
           <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-white/10 blur-3xl" />
 
           <div className="relative p-8 sm:p-12 flex flex-col lg:flex-row items-center justify-between gap-10">
@@ -30,12 +30,12 @@ export default function SavingsCTA() {
               className="flex items-center gap-6"
             >
               <div className="hidden sm:flex items-center justify-center w-24 h-24 rounded-3xl bg-white/10 border border-white/15">
-                <PiggyBank className="w-10 h-10 text-[#D4AF37]" aria-hidden="true" />
+<PiggyBank className="w-10 h-10 text-[#D4A017]" aria-hidden="true" />
               </div>
 
               <Link
                 href="/registration"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white text-[#004D2D] font-extrabold px-8 py-4 hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+className="inline-flex items-center justify-center gap-2 rounded-xl bg-white text-[#06452C] font-extrabold px-8 py-4 hover:bg-[#F8F9FA] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4A017]"
               >
                 Open an Account
               </Link>

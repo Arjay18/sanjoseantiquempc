@@ -26,34 +26,34 @@ export default function LoanCard({ product }: { product: LoanProduct }) {
         </div>
 
         <div className="mt-4 flex items-start gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-[var(--sjmpc-green)] text-white flex items-center justify-center shadow-sm">
+<div className="w-12 h-12 rounded-2xl bg-[#0B5D3B] text-white flex items-center justify-center shadow-sm">
             <product.Icon className="w-6 h-6" aria-hidden="true" />
           </div>
           <div className="min-w-0">
-            <h3 className="text-lg font-extrabold text-[#004D2D] leading-tight">{product.name}</h3>
+            <h3 className="text-lg font-extrabold text-[#06452C] leading-tight">{product.name}</h3>
             <p className="mt-1 text-sm text-gray-600">{product.shortDescription}</p>
           </div>
         </div>
 
         <div className="mt-4 space-y-2">
-          <div className="rounded-xl bg-[#F8F9FA] border border-[#E5E7EB] p-3">
+          <div className="rounded-xl bg-[#F8F9FA] border border-[#E5EBE6] p-3">
             <div className="text-xs font-semibold uppercase tracking-wide text-gray-500">Loan Amount</div>
-            <div className="text-sm font-bold text-[#004D2D]">{product.loanAmount}</div>
+            <div className="text-sm font-bold text-[#06452C]">{product.loanAmount}</div>
           </div>
-          <div className="rounded-xl bg-[#F8F9FA] border border-[#E5E7EB] p-3">
+          <div className="rounded-xl bg-[#F8F9FA] border border-[#E5EBE6] p-3">
             <div className="text-xs font-semibold uppercase tracking-wide text-gray-500">Repayment Term</div>
-            <div className="text-sm font-bold text-[#004D2D]">{product.repaymentTerm}</div>
+            <div className="text-sm font-bold text-[#06452C]">{product.repaymentTerm}</div>
           </div>
-          <div className="rounded-xl bg-[#F8F9FA] border border-[#E5E7EB] p-3">
+          <div className="rounded-xl bg-[#F8F9FA] border border-[#E5EBE6] p-3">
             <div className="text-xs font-semibold uppercase tracking-wide text-gray-500">Interest</div>
-            <div className="text-sm font-bold text-[#004D2D]">{product.interestInformation}</div>
+            <div className="text-sm font-bold text-[#06452C]">{product.interestInformation}</div>
           </div>
         </div>
 
         <div className="mt-5">
           <Link
             href={product.href}
-            className="inline-flex items-center gap-2 text-[var(--sjmpc-green)] font-bold hover:text-[#004D2D] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--sjmpc-gold)] rounded-lg"
+            className="inline-flex items-center gap-2 text-[#0B5D3B] font-bold hover:text-[#06452C] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4A017] rounded-lg"
           >
             Learn More
             <ArrowRight className="w-4 h-4" aria-hidden="true" />

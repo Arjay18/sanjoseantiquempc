@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { useState } from 'react';
-import { HeroCollage } from '@/components/ui/modern-hero-section';
+import PageHero from '@/components/PageHero';
 
 export default function AwardsPage() {
   const [selectedAward, setSelectedAward] = useState<any>(null);
@@ -61,30 +61,23 @@ export default function AwardsPage() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-200/20 to-yellow-200/20 rounded-full blur-3xl"></div>
       </div>
 
+{/* Hero Section */}
+      <PageHero
+        image="/Hero Section/About us Hero Section.png"
+        imageAlt="Awards & Recognition"
+        title="OUR AWARDS"
+        subtitle="Discover our comprehensive collection of awards and recognitions that showcase our commitment to excellence, innovation, and community impact through years of dedicated service and achievement."
+        ctaLabel="Apply Now"
+        ctaHref="/online-application"
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Products & Services", href: "/services" },
+          { label: "Our Awards" },
+        ]}
+      />
+
       <div className="relative z-10 py-20">
         <div className="max-w-7xl mx-auto px-4">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-yellow-100 text-blue-800 text-sm font-semibold mb-8 shadow-lg">
-              <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-              Excellence & Recognition
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 leading-tight">
-              OUR AWARDS
-              <span className="block bg-gradient-to-r from-blue-600 via-blue-700 to-yellow-500 bg-clip-text text-transparent">
-                Celebrating Excellence
-              </span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light mb-12">
-              Discover our comprehensive collection of awards and recognitions that showcase our commitment to excellence,
-              innovation, and community impact through years of dedicated service and achievement.
-            </p>
-          </div>
-
         {/* Awards Gallery Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {awards.map((award, index) => (

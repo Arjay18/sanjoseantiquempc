@@ -18,8 +18,29 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-medium: var(--brand-medium);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-coral: var(--brand-coral);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-gray: var(--brand-gray);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Ensure CSS-variable based and brand utility classes are always generated
+   (replaces the removed Tailwind v3 `safelist` option). */
+@layer utilities {
+  .bg-\[var\(--sjmpc-green\)\] { background-color: var(--sjmpc-green); }
+  .bg-\[var\(--sjmpc-gold\)\] { background-color: var(--sjmpc-gold); }
+  .bg-\[var\(--sjmpc-dark\)\] { background-color: var(--sjmpc-dark-green); }
+  .bg-\[var\(--sjmpc-soft\)\] { background-color: var(--sjmpc-section-gray); }
+  .bg-brand-dark { background-color: var(--brand-dark); }
+  .bg-brand-medium { background-color: var(--brand-medium); }
+  .bg-brand-gold { background-color: var(--brand-gold); }
+  .from-brand-dark { --tw-gradient-from: var(--brand-dark) var(--tw-gradient-from-position); }
+  .via-brand-medium { --tw-gradient-via: var(--brand-medium) var(--tw-gradient-via-position); }
+  .to-brand-dark { --tw-gradient-to: var(--brand-dark) var(--tw-gradient-to-position); }
 }
 
 /* Removed system dark mode override */

@@ -12,11 +12,11 @@ export default function SavingsGrid() {
       {/* Introduction Header */}
       <section className="py-12 sm:py-16 bg-[#F8F9FA] border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-[#006B3F] font-bold tracking-wide uppercase text-xs sm:text-sm">
-            <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+<span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F0F7F2] border border-[#CBE0D2] text-[#0B5D3B] font-bold tracking-wide uppercase text-xs sm:text-sm">
+            <Sparkles className="w-4 h-4 text-[#D4A017]" />
             Our Savings Programs
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black text-[#004D2D] tracking-tight">
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black text-[#06452C] tracking-tight">
             Explore All Savings Options
           </h2>
           <p className="mt-3 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -61,8 +61,8 @@ export default function SavingsGrid() {
 
                       {/* Floating Category Badge */}
                       <div className="absolute top-4 left-4 z-10">
-                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-[#004D2D] font-bold text-xs shadow-md uppercase tracking-wider">
-                          <product.Icon className="w-4 h-4 text-[#D4AF37]" />
+<span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-[#06452C] font-bold text-xs shadow-md uppercase tracking-wider">
+                          <product.Icon className="w-4 h-4 text-[#D4A017]" />
                           {product.category || "SJMPC Savings"}
                         </span>
                       </div>
@@ -70,12 +70,12 @@ export default function SavingsGrid() {
                       {/* Floating Initial Deposit Info Box */}
                       <div className="absolute bottom-4 left-4 right-4 z-10 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-white/50">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-xl bg-[#004D2D] text-[#D4AF37] flex items-center justify-center flex-shrink-0 font-black text-sm">
+                          <div className="w-10 h-10 rounded-xl bg-[#06452C] text-[#D4A017] flex items-center justify-center flex-shrink-0 font-black text-sm">
                             #{String(idx + 1).padStart(2, '0')}
                           </div>
                           <div className="min-w-0">
                             <p className="text-[11px] text-gray-500 font-bold uppercase tracking-wider truncate">Initial Deposit / Requirement</p>
-                            <p className="text-sm font-extrabold text-[#004D2D] truncate">{product.minimumInitialDeposit}</p>
+                            <p className="text-sm font-extrabold text-[#06452C] truncate">{product.minimumInitialDeposit}</p>
                           </div>
                         </div>
                       </div>
@@ -91,22 +91,22 @@ export default function SavingsGrid() {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className={`lg:col-span-7 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}
                   >
-                    {/* Eyebrow & Category */}
+{/* Eyebrow & Category */}
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="h-1.5 w-8 bg-[#D4AF37] rounded-full" />
-                      <span className="text-[#006B3F] font-extrabold text-xs uppercase tracking-widest">
+                      <span className="h-1.5 w-8 bg-[#D4A017] rounded-full" />
+                      <span className="text-[#0B5D3B] font-extrabold text-xs uppercase tracking-widest">
                         {product.category || "Savings Product"}
                       </span>
                     </div>
 
                     {/* Product Name */}
-                    <h3 className="text-3xl sm:text-4xl font-black text-[#004D2D] tracking-tight leading-tight">
+                    <h3 className="text-3xl sm:text-4xl font-black text-[#06452C] tracking-tight leading-tight">
                       {product.name}
                     </h3>
 
                     {/* Tagline */}
                     {product.tagline && (
-                      <p className="mt-1 text-sm font-bold text-[#D4AF37] uppercase tracking-wide">
+                      <p className="mt-1 text-sm font-bold text-[#D4A017] uppercase tracking-wide">
                         {product.tagline}
                       </p>
                     )}
@@ -118,9 +118,9 @@ export default function SavingsGrid() {
 
                     {/* Minimum Deposit & Dividend Cards */}
                     <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-100">
-                        <p className="text-xs font-extrabold uppercase tracking-wider text-emerald-900 flex items-center gap-1.5">
-                          <Coins className="w-4 h-4 text-[#006B3F]" />
+                      <div className="p-4 rounded-2xl bg-[#F0F7F2]/80 border border-[#CBE0D2]">
+                        <p className="text-xs font-extrabold uppercase tracking-wider text-[#0B5D3B] flex items-center gap-1.5">
+                          <Coins className="w-4 h-4 text-[#0B5D3B]" />
                           Minimum Initial Deposit
                         </p>
                         <p className="mt-1 text-sm font-semibold text-gray-800">
@@ -128,9 +128,9 @@ export default function SavingsGrid() {
                         </p>
                       </div>
 
-                      <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-100">
-                        <p className="text-xs font-extrabold uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
-                          <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+                      <div className="p-4 rounded-2xl bg-[#FBF6E9]/80 border border-[#F0E2B8]">
+                        <p className="text-xs font-extrabold uppercase tracking-wider text-[#8A6D1A] flex items-center gap-1.5">
+                          <Sparkles className="w-4 h-4 text-[#D4A017]" />
                           Dividend & Earnings
                         </p>
                         <p className="mt-1 text-sm font-semibold text-gray-800">
@@ -147,7 +147,7 @@ export default function SavingsGrid() {
                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {product.keyBenefits.map((benefit) => (
                           <li key={benefit} className="flex items-start gap-2.5 text-sm font-semibold text-gray-700">
-                            <CheckCircle2 className="w-4.5 h-4.5 text-[#006B3F] mt-0.5 flex-shrink-0" />
+                            <CheckCircle2 className="w-4.5 h-4.5 text-[#0B5D3B] mt-0.5 flex-shrink-0" />
                             <span>{benefit}</span>
                           </li>
                         ))}
@@ -158,7 +158,7 @@ export default function SavingsGrid() {
                     <div className="mt-8 flex flex-wrap items-center gap-4">
                       <Link
                         href="/online-application"
-                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#004D2D] text-white font-extrabold text-sm hover:bg-[#003d22] active:scale-95 transition-all shadow-md hover:shadow-xl"
+                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#06452C] text-white font-extrabold text-sm hover:bg-[#05391F] active:scale-95 transition-all shadow-md hover:shadow-xl"
                       >
                         Apply for {product.name}
                         <ArrowRight className="w-4 h-4" />

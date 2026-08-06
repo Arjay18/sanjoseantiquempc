@@ -10,13 +10,13 @@ function Breadcrumb() {
     <nav aria-label="Breadcrumb" className="text-sm text-white/90">
       <ol className="flex flex-wrap items-center gap-2">
         <li>
-          <a href="/" className="hover:text-[#D4AF37] transition-colors">
+<a href="/" className="hover:text-[#D4A017] transition-colors">
             Home
           </a>
         </li>
         <li aria-hidden="true">{'>'}</li>
         <li>
-          <a href="/services" className="hover:text-[#D4AF37] transition-colors">
+<a href="/services" className="hover:text-[#D4A017] transition-colors">
             Products &amp; Services
           </a>
         </li>
@@ -88,7 +88,7 @@ export default function SavingsHero() {
             </p>
             <a
               href="/online-application"
-              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#D4AF37] text-[#006B3F] font-bold hover:bg-[#C5A032] transition-colors"
+className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#D4A017] text-[#06452C] font-bold hover:bg-[#C08E14] transition-colors"
             >
               Apply Now
               <ArrowRight className="w-5 h-5" />

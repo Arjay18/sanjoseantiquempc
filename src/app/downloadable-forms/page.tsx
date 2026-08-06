@@ -1,29 +1,22 @@
+import PageHero from '@/components/PageHero';
+
 export default function DownloadableForms() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20">
+    <div>
+      {/* Hero Section */}
+      <PageHero
+        image="/Hero Section/About us Hero Section.png"
+        imageAlt="Downloadable Forms"
+        title="DOWNLOADABLE FORMS"
+        subtitle="Discover our comprehensive collection of forms designed to streamline your applications. Download detailed forms for our various services and community initiatives."
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Downloadable Forms" },
+        ]}
+      />
+
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20">
       <div className="container mx-auto px-4">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 text-sm font-semibold mb-8 shadow-lg">
-            <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-            Download & Access
-          </div>
-
-          <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 leading-tight">
-            Downloadable Forms
-            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
-              At Your Fingertips
-            </span>
-          </h1>
-
-          <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light mb-12">
-            Discover our comprehensive collection of forms designed to streamline your applications.
-            Download detailed forms for our various services and community initiatives.
-          </p>
-        </div>
-
         {/* Forms Grid */}
         <div className="grid md:grid-cols-1 lg:grid-cols-1 gap-8 max-w-4xl mx-auto">
           {/* Application For Loan */}
@@ -80,6 +73,7 @@ export default function DownloadableForms() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
